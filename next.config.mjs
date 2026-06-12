@@ -10,6 +10,7 @@ const withPWA = withPWAInit({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  turbopack: {},
   allowedDevOrigins: [
     '192.168.1.20', '192.168.1.20:3001',
     '192.168.1.8', '192.168.1.8:3001',

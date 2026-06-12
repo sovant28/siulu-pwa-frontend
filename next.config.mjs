@@ -2,7 +2,7 @@ import withPWAInit from "@ducanh2912/next-pwa";
 
 const withPWA = withPWAInit({
   dest: "public",
-  disable: process.env.NODE_ENV === "development",
+  disable: true, // Disabled to prevent Next.js 16 build worker crashes on Vercel
   register: true,
   skipWaiting: true,
 });

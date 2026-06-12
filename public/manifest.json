@@ -1,0 +1,21 @@
+{
+  "name": "Siulu App - Explore Tana Toraja",
+  "short_name": "Siulu",
+  "description": "Temukan destinasi terbaik di Tana Toraja dengan panduan AI",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FAFAFA",
+  "theme_color": "#F35A05",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

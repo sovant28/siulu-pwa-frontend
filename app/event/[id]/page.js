@@ -290,7 +290,7 @@ export default function EventDetailPage() {
       {/* ── TITLE & SUB-INFO ── */}
       <div className="px-6 mt-4">
         <div className="flex justify-between items-start gap-4">
-          <h1 className="text-xl font-extrabold text-slate-900 leading-snug flex-1">
+          <h1 className="text-2xl font-black text-slate-900 leading-snug flex-1">
             {event.nama_tempat}
           </h1>
           <button
@@ -308,7 +308,7 @@ export default function EventDetailPage() {
 
         {/* Sub-info Row: Location & Date/Time inline */}
         {(event.lokasi_wilayah || dateInfo || event.jam_operasional) && (
-          <div className="mt-1.5 flex flex-wrap items-center gap-1.5 text-xs font-bold text-slate-700">
+          <div className="mt-1.5 flex flex-wrap items-center gap-1.5 text-sm font-bold text-slate-700">
             {event.lokasi_wilayah && <span>{event.lokasi_wilayah}</span>}
             
             {/* For Event Category: Show Date & Time Info */}
@@ -344,11 +344,11 @@ export default function EventDetailPage() {
       {/* ── DESCRIPTION ── */}
       {description && (
         <div className="px-6">
-          <h3 className="text-sm font-bold text-slate-900 mb-1.5">
+          <h3 className="text-lg font-bold text-slate-900 mb-1.5">
             Tentang {isEvent ? 'Event' : categoryLabels[event.kategori] || 'Tempat'} Ini
           </h3>
-          <div className={`relative ${!isDescExpanded ? 'max-h-[5.5rem] overflow-hidden' : ''}`}>
-            <p className="text-sm text-slate-800 leading-relaxed whitespace-pre-line">
+          <div className={`relative ${!isDescExpanded ? 'max-h-[7rem] overflow-hidden' : ''}`}>
+            <p className="text-base text-slate-800 leading-relaxed whitespace-pre-line">
               {description}
             </p>
             {!isDescExpanded && description.length > 180 && (
@@ -372,7 +372,7 @@ export default function EventDetailPage() {
 
       {/* ── LIVE INTERACTIVE MAP ── */}
       <div className="px-6 mt-4.5">
-        <h3 className="text-sm font-bold text-slate-900 mb-2">Lokasi</h3>
+        <h3 className="text-lg font-bold text-slate-900 mb-2">Lokasi</h3>
 
 
         {hasCoords ? (
@@ -390,7 +390,7 @@ export default function EventDetailPage() {
             />
           </div>
         ) : (
-          <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 text-center text-slate-700 text-xs mb-2.5">
+          <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 text-center text-slate-700 text-sm mb-2.5">
             Peta koordinat GPS tidak tersedia.
           </div>
         )}

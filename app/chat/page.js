@@ -446,7 +446,7 @@ export default function ChatAI() {
                     <polygon points="12,5 21,19 3,19" className="origin-center rotate-180" />
                   </svg>
                 </div>
-                <h2 className="text-lg font-bold text-slate-900 tracking-tight">AI Chatbot...</h2>
+                <h2 className="text-lg font-bold text-slate-900 tracking-tight">Mebali AI</h2>
               </div>
             </div>
             <button 

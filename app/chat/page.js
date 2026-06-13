@@ -415,7 +415,7 @@ export default function ChatAI() {
               >
                 <Image src="/avatar_v2.png" alt="User Avatar" fill className="object-cover" />
               </div>
-              <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
+              <h2 className="text-3xl font-black text-slate-900 tracking-tight">
                 Hello {username || 'Traveler'}!
               </h2>
             </div>
@@ -446,12 +446,12 @@ export default function ChatAI() {
                     <polygon points="12,5 21,19 3,19" className="origin-center rotate-180" />
                   </svg>
                 </div>
-                <h2 className="text-base font-bold text-slate-900 tracking-tight">AI Chatbot...</h2>
+                <h2 className="text-lg font-bold text-slate-900 tracking-tight">AI Chatbot...</h2>
               </div>
             </div>
             <button 
               onClick={resetSession} 
-              className="text-xs px-2.5 py-1.5 bg-rose-50 hover:bg-rose-100 border border-[#BE1641]/20 rounded-lg text-[#BE1641] font-bold transition flex items-center space-x-1"
+              className="text-sm px-2.5 py-1.5 bg-rose-50 hover:bg-rose-100 border border-[#BE1641]/20 rounded-lg text-[#BE1641] font-bold transition flex items-center space-x-1"
             >
               <RotateCcw className="w-3 h-3 text-[#BE1641]" />
               <span>Reset</span>
@@ -467,7 +467,7 @@ export default function ChatAI() {
         {messages.length === 0 ? (
           <div className="flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-500 pb-10">
             <div className="text-center mt-20 mb-10">
-              <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">How can I help you?</h1>
+              <h1 className="text-4xl font-black text-slate-900 tracking-tight">How can I help you?</h1>
             </div>
 
             <div className="flex flex-wrap justify-center gap-2.5 max-w-sm mx-auto px-2">
@@ -475,7 +475,7 @@ export default function ChatAI() {
                 <button 
                   key={idx}
                   onClick={() => handleSend(sug)}
-                  className="bg-[#F2F2F7] hover:bg-[#E5E5EA] text-sm font-semibold text-slate-800 px-5 py-3 rounded-full transition-all duration-150 active:scale-95 cursor-pointer border border-slate-200/10 leading-snug"
+                  className="bg-[#F2F2F7] hover:bg-[#E5E5EA] text-base font-semibold text-slate-800 px-5 py-3 rounded-full transition-all duration-150 active:scale-95 cursor-pointer border border-slate-200/10 leading-snug"
                   style={{ WebkitTapHighlightColor: 'transparent' }}
                 >
                   {sug}
@@ -488,7 +488,7 @@ export default function ChatAI() {
           <>
             {messages.map((msg, idx) => (
               <div key={idx} className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'} animate-in fade-in slide-in-from-bottom-3 duration-300`}>
-                <div className={`max-w-[80%] rounded-[22px] px-5 py-3.5 text-sm leading-relaxed ${
+                <div className={`max-w-[80%] rounded-[22px] px-5 py-3.5 text-base leading-relaxed ${
                   msg.role === 'user' 
                     ? 'bg-[#F2F2F7] text-slate-900 font-normal' 
                     : 'bg-[#2C2C2E] text-white font-normal'
@@ -527,12 +527,12 @@ export default function ChatAI() {
                 {/* Feedback Form (Visible when button clicked) */}
                 {activeFeedbackIdx === idx && (
                   <div className="mt-2 ml-1 p-3 bg-white border border-slate-200 rounded-xl shadow-sm animate-in fade-in slide-in-from-top-1 w-full min-w-[250px]">
-                    <p className="text-xs font-bold text-slate-700 mb-1.5">
+                    <p className="text-sm font-bold text-slate-700 mb-1.5">
                       {msg.feedback === 'up' ? 'Apa yang Anda sukai dari jawaban ini?' : 'Apa yang bisa kami perbaiki?'}
                     </p>
                     <textarea 
                       rows={2}
-                      className="w-full text-sm text-slate-900 p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#BE1641] focus:ring-1 focus:ring-[#BE1641] transition resize-none"
+                      className="w-full text-base text-slate-900 p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#BE1641] focus:ring-1 focus:ring-[#BE1641] transition resize-none"
                       placeholder="Tulis masukan Anda di sini (opsional)..."
                       value={feedbackText}
                       onChange={(e) => setFeedbackText(e.target.value)}
@@ -540,13 +540,13 @@ export default function ChatAI() {
                     <div className="flex justify-end mt-2 space-x-2">
                       <button 
                         onClick={() => setActiveFeedbackIdx(null)}
-                        className="px-3 py-1 text-xs font-bold text-slate-400 hover:text-slate-600 transition"
+                        className="px-3 py-1 text-sm font-bold text-slate-400 hover:text-slate-600 transition"
                       >
                         Batal
                       </button>
                       <button 
                         onClick={() => submitFeedback(idx)}
-                        className="px-3 py-1 text-xs font-bold bg-slate-800 hover:bg-black text-white rounded-md transition"
+                        className="px-3 py-1 text-sm font-bold bg-slate-800 hover:bg-black text-white rounded-md transition"
                       >
                         Kirim
                       </button>
@@ -607,7 +607,7 @@ export default function ChatAI() {
               onKeyDown={(e) => e.key === 'Enter' && handleSend()}
               disabled={messageCount >= 15}
               placeholder={messageCount >= 15 ? "Batas testing 15 pesan tercapai..." : "Tanya Mebali AI tentang Toraja..."}
-              className="w-full bg-transparent text-sm font-medium text-slate-800 focus:outline-none placeholder:text-slate-400 placeholder:font-normal disabled:text-slate-400"
+              className="w-full bg-transparent text-base font-medium text-slate-800 focus:outline-none placeholder:text-slate-400 placeholder:font-normal disabled:text-slate-400"
             />
           </div>
   

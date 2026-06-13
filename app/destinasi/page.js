@@ -140,21 +140,24 @@ export default function DestinasiListPage() {
         </h2>
       </div>
 
-      {/* ── DESTINATIONS GRID (2-COLUMN SIMETRIS, RASIO 4:5) ── */}
+      {/* ── DESTINATIONS GRID (1-COLUMN, RASIO 16:10) ── */}
       <div className="px-6 mt-3.5">
         {loading ? (
           // Loading Skeleton state
-          <div className="grid grid-cols-2 gap-4">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="flex flex-col bg-white rounded-3xl p-3 border border-slate-100 shadow-sm animate-pulse">
-                <div className="w-full aspect-[4/5] rounded-2xl bg-slate-100" />
-                <div className="h-4 w-3/4 bg-slate-100 rounded-md mt-3" />
-                <div className="h-3.5 w-1/2 bg-slate-100 rounded-md mt-2" />
+          <div className="grid grid-cols-1 gap-6">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="flex flex-col bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm animate-pulse">
+                <div className="w-full aspect-[16/10] bg-slate-100" />
+                <div className="p-4.5 space-y-2">
+                  <div className="h-5 w-2/3 bg-slate-100 rounded-md" />
+                  <div className="h-3.5 w-full bg-slate-100 rounded-md mt-1" />
+                  <div className="h-3.5 w-4/5 bg-slate-100 rounded-md" />
+                </div>
               </div>
             ))}
           </div>
         ) : filteredDestinations.length > 0 ? (
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-6">
             {filteredDestinations.map((dest) => {
               const imageUrl = dest.informasi_biaya?.image_url;
 
@@ -165,8 +168,8 @@ export default function DestinasiListPage() {
                   className="flex flex-col bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm active:scale-[0.97] transition-all cursor-pointer"
                   style={{ WebkitTapHighlightColor: 'transparent' }}
                 >
-                  {/* Foto dengan Aspect Ratio 4:5 (Tanpa Badge & Celah) */}
-                  <div className="relative w-full aspect-[4/5] bg-slate-50 flex-shrink-0">
+                  {/* Foto dengan Aspect Ratio 16:10 (Tanpa Badge & Celah) */}
+                  <div className="relative w-full aspect-[16/10] bg-slate-50 flex-shrink-0">
                     {imageUrl ? (
                       <Image
                         src={imageUrl}
@@ -183,16 +186,14 @@ export default function DestinasiListPage() {
                   </div>
 
                   {/* Info Details (Padded at the bottom) */}
-                  <div className="p-3.5 text-left flex-1 flex flex-col justify-between">
-                    <h3 className="text-base font-bold text-slate-800 line-clamp-2 leading-tight">
+                  <div className="p-4.5 text-left">
+                    <h3 className="text-lg font-bold text-slate-800 leading-tight">
                       {dest.nama_tempat}
                     </h3>
-                    
-                    {dest.lokasi_wilayah && (
-                      <div className="flex items-center text-xs font-semibold text-slate-500 mt-2 gap-1 truncate">
-                        <MapPin className="w-3.5 h-3.5 text-[#BE1641] flex-shrink-0" />
-                        <span>{dest.lokasi_wilayah}</span>
-                      </div>
+                    {dest.deskripsi_lengkap && (
+                      <p className="text-sm text-slate-500 mt-1.5 line-clamp-2 leading-relaxed">
+                        {dest.deskripsi_lengkap}
+                      </p>
                     )}
                   </div>
                 </div>

@@ -46,8 +46,9 @@ export default function DestinasiListPage() {
         const res = await fetch('/api/knowledge/destinasi');
         if (!res.ok) throw new Error('Gagal mengambil data');
         const data = await res.json();
-        // Saring semua destinasi KECUALI yang berkategori 'event'
-        const filtered = data.filter(item => item.kategori !== 'event');
+        // Saring hanya destinasi pariwisata asli (wisata alam, budaya/religi, kuliner, akomodasi)
+        const allowedCategories = ['alam', 'budaya_religi', 'kuliner', 'akomodasi'];
+        const filtered = data.filter(item => allowedCategories.includes(item.kategori));
         setDestinations(filtered);
       } catch (err) {
         console.error('Failed to fetch destinations:', err);

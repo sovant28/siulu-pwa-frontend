@@ -235,7 +235,7 @@ export default function EventDetailPage() {
       <header className="sticky top-0 z-40 bg-white/95 px-6 pt-[calc(env(safe-area-inset-top)+10px)] pb-3 flex flex-col space-y-4 backdrop-blur-md">
         {/* Row 1: Logo (centered, matching home page styling) */}
         <div className="text-center w-full">
-          <span className="text-2xl font-black text-[#BE1641] tracking-tight select-none">siulu</span>
+          <span className="text-3xl font-black text-[#BE1641] tracking-tight select-none">siulu</span>
         </div>
 
         {/* Row 2: Back Button & Page Title */}
@@ -247,7 +247,7 @@ export default function EventDetailPage() {
           >
             <ArrowLeft className="w-4.5 h-4.5 text-slate-800" />
           </button>
-          <span className="text-sm font-bold text-slate-800 text-center select-none whitespace-nowrap">
+          <span className="text-lg font-black text-slate-800 text-center select-none whitespace-nowrap">
             {isEvent ? 'Detail Event' : (categoryLabels[event.kategori] || 'Detail Wisata')}
           </span>
           <div className="w-9 h-9 justify-self-end" />

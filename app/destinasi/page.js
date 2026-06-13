@@ -162,11 +162,11 @@ export default function DestinasiListPage() {
                 <div
                   key={dest.id}
                   onClick={() => router.push(`/event/${dest.id}`)}
-                  className="flex flex-col bg-white rounded-3xl p-3 border border-slate-100 shadow-sm active:scale-[0.97] transition-all cursor-pointer"
+                  className="flex flex-col bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm active:scale-[0.97] transition-all cursor-pointer"
                   style={{ WebkitTapHighlightColor: 'transparent' }}
                 >
-                  {/* Foto dengan Aspect Ratio 4:5 & Floating Gold Badge */}
-                  <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden bg-slate-50 flex-shrink-0">
+                  {/* Foto dengan Aspect Ratio 4:5 (Tanpa Badge & Celah) */}
+                  <div className="relative w-full aspect-[4/5] bg-slate-50 flex-shrink-0">
                     {imageUrl ? (
                       <Image
                         src={imageUrl}
@@ -180,21 +180,16 @@ export default function DestinasiListPage() {
                         <span className="text-3xl opacity-25">🏔️</span>
                       </div>
                     )}
-
-                    {/* Floating Gold/Bronze Badge khas Siulu */}
-                    <span className="absolute bottom-2.5 left-2.5 px-2.5 py-1 text-[10px] font-bold text-slate-800 bg-[#C6A470]/90 backdrop-blur-sm rounded-lg leading-none select-none">
-                      {categoryBadges[dest.kategori] || '📍 Destinasi'}
-                    </span>
                   </div>
 
-                  {/* Info Details (Facebook-style) */}
-                  <div className="mt-3 text-left">
-                    <h3 className="text-base font-bold text-slate-800 truncate leading-tight">
+                  {/* Info Details (Padded at the bottom) */}
+                  <div className="p-3.5 text-left flex-1 flex flex-col justify-between">
+                    <h3 className="text-base font-bold text-slate-800 line-clamp-2 leading-tight">
                       {dest.nama_tempat}
                     </h3>
                     
                     {dest.lokasi_wilayah && (
-                      <div className="flex items-center text-xs font-semibold text-slate-500 mt-1.5 gap-1 truncate">
+                      <div className="flex items-center text-xs font-semibold text-slate-500 mt-2 gap-1 truncate">
                         <MapPin className="w-3.5 h-3.5 text-[#BE1641] flex-shrink-0" />
                         <span>{dest.lokasi_wilayah}</span>
                       </div>

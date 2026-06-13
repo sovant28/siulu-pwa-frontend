@@ -241,7 +241,7 @@ export default function AppHome() {
 
           {/* Card 2: Destinasi */}
           <div
-            onClick={() => { }}
+            onClick={() => router.push('/destinasi')}
             role="button"
             tabIndex={0}
             style={{ WebkitTapHighlightColor: 'transparent' }}

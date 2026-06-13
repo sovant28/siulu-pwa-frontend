@@ -25,8 +25,6 @@ export default function DestinasiListPage() {
     semua: 'Semua Destinasi',
     alam: 'Wisata Alam',
     budaya_religi: 'Budaya & Religi',
-    kuliner: 'Kuliner',
-    akomodasi: 'Akomodasi',
   };
 
   const categoryBadges = {
@@ -46,8 +44,8 @@ export default function DestinasiListPage() {
         const res = await fetch('/api/knowledge/destinasi');
         if (!res.ok) throw new Error('Gagal mengambil data');
         const data = await res.json();
-        // Saring hanya destinasi pariwisata asli (wisata alam, budaya/religi, kuliner, akomodasi)
-        const allowedCategories = ['alam', 'budaya_religi', 'kuliner', 'akomodasi'];
+        // Saring hanya destinasi pariwisata asli (wisata alam, budaya/religi)
+        const allowedCategories = ['alam', 'budaya_religi'];
         const filtered = data.filter(item => allowedCategories.includes(item.kategori));
         setDestinations(filtered);
       } catch (err) {

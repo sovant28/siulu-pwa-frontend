@@ -147,7 +147,7 @@ export default function EventListPage() {
           >
             <ArrowLeft className="w-4.5 h-4.5 text-slate-800" />
           </button>
-          <span className="text-sm font-bold text-slate-800 text-center select-none whitespace-nowrap">
+          <span className="text-base font-bold text-slate-800 text-center select-none whitespace-nowrap">
             Daftar Event
           </span>
           <div className="w-9 h-9 justify-self-end" />
@@ -163,7 +163,7 @@ export default function EventListPage() {
             placeholder="Cari event..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full text-sm font-semibold text-slate-800 bg-transparent border-none outline-none placeholder-slate-400"
+            className="w-full text-base font-semibold text-slate-800 bg-transparent border-none outline-none placeholder-slate-400"
           />
         </div>
       </div>
@@ -176,7 +176,7 @@ export default function EventListPage() {
             <button
               key={key}
               onClick={() => setActiveFilter(key)}
-              className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all border ${
+              className={`px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap transition-all border ${
                 isActive
                   ? 'bg-[#BE1641] text-white border-[#BE1641]'
                   : 'bg-white text-slate-700 border-slate-200 active:bg-slate-50'
@@ -191,7 +191,7 @@ export default function EventListPage() {
 
       {/* ── RESULTS TITLE ── */}
       <div className="px-6 mt-6">
-        <h2 className="text-base font-black text-slate-800 tracking-wider">
+        <h2 className="text-lg font-black text-slate-800 tracking-wider">
           {searchQuery ? 'Hasil Pencarian' : filterLabels[activeFilter]}
         </h2>
       </div>
@@ -241,19 +241,19 @@ export default function EventListPage() {
 
                 {/* Right: Info details */}
                 <div className="ml-4 flex-1 min-w-0 flex flex-col justify-center">
-                  <h3 className="text-sm font-bold text-slate-800 truncate leading-snug">
+                  <h3 className="text-base font-bold text-slate-800 truncate leading-snug">
                     {event.nama_tempat}
                   </h3>
                   
                   {event.lokasi_wilayah && (
-                    <div className="mt-1 flex items-center text-xs font-semibold text-slate-700 gap-1 truncate">
+                    <div className="mt-1 flex items-center text-sm font-semibold text-slate-700 gap-1 truncate">
                       <MapPin className="w-3.5 h-3.5 text-slate-700 flex-shrink-0" />
                       <span>{event.lokasi_wilayah}</span>
                     </div>
                   )}
  
                   {dateInfo && dateInfo.startStr && (
-                    <div className="mt-2 text-xs font-bold text-slate-700 flex items-center gap-1.5 truncate">
+                    <div className="mt-2 text-sm font-bold text-slate-700 flex items-center gap-1.5 truncate">
                       <Calendar className="w-3.5 h-3.5 text-slate-700 flex-shrink-0" />
                       <span>
                         {dateInfo.startStr}

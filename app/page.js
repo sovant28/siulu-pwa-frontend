@@ -132,7 +132,7 @@ export default function AppHome() {
       <header className="w-full flex flex-col px-6 pt-[calc(env(safe-area-inset-top)+20px)] pb-4 relative z-10 space-y-3">
         {/* App Title */}
         <div className="text-center w-full">
-          <span className="text-2xl font-black text-[#BE1641] tracking-tight">siulu</span>
+          <span className="text-3xl font-black text-[#BE1641] tracking-tight">siulu</span>
         </div>
 
         {/* Avatar & Location Row */}
@@ -144,7 +144,7 @@ export default function AppHome() {
             </div>
             <div className="flex flex-col text-left">
               <span className="text-sm font-semibold text-slate-600 leading-tight">{greeting}</span>
-              <span className="text-base font-black text-slate-800 leading-normal tracking-wide">
+              <span className="text-lg font-black text-slate-800 leading-normal tracking-wide">
                 {username || "Guest"}
               </span>
             </div>
@@ -152,7 +152,7 @@ export default function AppHome() {
 
           {/* Right Side: Location Pin */}
           <div className="flex items-center space-x-1.5 text-slate-500">
-            <span className="text-xs font-bold tracking-wide">Tana Toraja, Indonesia</span>
+            <span className="text-sm font-bold tracking-wide">Tana Toraja, Indonesia</span>
             <MapPin className="w-3.5 h-3.5 text-[#BE1641]" />
           </div>
         </div>
@@ -215,7 +215,7 @@ export default function AppHome() {
 
 
       <section className="px-6 mt-6">
-        <h3 className="text-lg font-bold text-slate-800">Popular Categories</h3>
+        <h3 className="text-xl font-black text-slate-800">Popular Categories</h3>
         <div className="grid grid-cols-4 gap-3 mt-4">
           {/* Card 1: Events */}
           <div
@@ -236,7 +236,7 @@ export default function AppHome() {
                 <path d="M700.2 514.5H200.5c-16.6 0-30 13.4-30 30s13.4 30 30 30h499.7c16.6 0 30-13.4 30-30s-13.5-30-30-30zM668.4 689.8h-74c-16.6 0-30 13.4-30 30s13.4 30 30 30h74c16.6 0 30-13.4 30-30s-13.4-30-30-30zM479.3 689.8H200.5c-16.6 0-30 13.4-30 30s13.4 30 30 30h278.8c16.6 0 30-13.4 30-30s-13.4-30-30-30z" fill="#45484C"></path>
               </g>
             </svg>
-            <span className="text-xs font-semibold text-black tracking-wide">Event</span>
+            <span className="text-xs font-bold text-slate-800 tracking-wide">Event</span>
           </div>
 
           {/* Card 2: Destinasi */}
@@ -259,7 +259,7 @@ export default function AppHome() {
                 <path d="M821.1 240.6h-60.8v-0.4c-1.7 0.3-3.5 0.4-5.2 0.4-23.1 0-41.9-24.6-41.9-55 0-3.5 0.3-7 0.7-10.3v-5.9c0-39.6-32.4-72-72-72H386.3c-39.6 0-72 32.4-72 72v8c0.3 2.7 0.5 5.4 0.5 8.2 0 30.4-22.8 55-45.9 55-0.7 0-1.5 0-2.2-0.1v0.1h-12.4v-55.8c0-16.6-13.4-30-30-30s-30 13.4-30 30V241C122 246.5 64.6 307.3 64.6 381v403.2c0 77.2 63.2 140.4 140.4 140.4h616.3c77.2 0 140.4-63.2 140.4-140.4V381c-0.2-77.2-63.4-140.6-140.6-140.4z m80.4 543.5c0 21.3-8.4 41.5-23.7 56.7-15.3 15.3-35.4 23.7-56.7 23.7H204.9c-21.3 0-41.5-8.4-56.7-23.7-15.3-15.3-23.7-35.4-23.7-56.7V381c0-21.3 8.4-41.5 23.7-56.7 15.3-15.3 35.4-23.7 56.7-23.7 0 0 37 0.3 63.9 0s61.8-20 61.8-20c7.2-5.5 13.8-12.1 19.5-19.7 15.8-20.8 24.6-47.5 24.6-75.2 0-3.7-0.2-7.4-0.5-11.1v-5.1c0-6.5 5.5-12 12-12h255.6c6.5 0 12 5.5 12 12v2.3c-0.5 4.6-0.7 9.3-0.7 13.9 0 27.7 8.7 54.5 24.6 75.2 6.6 8.6 14.2 16 22.6 22 0 0 26.7 17.8 60 17.8h60.8c21.3 0 41.5 8.4 56.7 23.7 15.3 15.3 23.7 35.4 23.7 56.7v403z" fill="#45484C"></path>
               </g>
             </svg>
-            <span className="text-xs font-semibold text-black tracking-wide">Destinasi</span>
+            <span className="text-xs font-bold text-slate-800 tracking-wide">Destinasi</span>
           </div>
 
           {/* Card 3: Kuliner */}
@@ -282,7 +282,7 @@ export default function AppHome() {
                 <path d="M549.4 274.7c-46.7-45.6-107.7-70.8-171.8-70.8-64.1 0-125.1 25.1-171.8 70.8-46.1 45.1-74 106-78.6 171.4-1.2 16.5 11.3 30.9 27.8 32 16.5 1.1 30.9-11.3 32-27.8 3.5-50.8 25.1-97.9 60.7-132.7 35.4-34.6 81.5-53.7 129.9-53.7 48.3 0 94.5 19.1 129.9 53.7 48.3 0 94.5 19.1 129.9 53.7 35.6 34.8 57.1 81.9 60.7 132.7 1.1 15.8 14.3 27.9 29.9 27.9 0.7 0 1.4 0 2.1-0.1 16.5-1.2 29-15.5 27.8-32-4.6-65.4-32.5-126.3-78.6-171.4zM895.1 385.9c-11.5-19.4-27.7-36.6-48.1-51.2l53.9-58.3c11.2-12.2 10.5-31.2-1.7-42.4s-31.2-10.5-42.4 1.7l-65 70.4c-5-1.8-10.1-3.5-15.3-5l82.4-159.2c7.6-14.7 1.9-32.8-12.9-40.4-14.7-7.6-32.8-1.9-40.4 12.9l-91.2 176.3c-5.5-0.3-11.1-0.5-16.7-0.5-21.9 0-43.5 2.4-64.3 7.2-16.1 3.7-26.2 19.8-22.5 36 3.7 16.1 19.8 26.2 36 22.5 16.3-3.8 33.4-5.7 50.7-5.7 43.6 0 84.2 11.8 114.3 33.3 27.1 19.3 42 44 42 69.5 0 16.6 13.4 30 30 30s30-13.4 30-30c0-23.5-6.3-46.1-18.8-67.1z" fill="#45484C"></path>
               </g>
             </svg>
-            <span className="text-xs font-semibold text-black tracking-wide">Kuliner</span>
+            <span className="text-xs font-bold text-slate-800 tracking-wide">Kuliner</span>
           </div>
 
           {/* Card 4: Hotel */}
@@ -304,7 +304,7 @@ export default function AppHome() {
                 <path d="M512.1 645.2c-33.5 0-74.3-21-95.6-33.6-13.8-8.1-26.9-17-36.9-25.1-12.9-10.4-24.7-22.2-24.7-38.5V441.2h311.9V548c0 16-11.5 27.8-24 38.2-12.7 10.6-31.7 8.9-42.2-3.9-10.6-12.7-8.9-31.7 3.9-42.2 0.9-0.7 1.7-1.4 2.4-2v-36.9H414.8v36.6c7 6 21.2 16.2 39.8 26.5 28 15.4 48.1 20.9 57.5 20.9 2.9 0 8-0.5 16.2-3 15.9-4.7 32.6 4.3 37.3 20.2 4.7 15.9-4.3 32.6-20.2 37.3-12.1 3.6-23.3 5.5-33.3 5.5z" fill="#45484C"></path>
               </g>
             </svg>
-            <span className="text-xs font-semibold text-black tracking-wide">Hotel</span>
+            <span className="text-xs font-bold text-slate-800 tracking-wide">Hotel</span>
           </div>
 
           {/* Card 5: Tiket (previously Rambu solo') */}
@@ -325,7 +325,7 @@ export default function AppHome() {
                 <path d="M400.5 770.6V430.9L534.1 508c14.3 8.3 19.3 26.6 11 41-8.3 14.3-26.6 19.3-41 11l-43.6-25.2v131.8l114.1-65.9-7.5-4.3c-14.3-8.3-19.3-26.6-11-41 8.3-14.3 26.6-19.3 41-11l97.5 56.3-294.1 169.9z" fill="#45484C"></path>
               </g>
             </svg>
-            <span className="text-xs font-semibold text-black tracking-wide">Tiket</span>
+            <span className="text-xs font-bold text-slate-800 tracking-wide">Tiket</span>
           </div>
 
           {/* Card 6: Oleh-oleh */}
@@ -347,7 +347,7 @@ export default function AppHome() {
                 <path d="M712.6 228.8c0-24.9-20.1-45-45-45s-45 20.1-45 45c0 13.5 6 25.6 15.4 33.9-0.3 1.6-0.4 3.3-0.4 5v95.9c0 23.5-9.2 45.7-26 62.5-16.8 16.8-39 26-62.5 26h-88.5c-23.5 0-45.7-9.2-62.5-26-16.8-16.8-26-39-26-62.5v-95.9c0-1.7-0.1-3.4-0.4-5 9.4-8.2 15.4-20.4 15.4-33.9 0-24.9-20.1-45-45-45s-45 20.1-45 45c0 13.5 6 25.6 15.4 33.9-0.3 1.6-0.4 3.3-0.4 5v95.9c0 81.9 66.6 148.6 148.6 148.6h88.5c81.9 0 148.6-66.6 148.6-148.6v-95.9c0-1.7-0.1-3.4-0.4-5 9.3-8.3 15.2-20.4 15.2-33.9z" fill="#45484C"></path>
               </g>
             </svg>
-            <span className="text-xs font-semibold text-black tracking-wide">Oleh-oleh</span>
+            <span className="text-xs font-bold text-slate-800 tracking-wide">Oleh-oleh</span>
           </div>
 
           {/* Card 7: Transport */}
@@ -369,7 +369,7 @@ export default function AppHome() {
                 <path d="M434.6 602.8c-35.9 0-71-17.1-98.8-48.1-24.6-27.5-39.3-61.6-39.3-91.4v-29.7l29.7-0.3c0.4 0 36.2-0.4 95.4-0.4 16.6 0 30 13.4 30 30s-13.4 30-30 30c-22.3 0-41.2 0.1-56.2 0.1 3.8 7.1 8.8 14.5 15.1 21.6 16 17.9 35.7 28.1 54.1 28.1s38.1-10.3 54.1-28.1c6.5-7.3 11.6-14.9 15.4-22.2-13.7-2.8-24.1-15-24-29.5 0.1-16.5 13.5-29.9 30-29.9h0.1c27.1 0.1 32.5 0.2 33.6 0.3l28.9 1.1v28.9c0 29.8-14.7 63.9-39.3 91.4-27.9 31-62.9 48.1-98.8 48.1z m107.1-109.5z" fill="#45484C"></path>
               </g>
             </svg>
-            <span className="text-xs font-semibold text-black tracking-wide">Pengaduan</span>
+            <span className="text-xs font-bold text-slate-800 tracking-wide">Pengaduan</span>
           </div>
 
           {/* Card 8: Darurat */}
@@ -391,7 +391,7 @@ export default function AppHome() {
                 <path d="M724.1 499.2h-33c-16.6 0-30 13.4-30 30s13.4 30 30 30h33c16.6 0 30-13.4 30-30s-13.4-30-30-30zM595.4 499.2h-53.3v-51c0-16.6-13.4-30-30-30s-30 13.4-30 30v51H319.3c-16.6 0-30 13.4-30 30s13.4 30 30 30h162.8v181.2c0 16.6 13.4 30 30 30s30-13.4 30-30V559.2h53.3c16.6 0 30-13.4 30-30s-13.4-30-30-30zM512.1 384.3c16.6 0 30-13.4 30-30v-26.4c0-16.6-13.4-30-30-30s-30 13.4-30 30v26.4c0 16.6 13.4 30 30 30z" fill="#45484C"></path>
               </g>
             </svg>
-            <span className="text-xs font-semibold text-black tracking-wide">Darurat</span>
+            <span className="text-xs font-bold text-slate-800 tracking-wide">Darurat</span>
           </div>
         </div>
       </section>

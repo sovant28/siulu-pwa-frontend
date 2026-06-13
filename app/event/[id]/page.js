@@ -247,7 +247,7 @@ export default function EventDetailPage() {
           >
             <ArrowLeft className="w-4.5 h-4.5 text-slate-800" />
           </button>
-          <span className="text-xs font-bold text-slate-800 text-center select-none whitespace-nowrap">
+          <span className="text-sm font-bold text-slate-800 text-center select-none whitespace-nowrap">
             {isEvent ? 'Detail Event' : (categoryLabels[event.kategori] || 'Detail Wisata')}
           </span>
           <div className="w-9 h-9 justify-self-end" />
@@ -276,10 +276,10 @@ export default function EventDetailPage() {
           {/* Floating Date Badge for Event */}
           {isEvent && displayDay && (
             <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-sm rounded-xl py-1 px-2.5 flex flex-col items-center border border-slate-100 min-w-[48px]">
-              <span className="text-[8px] font-bold text-[#BE1641] uppercase tracking-wider leading-none">
+              <span className="text-[10px] font-bold text-[#BE1641] uppercase tracking-wider leading-none">
                 {displayMonth}
               </span>
-              <span className="text-sm font-extrabold text-slate-800 leading-none mt-0.5">
+              <span className="text-base font-extrabold text-slate-800 leading-none mt-0.5">
                 {displayDay}
               </span>
             </div>
@@ -290,7 +290,7 @@ export default function EventDetailPage() {
       {/* ── TITLE & SUB-INFO ── */}
       <div className="px-6 mt-4">
         <div className="flex justify-between items-start gap-4">
-          <h1 className="text-lg font-bold text-slate-900 leading-snug flex-1">
+          <h1 className="text-xl font-extrabold text-slate-900 leading-snug flex-1">
             {event.nama_tempat}
           </h1>
           <button
@@ -308,7 +308,7 @@ export default function EventDetailPage() {
 
         {/* Sub-info Row: Location & Date/Time inline */}
         {(event.lokasi_wilayah || dateInfo || event.jam_operasional) && (
-          <div className="mt-1.5 flex flex-wrap items-center gap-1.5 text-[10px] font-bold text-slate-700">
+          <div className="mt-1.5 flex flex-wrap items-center gap-1.5 text-xs font-bold text-slate-700">
             {event.lokasi_wilayah && <span>{event.lokasi_wilayah}</span>}
             
             {/* For Event Category: Show Date & Time Info */}
@@ -344,11 +344,11 @@ export default function EventDetailPage() {
       {/* ── DESCRIPTION ── */}
       {description && (
         <div className="px-6">
-          <h3 className="text-xs font-bold text-slate-900 mb-1.5">
+          <h3 className="text-sm font-bold text-slate-900 mb-1.5">
             Tentang {isEvent ? 'Event' : categoryLabels[event.kategori] || 'Tempat'} Ini
           </h3>
           <div className={`relative ${!isDescExpanded ? 'max-h-[5.5rem] overflow-hidden' : ''}`}>
-            <p className="text-xs text-slate-700 leading-relaxed whitespace-pre-line">
+            <p className="text-sm text-slate-800 leading-relaxed whitespace-pre-line">
               {description}
             </p>
             {!isDescExpanded && description.length > 180 && (
@@ -358,7 +358,7 @@ export default function EventDetailPage() {
           {description.length > 180 && (
             <button
               onClick={() => setIsDescExpanded(!isDescExpanded)}
-              className="flex items-center space-x-1 mt-1 text-[#BE1641] text-[10px] font-extrabold active:scale-95 transition"
+              className="flex items-center space-x-1 mt-1 text-[#BE1641] text-xs font-extrabold active:scale-95 transition"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <span>{isDescExpanded ? 'Sembunyikan' : 'Selengkapnya'}</span>
@@ -372,7 +372,7 @@ export default function EventDetailPage() {
 
       {/* ── LIVE INTERACTIVE MAP ── */}
       <div className="px-6 mt-4.5">
-        <h3 className="text-xs font-bold text-slate-900 mb-2">Lokasi</h3>
+        <h3 className="text-sm font-bold text-slate-900 mb-2">Lokasi</h3>
 
 
         {hasCoords ? (
@@ -390,7 +390,7 @@ export default function EventDetailPage() {
             />
           </div>
         ) : (
-          <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 text-center text-slate-700 text-[10px] mb-2.5">
+          <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 text-center text-slate-700 text-xs mb-2.5">
             Peta koordinat GPS tidak tersedia.
           </div>
         )}
@@ -400,7 +400,7 @@ export default function EventDetailPage() {
           href={mapsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center gap-1.5 w-full py-2.5 bg-[#BE1641] hover:bg-[#a01235] text-white font-bold text-xs rounded-xl text-center active:scale-98 transition"
+          className="flex items-center justify-center gap-1.5 w-full py-2.5 bg-[#BE1641] hover:bg-[#a01235] text-white font-bold text-sm rounded-xl text-center active:scale-98 transition"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
           <MapPin className="w-3.5 h-3.5" />

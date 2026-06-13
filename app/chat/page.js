@@ -108,7 +108,7 @@ export default function ChatAI() {
                 href={url} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="inline-flex items-center justify-center space-x-2 px-5 py-3 bg-rose-50 hover:bg-rose-100 text-[#BE1641] border border-[#BE1641]/20 rounded-2xl font-bold transition shadow-sm active:scale-95 duration-150 text-xs cursor-pointer select-none"
+                className="inline-flex items-center justify-center space-x-2 px-5 py-3 bg-rose-50 hover:bg-rose-100 text-[#BE1641] border border-[#BE1641]/20 rounded-2xl font-bold transition shadow-sm active:scale-95 duration-150 text-sm cursor-pointer select-none"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >
                 <MapPin className="w-4 h-4 text-[#BE1641]" />
@@ -357,7 +357,7 @@ export default function ChatAI() {
         </div>
         
         {/* Loading Text */}
-        <p className="text-xs text-slate-500 font-semibold tracking-wide animate-pulse">
+        <p className="text-sm text-slate-500 font-semibold tracking-wide animate-pulse">
           Menghubungkan ke Mebali AI...
         </p>
       </div>
@@ -389,7 +389,7 @@ export default function ChatAI() {
               >
                 <Image src="/avatar_v2.png" alt="User Avatar" fill className="object-cover" />
               </div>
-              <h2 className="text-xl font-bold text-slate-900 tracking-tight">
+              <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
                 Hello {username || 'Traveler'}!
               </h2>
             </div>
@@ -425,7 +425,7 @@ export default function ChatAI() {
             </div>
             <button 
               onClick={resetSession} 
-              className="text-[10px] px-2.5 py-1.5 bg-rose-50 hover:bg-rose-100 border border-[#BE1641]/20 rounded-lg text-[#BE1641] font-bold transition flex items-center space-x-1"
+              className="text-xs px-2.5 py-1.5 bg-rose-50 hover:bg-rose-100 border border-[#BE1641]/20 rounded-lg text-[#BE1641] font-bold transition flex items-center space-x-1"
             >
               <RotateCcw className="w-3 h-3 text-[#BE1641]" />
               <span>Reset</span>
@@ -501,7 +501,7 @@ export default function ChatAI() {
                 {/* Feedback Form (Visible when button clicked) */}
                 {activeFeedbackIdx === idx && (
                   <div className="mt-2 ml-1 p-3 bg-white border border-slate-200 rounded-xl shadow-sm animate-in fade-in slide-in-from-top-1 w-full min-w-[250px]">
-                    <p className="text-[10px] font-bold text-slate-700 mb-1.5">
+                    <p className="text-xs font-bold text-slate-700 mb-1.5">
                       {msg.feedback === 'up' ? 'Apa yang Anda sukai dari jawaban ini?' : 'Apa yang bisa kami perbaiki?'}
                     </p>
                     <textarea 
@@ -514,13 +514,13 @@ export default function ChatAI() {
                     <div className="flex justify-end mt-2 space-x-2">
                       <button 
                         onClick={() => setActiveFeedbackIdx(null)}
-                        className="px-3 py-1 text-[10px] font-bold text-slate-400 hover:text-slate-600 transition"
+                        className="px-3 py-1 text-xs font-bold text-slate-400 hover:text-slate-600 transition"
                       >
                         Batal
                       </button>
                       <button 
                         onClick={() => submitFeedback(idx)}
-                        className="px-3 py-1 text-[10px] font-bold bg-slate-800 hover:bg-black text-white rounded-md transition"
+                        className="px-3 py-1 text-xs font-bold bg-slate-800 hover:bg-black text-white rounded-md transition"
                       >
                         Kirim
                       </button>
@@ -530,7 +530,7 @@ export default function ChatAI() {
               </div>
             ))}
             {loading && (
-              <div className="flex items-center space-x-2 text-xs text-slate-500 pl-2 mt-2">
+              <div className="flex items-center space-x-2 text-sm text-slate-500 pl-2 mt-2">
                 <span>Searching...</span>
                 <RotateCw className="w-3.5 h-3.5 animate-spin" />
               </div>

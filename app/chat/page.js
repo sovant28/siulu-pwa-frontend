@@ -15,6 +15,7 @@ export default function ChatAI() {
   const [greeting, setGreeting] = useState('');
   const [username, setUsername] = useState('');
   const [isInitializing, setIsInitializing] = useState(true);
+  const [messageCount, setMessageCount] = useState(0);
   
   // Feedback states
   const [activeFeedbackIdx, setActiveFeedbackIdx] = useState(null);
@@ -32,6 +33,19 @@ export default function ChatAI() {
     const storedName = localStorage.getItem('username') || localStorage.getItem('user_name') || localStorage.getItem('name');
     if (storedName) {
       setUsername(storedName);
+    }
+
+    // Check reset parameter
+    const params = new URLSearchParams(window.location.search);
+    const resetCode = params.get('reset');
+    if (resetCode === "SIULURESET") {
+      localStorage.setItem('chat_message_count', '0');
+      setMessageCount(0);
+      alert("Kuota chat testing Anda berhasil di-reset!");
+      window.history.replaceState(null, '', window.location.pathname);
+    } else {
+      const count = parseInt(localStorage.getItem('chat_message_count') || '0', 10);
+      setMessageCount(count);
     }
   }, []);
 
@@ -184,10 +198,22 @@ export default function ChatAI() {
     const textToSend = typeof overrideText === 'string' ? overrideText : input.trim();
     if (!textToSend) return;
     
+    // Check limit
+    const currentCount = parseInt(localStorage.getItem('chat_message_count') || '0', 10);
+    if (currentCount >= 15) {
+      alert("Batas testing tercapai! Anda telah mencapai batas maksimal 15 pesan.");
+      return;
+    }
+    
     const userMsg = textToSend;
     setInput('');
     setMessages(prev => [...prev, { role: 'user', content: userMsg }]);
     setLoading(true);
+
+    // Update count
+    const newCount = currentCount + 1;
+    localStorage.setItem('chat_message_count', newCount.toString());
+    setMessageCount(newCount);
 
     try {
       let botToUse = activeBot;
@@ -542,45 +568,59 @@ export default function ChatAI() {
 
       {/* BOTTOM INPUT AREA */}
       <div 
-        className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-slate-100/80 pt-3 pb-[calc(env(safe-area-inset-bottom)+16px)] px-4 flex items-center space-x-3.5 z-40"
+        className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-slate-100/80 pt-3 pb-[calc(env(safe-area-inset-bottom)+16px)] px-4 flex flex-col space-y-3 z-40"
       >
-        {/* Plus Button */}
-        <button 
-          onClick={() => alert("Fitur berbagi file segera hadir!")}
-          className="text-slate-500 hover:text-slate-700 transition cursor-pointer active:scale-95 flex-shrink-0"
-        >
-          <Plus className="w-6 h-6" />
-        </button>
+        {messageCount >= 15 && (
+          <div className="w-full bg-rose-50 border border-rose-100 rounded-2xl p-3 text-center animate-in fade-in slide-in-from-bottom-2 duration-300">
+            <p className="text-xs font-bold text-[#BE1641] flex items-center justify-center gap-1">
+              <span>⚠️</span> Batas Testing Chatbot Tercapai
+            </p>
+            <p className="text-[10px] text-slate-600 mt-0.5">
+              Anda telah mengirim 15 pesan. Silakan hubungi admin untuk mereset kuota perangkat Anda.
+            </p>
+          </div>
+        )}
 
-        {/* Image/Gallery Button */}
-        <button 
-          onClick={() => alert("Fitur unggah gambar segera hadir!")}
-          className="text-slate-500 hover:text-slate-700 transition cursor-pointer active:scale-95 flex-shrink-0"
-        >
-          <LucideImage className="w-6 h-6" />
-        </button>
-
-        {/* Input Capsule */}
-        <div className="flex-1 bg-white rounded-full px-5 py-2.5 border border-slate-200 flex items-center">
-          <input 
-            type="text" 
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-            placeholder="Tanya Mebali AI tentang Toraja..." 
-            className="w-full bg-transparent text-sm font-medium text-slate-800 focus:outline-none placeholder:text-slate-400 placeholder:font-normal"
-          />
+        <div className="flex items-center space-x-3.5 w-full">
+          {/* Plus Button */}
+          <button 
+            onClick={() => alert("Fitur berbagi file segera hadir!")}
+            className="text-slate-500 hover:text-slate-700 transition cursor-pointer active:scale-95 flex-shrink-0"
+          >
+            <Plus className="w-6 h-6" />
+          </button>
+  
+          {/* Image/Gallery Button */}
+          <button 
+            onClick={() => alert("Fitur unggah gambar segera hadir!")}
+            className="text-slate-500 hover:text-slate-700 transition cursor-pointer active:scale-95 flex-shrink-0"
+          >
+            <LucideImage className="w-6 h-6" />
+          </button>
+  
+          {/* Input Capsule */}
+          <div className={`flex-1 rounded-full px-5 py-2.5 border flex items-center ${messageCount >= 15 ? 'bg-slate-100 border-slate-200' : 'bg-white border-slate-200'}`}>
+            <input 
+              type="text" 
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+              disabled={messageCount >= 15}
+              placeholder={messageCount >= 15 ? "Batas testing 15 pesan tercapai..." : "Tanya Mebali AI tentang Toraja..."}
+              className="w-full bg-transparent text-sm font-medium text-slate-800 focus:outline-none placeholder:text-slate-400 placeholder:font-normal disabled:text-slate-400"
+            />
+          </div>
+  
+          {/* Send Button */}
+          <button 
+            onClick={() => handleSend()}
+            disabled={loading || !input.trim() || messageCount >= 15}
+            className="bg-black hover:bg-slate-900 disabled:opacity-50 text-white rounded-full p-2.5 transition active:scale-95 flex items-center justify-center cursor-pointer select-none flex-shrink-0"
+            style={{ WebkitTapHighlightColor: 'transparent' }}
+          >
+            <Send className="w-4.5 h-4.5 fill-current text-white" />
+          </button>
         </div>
-
-        {/* Send Button */}
-        <button 
-          onClick={() => handleSend()}
-          disabled={loading || !input.trim()}
-          className="bg-black hover:bg-slate-900 disabled:opacity-50 text-white rounded-full p-2.5 transition active:scale-95 flex items-center justify-center cursor-pointer select-none flex-shrink-0"
-          style={{ WebkitTapHighlightColor: 'transparent' }}
-        >
-          <Send className="w-4.5 h-4.5 fill-current text-white" />
-        </button>
       </div>
 
     </div>

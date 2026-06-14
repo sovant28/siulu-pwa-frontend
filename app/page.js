@@ -107,6 +107,7 @@ export default function AppHome() {
     // Fetch data for featured events
     const fetchDestinations = async () => {
       try {
+        // Force Vercel rebuild to pick up NEXT_PUBLIC_API_URL
         const apiUrl = process.env.NEXT_PUBLIC_API_URL ? `${process.env.NEXT_PUBLIC_API_URL}/api` : '/api';
         const res = await fetch(`${apiUrl}/knowledge/destinasi`);
         if (res.ok) {

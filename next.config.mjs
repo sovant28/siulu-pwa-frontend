@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+// Trigger build to apply BACKEND_API_URL env variable on Vercel
 const nextConfig = {
   reactStrictMode: true,
   turbopack: {},

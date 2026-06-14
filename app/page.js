@@ -107,8 +107,8 @@ export default function AppHome() {
     // Fetch data for featured events
     const fetchDestinations = async () => {
       try {
-        const API_URL = '/api';
-        const res = await fetch(`${API_URL}/knowledge/destinasi`);
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL ? `${process.env.NEXT_PUBLIC_API_URL}/api` : '/api';
+        const res = await fetch(`${apiUrl}/knowledge/destinasi`);
         if (res.ok) {
           const data = await res.json();
           // Filter out those that are marked as featured event and have an image_url

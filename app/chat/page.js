@@ -49,7 +49,7 @@ export default function ChatAI() {
     }
   }, []);
 
-  const API_URL = '/api';
+  const API_URL = process.env.NEXT_PUBLIC_API_URL ? `${process.env.NEXT_PUBLIC_API_URL}/api` : '/api';
 
   useEffect(() => {
     // Fetch available bot first

@@ -69,7 +69,8 @@ export default function EventListPage() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const res = await fetch('/api/knowledge/destinasi');
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || '';
+        const res = await fetch(`${apiUrl}/api/knowledge/destinasi`);
         if (!res.ok) throw new Error('Gagal mengambil data');
         const data = await res.json();
         const filtered = data.filter(item => item.kategori === 'event');

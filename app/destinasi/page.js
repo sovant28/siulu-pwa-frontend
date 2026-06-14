@@ -41,7 +41,8 @@ export default function DestinasiListPage() {
   useEffect(() => {
     const fetchDestinations = async () => {
       try {
-        const res = await fetch('/api/knowledge/destinasi');
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || '';
+        const res = await fetch(`${apiUrl}/api/knowledge/destinasi`);
         if (!res.ok) throw new Error('Gagal mengambil data');
         const data = await res.json();
         // Saring hanya destinasi pariwisata asli (wisata alam, budaya/religi)

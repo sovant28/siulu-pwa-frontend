@@ -63,7 +63,15 @@ function buildMapsUrl(koordinat_gps, lokasi_wilayah, nama_tempat) {
 function parseCostInfo(costObj) {
   if (!costObj || typeof costObj !== 'object') return [];
   return Object.entries(costObj)
-    .filter(([key]) => key !== 'image_url' && key !== 'harga_tiket')
+    .filter(([key, val]) => 
+      key !== 'image_url' && 
+      key !== 'harga_tiket' && 
+      key !== 'sub_kategori' && 
+      key !== 'penyelenggara' && 
+      val !== '' && 
+      val !== null && 
+      val !== undefined
+    )
     .map(([key, val]) => {
       const label = key.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
       const value = typeof val === 'number' ? `Rp ${val.toLocaleString('id-ID')}` : String(val);

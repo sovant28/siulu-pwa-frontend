@@ -77,12 +77,12 @@ export default function ChatAI() {
   }, []);
 
   const [suggestions, setSuggestions] = useState([
-    "Info tiket masuk Candi Prambanan",
-    "Aturan di Pantai Parangtritis",
-    "Rekomendasi kuliner legendaris Jogja",
-    "Paket Lava Tour Merapi",
-    "Keunikan Sate Klathak Pak Pong",
-    "Oleh-oleh Gudeg Yu Djum"
+    "Tips berkunjung ke Makam Gua Londa",
+    "Tiket masuk Patung Yesus Buntu Burake",
+    "Negeri di atas awan Pango-Pango",
+    "Filosofi pohon Tarra' Makam Bayi Kambira",
+    "Penginapan Lemo Coffee & Homestay",
+    "Jadwal Upacara Rambu Solo'"
   ]);
 
   const parseSuggestions = (text) => {
@@ -356,12 +356,12 @@ export default function ChatAI() {
       setSessionId(null);
       setMessages([]);
       setSuggestions([
-        "Info tiket masuk Candi Prambanan",
-        "Aturan di Pantai Parangtritis",
-        "Rekomendasi kuliner legendaris Jogja",
-        "Paket Lava Tour Merapi",
-        "Keunikan Sate Klathak Pak Pong",
-        "Oleh-oleh Gudeg Yu Djum"
+        "Tips berkunjung ke Makam Gua Londa",
+        "Tiket masuk Patung Yesus Buntu Burake",
+        "Negeri di atas awan Pango-Pango",
+        "Filosofi pohon Tarra' Makam Bayi Kambira",
+        "Penginapan Lemo Coffee & Homestay",
+        "Jadwal Upacara Rambu Solo'"
       ]);
     }
   };

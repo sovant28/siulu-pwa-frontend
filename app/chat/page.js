@@ -77,12 +77,12 @@ export default function ChatAI() {
   }, []);
 
   const [suggestions, setSuggestions] = useState([
-    "Info Rambu Solo' Sangalla",
-    "Toraja Highland Festival 2026",
-    "Makam Gua Londa",
-    "Makam Tebing Lemo",
-    "Agrowisata Pango-Pango",
-    "Patung Yesus Buntu Burake"
+    "Info tiket masuk Candi Prambanan",
+    "Aturan di Pantai Parangtritis",
+    "Rekomendasi kuliner legendaris Jogja",
+    "Paket Lava Tour Merapi",
+    "Keunikan Sate Klathak Pak Pong",
+    "Oleh-oleh Gudeg Yu Djum"
   ]);
 
   const parseSuggestions = (text) => {
@@ -356,12 +356,12 @@ export default function ChatAI() {
       setSessionId(null);
       setMessages([]);
       setSuggestions([
-        "Info Rambu Solo' Sangalla",
-        "Toraja Highland Festival 2026",
-        "Makam Gua Londa",
-        "Makam Tebing Lemo",
-        "Agrowisata Pango-Pango",
-        "Patung Yesus Buntu Burake"
+        "Info tiket masuk Candi Prambanan",
+        "Aturan di Pantai Parangtritis",
+        "Rekomendasi kuliner legendaris Jogja",
+        "Paket Lava Tour Merapi",
+        "Keunikan Sate Klathak Pak Pong",
+        "Oleh-oleh Gudeg Yu Djum"
       ]);
     }
   };

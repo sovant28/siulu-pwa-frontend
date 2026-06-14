@@ -60,6 +60,17 @@ function buildMapsUrl(koordinat_gps, lokasi_wilayah, nama_tempat) {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
 }
 
+function parseCostInfo(costObj) {
+  if (!costObj || typeof costObj !== 'object') return [];
+  return Object.entries(costObj)
+    .filter(([key]) => key !== 'image_url' && key !== 'harga_tiket')
+    .map(([key, val]) => {
+      const label = key.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+      const value = typeof val === 'number' ? `Rp ${val.toLocaleString('id-ID')}` : String(val);
+      return { label, value };
+    });
+}
+
 /* ─── Main Component ─── */
 
 export default function EventDetailPage() {
@@ -199,6 +210,7 @@ export default function EventDetailPage() {
   const mapsUrl = buildMapsUrl(event.koordinat_gps, event.lokasi_wilayah, event.nama_tempat);
   const isEvent = event.kategori === 'event';
   const description = event.deskripsi_lengkap;
+  const costItems = parseCostInfo(event.informasi_biaya);
 
   const categoryLabels = {
     event: 'Event',
@@ -363,15 +375,66 @@ export default function EventDetailPage() {
         </div>
       )}
 
+      {/* ── BIAYA MASUK / TIKET ── */}
+      {costItems && costItems.length > 0 && (
+        <div className="px-6 mt-6">
+          <h3 className="text-lg font-bold text-slate-900 mb-2.5">Biaya & Tiket Masuk</h3>
+          <div className="bg-slate-50 border border-slate-100 rounded-2xl p-4.5 space-y-3">
+            {costItems.map((item, idx) => (
+              <div key={idx} className="flex justify-between items-center text-sm font-semibold text-slate-800">
+                <span className="text-slate-500 font-normal">{item.label}</span>
+                <span>{item.value}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
+      {/* For Events: Show Harga Tiket if present */}
+      {isEvent && event.informasi_biaya?.harga_tiket && (
+        <div className="px-6 mt-6">
+          <h3 className="text-lg font-bold text-slate-900 mb-2.5">Harga Tiket</h3>
+          <div className="bg-slate-50 border border-slate-100 rounded-2xl p-4.5 text-sm font-bold text-slate-800">
+            {event.informasi_biaya.harga_tiket}
+          </div>
+        </div>
+      )}
+
+      {/* ── FASILITAS ── */}
+      {event.fitur_fasilitas && event.fitur_fasilitas.length > 0 && (
+        <div className="px-6 mt-6">
+          <h3 className="text-lg font-bold text-slate-900 mb-2.5">Fasilitas</h3>
+          <div className="flex flex-wrap gap-2">
+            {event.fitur_fasilitas.map((fac, idx) => (
+              <span key={idx} className="bg-slate-50 text-slate-700 text-sm font-semibold px-3.5 py-2 rounded-xl border border-slate-100 flex items-center gap-1.5 shadow-sm">
+                <span className="text-[#C6A470] font-bold">✓</span>
+                {fac}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ── ATURAN & TIPS ── */}
+      {event.aturan_tips && (
+        <div className="px-6 mt-6">
+          <div className="bg-[#C6A470]/10 border border-[#C6A470]/30 rounded-2xl p-4.5">
+            <h3 className="text-sm font-black text-slate-800 uppercase tracking-wider mb-2 flex items-center gap-1.5 select-none">
+              💡 Tips & Aturan Berkunjung
+            </h3>
+            <p className="text-sm text-slate-700 leading-relaxed font-semibold">
+              {event.aturan_tips}
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* ── LIVE INTERACTIVE MAP ── */}
-      <div className="px-6 mt-4.5">
+      <div className="px-6 mt-6">
         <h3 className="text-lg font-bold text-slate-900 mb-2">Lokasi</h3>
 
-
         {hasCoords ? (
-          <div className="relative rounded-2xl overflow-hidden border border-slate-100 bg-slate-55 h-40 w-full mb-2.5">
+          <div className="relative rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 h-40 w-full mb-2.5">
             <iframe
               title="Peta Lokasi"
               width="100%"
@@ -402,6 +465,16 @@ export default function EventDetailPage() {
           <span>Petunjuk Arah</span>
         </a>
       </div>
+
+      {/* ── KONTAK INFORMASI ── */}
+      {event.kontak_info && (
+        <div className="px-6 mt-6">
+          <h3 className="text-lg font-bold text-slate-900 mb-2">Kontak Informasi</h3>
+          <p className="text-sm font-semibold text-slate-700 bg-slate-50 border border-slate-100 rounded-xl p-3.5 flex items-center gap-2">
+            📞 <span className="text-slate-800">{event.kontak_info}</span>
+          </p>
+        </div>
+      )}
 
     </div>
   );

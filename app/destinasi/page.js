@@ -170,19 +170,13 @@ export default function DestinasiListPage() {
                 >
                   {/* Foto dengan Aspect Ratio 16:10 (Tanpa Badge & Celah) */}
                   <div className="relative w-full aspect-[16/10] bg-slate-50 flex-shrink-0">
-                    {imageUrl ? (
-                      <Image
-                        src={imageUrl}
-                        alt={dest.nama_tempat}
-                        fill
-                        className="object-cover"
-                        unoptimized
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center bg-slate-50">
-                        <span className="text-3xl opacity-25">🏔️</span>
-                      </div>
-                    )}
+                    <Image
+                      src={imageUrl || "/dummy_destination.png"}
+                      alt={dest.nama_tempat}
+                      fill
+                      className="object-cover"
+                      unoptimized
+                    />
                   </div>
 
                   {/* Info Details (Padded at the bottom) */}

@@ -257,21 +257,15 @@ export default function EventDetailPage() {
       {/* ── IMAGE COVER CARD ── */}
       <div className="px-6 mt-3">
         <div className="relative w-full aspect-[1.6] bg-slate-100 rounded-2xl overflow-hidden">
-          {imageUrl ? (
-            <Image
-              src={imageUrl}
-              alt={event.nama_tempat}
-              fill
-              className={`object-cover transition-opacity duration-500 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
-              onLoad={() => setImageLoaded(true)}
-              priority
-              unoptimized
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-150">
-              <span className="text-3xl opacity-20">🏔️</span>
-            </div>
-          )}
+          <Image
+            src={imageUrl || "/dummy_destination.png"}
+            alt={event.nama_tempat}
+            fill
+            className={`object-cover transition-opacity duration-500 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+            onLoad={() => setImageLoaded(true)}
+            priority
+            unoptimized
+          />
 
           {/* Floating Date Badge for Event */}
           {isEvent && displayDay && (

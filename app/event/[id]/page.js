@@ -381,8 +381,8 @@ export default function EventDetailPage() {
           <h3 className="text-lg font-bold text-slate-900 mb-2.5">Biaya & Tiket Masuk</h3>
           <div className="bg-slate-50 border border-slate-100 rounded-2xl p-4.5 space-y-3">
             {costItems.map((item, idx) => (
-              <div key={idx} className="flex justify-between items-center text-sm font-semibold text-slate-800">
-                <span className="text-slate-500 font-normal">{item.label}</span>
+              <div key={idx} className="flex justify-between items-center text-base font-bold text-slate-800">
+                <span className="text-slate-600 font-normal">{item.label}</span>
                 <span>{item.value}</span>
               </div>
             ))}
@@ -394,7 +394,7 @@ export default function EventDetailPage() {
       {isEvent && event.informasi_biaya?.harga_tiket && (
         <div className="px-6 mt-6">
           <h3 className="text-lg font-bold text-slate-900 mb-2.5">Harga Tiket</h3>
-          <div className="bg-slate-50 border border-slate-100 rounded-2xl p-4.5 text-sm font-bold text-slate-800">
+          <div className="bg-slate-50 border border-slate-100 rounded-2xl p-4.5 text-base font-bold text-slate-800">
             {event.informasi_biaya.harga_tiket}
           </div>
         </div>
@@ -406,7 +406,7 @@ export default function EventDetailPage() {
           <h3 className="text-lg font-bold text-slate-900 mb-2.5">Fasilitas</h3>
           <div className="flex flex-wrap gap-2">
             {event.fitur_fasilitas.map((fac, idx) => (
-              <span key={idx} className="bg-slate-50 text-slate-700 text-sm font-semibold px-3.5 py-2 rounded-xl border border-slate-100 flex items-center gap-1.5">
+              <span key={idx} className="bg-slate-50 text-slate-800 text-sm font-bold px-3.5 py-2 rounded-xl border border-slate-100 flex items-center gap-1.5">
                 <span className="text-[#C6A470] font-bold">✓</span>
                 {fac}
               </span>
@@ -422,7 +422,7 @@ export default function EventDetailPage() {
             <h3 className="text-sm font-black text-slate-800 uppercase tracking-wider mb-2 flex items-center gap-1.5 select-none">
               💡 Tips & Aturan Berkunjung
             </h3>
-            <p className="text-sm text-slate-700 leading-relaxed font-semibold">
+            <p className="text-base text-slate-800 leading-relaxed font-semibold">
               {event.aturan_tips}
             </p>
           </div>
@@ -470,7 +470,7 @@ export default function EventDetailPage() {
       {event.kontak_info && (
         <div className="px-6 mt-6">
           <h3 className="text-lg font-bold text-slate-900 mb-2">Kontak Informasi</h3>
-          <p className="text-sm font-semibold text-slate-700 bg-slate-50 border border-slate-100 rounded-xl p-3.5 flex items-center gap-2">
+          <p className="text-base font-bold text-slate-800 bg-slate-50 border border-slate-100 rounded-xl p-3.5 flex items-center gap-2">
             📞 <span className="text-slate-800">{event.kontak_info}</span>
           </p>
         </div>

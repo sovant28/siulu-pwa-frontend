@@ -406,7 +406,7 @@ export default function EventDetailPage() {
           <h3 className="text-lg font-bold text-slate-900 mb-2.5">Fasilitas</h3>
           <div className="flex flex-wrap gap-2">
             {event.fitur_fasilitas.map((fac, idx) => (
-              <span key={idx} className="bg-slate-50 text-slate-700 text-sm font-semibold px-3.5 py-2 rounded-xl border border-slate-100 flex items-center gap-1.5 shadow-sm">
+              <span key={idx} className="bg-slate-50 text-slate-700 text-sm font-semibold px-3.5 py-2 rounded-xl border border-slate-100 flex items-center gap-1.5">
                 <span className="text-[#C6A470] font-bold">✓</span>
                 {fac}
               </span>

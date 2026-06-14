@@ -147,7 +147,7 @@ export default function DestinasiListPage() {
           // Loading Skeleton state
           <div className="grid grid-cols-1 gap-6">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="flex flex-col bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm animate-pulse">
+              <div key={i} className="flex flex-col bg-white rounded-3xl overflow-hidden border border-slate-100 animate-pulse">
                 <div className="w-full aspect-[16/10] bg-slate-100" />
                 <div className="p-4.5 space-y-2">
                   <div className="h-5 w-2/3 bg-slate-100 rounded-md" />
@@ -166,7 +166,7 @@ export default function DestinasiListPage() {
                 <div
                   key={dest.id}
                   onClick={() => router.push(`/event/${dest.id}`)}
-                  className="flex flex-col bg-white rounded-3xl overflow-hidden border border-slate-100 shadow-sm active:scale-[0.97] transition-all cursor-pointer"
+                  className="flex flex-col bg-white rounded-3xl overflow-hidden border border-slate-100 active:scale-[0.97] transition-all cursor-pointer"
                   style={{ WebkitTapHighlightColor: 'transparent' }}
                 >
                   {/* Foto dengan Aspect Ratio 16:10 (Tanpa Badge & Celah) */}

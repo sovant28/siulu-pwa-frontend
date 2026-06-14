@@ -398,11 +398,11 @@ export default function EventDetailPage() {
         </div>
       )}
 
-      {/* For Events: Show Harga Tiket if present */}
-      {isEvent && event.informasi_biaya?.harga_tiket && (
+      {/* Show Harga Tiket if present */}
+      {event.informasi_biaya?.harga_tiket && (
         <div className="px-6 mt-6">
           <h3 className="text-lg font-bold text-slate-900 mb-2.5">Harga Tiket</h3>
-          <div className="bg-slate-50 border border-slate-100 rounded-2xl p-4.5 text-base font-bold text-slate-800">
+          <div className="bg-slate-50 border border-slate-100 rounded-2xl p-4.5 text-base font-bold text-slate-800 whitespace-pre-line">
             {event.informasi_biaya.harga_tiket}
           </div>
         </div>

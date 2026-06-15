@@ -398,7 +398,7 @@ export default function AppHome() {
       </section>
 
       {/* YOUTUBE VIDEO HOOK */}
-      <section className="px-6 mt-10">
+      <section className="px-6 mt-6">
         <h3 className="text-xl font-black text-slate-800 mb-4">Pesona Tana Toraja</h3>
         <div className="relative w-full aspect-video rounded-3xl overflow-hidden border border-slate-100 bg-slate-100">
           <iframe
@@ -414,7 +414,7 @@ export default function AppHome() {
       </section>
 
       {/* AI BANNER PROMO */}
-      <section className="px-6 mt-10">
+      <section className="px-6 mt-6">
         <div
           onClick={() => router.push('/chat')}
           role="button"

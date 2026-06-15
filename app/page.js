@@ -397,6 +397,22 @@ export default function AppHome() {
         </div>
       </section>
 
+      {/* YOUTUBE VIDEO HOOK */}
+      <section className="px-6 mt-10">
+        <h3 className="text-xl font-black text-slate-800 mb-4">Pesona Tana Toraja</h3>
+        <div className="relative w-full aspect-video rounded-3xl overflow-hidden border border-slate-100 bg-slate-100">
+          <iframe
+            title="Pesona Tana Toraja Video"
+            src="https://www.youtube.com/embed/uMYcKFbvORU"
+            className="absolute inset-0 w-full h-full"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            loading="lazy"
+          />
+        </div>
+      </section>
+
       {/* AI BANNER PROMO */}
       <section className="px-6 mt-10">
         <div

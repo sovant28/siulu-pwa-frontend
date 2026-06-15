@@ -182,11 +182,11 @@ export default function DestinasiListPage() {
 
                   {/* Info Details (Flat list styling) */}
                   <div className="text-left px-1">
-                    <h3 className="text-lg font-black text-slate-800 leading-snug">
+                    <h3 className="text-lg font-black text-slate-900 leading-snug">
                       {dest.nama_tempat}
                     </h3>
                     {dest.deskripsi_lengkap && (
-                      <p className="text-sm text-slate-500 mt-1.5 line-clamp-3 leading-relaxed">
+                      <p className="text-sm text-slate-700 mt-1.5 line-clamp-3 leading-relaxed">
                         {dest.deskripsi_lengkap}
                       </p>
                     )}

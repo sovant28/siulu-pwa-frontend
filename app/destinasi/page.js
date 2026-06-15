@@ -141,15 +141,15 @@ export default function DestinasiListPage() {
         </h2>
       </div>
 
-      {/* ── DESTINATIONS GRID (1-COLUMN, RASIO 16:10) ── */}
-      <div className="px-6 mt-3.5">
+      {/* ── DESTINATIONS GRID (1-COLUMN, RASIO 16:10, BORDERLESS CARD) ── */}
+      <div className="px-6 mt-4">
         {loading ? (
           // Loading Skeleton state
-          <div className="grid grid-cols-1 gap-6">
+          <div className="grid grid-cols-1 gap-8">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="flex flex-col bg-white rounded-3xl overflow-hidden border border-slate-100 animate-pulse">
-                <div className="w-full aspect-[16/10] bg-slate-100" />
-                <div className="p-4.5 space-y-2">
+              <div key={i} className="flex flex-col animate-pulse space-y-3">
+                <div className="w-full aspect-[16/10] bg-slate-100 rounded-3xl" />
+                <div className="space-y-2 px-1">
                   <div className="h-5 w-2/3 bg-slate-100 rounded-md" />
                   <div className="h-3.5 w-full bg-slate-100 rounded-md mt-1" />
                   <div className="h-3.5 w-4/5 bg-slate-100 rounded-md" />
@@ -158,7 +158,7 @@ export default function DestinasiListPage() {
             ))}
           </div>
         ) : filteredDestinations.length > 0 ? (
-          <div className="grid grid-cols-1 gap-6">
+          <div className="grid grid-cols-1 gap-8">
             {filteredDestinations.map((dest) => {
               const imageUrl = dest.informasi_biaya?.image_url;
 
@@ -166,11 +166,11 @@ export default function DestinasiListPage() {
                 <div
                   key={dest.id}
                   onClick={() => router.push(`/event/${dest.id}`)}
-                  className="flex flex-col bg-white rounded-3xl overflow-hidden border border-slate-100 active:scale-[0.97] transition-all cursor-pointer"
+                  className="flex flex-col active:scale-[0.98] transition-all cursor-pointer space-y-3"
                   style={{ WebkitTapHighlightColor: 'transparent' }}
                 >
-                  {/* Foto dengan Aspect Ratio 16:10 (Tanpa Badge & Celah) */}
-                  <div className="relative w-full aspect-[16/10] bg-slate-50 flex-shrink-0">
+                  {/* Foto dengan Aspect Ratio 16:10, rounded-3xl di semua sisi */}
+                  <div className="relative w-full aspect-[16/10] bg-slate-50 rounded-3xl overflow-hidden border border-slate-100/50">
                     <Image
                       src={imageUrl || "/dummy_destination.png"}
                       alt={dest.nama_tempat}
@@ -180,13 +180,13 @@ export default function DestinasiListPage() {
                     />
                   </div>
 
-                  {/* Info Details (Padded at the bottom) */}
-                  <div className="p-4.5 text-left">
-                    <h3 className="text-lg font-bold text-slate-800 leading-tight">
+                  {/* Info Details (Flat list styling) */}
+                  <div className="text-left px-1">
+                    <h3 className="text-lg font-black text-slate-800 leading-snug">
                       {dest.nama_tempat}
                     </h3>
                     {dest.deskripsi_lengkap && (
-                      <p className="text-sm text-slate-500 mt-1.5 line-clamp-2 leading-relaxed">
+                      <p className="text-sm text-slate-500 mt-1.5 line-clamp-3 leading-relaxed">
                         {dest.deskripsi_lengkap}
                       </p>
                     )}

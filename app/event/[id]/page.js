@@ -60,6 +60,43 @@ function buildMapsUrl(koordinat_gps, lokasi_wilayah, nama_tempat) {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
 }
 
+function getYouTubeEmbedUrl(url) {
+  if (!url) return '';
+  if (url.includes('youtube.com/embed/')) return url;
+  
+  let videoId = '';
+  try {
+    if (url.includes('youtu.be/')) {
+      videoId = url.split('youtu.be/')[1]?.split('?')[0];
+    } else if (url.includes('youtube.com/watch')) {
+      const urlParams = new URLSearchParams(url.split('?')[1]);
+      videoId = urlParams.get('v');
+    } else if (url.includes('youtube.com/v/')) {
+      videoId = url.split('youtube.com/v/')[1]?.split('?')[0];
+    } else {
+      const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+      const match = url.match(regExp);
+      if (match && match[2].length === 11) {
+        videoId = match[2];
+      }
+    }
+  } catch (e) {
+    console.error('Error parsing YouTube URL:', e);
+  }
+  
+  return videoId ? `https://www.youtube.com/embed/${videoId}` : url;
+}
+
+function getInstagramEmbedUrl(url) {
+  if (!url) return '';
+  let cleanUrl = url.split('?')[0];
+  if (!cleanUrl.endsWith('/')) {
+    cleanUrl += '/';
+  }
+  if (cleanUrl.endsWith('embed/')) return cleanUrl;
+  return `${cleanUrl}embed/`;
+}
+
 function parseCostInfo(costObj) {
   if (!costObj || typeof costObj !== 'object') return [];
   return Object.entries(costObj)
@@ -355,6 +392,37 @@ export default function EventDetailPage() {
       </div>
 
       <div className="w-full h-[1px] bg-slate-100 my-4 px-6" />
+
+      {/* ── SOCIAL MEDIA EMBEDS ── */}
+      {(event.youtube_url || event.instagram_url) && (
+        <div className="px-6 pb-4 space-y-4">
+          {event.youtube_url && (
+            <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-100 bg-slate-50">
+              <iframe
+                title="YouTube Video"
+                src={getYouTubeEmbedUrl(event.youtube_url)}
+                className="absolute inset-0 w-full h-full"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+          )}
+
+          {event.instagram_url && (
+            <div className="relative w-full rounded-2xl overflow-hidden border border-slate-100 bg-slate-50" style={{ height: '480px' }}>
+              <iframe
+                title="Instagram Post"
+                src={getInstagramEmbedUrl(event.instagram_url)}
+                className="absolute inset-0 w-full h-full"
+                frameBorder="0"
+                scrolling="no"
+                allowTransparency="true"
+              />
+            </div>
+          )}
+        </div>
+      )}
 
       {/* ── DESCRIPTION ── */}
       {description && (

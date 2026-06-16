@@ -129,32 +129,31 @@ export default function AppHome() {
   return (
     <div className="flex flex-col w-full min-h-[100dvh] bg-[#F6F7F9] font-sans pb-[calc(env(safe-area-inset-bottom)+68px)] relative overflow-x-hidden">
 
-      {/* HEADER BAR */}
-      <header className="w-full flex flex-col px-6 pt-[calc(env(safe-area-inset-top)+20px)] pb-4 relative z-10 space-y-3">
-        {/* App Title */}
-        <div className="text-center w-full">
-          <span className="text-3xl font-black text-[#BE1641] tracking-tight">siulu</span>
+      {/* HEADER BAR (Horizontal & Native-like) */}
+      <header className="w-full flex items-center justify-between px-6 pt-[calc(env(safe-area-inset-top)+14px)] pb-3 relative z-10 bg-[#F6F7F9]">
+        {/* Left Side: Avatar & Greeting/Name */}
+        <div className="flex items-center space-x-2.5">
+          <div className="relative w-9 h-9 rounded-full overflow-hidden border border-white shadow-sm bg-white flex-shrink-0">
+            <Image src="/avatar_v2.png" alt="Avatar" fill className="object-cover" />
+          </div>
+          <div className="flex flex-col text-left">
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider leading-none">{greeting}</span>
+            <span className="text-sm font-black text-slate-700 mt-0.5 leading-none">
+              {username || "Guest"}
+            </span>
+          </div>
         </div>
 
-        {/* Avatar & Location Row */}
-        <div className="flex justify-between items-center w-full">
-          {/* Left Side: Avatar & Greeting */}
-          <div className="flex items-center space-x-3">
-            <div className="relative w-11 h-11 rounded-full overflow-hidden border-2 border-white shadow-sm bg-white">
-              <Image src="/avatar_v2.png" alt="Avatar" fill className="object-cover" />
-            </div>
-            <div className="flex flex-col text-left">
-              <span className="text-sm font-semibold text-slate-600 leading-tight">{greeting}</span>
-              <span className="text-lg font-black text-slate-800 leading-normal tracking-wide">
-                {username || "Guest"}
-              </span>
-            </div>
-          </div>
+        {/* Center: App Logo */}
+        <div className="text-center select-none">
+          <span className="text-2xl font-black text-[#BE1641] tracking-tight">siulu</span>
+        </div>
 
-          {/* Right Side: Location Pin */}
-          <div className="flex items-center space-x-1.5 text-slate-500">
-            <span className="text-sm font-bold tracking-wide">Tana Toraja, Indonesia</span>
-            <MapPin className="w-3.5 h-3.5 text-[#BE1641]" />
+        {/* Right Side: Location Badge */}
+        <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-1 bg-white border border-slate-100 rounded-full px-2.5 py-1 text-[10px] font-black text-slate-600 shadow-sm">
+            <MapPin className="w-3 h-3 text-[#BE1641]" />
+            <span>Toraja</span>
           </div>
         </div>
       </header>

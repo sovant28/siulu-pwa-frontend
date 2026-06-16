@@ -133,11 +133,11 @@ export default function AppHome() {
       <header className="w-full flex items-center justify-between px-6 pt-[calc(env(safe-area-inset-top)+14px)] pb-2 relative z-10 bg-[#F6F7F9]">
         {/* Left Side: Avatar & Greeting/Name */}
         <div className="flex items-center space-x-2.5">
-          <div className="relative w-9 h-9 rounded-full overflow-hidden border border-white shadow-sm bg-white flex-shrink-0">
+          <div className="relative w-9 h-9 rounded-full overflow-hidden border border-slate-200/60 bg-white flex-shrink-0">
             <Image src="/avatar_v2.png" alt="Avatar" fill className="object-cover" />
           </div>
           <div className="flex flex-col text-left">
-            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider leading-none">{greeting}</span>
+            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider leading-none">{greeting}</span>
             <span className="text-sm font-black text-slate-700 mt-0.5 leading-none">
               {username || "Guest"}
             </span>
@@ -146,7 +146,7 @@ export default function AppHome() {
 
         {/* Right Side: Location Badge */}
         <div className="flex items-center space-x-2">
-          <div className="flex items-center space-x-1 bg-white border border-slate-100 rounded-full px-2.5 py-1 text-[10px] font-black text-slate-600 shadow-sm">
+          <div className="flex items-center space-x-1 bg-white border border-slate-100/70 rounded-full px-2.5 py-1 text-[10px] font-black text-slate-600 shadow-sm shadow-slate-200/50">
             <MapPin className="w-3 h-3 text-[#BE1641]" />
             <span>Toraja</span>
           </div>
@@ -160,11 +160,11 @@ export default function AppHome() {
           role="button"
           tabIndex={0}
           onKeyDown={(e) => e.key === 'Enter' && router.push('/destinasi')}
-          className="w-full flex items-center bg-white border border-slate-100 rounded-2xl px-4.5 py-3 shadow-sm hover:border-slate-200 active:scale-[0.99] transition cursor-pointer select-none"
+          className="w-full flex items-center bg-white border border-slate-100 rounded-2xl px-4.5 py-3 shadow-[0_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_6px_16px_rgba(0,0,0,0.05)] active:scale-[0.99] transition cursor-pointer select-none"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
-          <Search className="w-4 h-4 text-slate-400 mr-2.5 flex-shrink-0" />
-          <span className="text-sm font-semibold text-slate-400">Cari destinasi pariwisata Toraja...</span>
+          <Search className="w-4 h-4 text-slate-500 mr-2.5 flex-shrink-0" />
+          <span className="text-sm font-semibold text-slate-500">Cari destinasi pariwisata Toraja...</span>
         </div>
       </div>
 
@@ -186,7 +186,7 @@ export default function AppHome() {
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => e.key === 'Enter' && router.push(`/event/${event.id}`)}
-                className="relative w-full h-48 rounded-3xl overflow-hidden flex-shrink-0 snap-start group cursor-pointer active:scale-[0.98] transition-transform"
+                className="relative w-full h-48 rounded-3xl overflow-hidden flex-shrink-0 snap-start group cursor-pointer active:scale-[0.98] transition-transform shadow-[0_8px_24px_rgba(0,0,0,0.06)] border border-slate-100/50"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >
                 <Image
@@ -196,6 +196,14 @@ export default function AppHome() {
                   className="object-cover group-hover:scale-105 transition duration-500"
                   unoptimized
                 />
+                {/* Bottom Dark Gradient Overlay with Text details */}
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent pt-12 pb-5 px-5.5 flex flex-col justify-end text-left">
+                  <span className="text-[9px] font-black text-rose-400 uppercase tracking-widest leading-none mb-1">Featured Event</span>
+                  <h4 className="text-base font-black text-white leading-snug line-clamp-1 drop-shadow-sm">{event.nama_tempat}</h4>
+                  {formatEventDate(event.jam_operasional) && (
+                    <p className="text-[11px] text-white/85 font-semibold mt-0.5">{formatEventDate(event.jam_operasional)}</p>
+                  )}
+                </div>
               </div>
             ))
           ) : (
@@ -231,7 +239,7 @@ export default function AppHome() {
             role="button"
             tabIndex={0}
             style={{ WebkitTapHighlightColor: 'transparent' }}
-            className="w-full aspect-square flex flex-col items-center justify-center space-y-1 rounded-2xl bg-[#C6A470]/10 hover:bg-[#C6A470]/20 active:scale-95 transition-all duration-150 cursor-pointer select-none"
+            className="w-full aspect-square flex flex-col items-center justify-center space-y-1 rounded-2xl bg-white border border-slate-100 shadow-[0_4px_10px_rgba(0,0,0,0.03)] hover:shadow-[0_6px_14px_rgba(0,0,0,0.05)] hover:border-slate-200/50 active:scale-95 transition-all duration-150 cursor-pointer select-none"
           >
             {/* User Custom SVG (Events) */}
             <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000" className="w-10 h-10">
@@ -253,7 +261,7 @@ export default function AppHome() {
             role="button"
             tabIndex={0}
             style={{ WebkitTapHighlightColor: 'transparent' }}
-            className="w-full aspect-square flex flex-col items-center justify-center space-y-1 rounded-2xl bg-[#C6A470]/10 hover:bg-[#C6A470]/20 active:scale-95 transition-all duration-150 cursor-pointer select-none"
+            className="w-full aspect-square flex flex-col items-center justify-center space-y-1 rounded-2xl bg-white border border-slate-100 shadow-[0_4px_10px_rgba(0,0,0,0.03)] hover:shadow-[0_6px_14px_rgba(0,0,0,0.05)] hover:border-slate-200/50 active:scale-95 transition-all duration-150 cursor-pointer select-none"
           >
             {/* User Custom SVG (Destinasi) */}
             <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000" className="w-10 h-10">
@@ -276,7 +284,7 @@ export default function AppHome() {
             role="button"
             tabIndex={0}
             style={{ WebkitTapHighlightColor: 'transparent' }}
-            className="w-full aspect-square flex flex-col items-center justify-center space-y-1 rounded-2xl bg-[#C6A470]/10 hover:bg-[#C6A470]/20 active:scale-95 transition-all duration-150 cursor-pointer select-none"
+            className="w-full aspect-square flex flex-col items-center justify-center space-y-1 rounded-2xl bg-white border border-slate-100 shadow-[0_4px_10px_rgba(0,0,0,0.03)] hover:shadow-[0_6px_14px_rgba(0,0,0,0.05)] hover:border-slate-200/50 active:scale-95 transition-all duration-150 cursor-pointer select-none"
           >
             {/* User Custom SVG (Kuliner) */}
             <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000" className="w-10 h-10">
@@ -299,7 +307,7 @@ export default function AppHome() {
             role="button"
             tabIndex={0}
             style={{ WebkitTapHighlightColor: 'transparent' }}
-            className="w-full aspect-square flex flex-col items-center justify-center space-y-1 rounded-2xl bg-[#C6A470]/10 hover:bg-[#C6A470]/20 active:scale-95 transition-all duration-150 cursor-pointer select-none"
+            className="w-full aspect-square flex flex-col items-center justify-center space-y-1 rounded-2xl bg-white border border-slate-100 shadow-[0_4px_10px_rgba(0,0,0,0.03)] hover:shadow-[0_6px_14px_rgba(0,0,0,0.05)] hover:border-slate-200/50 active:scale-95 transition-all duration-150 cursor-pointer select-none"
           >
             {/* User Custom SVG (Hotel) */}
             <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000" className="w-10 h-10">
@@ -315,13 +323,13 @@ export default function AppHome() {
             <span className="text-xs font-bold text-slate-800 tracking-wide">Hotel</span>
           </div>
 
-          {/* Card 5: Tiket (previously Rambu solo') */}
+          {/* Card 5: Tiket */}
           <div
             onClick={() => { }}
             role="button"
             tabIndex={0}
             style={{ WebkitTapHighlightColor: 'transparent' }}
-            className="w-full aspect-square flex flex-col items-center justify-center space-y-1 rounded-2xl bg-[#C6A470]/10 hover:bg-[#C6A470]/20 active:scale-95 transition-all duration-150 cursor-pointer select-none"
+            className="w-full aspect-square flex flex-col items-center justify-center space-y-1 rounded-2xl bg-white border border-slate-100 shadow-[0_4px_10px_rgba(0,0,0,0.03)] hover:shadow-[0_6px_14px_rgba(0,0,0,0.05)] hover:border-slate-200/50 active:scale-95 transition-all duration-150 cursor-pointer select-none"
           >
             {/* User Custom SVG (Tongkonan) */}
             <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000" className="w-10 h-10">
@@ -342,7 +350,7 @@ export default function AppHome() {
             role="button"
             tabIndex={0}
             style={{ WebkitTapHighlightColor: 'transparent' }}
-            className="w-full aspect-square flex flex-col items-center justify-center space-y-1 rounded-2xl bg-[#C6A470]/10 hover:bg-[#C6A470]/20 active:scale-95 transition-all duration-150 cursor-pointer select-none"
+            className="w-full aspect-square flex flex-col items-center justify-center space-y-1 rounded-2xl bg-white border border-slate-100 shadow-[0_4px_10px_rgba(0,0,0,0.03)] hover:shadow-[0_6px_14px_rgba(0,0,0,0.05)] hover:border-slate-200/50 active:scale-95 transition-all duration-150 cursor-pointer select-none"
           >
             {/* User Custom SVG (Oleh-oleh) */}
             <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000" className="w-10 h-10">
@@ -364,7 +372,7 @@ export default function AppHome() {
             role="button"
             tabIndex={0}
             style={{ WebkitTapHighlightColor: 'transparent' }}
-            className="w-full aspect-square flex flex-col items-center justify-center space-y-1 rounded-2xl bg-[#C6A470]/10 hover:bg-[#C6A470]/20 active:scale-95 transition-all duration-150 cursor-pointer select-none"
+            className="w-full aspect-square flex flex-col items-center justify-center space-y-1 rounded-2xl bg-white border border-slate-100 shadow-[0_4px_10px_rgba(0,0,0,0.03)] hover:shadow-[0_6px_14px_rgba(0,0,0,0.05)] hover:border-slate-200/50 active:scale-95 transition-all duration-150 cursor-pointer select-none"
           >
             {/* User Custom SVG (Pengaduan) */}
             <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000" className="w-10 h-10">
@@ -386,7 +394,7 @@ export default function AppHome() {
             role="button"
             tabIndex={0}
             style={{ WebkitTapHighlightColor: 'transparent' }}
-            className="w-full aspect-square flex flex-col items-center justify-center space-y-1 rounded-2xl bg-[#C6A470]/10 hover:bg-[#C6A470]/20 active:scale-95 transition-all duration-150 cursor-pointer select-none"
+            className="w-full aspect-square flex flex-col items-center justify-center space-y-1 rounded-2xl bg-white border border-slate-100 shadow-[0_4px_10px_rgba(0,0,0,0.03)] hover:shadow-[0_6px_14px_rgba(0,0,0,0.05)] hover:border-slate-200/50 active:scale-95 transition-all duration-150 cursor-pointer select-none"
           >
             {/* User Custom SVG (Darurat) */}
             <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000" className="w-10 h-10">
@@ -407,7 +415,7 @@ export default function AppHome() {
       {/* YOUTUBE VIDEO HOOK */}
       <section className="px-6 mt-6">
         <h3 className="text-xl font-black text-slate-800 mb-4">Pesona Tana Toraja</h3>
-        <div className="relative w-full aspect-video rounded-3xl overflow-hidden border border-slate-100 bg-slate-100">
+        <div className="relative w-full aspect-video rounded-3xl overflow-hidden border border-slate-100 bg-slate-100 shadow-[0_8px_24px_rgba(0,0,0,0.05)]">
           <iframe
             title="Pesona Tana Toraja Video"
             src="https://www.youtube.com/embed/uMYcKFbvORU"
@@ -427,7 +435,7 @@ export default function AppHome() {
           role="button"
           tabIndex={0}
           onKeyDown={(e) => e.key === 'Enter' && router.push('/chat')}
-          className="w-full rounded-3xl overflow-hidden cursor-pointer hover:scale-[1.02] active:scale-95 transition-all select-none"
+          className="w-full rounded-3xl overflow-hidden cursor-pointer hover:scale-[1.02] active:scale-95 transition-all select-none shadow-[0_8px_24px_rgba(0,0,0,0.06)] border border-slate-100/50"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
           <Image
@@ -443,7 +451,7 @@ export default function AppHome() {
 
       {/* BOTTOM NAVIGATION */}
       <nav
-        className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-slate-100 px-8 pt-3 pb-[calc(env(safe-area-inset-bottom)+8px)] flex justify-between items-center z-50 rounded-t-3xl select-none"
+        className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white/80 backdrop-blur-lg border-t border-slate-100/50 px-8 pt-3 pb-[calc(env(safe-area-inset-bottom)+8px)] flex justify-between items-center z-50 rounded-t-3xl select-none shadow-[0_-8px_30px_rgba(0,0,0,0.03)]"
       >
         {/* Rainbow Gradient Definition for AI Icon */}
         <svg width="0" height="0" className="absolute pointer-events-none">
@@ -468,7 +476,7 @@ export default function AppHome() {
         {/* 2. Jelajah */}
         <button
           onClick={() => router.push('/event')}
-          className="flex flex-col items-center justify-center p-2 text-slate-400 hover:text-slate-500 active:scale-90 transition cursor-pointer relative"
+          className="flex flex-col items-center justify-center p-2 text-slate-500 hover:text-slate-600 active:scale-90 transition cursor-pointer relative"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
           <Compass className="w-5.5 h-5.5" />
@@ -485,7 +493,7 @@ export default function AppHome() {
 
         {/* 4. Disimpan */}
         <button
-          className="flex flex-col items-center justify-center p-2 text-slate-400 hover:text-slate-500 active:scale-90 transition cursor-pointer relative"
+          className="flex flex-col items-center justify-center p-2 text-slate-500 hover:text-slate-600 active:scale-90 transition cursor-pointer relative"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
           <Heart className="w-5.5 h-5.5" />
@@ -493,7 +501,7 @@ export default function AppHome() {
 
         {/* 5. Profil */}
         <button
-          className="flex flex-col items-center justify-center p-2 text-slate-400 hover:text-slate-500 active:scale-90 transition cursor-pointer relative"
+          className="flex flex-col items-center justify-center p-2 text-slate-500 hover:text-slate-600 active:scale-90 transition cursor-pointer relative"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
           <User className="w-5.5 h-5.5" />

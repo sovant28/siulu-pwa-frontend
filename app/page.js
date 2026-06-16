@@ -169,7 +169,7 @@ export default function AppHome() {
 
         >
           {loading ? (
-            <div className="w-full h-56 rounded-3xl bg-slate-200 animate-pulse flex-shrink-0"></div>
+            <div className="w-full h-36 rounded-3xl bg-slate-200 animate-pulse flex-shrink-0"></div>
           ) : featuredEvents.length > 0 ? (
             featuredEvents.map((event) => (
               <div
@@ -178,7 +178,7 @@ export default function AppHome() {
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => e.key === 'Enter' && router.push(`/event/${event.id}`)}
-                className="relative w-full h-56 rounded-3xl overflow-hidden flex-shrink-0 snap-start group cursor-pointer active:scale-[0.98] transition-transform"
+                className="relative w-full h-36 rounded-3xl overflow-hidden flex-shrink-0 snap-start group cursor-pointer active:scale-[0.98] transition-transform"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >
                 <Image
@@ -191,7 +191,7 @@ export default function AppHome() {
               </div>
             ))
           ) : (
-            <div className="w-full h-56 rounded-3xl bg-slate-100 border border-slate-200 flex-shrink-0 flex items-center justify-center p-6 text-center w-full">
+            <div className="w-full h-36 rounded-3xl bg-slate-100 border border-slate-200 flex-shrink-0 flex items-center justify-center p-6 text-center w-full">
               <p className="text-xs text-slate-500 font-medium">Belum ada event/destinasi bergambar yang diunggah dari CMS.</p>
             </div>
           )}

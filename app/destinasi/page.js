@@ -28,9 +28,6 @@ function DestinasiListContent() {
     semua: 'Semua Destinasi',
     alam: 'Wisata Alam',
     budaya_religi: 'Budaya & Religi',
-    kuliner: 'Kuliner',
-    akomodasi: 'Akomodasi',
-    darurat: 'Darurat',
   };
 
   const categoryBadges = {
@@ -58,8 +55,8 @@ function DestinasiListContent() {
         const res = await fetch(`${apiUrl}/api/knowledge/destinasi`);
         if (!res.ok) throw new Error('Gagal mengambil data');
         const data = await res.json();
-        // Saring kategori yang diizinkan (wisata alam, budaya/religi, kuliner, akomodasi, darurat)
-        const allowedCategories = ['alam', 'budaya_religi', 'kuliner', 'akomodasi', 'darurat'];
+        // Saring kategori yang diizinkan (wisata alam, budaya/religi)
+        const allowedCategories = ['alam', 'budaya_religi'];
         const filtered = data.filter(item => allowedCategories.includes(item.kategori));
         setDestinations(filtered);
       } catch (err) {
@@ -195,11 +192,6 @@ function DestinasiListContent() {
 
                   {/* Info Details (Flat list styling) */}
                   <div className="text-left px-1">
-                    {dest.kategori && categoryBadges[dest.kategori] && (
-                      <span className="text-[10px] font-black text-slate-500 bg-slate-200/50 rounded-full px-2.5 py-0.5 inline-block mb-1.5 uppercase tracking-wider">
-                        {categoryBadges[dest.kategori]}
-                      </span>
-                    )}
                     <h3 className="text-lg font-black text-slate-900 leading-snug">
                       {dest.nama_tempat}
                     </h3>

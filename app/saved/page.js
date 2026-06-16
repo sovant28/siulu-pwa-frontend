@@ -142,11 +142,6 @@ export default function SavedPage() {
 
                   {/* Info details */}
                   <div className="text-left px-1">
-                    {dest.kategori && categoryBadges[dest.kategori] && (
-                      <span className="text-[10px] font-black text-slate-500 bg-slate-200/50 rounded-full px-2.5 py-0.5 inline-block mb-1.5 uppercase tracking-wider">
-                        {categoryBadges[dest.kategori]}
-                      </span>
-                    )}
                     <h3 className="text-lg font-black text-slate-900 leading-snug">
                       {dest.nama_tempat}
                     </h3>

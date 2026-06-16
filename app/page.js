@@ -132,7 +132,14 @@ export default function AppHome() {
       {/* HEADER BAR (Horizontal & Native-like) */}
       <header className="w-full flex items-center justify-between px-6 pt-[calc(env(safe-area-inset-top)+14px)] pb-2 relative z-10 bg-[#F6F7F9]">
         {/* Left Side: Avatar & Greeting/Name */}
-        <div className="flex items-center space-x-2.5">
+        <div 
+          onClick={() => router.push('/profile')}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => e.key === 'Enter' && router.push('/profile')}
+          className="flex items-center space-x-2.5 cursor-pointer active:scale-95 transition-transform select-none"
+          style={{ WebkitTapHighlightColor: 'transparent' }}
+        >
           <div className="relative w-9 h-9 rounded-full overflow-hidden border border-slate-200/60 bg-white flex-shrink-0">
             <Image src="/avatar_v2.png" alt="Avatar" fill className="object-cover" />
           </div>
@@ -280,7 +287,7 @@ export default function AppHome() {
 
           {/* Card 3: Kuliner */}
           <div
-            onClick={() => { }}
+            onClick={() => router.push('/destinasi?filter=kuliner')}
             role="button"
             tabIndex={0}
             style={{ WebkitTapHighlightColor: 'transparent' }}
@@ -303,7 +310,7 @@ export default function AppHome() {
 
           {/* Card 4: Hotel */}
           <div
-            onClick={() => { }}
+            onClick={() => router.push('/destinasi?filter=akomodasi')}
             role="button"
             tabIndex={0}
             style={{ WebkitTapHighlightColor: 'transparent' }}
@@ -325,7 +332,7 @@ export default function AppHome() {
 
           {/* Card 5: Tiket */}
           <div
-            onClick={() => { }}
+            onClick={() => router.push('/destinasi')}
             role="button"
             tabIndex={0}
             style={{ WebkitTapHighlightColor: 'transparent' }}
@@ -346,7 +353,7 @@ export default function AppHome() {
 
           {/* Card 6: Oleh-oleh */}
           <div
-            onClick={() => { }}
+            onClick={() => router.push('/destinasi?filter=kuliner')}
             role="button"
             tabIndex={0}
             style={{ WebkitTapHighlightColor: 'transparent' }}
@@ -366,9 +373,9 @@ export default function AppHome() {
             <span className="text-xs font-bold text-slate-800 tracking-wide">Oleh-oleh</span>
           </div>
 
-          {/* Card 7: Transport */}
+          {/* Card 7: Transport (labelled Pengaduan) */}
           <div
-            onClick={() => { }}
+            onClick={() => router.push('/chat')}
             role="button"
             tabIndex={0}
             style={{ WebkitTapHighlightColor: 'transparent' }}
@@ -390,7 +397,7 @@ export default function AppHome() {
 
           {/* Card 8: Darurat */}
           <div
-            onClick={() => { }}
+            onClick={() => router.push('/destinasi?filter=darurat')}
             role="button"
             tabIndex={0}
             style={{ WebkitTapHighlightColor: 'transparent' }}
@@ -493,6 +500,7 @@ export default function AppHome() {
 
         {/* 4. Disimpan */}
         <button
+          onClick={() => router.push('/saved')}
           className="flex flex-col items-center justify-center p-2 text-slate-500 hover:text-slate-600 active:scale-90 transition cursor-pointer relative"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
@@ -501,6 +509,7 @@ export default function AppHome() {
 
         {/* 5. Profil */}
         <button
+          onClick={() => router.push('/profile')}
           className="flex flex-col items-center justify-center p-2 text-slate-500 hover:text-slate-600 active:scale-90 transition cursor-pointer relative"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >

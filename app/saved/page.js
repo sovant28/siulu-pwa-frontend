@@ -1,37 +1,22 @@
 "use client";
 
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import {
   ArrowLeft,
-  Search,
-  MapPin,
+  Heart,
   Home,
   Compass,
   MessageSquare,
-  Heart,
   User,
 } from 'lucide-react';
 
-function DestinasiListContent() {
+export default function SavedPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const filterParam = searchParams.get('filter');
-  
-  const [destinations, setDestinations] = useState([]);
+  const [savedItems, setSavedItems] = useState([]);
+  const [savedIds, setSavedIds] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [activeFilter, setActiveFilter] = useState('semua');
-
-  const filterLabels = {
-    semua: 'Semua Destinasi',
-    alam: 'Wisata Alam',
-    budaya_religi: 'Budaya & Religi',
-    kuliner: 'Kuliner',
-    akomodasi: 'Akomodasi',
-    darurat: 'Darurat',
-  };
 
   const categoryBadges = {
     event: '📅 Event',
@@ -43,55 +28,51 @@ function DestinasiListContent() {
     darurat: '🚨 Darurat',
   };
 
-  // Sync active filter from URL query param
   useEffect(() => {
-    if (filterParam && filterLabels[filterParam]) {
-      setActiveFilter(filterParam);
-    }
-  }, [filterParam]);
-
-  // Fetch destinations from API
-  useEffect(() => {
-    const fetchDestinations = async () => {
+    const fetchSavedItems = async () => {
       try {
+        const stored = localStorage.getItem('saved_events');
+        const ids = stored ? JSON.parse(stored) : [];
+        setSavedIds(ids);
+
+        if (ids.length === 0) {
+          setSavedItems([]);
+          setLoading(false);
+          return;
+        }
+
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || '';
         const res = await fetch(`${apiUrl}/api/knowledge/destinasi`);
-        if (!res.ok) throw new Error('Gagal mengambil data');
+        if (!res.ok) throw new Error('Gagal memuat data');
         const data = await res.json();
-        // Saring kategori yang diizinkan (wisata alam, budaya/religi, kuliner, akomodasi, darurat)
-        const allowedCategories = ['alam', 'budaya_religi', 'kuliner', 'akomodasi', 'darurat'];
-        const filtered = data.filter(item => allowedCategories.includes(item.kategori));
-        setDestinations(filtered);
+        
+        // Filter destinations whose ID is in savedIds
+        const filtered = data.filter(item => ids.includes(item.id));
+        setSavedItems(filtered);
       } catch (err) {
-        console.error('Failed to fetch destinations:', err);
+        console.error('Failed to load saved items:', err);
       } finally {
         setLoading(false);
       }
     };
-    fetchDestinations();
-  }, [filterParam]);
 
-  // Filter logic
-  const filteredDestinations = destinations.filter(item => {
-    // 1. Search filter
-    const matchesSearch = 
-      item.nama_tempat.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (item.lokasi_wilayah && item.lokasi_wilayah.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      (item.deskripsi_lengkap && item.deskripsi_lengkap.toLowerCase().includes(searchQuery.toLowerCase()));
-    
-    if (!matchesSearch) return false;
+    fetchSavedItems();
+  }, []);
 
-    // 2. Category Filter
-    if (activeFilter === 'semua') return true;
-    return item.kategori === activeFilter;
-  });
+  const handleRemoveSaved = (e, destId) => {
+    e.stopPropagation(); // Prevent navigating to detail page
+    const updatedIds = savedIds.filter(id => id !== destId);
+    setSavedIds(updatedIds);
+    localStorage.setItem('saved_events', JSON.stringify(updatedIds));
+    setSavedItems(prev => prev.filter(item => item.id !== destId));
+  };
 
   return (
     <div className="flex flex-col w-full min-h-[100dvh] bg-[#F6F7F9] font-sans pb-[calc(env(safe-area-inset-bottom)+76px)] relative overflow-x-hidden">
       
       {/* ── STICKY HEADER ── */}
       <header className="sticky top-0 z-40 bg-white/95 px-6 pt-[calc(env(safe-area-inset-top)+10px)] pb-3 flex flex-col space-y-4 backdrop-blur-md border-b border-slate-100/30">
-        {/* Row 1: Logo (centered) */}
+        {/* Row 1: Logo */}
         <div className="text-center w-full">
           <span className="text-3xl font-black text-[#BE1641] tracking-tight select-none">siulu</span>
         </div>
@@ -106,83 +87,40 @@ function DestinasiListContent() {
             <ArrowLeft className="w-4.5 h-4.5 text-slate-800" />
           </button>
           <span className="text-lg font-black text-slate-800 text-center select-none whitespace-nowrap">
-            Destinasi Wisata
+            Item Disimpan
           </span>
           <div className="w-9 h-9 justify-self-end" />
         </div>
       </header>
 
-      {/* ── SEARCH ROW ── */}
-      <div className="px-6 mt-5">
-        <div className="relative w-full flex items-center bg-slate-100 rounded-full px-4.5 py-3">
-          <Search className="w-4 h-4 text-slate-500 mr-2 flex-shrink-0" />
-          <input
-            type="text"
-            placeholder="Cari destinasi..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full text-base font-semibold text-slate-800 bg-transparent border-none outline-none placeholder-slate-400"
-          />
-        </div>
-      </div>
-
-      {/* ── FILTER PILLS (HORIZONTAL SCROLL) ── */}
-      <div className="px-6 mt-4 flex items-center space-x-2 overflow-x-auto no-scrollbar scroll-smooth">
-        {Object.entries(filterLabels).map(([key, label]) => {
-          const isActive = activeFilter === key;
-          return (
-            <button
-              key={key}
-              onClick={() => setActiveFilter(key)}
-              className={`px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap transition-all border ${
-                isActive
-                  ? 'bg-[#BE1641] text-white border-[#BE1641]'
-                  : 'bg-white text-slate-700 border-slate-200 active:bg-slate-50'
-              }`}
-              style={{ WebkitTapHighlightColor: 'transparent' }}
-            >
-              {label}
-            </button>
-          );
-        })}
-      </div>
-
-      {/* ── RESULTS TITLE ── */}
-      <div className="px-6 mt-6">
-        <h2 className="text-lg font-black text-slate-800 tracking-wider">
-          {searchQuery ? 'Hasil Pencarian' : filterLabels[activeFilter]}
-        </h2>
-      </div>
-
-      {/* ── DESTINATIONS GRID (1-COLUMN, RASIO 16:10, BORDERLESS CARD) ── */}
-      <div className="px-6 mt-4">
+      {/* ── CONTENT AREA ── */}
+      <div className="px-6 mt-6 flex-grow">
         {loading ? (
-          // Loading Skeleton state
+          // Loading Skeleton
           <div className="grid grid-cols-1 gap-8">
-            {[1, 2, 3].map((i) => (
+            {[1, 2].map((i) => (
               <div key={i} className="flex flex-col animate-pulse space-y-3">
                 <div className="w-full aspect-[16/10] bg-slate-150 rounded-3xl" />
                 <div className="space-y-2 px-1">
                   <div className="h-5 w-2/3 bg-slate-150 rounded-md" />
                   <div className="h-3.5 w-full bg-slate-150 rounded-md mt-1" />
-                  <div className="h-3.5 w-4/5 bg-slate-150 rounded-md" />
                 </div>
               </div>
             ))}
           </div>
-        ) : filteredDestinations.length > 0 ? (
+        ) : savedItems.length > 0 ? (
           <div className="grid grid-cols-1 gap-8">
-            {filteredDestinations.map((dest) => {
+            {savedItems.map((dest) => {
               const imageUrl = dest.informasi_biaya?.image_url;
 
               return (
                 <div
                   key={dest.id}
                   onClick={() => router.push(`/event/${dest.id}`)}
-                  className="flex flex-col active:scale-[0.98] transition-all cursor-pointer space-y-3"
+                  className="flex flex-col active:scale-[0.98] transition-all cursor-pointer space-y-3 relative group"
                   style={{ WebkitTapHighlightColor: 'transparent' }}
                 >
-                  {/* Foto dengan Aspect Ratio 16:10, rounded-3xl di semua sisi */}
+                  {/* Image with 16:10 aspect ratio and rounded borders */}
                   <div className="relative w-full aspect-[16/10] bg-slate-50 rounded-3xl overflow-hidden border border-slate-100/50 shadow-sm">
                     <Image
                       src={imageUrl || "/dummy_destination.png"}
@@ -191,9 +129,18 @@ function DestinasiListContent() {
                       className="object-cover"
                       unoptimized
                     />
+                    
+                    {/* Floating Heart toggle button to remove */}
+                    <button
+                      onClick={(e) => handleRemoveSaved(e, dest.id)}
+                      className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-[#BE1641] active:scale-90 transition-transform shadow-md hover:bg-white"
+                      style={{ WebkitTapHighlightColor: 'transparent' }}
+                    >
+                      <Heart className="w-4.5 h-4.5 fill-current" />
+                    </button>
                   </div>
 
-                  {/* Info Details (Flat list styling) */}
+                  {/* Info details */}
                   <div className="text-left px-1">
                     {dest.kategori && categoryBadges[dest.kategori] && (
                       <span className="text-[10px] font-black text-slate-500 bg-slate-200/50 rounded-full px-2.5 py-0.5 inline-block mb-1.5 uppercase tracking-wider">
@@ -204,7 +151,7 @@ function DestinasiListContent() {
                       {dest.nama_tempat}
                     </h3>
                     {dest.deskripsi_lengkap && (
-                      <p className="text-sm text-slate-700 mt-1.5 line-clamp-3 leading-relaxed">
+                      <p className="text-sm text-slate-700 mt-1.5 line-clamp-2 leading-relaxed">
                         {dest.deskripsi_lengkap}
                       </p>
                     )}
@@ -214,9 +161,22 @@ function DestinasiListContent() {
             })}
           </div>
         ) : (
-          <div className="text-center py-12 px-6 bg-white rounded-3xl border border-slate-200/80 mt-2 shadow-[0_4px_12px_rgba(0,0,0,0.02)]">
-            <span className="text-4xl block mb-2">🔍</span>
-            <p className="text-sm text-slate-700 font-black">Tidak ada tempat wisata yang cocok.</p>
+          // Beautiful Empty State Card
+          <div className="flex flex-col items-center justify-center py-16 px-6 bg-white rounded-3xl border border-slate-100/80 shadow-[0_8px_30px_rgba(0,0,0,0.02)] text-center mt-2">
+            <div className="w-16 h-16 rounded-full bg-rose-50 flex items-center justify-center text-[#BE1641] mb-5">
+              <Heart className="w-7 h-7" />
+            </div>
+            <h3 className="text-lg font-black text-slate-800">Belum ada item disimpan</h3>
+            <p className="text-sm text-slate-600 mt-2 max-w-xs leading-relaxed font-semibold">
+              Jelajahi keindahan pariwisata Toraja dan ketuk ikon hati untuk menyimpan destinasi favorit Anda.
+            </p>
+            <button
+              onClick={() => router.push('/destinasi')}
+              className="mt-6 px-6 py-3 bg-[#BE1641] text-white font-bold rounded-full text-sm shadow-sm active:scale-95 transition-transform hover:bg-[#a31337]"
+              style={{ WebkitTapHighlightColor: 'transparent' }}
+            >
+              Cari Destinasi
+            </button>
           </div>
         )}
       </div>
@@ -244,7 +204,7 @@ function DestinasiListContent() {
           <Home className="w-5.5 h-5.5" />
         </button>
 
-        {/* 2. Jelajah (Destination uses Compass as well or keeps it active) */}
+        {/* 2. Jelajah */}
         <button
           onClick={() => router.push('/event')}
           className="flex flex-col items-center justify-center p-2 text-slate-500 hover:text-slate-600 active:scale-90 transition cursor-pointer relative"
@@ -262,13 +222,14 @@ function DestinasiListContent() {
           <MessageSquare className="w-5.5 h-5.5" stroke="url(#rainbow-gradient)" />
         </button>
 
-        {/* 4. Disimpan */}
+        {/* 4. Disimpan (Active) */}
         <button
           onClick={() => router.push('/saved')}
-          className="flex flex-col items-center justify-center p-2 text-slate-500 hover:text-slate-600 active:scale-90 transition cursor-pointer relative"
+          className="flex flex-col items-center justify-center p-2 text-[#BE1641] active:scale-90 transition cursor-pointer relative"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
-          <Heart className="w-5.5 h-5.5" />
+          <Heart className="w-5.5 h-5.5" fill="currentColor" />
+          <span className="absolute bottom-0 w-1 h-1 rounded-full bg-[#BE1641]" />
         </button>
 
         {/* 5. Profil */}
@@ -281,13 +242,5 @@ function DestinasiListContent() {
         </button>
       </nav>
     </div>
-  );
-}
-
-export default function DestinasiListPage() {
-  return (
-    <Suspense fallback={<div className="flex w-full min-h-[100dvh] items-center justify-center bg-[#F6F7F9]"><div className="animate-pulse text-sm text-slate-500 font-black">Loading...</div></div>}>
-      <DestinasiListContent />
-    </Suspense>
   );
 }

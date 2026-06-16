@@ -130,7 +130,7 @@ export default function AppHome() {
     <div className="flex flex-col w-full min-h-[100dvh] bg-[#F6F7F9] font-sans pb-[calc(env(safe-area-inset-bottom)+68px)] relative overflow-x-hidden">
 
       {/* HEADER BAR (Horizontal & Native-like) */}
-      <header className="w-full flex items-center justify-between px-6 pt-[calc(env(safe-area-inset-top)+14px)] pb-3 relative z-10 bg-[#F6F7F9]">
+      <header className="w-full flex items-center justify-between px-6 pt-[calc(env(safe-area-inset-top)+14px)] pb-2 relative z-10 bg-[#F6F7F9]">
         {/* Left Side: Avatar & Greeting/Name */}
         <div className="flex items-center space-x-2.5">
           <div className="relative w-9 h-9 rounded-full overflow-hidden border border-white shadow-sm bg-white flex-shrink-0">
@@ -144,11 +144,6 @@ export default function AppHome() {
           </div>
         </div>
 
-        {/* Center: App Logo */}
-        <div className="text-center select-none">
-          <span className="text-2xl font-black text-[#BE1641] tracking-tight">siulu</span>
-        </div>
-
         {/* Right Side: Location Badge */}
         <div className="flex items-center space-x-2">
           <div className="flex items-center space-x-1 bg-white border border-slate-100 rounded-full px-2.5 py-1 text-[10px] font-black text-slate-600 shadow-sm">
@@ -158,10 +153,23 @@ export default function AppHome() {
         </div>
       </header>
 
-
+      {/* PROMINENT SEARCH BAR (Native-like) */}
+      <div className="px-6 mt-1">
+        <div 
+          onClick={() => router.push('/destinasi')}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => e.key === 'Enter' && router.push('/destinasi')}
+          className="w-full flex items-center bg-white border border-slate-100 rounded-2xl px-4.5 py-3 shadow-sm hover:border-slate-200 active:scale-[0.99] transition cursor-pointer select-none"
+          style={{ WebkitTapHighlightColor: 'transparent' }}
+        >
+          <Search className="w-4 h-4 text-slate-400 mr-2.5 flex-shrink-0" />
+          <span className="text-sm font-semibold text-slate-400">Cari destinasi pariwisata Toraja...</span>
+        </div>
+      </div>
 
       {/* FEATURED CAROUSEL */}
-      <section className="mt-6 px-6">
+      <section className="mt-4 px-6">
         <div
           ref={carouselRef}
           onScroll={handleScroll}

@@ -1,13 +1,13 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Siulu App",
-  description: "Explore Tana Toraja with AI",
+  title: "Siulu - Panduan Wisata Tana Toraja & Pemandu AI",
+  description: "Temukan destinasi wisata alam, budaya, kuliner, dan event ritual adat Rambu Solo' di Tana Toraja bersama Mebali AI, asisten pemandu digital pribadi Anda.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "Siulu App",
+    title: "Siulu Toraja",
   },
 };
 

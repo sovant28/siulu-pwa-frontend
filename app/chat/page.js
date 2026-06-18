@@ -174,7 +174,9 @@ export default function ChatAI() {
           if (msg.role !== 'user' && parsed.chips) lastChips = parsed.chips;
           return {
             role: msg.role === 'user' ? 'user' : 'bot',
-            content: parsed.cleanText
+            content: parsed.cleanText,
+            feedback: msg.feedback_type || null,
+            feedbackSubmitted: !!msg.feedback_type
           };
         }).filter(msg => !(msg.role === 'bot' && msg.content.includes('Kurresumanga')));
         
@@ -296,51 +298,59 @@ export default function ChatAI() {
     }
   }, [isInitializing, activeBot]);
 
+  const saveFeedbackToDB = async (aiResponse, feedbackType, note) => {
+    if (!sessionId) {
+      console.warn("Sesi obrolan belum terbentuk untuk feedback!");
+      return;
+    }
+    try {
+      const res = await fetch(`${API_URL}/bots/chat-logs/feedback`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          session_id: sessionId,
+          ai_response: aiResponse,
+          feedback_type: feedbackType,
+          feedback_note: note
+        })
+      });
+      if (!res.ok) {
+        console.error("Gagal menyimpan feedback di database");
+      }
+    } catch (err) {
+      console.error("Gagal memanggil API feedback:", err);
+    }
+  };
+
   const handleFeedback = (idx, type) => {
+    const msg = messages[idx];
+    const newFeedback = msg.feedback === type ? null : type;
+    
+    // Update local state
     setMessages(prev => {
       const newMsgs = [...prev];
-      newMsgs[idx] = { ...newMsgs[idx] };
-      
-      if (newMsgs[idx].feedback === type) {
-        newMsgs[idx].feedback = null;
-        setActiveFeedbackIdx(null);
-      } else {
-        newMsgs[idx].feedback = type;
-        if (!newMsgs[idx].feedbackSubmitted) {
-          setActiveFeedbackIdx(idx);
-          setFeedbackText("");
-        }
-      }
+      newMsgs[idx] = { ...newMsgs[idx], feedback: newFeedback };
       return newMsgs;
     });
+    
+    // Kirim feedback ke database secara instan
+    saveFeedbackToDB(msg.content, newFeedback, msg.feedbackText || null);
+    
+    if (newFeedback && !msg.feedbackSubmitted) {
+      setActiveFeedbackIdx(idx);
+      setFeedbackText("");
+    } else {
+      setActiveFeedbackIdx(null);
+    }
   };
 
   const submitFeedback = async (idx) => {
     const msg = messages[idx];
-    if (!sessionId) {
-      console.error("Sesi obrolan belum terbentuk!");
-    } else {
-      try {
-        const res = await fetch(`${API_URL}/bots/chat-logs/feedback`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            session_id: sessionId,
-            ai_response: msg.content,
-            feedback_type: msg.feedback,
-            feedback_note: feedbackText || null
-          })
-        });
-
-        if (!res.ok) {
-          console.error("Gagal mengirim feedback");
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    }
+    
+    // Kirim feedback beserta catatan teks ke database
+    await saveFeedbackToDB(msg.content, msg.feedback, feedbackText || null);
 
     setMessages(prev => {
       const newMsgs = [...prev];

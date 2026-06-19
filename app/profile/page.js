@@ -219,7 +219,7 @@ export default function ProfilePage() {
 
       {/* BOTTOM NAVIGATION */}
       <nav
-        className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white/80 backdrop-blur-lg border-t border-slate-100/50 px-8 pt-3 pb-[calc(env(safe-area-inset-bottom)+8px)] flex justify-between items-center z-50 rounded-t-3xl select-none shadow-[0_-8px_30px_rgba(0,0,0,0.03)]"
+        className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white/80 backdrop-blur-lg border-t border-slate-100/50 px-6 pt-2 pb-[calc(env(safe-area-inset-bottom)+6px)] flex justify-between items-center z-50 rounded-t-3xl select-none shadow-[0_-8px_30px_rgba(0,0,0,0.03)]"
       >
         {/* Rainbow Gradient Definition for AI Icon */}
         <svg width="0" height="0" className="absolute pointer-events-none">
@@ -234,47 +234,51 @@ export default function ProfilePage() {
         {/* 1. Beranda */}
         <button
           onClick={() => router.push('/')}
-          className="flex flex-col items-center justify-center p-2 text-slate-500 hover:text-slate-600 active:scale-90 transition cursor-pointer relative"
+          className="flex flex-col items-center justify-center w-16 py-1 text-slate-400 hover:text-slate-500 active:scale-90 transition cursor-pointer"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
-          <Home className="w-5.5 h-5.5" />
+          <Home className="w-5 h-5" />
+          <span className="text-[10px] font-bold mt-1 leading-none">Beranda</span>
         </button>
 
         {/* 2. Jelajah */}
         <button
           onClick={() => router.push('/event')}
-          className="flex flex-col items-center justify-center p-2 text-slate-500 hover:text-slate-600 active:scale-90 transition cursor-pointer relative"
+          className="flex flex-col items-center justify-center w-16 py-1 text-slate-400 hover:text-slate-500 active:scale-90 transition cursor-pointer"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
-          <Compass className="w-5.5 h-5.5" />
+          <Compass className="w-5 h-5" />
+          <span className="text-[10px] font-bold mt-1 leading-none">Jelajah</span>
         </button>
 
         {/* 3. Tanya AI */}
         <button
           onClick={() => router.push('/chat')}
-          className="flex flex-col items-center justify-center p-2 active:scale-90 transition cursor-pointer relative"
+          className="flex flex-col items-center justify-center w-16 py-1 active:scale-90 transition cursor-pointer"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
-          <MessageSquare className="w-5.5 h-5.5" stroke="url(#rainbow-gradient)" />
+          <MessageSquare className="w-5 h-5" stroke="url(#rainbow-gradient)" />
+          <span className="text-[10px] font-bold mt-1 leading-none text-slate-400">Tanya AI</span>
         </button>
 
         {/* 4. Disimpan */}
         <button
           onClick={() => router.push('/saved')}
-          className="flex flex-col items-center justify-center p-2 text-slate-500 hover:text-slate-600 active:scale-90 transition cursor-pointer relative"
+          className="flex flex-col items-center justify-center w-16 py-1 text-slate-400 hover:text-slate-500 active:scale-90 transition cursor-pointer"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
-          <Heart className="w-5.5 h-5.5" />
+          <Heart className="w-5 h-5" />
+          <span className="text-[10px] font-bold mt-1 leading-none">Tersimpan</span>
         </button>
 
         {/* 5. Profil (Active) */}
         <button
           onClick={() => router.push('/profile')}
-          className="flex flex-col items-center justify-center p-2 text-[#7C3AED] active:scale-90 transition cursor-pointer relative"
+          className="flex flex-col items-center justify-center w-16 py-1 text-[#4C1D95] active:scale-90 transition cursor-pointer"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
-          <User className="w-5.5 h-5.5" fill="currentColor" />
-          <span className="absolute bottom-0 w-1 h-1 rounded-full bg-[#7C3AED]" />
+          <User className="w-5 h-5" fill="currentColor" />
+          <span className="text-[10px] font-black mt-1 leading-none">Akun</span>
         </button>
       </nav>
     </div>

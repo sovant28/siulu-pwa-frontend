@@ -51,15 +51,15 @@ export default function AppHome() {
   const renderWeatherIcon = (type) => {
     switch (type) {
       case 'fog':
-        return <CloudFog className="w-3.5 h-3.5 text-slate-400" />;
+        return <CloudFog className="w-3.5 h-3.5 text-purple-200" />;
       case 'cloud-sun':
-        return <CloudSun className="w-3.5 h-3.5 text-amber-500" />;
+        return <CloudSun className="w-3.5 h-3.5 text-amber-300" />;
       case 'cloud':
-        return <Cloud className="w-3.5 h-3.5 text-slate-400" />;
+        return <Cloud className="w-3.5 h-3.5 text-purple-200" />;
       case 'moon':
-        return <CloudMoon className="w-3.5 h-3.5 text-indigo-400" />;
+        return <CloudMoon className="w-3.5 h-3.5 text-purple-300" />;
       default:
-        return <CloudSun className="w-3.5 h-3.5 text-amber-500" />;
+        return <CloudSun className="w-3.5 h-3.5 text-amber-300" />;
     }
   };
 
@@ -160,47 +160,50 @@ export default function AppHome() {
   return (
     <div className="flex flex-col w-full min-h-[100dvh] bg-[#F6F7F9] font-sans pb-[calc(env(safe-area-inset-bottom)+68px)] relative overflow-x-hidden">
 
-      {/* HEADER BAR (Horizontal & Native-like) */}
-      <header className="w-full flex items-center justify-between px-6 pt-[calc(env(safe-area-inset-top)+14px)] pb-2 relative z-10 bg-[#F6F7F9]">
-        {/* Left Side: Avatar & Greeting/Name */}
-        <div className="flex items-center space-x-2.5">
-          <div className="relative w-9 h-9 rounded-full overflow-hidden border border-slate-200/60 bg-white flex-shrink-0">
-            <Image src="/avatar_v2.png" alt="Avatar" fill className="object-cover" />
+      {/* HERO DARK PURPLE BLOCK */}
+      <div className="w-full bg-[#4C1D95] rounded-b-[32px] pb-28 pt-[calc(env(safe-area-inset-top)+14px)] px-6 relative z-10">
+        {/* HEADER BAR (Horizontal & Native-like) */}
+        <header className="w-full flex items-center justify-between py-2 relative z-10">
+          {/* Left Side: Avatar & Greeting/Name */}
+          <div className="flex items-center space-x-2.5">
+            <div className="relative w-9 h-9 rounded-full overflow-hidden border border-white/20 bg-white/10 flex-shrink-0">
+              <Image src="/avatar_v2.png" alt="Avatar" fill className="object-cover" />
+            </div>
+            <div className="flex flex-col text-left">
+              <span className="text-[10px] font-bold text-purple-200 uppercase tracking-wider leading-none">{greeting}</span>
+              <span className="text-sm font-black text-white mt-0.5 leading-none">
+                {username || "Guest"}
+              </span>
+            </div>
           </div>
-          <div className="flex flex-col text-left">
-            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider leading-none">{greeting}</span>
-            <span className="text-sm font-black text-slate-700 mt-0.5 leading-none">
-              {username || "Guest"}
-            </span>
-          </div>
-        </div>
 
-        {/* Right Side: Weather Widget */}
-        <div className="flex items-center space-x-2">
-          <div className="flex items-center space-x-1.5 bg-white border border-slate-100/70 rounded-full px-2.5 py-1 text-[10px] font-black text-slate-600 shadow-sm shadow-slate-200/50 select-none">
-            {renderWeatherIcon(weather.type)}
-            <span>{weather.temp} • {weather.text}</span>
+          {/* Right Side: Weather Widget */}
+          <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-1.5 bg-white/10 border border-white/10 rounded-full px-2.5 py-1 text-[10px] font-black text-white select-none">
+              {renderWeatherIcon(weather.type)}
+              <span>{weather.temp} • {weather.text}</span>
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      {/* PROMINENT SEARCH BAR (Native-like) */}
-      <div className="px-6 mt-1">
-        <div 
-          onClick={() => router.push('/destinasi')}
-          role="button"
-          tabIndex={0}
-          onKeyDown={(e) => e.key === 'Enter' && router.push('/destinasi')}
-          className="w-full flex items-center bg-white border border-slate-100 rounded-2xl px-4.5 py-3 shadow-[0_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_6px_16px_rgba(0,0,0,0.05)] active:scale-[0.99] transition cursor-pointer select-none"
-          style={{ WebkitTapHighlightColor: 'transparent' }}
-        >
-          <Search className="w-4 h-4 text-slate-500 mr-2.5 flex-shrink-0" />
-          <span className="text-sm font-semibold text-slate-500">Cari destinasi pariwisata Toraja...</span>
+        {/* PROMINENT SEARCH BAR (Native-like) */}
+        <div className="mt-3">
+          <div 
+            onClick={() => router.push('/destinasi')}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => e.key === 'Enter' && router.push('/destinasi')}
+            className="w-full flex items-center bg-white border border-slate-100 rounded-2xl px-4.5 py-3 active:scale-[0.99] transition cursor-pointer select-none"
+            style={{ WebkitTapHighlightColor: 'transparent' }}
+          >
+            <Search className="w-4 h-4 text-slate-500 mr-2.5 flex-shrink-0" />
+            <span className="text-sm font-semibold text-slate-500">Cari destinasi pariwisata Toraja...</span>
+          </div>
         </div>
       </div>
 
       {/* FEATURED CAROUSEL */}
-      <section className="mt-4 px-6">
+      <section className="-mt-24 px-6 relative z-20">
         <div
           ref={carouselRef}
           onScroll={handleScroll}
@@ -217,7 +220,7 @@ export default function AppHome() {
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => e.key === 'Enter' && router.push(`/event/${event.id}`)}
-                className="relative w-full h-48 rounded-3xl overflow-hidden flex-shrink-0 snap-start group cursor-pointer active:scale-[0.98] transition-transform shadow-[0_8px_24px_rgba(0,0,0,0.06)] border border-slate-100/50"
+                className="relative w-full h-48 rounded-3xl overflow-hidden flex-shrink-0 snap-start group cursor-pointer active:scale-[0.98] transition-transform border border-slate-200/50"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >
                 <Image
@@ -268,7 +271,7 @@ export default function AppHome() {
           <div className="flex flex-col items-center space-y-1.5">
             <button
               onClick={() => router.push('/event')}
-              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#DCD2FF] border border-[#DCD2FF] shadow-[0_4px_10px_rgba(220,210,255,0.25)] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
+              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#DCD2FF] border border-[#DCD2FF] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <Image src="/icon_event.png" alt="Event" width={56} height={56} className="w-full h-full object-contain" />
@@ -280,7 +283,7 @@ export default function AppHome() {
           <div className="flex flex-col items-center space-y-1.5">
             <button
               onClick={() => router.push('/destinasi')}
-              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#D4EFFF] border border-[#D4EFFF] shadow-[0_4px_10px_rgba(212,239,255,0.25)] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
+              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#D4EFFF] border border-[#D4EFFF] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <Image src="/icon_destinasi.png" alt="Destinasi" width={56} height={56} className="w-full h-full object-contain" />
@@ -292,7 +295,7 @@ export default function AppHome() {
           <div className="flex flex-col items-center space-y-1.5">
             <button
               onClick={() => { }}
-              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#DCD2FF] border border-[#DCD2FF] shadow-[0_4px_10px_rgba(220,210,255,0.25)] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
+              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#DCD2FF] border border-[#DCD2FF] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <Image src="/icon_kuliner.png" alt="Kuliner" width={56} height={56} className="w-full h-full object-contain" />
@@ -304,7 +307,7 @@ export default function AppHome() {
           <div className="flex flex-col items-center space-y-1.5">
             <button
               onClick={() => { }}
-              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#D4EFFF] border border-[#D4EFFF] shadow-[0_4px_10px_rgba(212,239,255,0.25)] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
+              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#D4EFFF] border border-[#D4EFFF] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <Image src="/icon_hotel.png" alt="Hotel" width={56} height={56} className="w-full h-full object-contain" />
@@ -315,10 +318,10 @@ export default function AppHome() {
           {/* Card 5: Tiket */}
           <div className="flex flex-col items-center space-y-1.5">
             <div className="relative w-14 h-14 opacity-60 saturate-75">
-              <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[6.5px] font-black px-1.5 py-0.5 rounded-full border border-white shadow-sm z-10 leading-none uppercase tracking-wider select-none pointer-events-none scale-90">Soon</span>
+              <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[6.5px] font-black px-1.5 py-0.5 rounded-full border border-white z-10 leading-none uppercase tracking-wider select-none pointer-events-none scale-90">Soon</span>
               <button
                 onClick={() => { }}
-                className="w-full h-full flex items-center justify-center rounded-2xl bg-[#D4EFFF] border border-[#D4EFFF] shadow-[0_4px_10px_rgba(212,239,255,0.15)] cursor-default select-none outline-none overflow-hidden"
+                className="w-full h-full flex items-center justify-center rounded-2xl bg-[#D4EFFF] border border-[#D4EFFF] cursor-default select-none outline-none overflow-hidden"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >
                 <Image src="/icon_tiket.png" alt="Tiket" width={56} height={56} className="w-full h-full object-contain" />
@@ -330,10 +333,10 @@ export default function AppHome() {
           {/* Card 6: Oleh-oleh */}
           <div className="flex flex-col items-center space-y-1.5">
             <div className="relative w-14 h-14 opacity-60 saturate-75">
-              <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[6.5px] font-black px-1.5 py-0.5 rounded-full border border-white shadow-sm z-10 leading-none uppercase tracking-wider select-none pointer-events-none scale-90">Soon</span>
+              <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[6.5px] font-black px-1.5 py-0.5 rounded-full border border-white z-10 leading-none uppercase tracking-wider select-none pointer-events-none scale-90">Soon</span>
               <button
                 onClick={() => { }}
-                className="w-full h-full flex items-center justify-center rounded-2xl bg-[#DCD2FF] border border-[#DCD2FF] shadow-[0_4px_10px_rgba(220,210,255,0.15)] cursor-default select-none outline-none overflow-hidden"
+                className="w-full h-full flex items-center justify-center rounded-2xl bg-[#DCD2FF] border border-[#DCD2FF] cursor-default select-none outline-none overflow-hidden"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >
                 <Image src="/icon_oleh_oleh.png" alt="Oleh-oleh" width={56} height={56} className="w-full h-full object-contain" />
@@ -345,10 +348,10 @@ export default function AppHome() {
           {/* Card 7: Pengaduan */}
           <div className="flex flex-col items-center space-y-1.5">
             <div className="relative w-14 h-14 opacity-60 saturate-75">
-              <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[6.5px] font-black px-1.5 py-0.5 rounded-full border border-white shadow-sm z-10 leading-none uppercase tracking-wider select-none pointer-events-none scale-90">Soon</span>
+              <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[6.5px] font-black px-1.5 py-0.5 rounded-full border border-white z-10 leading-none uppercase tracking-wider select-none pointer-events-none scale-90">Soon</span>
               <button
                 onClick={() => { }}
-                className="w-full h-full flex items-center justify-center rounded-2xl bg-[#D4EFFF] border border-[#D4EFFF] shadow-[0_4px_10px_rgba(212,239,255,0.15)] cursor-default select-none outline-none overflow-hidden"
+                className="w-full h-full flex items-center justify-center rounded-2xl bg-[#D4EFFF] border border-[#D4EFFF] cursor-default select-none outline-none overflow-hidden"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >
                 <Image src="/icon_pengaduan.png" alt="Pengaduan" width={56} height={56} className="w-full h-full object-contain" />
@@ -360,10 +363,10 @@ export default function AppHome() {
           {/* Card 8: Bantuan */}
           <div className="flex flex-col items-center space-y-1.5">
             <div className="relative w-14 h-14 opacity-60 saturate-75">
-              <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[6.5px] font-black px-1.5 py-0.5 rounded-full border border-white shadow-sm z-10 leading-none uppercase tracking-wider select-none pointer-events-none scale-90">Soon</span>
+              <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[6.5px] font-black px-1.5 py-0.5 rounded-full border border-white z-10 leading-none uppercase tracking-wider select-none pointer-events-none scale-90">Soon</span>
               <button
                 onClick={() => { }}
-                className="w-full h-full flex items-center justify-center rounded-2xl bg-[#DCD2FF] border border-[#DCD2FF] shadow-[0_4px_10px_rgba(220,210,255,0.15)] cursor-default select-none outline-none overflow-hidden"
+                className="w-full h-full flex items-center justify-center rounded-2xl bg-[#DCD2FF] border border-[#DCD2FF] cursor-default select-none outline-none overflow-hidden"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >
                 <Image src="/icon_darurat.png" alt="Bantuan" width={56} height={56} className="w-full h-full object-contain" />
@@ -380,7 +383,7 @@ export default function AppHome() {
         <p className="text-xs font-semibold text-slate-500 mt-1 mb-4 leading-relaxed">
           Ikuti perjalanan spiritual Maria menelusuri Tana Toraja.
         </p>
-        <div className="relative w-full aspect-video rounded-3xl overflow-hidden border border-slate-100 bg-slate-100 shadow-[0_8px_24px_rgba(0,0,0,0.05)]">
+        <div className="relative w-full aspect-video rounded-3xl overflow-hidden border border-slate-100 bg-slate-100">
           <iframe
             title="Pesona Tana Toraja Video"
             src="https://www.youtube.com/embed/uMYcKFbvORU"
@@ -400,7 +403,7 @@ export default function AppHome() {
           role="button"
           tabIndex={0}
           onKeyDown={(e) => e.key === 'Enter' && router.push('/chat')}
-          className="w-full rounded-3xl overflow-hidden cursor-pointer hover:scale-[1.02] active:scale-95 transition-all select-none shadow-[0_8px_24px_rgba(0,0,0,0.06)] border border-slate-100/50"
+          className="w-full rounded-3xl overflow-hidden cursor-pointer hover:scale-[1.02] active:scale-95 transition-all select-none border border-slate-100/50"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
           <Image
@@ -416,7 +419,7 @@ export default function AppHome() {
 
       {/* BOTTOM NAVIGATION */}
       <nav
-        className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white/80 backdrop-blur-lg border-t border-slate-100/50 px-6 pt-2 pb-[calc(env(safe-area-inset-bottom)+6px)] flex justify-between items-center z-50 rounded-t-3xl select-none shadow-[0_-8px_30px_rgba(0,0,0,0.03)]"
+        className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white/80 backdrop-blur-lg border-t border-slate-100/50 px-6 pt-2 pb-[calc(env(safe-area-inset-bottom)+6px)] flex justify-between items-center z-50 rounded-t-3xl select-none"
       >
         {/* Rainbow Gradient Definition for AI Icon */}
         <svg width="0" height="0" className="absolute pointer-events-none">

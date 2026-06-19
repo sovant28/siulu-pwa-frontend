@@ -51,13 +51,13 @@ export default function AppHome() {
   const renderWeatherIcon = (type) => {
     switch (type) {
       case 'fog':
-        return <CloudFog className="w-3.5 h-3.5 text-purple-200" />;
+        return <CloudFog className="w-3.5 h-3.5 text-blue-200" />;
       case 'cloud-sun':
         return <CloudSun className="w-3.5 h-3.5 text-amber-300" />;
       case 'cloud':
-        return <Cloud className="w-3.5 h-3.5 text-purple-200" />;
+        return <Cloud className="w-3.5 h-3.5 text-blue-200" />;
       case 'moon':
-        return <CloudMoon className="w-3.5 h-3.5 text-purple-300" />;
+        return <CloudMoon className="w-3.5 h-3.5 text-blue-300" />;
       default:
         return <CloudSun className="w-3.5 h-3.5 text-amber-300" />;
     }
@@ -160,8 +160,8 @@ export default function AppHome() {
   return (
     <div className="flex flex-col w-full min-h-[100dvh] bg-[#F6F7F9] font-sans pb-[calc(env(safe-area-inset-bottom)+68px)] relative overflow-x-hidden">
 
-      {/* HERO GRADIENT BLOCK (Purple to Blue) */}
-      <div className="w-full bg-gradient-to-br from-[#7C3AED] to-[#3B82F6] rounded-b-[32px] pb-28 pt-[calc(env(safe-area-inset-top)+14px)] px-6 relative z-10">
+      {/* HERO BLUE BLOCK */}
+      <div className="w-full bg-[#3B82F6] rounded-b-[32px] pb-28 pt-[calc(env(safe-area-inset-top)+14px)] px-6 relative z-10">
         {/* HEADER BAR (Horizontal & Native-like) */}
         <header className="w-full flex items-center justify-between py-2 relative z-10">
           {/* Left Side: Avatar & Greeting/Name */}
@@ -170,7 +170,7 @@ export default function AppHome() {
               <Image src="/avatar_v2.png" alt="Avatar" fill className="object-cover" />
             </div>
             <div className="flex flex-col text-left">
-              <span className="text-[10px] font-bold text-purple-100 uppercase tracking-wider leading-none">{greeting}</span>
+              <span className="text-[10px] font-bold text-blue-100 uppercase tracking-wider leading-none">{greeting}</span>
               <span className="text-sm font-black text-white mt-0.5 leading-none">
                 {username || "Guest"}
               </span>

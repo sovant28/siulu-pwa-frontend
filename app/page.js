@@ -237,7 +237,7 @@ export default function AppHome() {
           <div className="flex flex-col items-center space-y-1.5">
             <button
               onClick={() => router.push('/event')}
-              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-white border border-slate-100 shadow-[0_4px_10px_rgba(0,0,0,0.03)] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
+              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#DCD2FF] border border-[#DCD2FF] shadow-[0_4px_10px_rgba(220,210,255,0.25)] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <Image src="/icon_event.png" alt="Event" width={56} height={56} className="w-full h-full object-contain" />
@@ -249,7 +249,7 @@ export default function AppHome() {
           <div className="flex flex-col items-center space-y-1.5">
             <button
               onClick={() => router.push('/destinasi')}
-              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-white border border-slate-100 shadow-[0_4px_10px_rgba(0,0,0,0.03)] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
+              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#D4EFFF] border border-[#D4EFFF] shadow-[0_4px_10px_rgba(212,239,255,0.25)] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <Image src="/icon_destinasi.png" alt="Destinasi" width={56} height={56} className="w-full h-full object-contain" />
@@ -261,7 +261,7 @@ export default function AppHome() {
           <div className="flex flex-col items-center space-y-1.5">
             <button
               onClick={() => { }}
-              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-white border border-slate-100 shadow-[0_4px_10px_rgba(0,0,0,0.03)] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
+              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#DCD2FF] border border-[#DCD2FF] shadow-[0_4px_10px_rgba(220,210,255,0.25)] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <Image src="/icon_kuliner.png" alt="Kuliner" width={56} height={56} className="w-full h-full object-contain" />
@@ -273,7 +273,7 @@ export default function AppHome() {
           <div className="flex flex-col items-center space-y-1.5">
             <button
               onClick={() => { }}
-              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-white border border-slate-100 shadow-[0_4px_10px_rgba(0,0,0,0.03)] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
+              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#D4EFFF] border border-[#D4EFFF] shadow-[0_4px_10px_rgba(212,239,255,0.25)] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <Image src="/icon_hotel.png" alt="Hotel" width={56} height={56} className="w-full h-full object-contain" />
@@ -285,7 +285,7 @@ export default function AppHome() {
           <div className="flex flex-col items-center space-y-1.5">
             <button
               onClick={() => { }}
-              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-white border border-slate-100 text-indigo-500 shadow-[0_4px_10px_rgba(99,102,241,0.04)] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none"
+              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#D4EFFF] border border-[#D4EFFF] text-indigo-600 shadow-[0_4px_10px_rgba(212,239,255,0.25)] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000" className="w-7 h-7">
@@ -305,14 +305,14 @@ export default function AppHome() {
           <div className="flex flex-col items-center space-y-1.5">
             <button
               onClick={() => { }}
-              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-white border border-slate-100 text-purple-500 shadow-[0_4px_10px_rgba(168,85,247,0.04)] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none"
+              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#DCD2FF] border border-[#DCD2FF] text-purple-700 shadow-[0_4px_10px_rgba(220,210,255,0.25)] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000" className="w-7 h-7">
                 <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                 <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
                 <g id="SVGRepo_iconCarrier">
-                  <path d="M687.7 833.8h-76.8c-16.6 0-30-13.4-30-30s13.4-30 30-30h76.8c16.6 0 30 13.4 30 30s-13.4 30-30 30zM480.7 833.8H136.8c-16.6 0-30-13.4-30-30s13.4-30 30-30h343.9c-16.6 0-30 13.4-30 30s-13.4 30-30 30z" fill="currentColor"></path>
+                  <path d="M687.7 833.8h-76.8c-16.6 0-30 13.4-30 30s13.4-30 30-30h76.8c16.6 0 30 13.4 30 30s-13.4 30-30 30zM480.7 833.8H136.8c-16.6 0-30-13.4-30-30s13.4-30 30-30h343.9c-16.6 0-30 13.4-30 30s-13.4 30-30 30z" fill="currentColor"></path>
                   <path d="M880.8 931H207.9c-25.3 0-45.9-20.7-45.9-45.9 0-25.3 20.7-45.9 45.9-45.9h672.9c25.3 0 45.9 20.7 45.9 45.9S906 931 880.8 931z" fill="none"></path>
                   <path d="M703 122.7c20.9 0 40.6 8.2 55.5 23.2 14.9 14.9 23.2 34.7 23.2 55.5v2.8l0.3 2.8 57.7 611.8c-0.6 20-8.8 38.7-23.1 53.1-14.9 14.9-34.7 23.2-55.5 23.2H236c-20.9 0-40.6-8.2-55.5-23.2-14.4-14.4-22.6-33.2-23.1-53.2l54.7-612 0.2-2.7v-2.7c0-20.9 8.2-40.6 23.2-55.5 14.9-14.9 34.7-23.2 55.5-23.2h412m0-59.9H291c-76.3 0-138.7 62.4-138.7 138.7l-55 615c0 76.3 62.4 138.7 138.7 138.7h525c76.3 0 138.7-62.4 138.7-138.7l-58-615c0-76.3-62.4-138.7-138.7-138.7z" fill="currentColor"></path>
                   <path d="M712.6 228.8c0-24.9-20.1-45-45-45s-45 20.1-45 45c0 13.5 6 25.6 15.4 33.9-0.3 1.6-0.4 3.3-0.4 5v95.9c0 23.5-9.2 45.7-26 62.5-16.8 16.8-39 26-62.5 26h-88.5c-23.5 0-45.7-9.2-62.5-26-16.8-16.8-26-39-26-62.5v-95.9c0-1.7-0.1-3.4-0.4-5 9.4-8.2 15.4-20.4 15.4-33.9 0-24.9-20.1-45-45-45s-45 20.1-45 45c0 13.5 6 25.6 15.4 33.9-0.3 1.6-0.4 3.3-0.4 5v95.9c0 81.9 66.6 148.6 148.6 148.6h88.5c81.9 0 148.6-66.6 148.6-148.6v-95.9c0-1.7-0.1-3.4-0.4-5 9.3-8.3 15.2-20.4 15.2-33.9z" fill="currentColor"></path>
@@ -326,7 +326,7 @@ export default function AppHome() {
           <div className="flex flex-col items-center space-y-1.5">
             <button
               onClick={() => { }}
-              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-white border border-slate-100 text-teal-500 shadow-[0_4px_10px_rgba(20,184,166,0.04)] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none"
+              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#D4EFFF] border border-[#D4EFFF] text-teal-600 shadow-[0_4px_10px_rgba(212,239,255,0.25)] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000" className="w-7 h-7">
@@ -347,7 +347,7 @@ export default function AppHome() {
           <div className="flex flex-col items-center space-y-1.5">
             <button
               onClick={() => { }}
-              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-white border border-slate-100 text-red-500 shadow-[0_4px_10px_rgba(239,68,68,0.04)] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none"
+              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#DCD2FF] border border-[#DCD2FF] text-red-600 shadow-[0_4px_10px_rgba(220,210,255,0.25)] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000" className="w-7 h-7">

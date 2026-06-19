@@ -51,15 +51,15 @@ export default function AppHome() {
   const renderWeatherIcon = (type) => {
     switch (type) {
       case 'fog':
-        return <CloudFog className="w-3.5 h-3.5 text-slate-400" />;
+        return <CloudFog className="w-3.5 h-3.5 text-purple-200" />;
       case 'cloud-sun':
-        return <CloudSun className="w-3.5 h-3.5 text-amber-500" />;
+        return <CloudSun className="w-3.5 h-3.5 text-amber-300" />;
       case 'cloud':
-        return <Cloud className="w-3.5 h-3.5 text-slate-400" />;
+        return <Cloud className="w-3.5 h-3.5 text-purple-200" />;
       case 'moon':
-        return <CloudMoon className="w-3.5 h-3.5 text-indigo-400" />;
+        return <CloudMoon className="w-3.5 h-3.5 text-purple-300" />;
       default:
-        return <CloudSun className="w-3.5 h-3.5 text-amber-500" />;
+        return <CloudSun className="w-3.5 h-3.5 text-amber-300" />;
     }
   };
 
@@ -158,59 +158,52 @@ export default function AppHome() {
   }, []);
 
   return (
-    <div 
-      className="flex flex-col w-full min-h-[100dvh] font-sans pb-[calc(env(safe-area-inset-bottom)+68px)] relative overflow-x-hidden"
-      style={{
-        backgroundImage: `
-          radial-gradient(circle at 100% 20%, rgba(244, 63, 94, 0.08) 0%, transparent 40%),
-          radial-gradient(circle at 90% 50%, rgba(59, 130, 246, 0.06) 0%, transparent 45%),
-          radial-gradient(circle at 10% 80%, rgba(124, 58, 237, 0.03) 0%, transparent 40%)
-        `,
-        backgroundColor: '#F6F7F9'
-      }}
-    >
+    <div className="flex flex-col w-full min-h-[100dvh] bg-[#F6F7F9] font-sans pb-[calc(env(safe-area-inset-bottom)+68px)] relative overflow-x-hidden">
 
-      {/* HEADER BAR (Horizontal & Native-like) */}
-      <header className="w-full flex items-center justify-between px-6 pt-[calc(env(safe-area-inset-top)+14px)] pb-2 relative z-10">
-        {/* Left Side: Avatar & Greeting/Name */}
-        <div className="flex items-center space-x-2.5">
-          <div className="relative w-9 h-9 rounded-full overflow-hidden border border-slate-200/60 bg-white flex-shrink-0">
-            <Image src="/avatar_v2.png" alt="Avatar" fill className="object-cover" />
+      {/* HERO GRADIENT BLOCK (Purple to Blue) */}
+      <div className="w-full bg-gradient-to-br from-[#7C3AED] to-[#3B82F6] rounded-b-[32px] pb-28 pt-[calc(env(safe-area-inset-top)+14px)] px-6 relative z-10">
+        {/* HEADER BAR (Horizontal & Native-like) */}
+        <header className="w-full flex items-center justify-between py-2 relative z-10">
+          {/* Left Side: Avatar & Greeting/Name */}
+          <div className="flex items-center space-x-2.5">
+            <div className="relative w-9 h-9 rounded-full overflow-hidden border border-white/20 bg-white/10 flex-shrink-0">
+              <Image src="/avatar_v2.png" alt="Avatar" fill className="object-cover" />
+            </div>
+            <div className="flex flex-col text-left">
+              <span className="text-[10px] font-bold text-purple-100 uppercase tracking-wider leading-none">{greeting}</span>
+              <span className="text-sm font-black text-white mt-0.5 leading-none">
+                {username || "Guest"}
+              </span>
+            </div>
           </div>
-          <div className="flex flex-col text-left">
-            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider leading-none">{greeting}</span>
-            <span className="text-sm font-black text-slate-700 mt-0.5 leading-none">
-              {username || "Guest"}
-            </span>
-          </div>
-        </div>
 
-        {/* Right Side: Weather Widget */}
-        <div className="flex items-center space-x-2">
-          <div className="flex items-center space-x-1.5 bg-white border border-slate-100/70 rounded-full px-2.5 py-1 text-[10px] font-black text-slate-600 select-none">
-            {renderWeatherIcon(weather.type)}
-            <span>{weather.temp} • {weather.text}</span>
+          {/* Right Side: Weather Widget */}
+          <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-1.5 bg-white/10 border border-white/10 rounded-full px-2.5 py-1 text-[10px] font-black text-white select-none">
+              {renderWeatherIcon(weather.type)}
+              <span>{weather.temp} • {weather.text}</span>
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      {/* PROMINENT SEARCH BAR (Native-like) */}
-      <div className="px-6 mt-1">
-        <div 
-          onClick={() => router.push('/destinasi')}
-          role="button"
-          tabIndex={0}
-          onKeyDown={(e) => e.key === 'Enter' && router.push('/destinasi')}
-          className="w-full flex items-center bg-white border border-slate-100 rounded-2xl px-4.5 py-3 active:scale-[0.99] transition cursor-pointer select-none"
-          style={{ WebkitTapHighlightColor: 'transparent' }}
-        >
-          <Search className="w-4 h-4 text-slate-500 mr-2.5 flex-shrink-0" />
-          <span className="text-sm font-semibold text-slate-500">Cari destinasi pariwisata Toraja...</span>
+        {/* PROMINENT SEARCH BAR (Native-like) */}
+        <div className="mt-3">
+          <div 
+            onClick={() => router.push('/destinasi')}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => e.key === 'Enter' && router.push('/destinasi')}
+            className="w-full flex items-center bg-white border border-slate-100 rounded-2xl px-4.5 py-3 active:scale-[0.99] transition cursor-pointer select-none"
+            style={{ WebkitTapHighlightColor: 'transparent' }}
+          >
+            <Search className="w-4 h-4 text-slate-500 mr-2.5 flex-shrink-0" />
+            <span className="text-sm font-semibold text-slate-500">Cari destinasi pariwisata Toraja...</span>
+          </div>
         </div>
       </div>
 
       {/* FEATURED CAROUSEL */}
-      <section className="mt-4 px-6">
+      <section className="-mt-24 px-6 relative z-20">
         <div
           ref={carouselRef}
           onScroll={handleScroll}

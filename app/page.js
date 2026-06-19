@@ -237,7 +237,7 @@ export default function AppHome() {
           <div className="flex flex-col items-center space-y-1.5">
             <button
               onClick={() => router.push('/event')}
-              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#DCD2FF] border border-[#DCD2FF] shadow-[0_4px_10px_rgba(220,210,255,0.25)] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
+              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-white border border-slate-100 shadow-[0_4px_10px_rgba(0,0,0,0.03)] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <Image src="/icon_event.png" alt="Event" width={56} height={56} className="w-full h-full object-contain" />

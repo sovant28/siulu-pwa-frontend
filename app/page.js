@@ -160,44 +160,57 @@ export default function AppHome() {
   return (
     <div className="flex flex-col w-full min-h-[100dvh] bg-[#F6F7F9] font-sans pb-[calc(env(safe-area-inset-bottom)+68px)] relative overflow-x-hidden">
 
-      {/* HERO DARK PURPLE BLOCK */}
-      <div className="w-full bg-[#4C1D95] rounded-b-[32px] pb-28 pt-[calc(env(safe-area-inset-top)+14px)] px-6 relative z-10">
-        {/* HEADER BAR (Horizontal & Native-like) */}
-        <header className="w-full flex items-center justify-between py-2 relative z-10">
-          {/* Left Side: Avatar & Greeting/Name */}
-          <div className="flex items-center space-x-2.5">
-            <div className="relative w-9 h-9 rounded-full overflow-hidden border border-white/20 bg-white/10 flex-shrink-0">
-              <Image src="/avatar_v2.png" alt="Avatar" fill className="object-cover" />
-            </div>
-            <div className="flex flex-col text-left">
-              <span className="text-[10px] font-bold text-purple-200 uppercase tracking-wider leading-none">{greeting}</span>
-              <span className="text-sm font-black text-white mt-0.5 leading-none">
-                {username || "Guest"}
-              </span>
-            </div>
-          </div>
+      {/* HERO DARK PURPLE BLOCK WITH NOISE TEXTURE */}
+      <div className="w-full relative z-10 rounded-b-[32px] pb-28 pt-[calc(env(safe-area-inset-top)+14px)] px-6 overflow-hidden">
+        {/* Background Color Layer */}
+        <div className="absolute inset-0 bg-[#4C1D95]"></div>
+        {/* Grain Noise Overlay */}
+        <div 
+          className="absolute inset-0 opacity-[0.045] pointer-events-none mix-blend-overlay" 
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
+          }}
+        ></div>
 
-          {/* Right Side: Weather Widget */}
-          <div className="flex items-center space-x-2">
-            <div className="flex items-center space-x-1.5 bg-white/10 border border-white/10 rounded-full px-2.5 py-1 text-[10px] font-black text-white select-none">
-              {renderWeatherIcon(weather.type)}
-              <span>{weather.temp} • {weather.text}</span>
+        {/* Content Wrapper */}
+        <div className="relative z-10">
+          {/* HEADER BAR (Horizontal & Native-like) */}
+          <header className="w-full flex items-center justify-between py-2">
+            {/* Left Side: Avatar & Greeting/Name */}
+            <div className="flex items-center space-x-2.5">
+              <div className="relative w-9 h-9 rounded-full overflow-hidden border border-white/20 bg-white/10 flex-shrink-0">
+                <Image src="/avatar_v2.png" alt="Avatar" fill className="object-cover" />
+              </div>
+              <div className="flex flex-col text-left">
+                <span className="text-[10px] font-bold text-purple-200 uppercase tracking-wider leading-none">{greeting}</span>
+                <span className="text-sm font-black text-white mt-0.5 leading-none">
+                  {username || "Guest"}
+                </span>
+              </div>
             </div>
-          </div>
-        </header>
 
-        {/* PROMINENT SEARCH BAR (Native-like) */}
-        <div className="mt-3">
-          <div 
-            onClick={() => router.push('/destinasi')}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => e.key === 'Enter' && router.push('/destinasi')}
-            className="w-full flex items-center bg-white border border-slate-100 rounded-2xl px-4.5 py-3 active:scale-[0.99] transition cursor-pointer select-none"
-            style={{ WebkitTapHighlightColor: 'transparent' }}
-          >
-            <Search className="w-4 h-4 text-slate-500 mr-2.5 flex-shrink-0" />
-            <span className="text-sm font-semibold text-slate-500">Cari destinasi pariwisata Toraja...</span>
+            {/* Right Side: Weather Widget */}
+            <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-1.5 bg-white/10 border border-white/10 rounded-full px-2.5 py-1 text-[10px] font-black text-white select-none">
+                {renderWeatherIcon(weather.type)}
+                <span>{weather.temp} • {weather.text}</span>
+              </div>
+            </div>
+          </header>
+
+          {/* PROMINENT SEARCH BAR (Native-like) */}
+          <div className="mt-3">
+            <div 
+              onClick={() => router.push('/destinasi')}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => e.key === 'Enter' && router.push('/destinasi')}
+              className="w-full flex items-center bg-white border border-slate-100 rounded-2xl px-4.5 py-3 active:scale-[0.99] transition cursor-pointer select-none"
+              style={{ WebkitTapHighlightColor: 'transparent' }}
+            >
+              <Search className="w-4 h-4 text-slate-500 mr-2.5 flex-shrink-0" />
+              <span className="text-sm font-semibold text-slate-500">Cari destinasi pariwisata Toraja...</span>
+            </div>
           </div>
         </div>
       </div>

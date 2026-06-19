@@ -184,8 +184,8 @@ export default function SavedPage() {
         <svg width="0" height="0" className="absolute pointer-events-none">
           <defs>
             <linearGradient id="rainbow-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#EF4444" />
-              <stop offset="100%" stopColor="#10B981" />
+              <stop offset="0%" stopColor="#7C3AED" />
+              <stop offset="100%" stopColor="#3B82F6" />
             </linearGradient>
           </defs>
         </svg>
@@ -220,11 +220,11 @@ export default function SavedPage() {
         {/* 4. Disimpan (Active) */}
         <button
           onClick={() => router.push('/saved')}
-          className="flex flex-col items-center justify-center p-2 text-[#BE1641] active:scale-90 transition cursor-pointer relative"
+          className="flex flex-col items-center justify-center p-2 text-[#7C3AED] active:scale-90 transition cursor-pointer relative"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
           <Heart className="w-5.5 h-5.5" fill="currentColor" />
-          <span className="absolute bottom-0 w-1 h-1 rounded-full bg-[#BE1641]" />
+          <span className="absolute bottom-0 w-1 h-1 rounded-full bg-[#7C3AED]" />
         </button>
 
         {/* 5. Profil */}

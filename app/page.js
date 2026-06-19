@@ -147,7 +147,7 @@ export default function AppHome() {
         {/* Right Side: Location Badge */}
         <div className="flex items-center space-x-2">
           <div className="flex items-center space-x-1 bg-white border border-slate-100/70 rounded-full px-2.5 py-1 text-[10px] font-black text-slate-600 shadow-sm shadow-slate-200/50">
-            <MapPin className="w-3 h-3 text-[#BE1641]" />
+            <MapPin className="w-3 h-3 text-[#7C3AED]" />
             <span>Toraja</span>
           </div>
         </div>
@@ -220,7 +220,7 @@ export default function AppHome() {
               <button
                 key={idx}
                 onClick={() => handleDotClick(idx)}
-                className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${currentSlide === idx ? 'bg-[#BE1641] w-4' : 'bg-slate-300 w-1.5'
+                className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${currentSlide === idx ? 'bg-[#7C3AED] w-4' : 'bg-slate-300 w-1.5'
                   }`}
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               />
@@ -376,8 +376,8 @@ export default function AppHome() {
         <svg width="0" height="0" className="absolute pointer-events-none">
           <defs>
             <linearGradient id="rainbow-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#EF4444" />
-              <stop offset="100%" stopColor="#10B981" />
+              <stop offset="0%" stopColor="#7C3AED" />
+              <stop offset="100%" stopColor="#3B82F6" />
             </linearGradient>
           </defs>
         </svg>
@@ -385,11 +385,11 @@ export default function AppHome() {
         {/* 1. Beranda (Active) */}
         <button
           onClick={() => router.push('/')}
-          className="flex flex-col items-center justify-center p-2 text-[#BE1641] active:scale-90 transition cursor-pointer relative"
+          className="flex flex-col items-center justify-center p-2 text-[#7C3AED] active:scale-90 transition cursor-pointer relative"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
           <Home className="w-5.5 h-5.5" fill="currentColor" />
-          <span className="absolute bottom-0 w-1 h-1 rounded-full bg-[#BE1641]" />
+          <span className="absolute bottom-0 w-1 h-1 rounded-full bg-[#7C3AED]" />
         </button>
 
         {/* 2. Jelajah */}

@@ -407,8 +407,8 @@ export default function ChatAI() {
       <svg width="0" height="0" className="absolute pointer-events-none">
         <defs>
           <linearGradient id="rainbow-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#EF4444" />
-            <stop offset="100%" stopColor="#10B981" />
+            <stop offset="0%" stopColor="#7C3AED" />
+            <stop offset="100%" stopColor="#3B82F6" />
           </linearGradient>
         </defs>
       </svg>

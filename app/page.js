@@ -357,17 +357,41 @@ export default function AppHome() {
           role="button"
           tabIndex={0}
           onKeyDown={(e) => e.key === 'Enter' && router.push('/chat')}
-          className="w-full rounded-3xl overflow-hidden cursor-pointer hover:scale-[1.02] active:scale-95 transition-all select-none shadow-[0_8px_24px_rgba(0,0,0,0.06)] border border-slate-100/50"
+          className="w-full rounded-3xl overflow-hidden cursor-pointer hover:scale-[1.02] active:scale-95 transition-all select-none shadow-[0_12px_24px_rgba(76,29,149,0.12)] border border-purple-100/30 bg-gradient-to-r from-[#4C1D95] via-[#5B21B6] to-[#2563EB] p-5.5 relative flex items-center justify-between"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
-          <Image
-            src="/mebali_ai_banner.png"
-            alt="Mebali AI Banner"
-            width={800}
-            height={450}
-            className="w-full h-auto object-cover block"
-            priority
-          />
+          {/* Decorative shapes */}
+          <div className="absolute top-[-40%] right-[-10%] w-48 h-48 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
+          <div className="absolute bottom-[-40%] left-[-10%] w-36 h-36 bg-black/15 rounded-full blur-2xl pointer-events-none"></div>
+
+          {/* Left Content */}
+          <div className="relative z-10 flex flex-col text-left max-w-[70%]">
+            <span className="text-[9px] font-black text-[#A78BFA] uppercase tracking-widest leading-none mb-1.5">Mebali AI Asisten</span>
+            <h4 className="text-sm font-black text-white leading-snug drop-shadow-sm">
+              Mau tahu adat, rute, atau kuliner Toraja secara instan?
+            </h4>
+            <p className="text-[10px] text-purple-100/90 font-bold mt-1.5 leading-normal">
+              Tanya Mebali AI sekarang!
+            </p>
+            <div className="mt-3.5">
+              <span className="inline-flex items-center space-x-1.5 bg-white text-[#4C1D95] hover:bg-slate-50 transition rounded-xl px-3.5 py-2 text-[10px] font-black shadow-sm">
+                <span>Tanya AI Sekarang</span>
+                <span className="text-xs">⚡</span>
+              </span>
+            </div>
+          </div>
+
+          {/* Right Mascot */}
+          <div className="relative z-10 w-20 h-20 flex-shrink-0 flex items-center justify-center select-none pointer-events-none drop-shadow-[0_8px_16px_rgba(0,0,0,0.15)] animate-[bounce_4s_infinite_ease-in-out]">
+            <Image
+              src="/mascot.png"
+              alt="Mebali AI Mascot"
+              width={80}
+              height={80}
+              className="object-contain"
+              priority
+            />
+          </div>
         </div>
       </section>
 

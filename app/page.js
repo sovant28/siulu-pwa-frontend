@@ -333,7 +333,10 @@ export default function AppHome() {
 
       {/* YOUTUBE VIDEO HOOK */}
       <section className="px-6 mt-6">
-        <h3 className="text-xl font-black text-slate-800 mb-4">Pesona Tana Toraja</h3>
+        <h3 className="text-xl font-black text-slate-800">Pesona Tana Toraja</h3>
+        <p className="text-xs font-semibold text-slate-500 mt-1 mb-4 leading-relaxed">
+          Ikuti perjalanan spiritual Maria menelusuri Tana Toraja.
+        </p>
         <div className="relative w-full aspect-video rounded-3xl overflow-hidden border border-slate-100 bg-slate-100 shadow-[0_8px_24px_rgba(0,0,0,0.05)]">
           <iframe
             title="Pesona Tana Toraja Video"

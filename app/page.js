@@ -18,7 +18,11 @@ import {
   User,
   MessageSquare,
   List,
-  Heart
+  Heart,
+  CloudFog,
+  CloudSun,
+  Cloud,
+  CloudMoon
 } from 'lucide-react';
 
 function formatEventDate(jam_operasional) {
@@ -41,7 +45,23 @@ export default function AppHome() {
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState(null);
   const [greeting, setGreeting] = useState("Selamat pagi");
+  const [weather, setWeather] = useState({ temp: "22°C", text: "Berawan", type: "cloud" });
   const carouselRef = useRef(null);
+
+  const renderWeatherIcon = (type) => {
+    switch (type) {
+      case 'fog':
+        return <CloudFog className="w-3.5 h-3.5 text-slate-400" />;
+      case 'cloud-sun':
+        return <CloudSun className="w-3.5 h-3.5 text-amber-500" />;
+      case 'cloud':
+        return <Cloud className="w-3.5 h-3.5 text-slate-400" />;
+      case 'moon':
+        return <CloudMoon className="w-3.5 h-3.5 text-indigo-400" />;
+      default:
+        return <CloudSun className="w-3.5 h-3.5 text-amber-500" />;
+    }
+  };
 
   const handleScroll = (e) => {
     const container = e.target;
@@ -101,6 +121,17 @@ export default function AppHome() {
     } else {
       setGreeting("Selamat malam");
     }
+
+    // Weather simulation based on Tana Toraja climate patterns
+    if (hrs >= 5 && hrs < 10) {
+      setWeather({ temp: "20°C", text: "Berkabut", type: "fog" });
+    } else if (hrs >= 10 && hrs < 15) {
+      setWeather({ temp: "26°C", text: "Cerah Berawan", type: "cloud-sun" });
+    } else if (hrs >= 15 && hrs < 18) {
+      setWeather({ temp: "23°C", text: "Berawan", type: "cloud" });
+    } else {
+      setWeather({ temp: "19°C", text: "Cerah/Dingin", type: "moon" });
+    }
   }, []);
 
   useEffect(() => {
@@ -144,11 +175,11 @@ export default function AppHome() {
           </div>
         </div>
 
-        {/* Right Side: Location Badge */}
+        {/* Right Side: Weather Widget */}
         <div className="flex items-center space-x-2">
-          <div className="flex items-center space-x-1 bg-white border border-slate-100/70 rounded-full px-2.5 py-1 text-[10px] font-black text-slate-600 shadow-sm shadow-slate-200/50">
-            <MapPin className="w-3 h-3 text-[#7C3AED]" />
-            <span>Toraja</span>
+          <div className="flex items-center space-x-1.5 bg-white border border-slate-100/70 rounded-full px-2.5 py-1 text-[10px] font-black text-slate-600 shadow-sm shadow-slate-200/50 select-none">
+            {renderWeatherIcon(weather.type)}
+            <span>{weather.temp} • {weather.text}</span>
           </div>
         </div>
       </header>

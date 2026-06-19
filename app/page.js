@@ -280,7 +280,7 @@ export default function AppHome() {
           <div className="flex flex-col items-center space-y-1.5">
             <button
               onClick={() => router.push('/destinasi')}
-              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#DCD2FF] border border-[#DCD2FF] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
+              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-white border border-gray-200 active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <Image src="/icon_destinasi.png" alt="Destinasi" width={56} height={56} className="w-full h-full object-contain" />
@@ -304,7 +304,7 @@ export default function AppHome() {
           <div className="flex flex-col items-center space-y-1.5">
             <button
               onClick={() => { }}
-              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#DCD2FF] border border-[#DCD2FF] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
+              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-white border border-gray-200 active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <Image src="/icon_hotel.png" alt="Hotel" width={56} height={56} className="w-full h-full object-contain" />

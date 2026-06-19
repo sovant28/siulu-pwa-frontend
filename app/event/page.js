@@ -294,17 +294,17 @@ export default function EventListPage() {
           className="flex flex-col items-center justify-center w-16 py-1 text-slate-400 hover:text-slate-500 active:scale-90 transition cursor-pointer"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
-          <Home className="w-5 h-5" />
+          <Home className="w-5.5 h-5.5" />
           <span className="text-[10px] font-bold mt-1 leading-none">Beranda</span>
         </button>
 
         {/* 2. Jelajah (Active) */}
         <button
-          onClick={() => router.push('/event')}
+          onClick={() => {}}
           className="flex flex-col items-center justify-center w-16 py-1 text-[#4C1D95] active:scale-90 transition cursor-pointer"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
-          <Compass className="w-5 h-5" fill="currentColor" />
+          <Compass className="w-5.5 h-5.5" fill="currentColor" />
           <span className="text-[10px] font-black mt-1 leading-none">Jelajah</span>
         </button>
 
@@ -314,7 +314,7 @@ export default function EventListPage() {
           className="flex flex-col items-center justify-center w-16 py-1 active:scale-90 transition cursor-pointer"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
-          <MessageSquare className="w-5 h-5" stroke="url(#rainbow-gradient)" />
+          <MessageSquare className="w-5.5 h-5.5" stroke="url(#rainbow-gradient)" />
           <span className="text-[10px] font-bold mt-1 leading-none text-slate-400">Tanya AI</span>
         </button>
 
@@ -324,7 +324,7 @@ export default function EventListPage() {
           className="flex flex-col items-center justify-center w-16 py-1 text-slate-400 hover:text-slate-500 active:scale-90 transition cursor-pointer"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
-          <Heart className="w-5 h-5" />
+          <Heart className="w-5.5 h-5.5" />
           <span className="text-[10px] font-bold mt-1 leading-none">Tersimpan</span>
         </button>
 
@@ -334,7 +334,7 @@ export default function EventListPage() {
           className="flex flex-col items-center justify-center w-16 py-1 text-slate-400 hover:text-slate-500 active:scale-90 transition cursor-pointer"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
-          <User className="w-5 h-5" />
+          <User className="w-5.5 h-5.5" />
           <span className="text-[10px] font-bold mt-1 leading-none">Akun</span>
         </button>
       </nav>

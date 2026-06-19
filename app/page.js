@@ -314,50 +314,62 @@ export default function AppHome() {
 
           {/* Card 5: Tiket */}
           <div className="flex flex-col items-center space-y-1.5">
-            <button
-              onClick={() => { }}
-              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#D4EFFF] border border-[#D4EFFF] shadow-[0_4px_10px_rgba(212,239,255,0.25)] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
-              style={{ WebkitTapHighlightColor: 'transparent' }}
-            >
-              <Image src="/icon_tiket.png" alt="Tiket" width={56} height={56} className="w-full h-full object-contain" />
-            </button>
-            <span className="text-[11px] font-black text-slate-700 tracking-wide">Tiket</span>
+            <div className="relative w-14 h-14 opacity-60 saturate-75">
+              <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[6.5px] font-black px-1.5 py-0.5 rounded-full border border-white shadow-sm z-10 leading-none uppercase tracking-wider select-none pointer-events-none scale-90">Soon</span>
+              <button
+                onClick={() => { }}
+                className="w-full h-full flex items-center justify-center rounded-2xl bg-[#D4EFFF] border border-[#D4EFFF] shadow-[0_4px_10px_rgba(212,239,255,0.15)] cursor-default select-none outline-none overflow-hidden"
+                style={{ WebkitTapHighlightColor: 'transparent' }}
+              >
+                <Image src="/icon_tiket.png" alt="Tiket" width={56} height={56} className="w-full h-full object-contain" />
+              </button>
+            </div>
+            <span className="text-[11px] font-black text-slate-700/80 tracking-wide select-none">Tiket</span>
           </div>
 
           {/* Card 6: Oleh-oleh */}
           <div className="flex flex-col items-center space-y-1.5">
-            <button
-              onClick={() => { }}
-              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#DCD2FF] border border-[#DCD2FF] shadow-[0_4px_10px_rgba(220,210,255,0.25)] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
-              style={{ WebkitTapHighlightColor: 'transparent' }}
-            >
-              <Image src="/icon_oleh_oleh.png" alt="Oleh-oleh" width={56} height={56} className="w-full h-full object-contain" />
-            </button>
-            <span className="text-[11px] font-black text-slate-700 tracking-wide">Oleh-oleh</span>
+            <div className="relative w-14 h-14 opacity-60 saturate-75">
+              <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[6.5px] font-black px-1.5 py-0.5 rounded-full border border-white shadow-sm z-10 leading-none uppercase tracking-wider select-none pointer-events-none scale-90">Soon</span>
+              <button
+                onClick={() => { }}
+                className="w-full h-full flex items-center justify-center rounded-2xl bg-[#DCD2FF] border border-[#DCD2FF] shadow-[0_4px_10px_rgba(220,210,255,0.15)] cursor-default select-none outline-none overflow-hidden"
+                style={{ WebkitTapHighlightColor: 'transparent' }}
+              >
+                <Image src="/icon_oleh_oleh.png" alt="Oleh-oleh" width={56} height={56} className="w-full h-full object-contain" />
+              </button>
+            </div>
+            <span className="text-[11px] font-black text-slate-700/80 tracking-wide select-none">Oleh-oleh</span>
           </div>
 
           {/* Card 7: Pengaduan */}
           <div className="flex flex-col items-center space-y-1.5">
-            <button
-              onClick={() => { }}
-              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#D4EFFF] border border-[#D4EFFF] shadow-[0_4px_10px_rgba(212,239,255,0.25)] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
-              style={{ WebkitTapHighlightColor: 'transparent' }}
-            >
-              <Image src="/icon_pengaduan.png" alt="Pengaduan" width={56} height={56} className="w-full h-full object-contain" />
-            </button>
-            <span className="text-[11px] font-black text-slate-700 tracking-wide">Pengaduan</span>
+            <div className="relative w-14 h-14 opacity-60 saturate-75">
+              <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[6.5px] font-black px-1.5 py-0.5 rounded-full border border-white shadow-sm z-10 leading-none uppercase tracking-wider select-none pointer-events-none scale-90">Soon</span>
+              <button
+                onClick={() => { }}
+                className="w-full h-full flex items-center justify-center rounded-2xl bg-[#D4EFFF] border border-[#D4EFFF] shadow-[0_4px_10px_rgba(212,239,255,0.15)] cursor-default select-none outline-none overflow-hidden"
+                style={{ WebkitTapHighlightColor: 'transparent' }}
+              >
+                <Image src="/icon_pengaduan.png" alt="Pengaduan" width={56} height={56} className="w-full h-full object-contain" />
+              </button>
+            </div>
+            <span className="text-[11px] font-black text-slate-700/80 tracking-wide select-none">Pengaduan</span>
           </div>
 
           {/* Card 8: Bantuan */}
           <div className="flex flex-col items-center space-y-1.5">
-            <button
-              onClick={() => { }}
-              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#DCD2FF] border border-[#DCD2FF] shadow-[0_4px_10px_rgba(220,210,255,0.25)] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
-              style={{ WebkitTapHighlightColor: 'transparent' }}
-            >
-              <Image src="/icon_darurat.png" alt="Bantuan" width={56} height={56} className="w-full h-full object-contain" />
-            </button>
-            <span className="text-[11px] font-black text-slate-700 tracking-wide">Bantuan</span>
+            <div className="relative w-14 h-14 opacity-60 saturate-75">
+              <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[6.5px] font-black px-1.5 py-0.5 rounded-full border border-white shadow-sm z-10 leading-none uppercase tracking-wider select-none pointer-events-none scale-90">Soon</span>
+              <button
+                onClick={() => { }}
+                className="w-full h-full flex items-center justify-center rounded-2xl bg-[#DCD2FF] border border-[#DCD2FF] shadow-[0_4px_10px_rgba(220,210,255,0.15)] cursor-default select-none outline-none overflow-hidden"
+                style={{ WebkitTapHighlightColor: 'transparent' }}
+              >
+                <Image src="/icon_darurat.png" alt="Bantuan" width={56} height={56} className="w-full h-full object-contain" />
+              </button>
+            </div>
+            <span className="text-[11px] font-black text-slate-700/80 tracking-wide select-none">Bantuan</span>
           </div>
         </div>
       </section>

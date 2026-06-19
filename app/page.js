@@ -297,19 +297,10 @@ export default function AppHome() {
           <div className="flex flex-col items-center space-y-1.5">
             <button
               onClick={() => { }}
-              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#DCD2FF] border border-[#DCD2FF] text-purple-700 shadow-[0_4px_10px_rgba(220,210,255,0.25)] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none"
+              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#DCD2FF] border border-[#DCD2FF] shadow-[0_4px_10px_rgba(220,210,255,0.25)] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
-              <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000" className="w-7 h-7">
-                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-                <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
-                <g id="SVGRepo_iconCarrier">
-                  <path d="M687.7 833.8h-76.8c-16.6 0-30 13.4-30 30s13.4-30 30-30h76.8c16.6 0 30 13.4 30 30s-13.4 30-30 30zM480.7 833.8H136.8c-16.6 0-30-13.4-30-30s13.4-30 30-30h343.9c-16.6 0-30 13.4-30 30s-13.4 30-30 30z" fill="currentColor"></path>
-                  <path d="M880.8 931H207.9c-25.3 0-45.9-20.7-45.9-45.9 0-25.3 20.7-45.9 45.9-45.9h672.9c25.3 0 45.9 20.7 45.9 45.9S906 931 880.8 931z" fill="none"></path>
-                  <path d="M703 122.7c20.9 0 40.6 8.2 55.5 23.2 14.9 14.9 23.2 34.7 23.2 55.5v2.8l0.3 2.8 57.7 611.8c-0.6 20-8.8 38.7-23.1 53.1-14.9 14.9-34.7 23.2-55.5 23.2H236c-20.9 0-40.6-8.2-55.5-23.2-14.4-14.4-22.6-33.2-23.1-53.2l54.7-612 0.2-2.7v-2.7c0-20.9 8.2-40.6 23.2-55.5 14.9-14.9 34.7-23.2 55.5-23.2h412m0-59.9H291c-76.3 0-138.7 62.4-138.7 138.7l-55 615c0 76.3 62.4 138.7 138.7 138.7h525c76.3 0 138.7-62.4 138.7-138.7l-58-615c0-76.3-62.4-138.7-138.7-138.7z" fill="currentColor"></path>
-                  <path d="M712.6 228.8c0-24.9-20.1-45-45-45s-45 20.1-45 45c0 13.5 6 25.6 15.4 33.9-0.3 1.6-0.4 3.3-0.4 5v95.9c0 23.5-9.2 45.7-26 62.5-16.8 16.8-39 26-62.5 26h-88.5c-23.5 0-45.7-9.2-62.5-26-16.8-16.8-26-39-26-62.5v-95.9c0-1.7-0.1-3.4-0.4-5 9.4-8.2 15.4-20.4 15.4-33.9 0-24.9-20.1-45-45-45s-45 20.1-45 45c0 13.5 6 25.6 15.4 33.9-0.3 1.6-0.4 3.3-0.4 5v95.9c0 81.9 66.6 148.6 148.6 148.6h88.5c81.9 0 148.6-66.6 148.6-148.6v-95.9c0-1.7-0.1-3.4-0.4-5 9.3-8.3 15.2-20.4 15.2-33.9z" fill="currentColor"></path>
-                </g>
-              </svg>
+              <Image src="/icon_oleh_oleh.png" alt="Oleh-oleh" width={56} height={56} className="w-full h-full object-contain" />
             </button>
             <span className="text-[11px] font-black text-slate-700 tracking-wide">Oleh-oleh</span>
           </div>
@@ -318,19 +309,10 @@ export default function AppHome() {
           <div className="flex flex-col items-center space-y-1.5">
             <button
               onClick={() => { }}
-              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#D4EFFF] border border-[#D4EFFF] text-teal-600 shadow-[0_4px_10px_rgba(212,239,255,0.25)] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none"
+              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#D4EFFF] border border-[#D4EFFF] shadow-[0_4px_10px_rgba(212,239,255,0.25)] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
-              <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000" className="w-7 h-7">
-                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-                <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
-                <g id="SVGRepo_iconCarrier">
-                  <path d="M885.8 383.8h-90.4c12.3 15.8 19.7 35.6 19.7 57.1v194c0 51.3-42 93.2-93.2 93.2H494.1c12.1 31 42.2 53.1 77.4 53.1h314.3c45.6 0 83-37.3 83-83V466.8c-0.1-45.7-37.4-83-83-83z" fill="none"></path>
-                  <path d="M780.7 582.4V286.3c0-74.2-60.7-134.9-134.9-134.9H198.2c-74.2 0-134.9 60.7-134.9 134.9v296.1c0 70.5 54.8 128.7 123.8 134.4 0 0-20 155.4 4.9 155.4s188.4-154.9 188.4-154.9h265.3c74.3 0 135-60.7 135-134.9z m-424.1 74.9l-17.4 16.4c-0.3 0.3-34.5 32.7-73.2 67.1-8.5 7.5-16.2 14.3-23.3 20.5 1.9-20.9 3.9-36.6 3.9-36.8l8-62.3L192 657c-38.5-3.2-68.7-36-68.7-74.6V286.3c0-19.9 7.8-38.6 22.1-52.8 14.2-14.2 33-22.1 52.8-22.1h447.6c19.9 0 38.6 7.8 52.8 22.1 14.2 14.2 22.1 33 22.1 52.8v296.1c0 19.9-7.8 38.6-22.1 52.8-14.2 14.2-33 22.1-52.8 22.1H356.6z" fill="currentColor"></path>
-                  <path d="M830.3 337.9c-16.2-3.3-32.1 7.1-35.4 23.3-3.3 16.2 7.1 32.1 23.3 35.4 39 8 67.3 42.7 67.3 82.5v177c0 41.6-31.1 77.5-72.3 83.4l-32.7 4.7 7.8 32.1c2 8.1 3.9 16.8 5.8 25.3-17.6-16.4-37.3-35.2-55.2-52.7l-8.7-8.6H562.5c-21.9 0-36.6-1.4-47.2-8.6-13.7-9.3-32.4-5.8-41.7 7.9-9.3 13.7-5.8 32.4 7.9 41.7 25.7 17.5 55.3 19 81 19h143.2c10 9.7 27.3 26.3 45 42.8 16.2 15.1 29.6 27.1 39.8 35.9 20 17 29.3 23.1 41.6 23.1 9.7 0 18.7-4.4 24.8-12.1 10.1-12.9 10.2-29.1 0.5-78.7-1.4-7.2-2.9-14.2-4.3-20.6 54.4-21.1 92.4-74.3 92.4-134.6v-177c0.1-68-48.4-127.4-115.2-141.2z" fill="currentColor"></path>
-                  <path d="M434.6 602.8c-35.9 0-71-17.1-98.8-48.1-24.6-27.5-39.3-61.6-39.3-91.4v-29.7l29.7-0.3c0.4 0 36.2-0.4 95.4-0.4 16.6 0 30 13.4 30 30s-13.4 30-30 30c-22.3 0-41.2 0.1-56.2 0.1 3.8 7.1 8.8 14.5 15.1 21.6 16 17.9 35.7 28.1 54.1 28.1s38.1-10.3 54.1-28.1c6.5-7.3 11.6-14.9 15.4-22.2-13.7-2.8-24.1-15-24-29.5 0.1-16.5 13.5-29.9 30-29.9h0.1c27.1 0.1 32.5 0.2 33.6 0.3l28.9 1.1v28.9c0 29.8-14.7 63.9-39.3 91.4-27.9 31-62.9 48.1-98.8 48.1z m107.1-109.5z" fill="currentColor"></path>
-                </g>
-              </svg>
+              <Image src="/icon_pengaduan.png" alt="Pengaduan" width={56} height={56} className="w-full h-full object-contain" />
             </button>
             <span className="text-[11px] font-black text-slate-700 tracking-wide">Pengaduan</span>
           </div>
@@ -339,19 +321,10 @@ export default function AppHome() {
           <div className="flex flex-col items-center space-y-1.5">
             <button
               onClick={() => { }}
-              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#DCD2FF] border border-[#DCD2FF] text-red-600 shadow-[0_4px_10px_rgba(220,210,255,0.25)] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none"
+              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#DCD2FF] border border-[#DCD2FF] shadow-[0_4px_10px_rgba(220,210,255,0.25)] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
-              <svg viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000" className="w-7 h-7">
-                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-                <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
-                <g id="SVGRepo_iconCarrier">
-                  <path d="M699.4 214.1H424.5c-29 0-52.8-23.8-52.8-52.8V151c0-29 23.8-52.8 52.8-52.8h274.9c29 0 52.8 23.8 52.8 52.8v10.3c0 29-23.8 52.8-52.8 52.8z" fill="none"></path>
-                  <path d="M770.1 128c-16.6 0-30 13.4-30 30s13.4 30 30 30c25.8 0 50.2 10.2 68.7 28.6 18.4 18.4 28.6 42.8 28.6 68.7v446.3h-71.1c-51 0-92.8 41.7-92.8 92.8v75.8h-451c-25.8 0-50.2-10.2-68.7-28.6-18.4-18.4-28.6-42.8-28.6-68.7V285.2c0-25.8 10.2-50.2 28.6-68.7 18.4-18.4 42.8-28.6 68.7-28.6 16.6 0 30-13.4 30-30s-13.4-30-30-30c-86.7 0-157.2 70.5-157.2 157.2v517.6c0 86.7 70.5 157.2 157.2 157.2h517.6c86.7 0 157.2-70.5 157.2-157.2V285.2c0.1-86.7-70.5-157.2-157.2-157.2z m88 743.5c-18.4 18.4-42.8 28.6-68.7 28.6h-32.5l129.7-120.5v23.3c0.1 25.8-10.1 50.2-28.5 68.6z" fill="currentColor"></path>
-                  <path d="M382.7 191.8H640c34.9 0 63.4-28.5 63.4-63.4S674.9 65 640 65H382.7c-34.9 0-63.4 28.5-63.4 63.4s28.6 63.4 63.4 63.4z m0-66.8H640c1.7 0 3.4 1.6 3.4 3.4 0 1.7-1.6 3.4-3.4 3.4H382.7c-1.7 0-3.4-1.6-3.4-3.4 0-1.7 1.7-3.4 3.4-3.4z" fill="currentColor"></path>
-                  <path d="M724.1 499.2h-33c-16.6 0-30 13.4-30 30s13.4 30 30 30h33c16.6 0 30-13.4 30-30s-13.4-30-30-30zM595.4 499.2h-53.3v-51c0-16.6-13.4-30-30-30s-30 13.4-30 30v51H319.3c-16.6 0-30 13.4-30 30s13.4 30 30 30h162.8v181.2c0 16.6 13.4 30 30 30s30-13.4 30-30V559.2h53.3c16.6 0 30-13.4 30-30s-13.4-30-30-30zM512.1 384.3c16.6 0 30-13.4 30-30v-26.4c0-16.6-13.4-30-30-30s-30 13.4-30 30v26.4c0 16.6 13.4 30 30 30z" fill="currentColor"></path>
-                </g>
-              </svg>
+              <Image src="/icon_darurat.png" alt="Darurat" width={56} height={56} className="w-full h-full object-contain" />
             </button>
             <span className="text-[11px] font-black text-slate-700 tracking-wide">Darurat</span>
           </div>

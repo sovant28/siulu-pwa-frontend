@@ -114,15 +114,15 @@ function DestinasiListContent() {
                 onClick={() => setActiveFilter(key)}
                 className={`pb-2.5 text-xs font-bold whitespace-nowrap transition-all flex-shrink-0 relative ${
                   isActive
-                    ? 'text-[#BE1641]'
-                    : 'text-slate-500 active:text-[#BE1641]'
+                    ? 'text-[#4C1D95]'
+                    : 'text-slate-500 active:text-[#4C1D95]'
                 }`}
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >
                 <span className="transition-colors duration-150">{label}</span>
                 <span
                   className={`absolute bottom-0 left-0 right-0 h-[3px] rounded-t-full transition-all duration-200 origin-center ${
-                    isActive ? 'bg-[#BE1641] scale-x-100' : 'bg-transparent scale-x-0'
+                    isActive ? 'bg-[#4C1D95] scale-x-100' : 'bg-transparent scale-x-0'
                   }`}
                 />
               </button>
@@ -162,7 +162,7 @@ function DestinasiListContent() {
                 className="flex flex-col active:scale-[0.98] transition-all cursor-pointer space-y-3"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >
-                {/* Foto dengan Aspect Ratio 16:10, rounded-3xl di semua sisi */}
+                {/* Baris 1: Foto dengan Aspect Ratio 16:10, rounded-3xl di semua sisi */}
                 <div className="relative w-full aspect-[16/10] bg-slate-100 rounded-3xl overflow-hidden border border-slate-200/80">
                   <Image
                     src={imageUrl || "/dummy_destination.png"}
@@ -175,10 +175,19 @@ function DestinasiListContent() {
 
                 {/* Info Details (Flat list styling) */}
                 <div className="text-left px-1">
+                  {/* Baris 2: Nama Destinasi */}
                   <h3 className="text-[16px] font-black text-slate-900 leading-snug">
                     {dest.nama_tempat}
                   </h3>
 
+                  {/* Baris 3: Deskripsi Singkat */}
+                  {dest.deskripsi_lengkap && (
+                    <p className="text-xs font-semibold text-slate-500 mt-1.5 line-clamp-2 leading-relaxed">
+                      {dest.deskripsi_lengkap}
+                    </p>
+                  )}
+
+                  {/* Baris 4: Lokasi */}
                   {dest.lokasi_wilayah && (
                     <div className="mt-2 flex items-center text-xs font-semibold text-slate-500 gap-1.5">
                       <MapPin className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
@@ -225,11 +234,11 @@ function DestinasiListContent() {
         {/* 2. Jelajah (Active) */}
         <button
           onClick={() => {}}
-          className="flex flex-col items-center justify-center w-16 py-1 text-[#BE1641] active:scale-90 transition cursor-pointer"
+          className="flex flex-col items-center justify-center w-16 py-1 text-[#4C1D95] active:scale-90 transition cursor-pointer"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
           <Compass className="w-5.5 h-5.5" fill="currentColor" />
-          <span className="text-[10px] font-black mt-1 leading-none text-[#BE1641]">Jelajah</span>
+          <span className="text-[10px] font-black mt-1 leading-none text-[#4C1D95]">Jelajah</span>
         </button>
 
         {/* 3. Tanya AI */}

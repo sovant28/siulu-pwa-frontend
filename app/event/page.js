@@ -297,14 +297,14 @@ export default function EventListPage() {
           <span className="text-[10px] font-bold mt-1 leading-none">Beranda</span>
         </button>
 
-        {/* 2. Jelajah (Active) */}
+        {/* 2. Jelajah */}
         <button
-          onClick={() => {}}
-          className="flex flex-col items-center justify-center w-16 py-1 text-[#4C1D95] active:scale-90 transition cursor-pointer"
+          onClick={() => router.push('/destinasi')}
+          className="flex flex-col items-center justify-center w-16 py-1 text-slate-400 hover:text-slate-500 active:scale-90 transition cursor-pointer"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
-          <Compass className="w-5.5 h-5.5" fill="currentColor" />
-          <span className="text-[10px] font-black mt-1 leading-none">Jelajah</span>
+          <Compass className="w-5.5 h-5.5" />
+          <span className="text-[10px] font-bold mt-1 leading-none">Jelajah</span>
         </button>
 
         {/* 3. Tanya AI */}

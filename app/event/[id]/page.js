@@ -329,7 +329,7 @@ export default function EventDetailPage() {
         </button>
 
         {/* Page Title (scrolled only) */}
-        <span className={`text-[15px] font-black text-slate-855 truncate px-4 flex-1 text-center transition-opacity duration-300 ${
+        <span className={`text-[15px] font-black text-slate-850 truncate px-4 flex-1 text-center transition-opacity duration-300 ${
           scrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}>
           {event.nama_tempat}
@@ -394,13 +394,8 @@ export default function EventDetailPage() {
         
         {/* Card 1: Title, Category & Key Info Grid */}
         <div className="bg-white rounded-3xl p-5 border border-slate-200/80 text-left">
-          {/* Category tag */}
-          <div className={`inline-flex px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${themeBgLight}`}>
-            {isEvent ? 'Event' : (categoryLabels[event.kategori] || 'Wisata')}
-          </div>
-
           {/* Title */}
-          <h1 className="text-xl font-black text-slate-800 leading-snug mt-2.5">
+          <h1 className="text-xl font-black text-slate-800 leading-snug">
             {event.nama_tempat}
           </h1>
 
@@ -475,8 +470,8 @@ export default function EventDetailPage() {
         {/* Card 2: YouTube / Instagram Embeds */}
         {(event.youtube_url || event.instagram_url) && (
           <div className="bg-white rounded-3xl p-5 border border-slate-200/80 space-y-4 text-left">
-            <h3 className={`text-xs font-black text-slate-800 uppercase tracking-wider pl-2 border-l-4 ${isEvent ? 'border-[#4C1D95]' : 'border-[#BE1641]'}`}>
-              Dokumentasi & Media
+            <h3 className="text-xs font-black text-slate-800 uppercase tracking-wider">
+              DOKUMENTASI & MEDIA
             </h3>
             {event.youtube_url && (
               <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-200 bg-slate-50">
@@ -509,10 +504,8 @@ export default function EventDetailPage() {
         {/* Card 3: Description (Tentang) */}
         {description && (
           <div className="bg-white rounded-3xl p-5 border border-slate-200/80 text-left">
-            <h3 className={`text-xs font-black text-slate-800 uppercase tracking-wider pl-2 border-l-4 ${
-              isEvent ? 'border-[#4C1D95]' : 'border-[#BE1641]'
-            } mb-3.5`}>
-              Tentang {isEvent ? 'Event' : (categoryLabels[event.kategori] || 'Wisata')}
+            <h3 className="text-xs font-black text-slate-800 uppercase tracking-wider mb-3.5">
+              TENTANG {isEvent ? 'EVENT' : (categoryLabels[event.kategori] ? categoryLabels[event.kategori].toUpperCase() : 'WISATA')}
             </h3>
             <div className={`relative ${!isDescExpanded ? 'max-h-[8rem] overflow-hidden' : ''}`}>
               <p className="text-xs font-semibold text-slate-700 leading-relaxed whitespace-pre-line">
@@ -538,10 +531,8 @@ export default function EventDetailPage() {
         {/* Card 4: Detailed Breakdown of ticket prices */}
         {((costItems && costItems.length > 0) || event.informasi_biaya?.harga_tiket) && (
           <div className="bg-white rounded-3xl p-5 border border-slate-200/80 text-left">
-            <h3 className={`text-xs font-black text-slate-800 uppercase tracking-wider pl-2 border-l-4 ${
-              isEvent ? 'border-[#4C1D95]' : 'border-[#BE1641]'
-            } mb-3.5`}>
-              Rincian Biaya & Tiket
+            <h3 className="text-xs font-black text-slate-800 uppercase tracking-wider mb-3.5">
+              RINCIAN BIAYA & TIKET
             </h3>
             {costItems && costItems.length > 0 && (
               <div className="space-y-3">
@@ -564,10 +555,8 @@ export default function EventDetailPage() {
         {/* Card 5: Facilities */}
         {event.fitur_fasilitas && event.fitur_fasilitas.length > 0 && (
           <div className="bg-white rounded-3xl p-5 border border-slate-200/80 text-left">
-            <h3 className={`text-xs font-black text-slate-800 uppercase tracking-wider pl-2 border-l-4 ${
-              isEvent ? 'border-[#4C1D95]' : 'border-[#BE1641]'
-            } mb-3.5`}>
-              Fasilitas Tersedia
+            <h3 className="text-xs font-black text-slate-800 uppercase tracking-wider mb-3.5">
+              FASILITAS TERSEDIA
             </h3>
             <div className="flex flex-wrap gap-2">
               {event.fitur_fasilitas.map((fac, idx) => (
@@ -583,10 +572,8 @@ export default function EventDetailPage() {
         {/* Card 6: Rules & Tips */}
         {event.aturan_tips && (
           <div className="bg-white rounded-3xl p-5 border border-slate-200/80 text-left">
-            <h3 className={`text-xs font-black text-slate-800 uppercase tracking-wider pl-2 border-l-4 ${
-              isEvent ? 'border-[#4C1D95]' : 'border-[#BE1641]'
-            } mb-3.5`}>
-              Tips & Aturan
+            <h3 className="text-xs font-black text-slate-800 uppercase tracking-wider mb-3.5">
+              TIPS & ATURAN
             </h3>
             <div className={`p-4 rounded-2xl border ${
               isEvent 
@@ -602,10 +589,8 @@ export default function EventDetailPage() {
 
         {/* Card 7: Location & Map */}
         <div className="bg-white rounded-3xl p-5 border border-slate-200/80 text-left">
-          <h3 className={`text-xs font-black text-slate-800 uppercase tracking-wider pl-2 border-l-4 ${
-            isEvent ? 'border-[#4C1D95]' : 'border-[#BE1641]'
-          } mb-3.5`}>
-            Lokasi & Peta
+          <h3 className="text-xs font-black text-slate-800 uppercase tracking-wider mb-3.5">
+            LOKASI & PETA
           </h3>
           
           {hasCoords ? (

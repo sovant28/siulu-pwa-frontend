@@ -214,25 +214,6 @@ function KulinerListContent() {
                       {item.deskripsi_lengkap}
                     </p>
                   )}
-
-                  {/* Baris 4: Details (Lokasi / Harga) */}
-                  <div className="mt-2.5 flex items-center text-xs font-semibold text-slate-500 gap-3">
-                    {/* Location */}
-                    {item.lokasi_wilayah && (
-                      <div className="flex items-center gap-1">
-                        <MapPin className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
-                        <span className="truncate">{item.lokasi_wilayah}</span>
-                      </div>
-                    )}
-                    
-                    {/* Price hint (for food catalog) */}
-                    {priceRange && (
-                      <div className="flex items-center gap-1">
-                        <UtensilsCrossed className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
-                        <span>{priceRange}</span>
-                      </div>
-                    )}
-                  </div>
                 </div>
               </div>
             );

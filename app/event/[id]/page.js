@@ -12,7 +12,6 @@ import {
   ChevronDown,
   ChevronUp,
   ExternalLink,
-  Sparkles,
   Share2,
 } from 'lucide-react';
 
@@ -244,7 +243,7 @@ export default function EventDetailPage() {
         </p>
         <button
           onClick={() => router.back()}
-          className="px-5 py-2.5 bg-[#BE1641] text-white font-bold text-xs rounded-full active:scale-95 transition"
+          className="px-5 py-2.5 bg-[#4C1D95] text-white font-bold text-xs rounded-full active:scale-95 transition"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
           Kembali
@@ -272,11 +271,11 @@ export default function EventDetailPage() {
   };
 
   // Dynamic Theme Colors
-  const accentColor = isEvent ? '#4C1D95' : '#BE1641';
-  const themeBg = isEvent ? 'bg-[#4C1D95]' : 'bg-[#BE1641]';
-  const themeText = isEvent ? 'text-[#4C1D95]' : 'text-[#BE1641]';
-  const themeBorder = isEvent ? 'border-[#4C1D95]' : 'border-[#BE1641]';
-  const themeBgLight = isEvent ? 'bg-purple-50 text-[#4C1D95]' : 'bg-rose-50 text-[#BE1641]';
+  const accentColor = '#4C1D95';
+  const themeBg = 'bg-[#4C1D95]';
+  const themeText = 'text-[#4C1D95]';
+  const themeBorder = 'border-[#4C1D95]';
+  const themeBgLight = 'bg-purple-50 text-[#4C1D95]';
 
   // Extract month and day for event badge
   let displayDay = "";
@@ -449,21 +448,6 @@ export default function EventDetailPage() {
                 </div>
               </div>
             )}
-
-            {/* 4. Ticket / Price Info Summary */}
-            {showPrice && (
-              <div className="flex items-start gap-3.5">
-                <div className={`w-8.5 h-8.5 rounded-xl flex items-center justify-center flex-shrink-0 ${themeBgLight}`}>
-                  <Sparkles className="w-4 h-4" />
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider leading-none">Biaya Masuk</span>
-                  <span className="text-xs font-bold text-slate-800 mt-1 leading-snug">
-                    {ticketPrice}
-                  </span>
-                </div>
-              </div>
-            )}
           </div>
         </div>
 
@@ -575,11 +559,7 @@ export default function EventDetailPage() {
             <h3 className="text-sm font-bold text-slate-800 mb-3">
               Tips & Aturan
             </h3>
-            <div className={`p-4 rounded-2xl border ${
-              isEvent 
-                ? 'bg-purple-50/40 border-purple-200 text-[#4C1D95]' 
-                : 'bg-rose-50/40 border-rose-200 text-[#BE1641]'
-            }`}>
+            <div className="p-4 rounded-2xl border bg-purple-50/40 border-purple-200 text-[#4C1D95]">
               <p className="text-xs font-bold leading-relaxed text-slate-800">
                 {event.aturan_tips}
               </p>
@@ -625,11 +605,11 @@ export default function EventDetailPage() {
 
       {/* ── STICKY BOTTOM ACTION BAR ── */}
       <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white/95 backdrop-blur-lg border-t border-slate-200 px-5 py-4 flex items-center justify-between z-40 rounded-t-3xl">
-        {showPrice ? (
+        {isEvent && showPrice ? (
           <>
             <div className="flex flex-col text-left">
               <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider leading-none">Biaya Masuk</span>
-              <span className="text-sm font-black text-slate-800 mt-1.5 leading-none">
+              <span className="text-sm font-black text-slate-850 mt-1.5 leading-none">
                 {ticketPrice}
               </span>
             </div>
@@ -638,9 +618,7 @@ export default function EventDetailPage() {
               href={mapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className={`flex items-center justify-center gap-1.5 px-6 py-3.5 text-white font-bold text-xs rounded-2xl active:scale-95 transition-all ${
-                isEvent ? 'bg-[#4C1D95] hover:bg-[#3B1570]' : 'bg-[#BE1641] hover:bg-[#a01235]'
-              }`}
+              className="flex items-center justify-center gap-1.5 px-6 py-3.5 text-white font-bold text-xs rounded-2xl active:scale-95 transition-all bg-[#4C1D95] hover:bg-[#3B1570]"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <MapPin className="w-3.5 h-3.5" />
@@ -652,9 +630,7 @@ export default function EventDetailPage() {
             href={mapsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className={`flex items-center justify-center gap-1.5 w-full py-3.5 text-white font-bold text-xs rounded-2xl active:scale-95 transition-all ${
-              isEvent ? 'bg-[#4C1D95] hover:bg-[#3B1570]' : 'bg-[#BE1641] hover:bg-[#a01235]'
-            }`}
+            className="flex items-center justify-center gap-1.5 w-full py-3.5 text-white font-bold text-xs rounded-2xl active:scale-95 transition-all bg-[#4C1D95] hover:bg-[#3B1570]"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             <MapPin className="w-3.5 h-3.5" />

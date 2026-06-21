@@ -808,24 +808,19 @@ export default function EventDetailPage() {
                     )}
                     
                     {/* Menu Price List Row */}
-                    <div className="flex items-start gap-2.5">
-                      <CreditCard className="w-4 h-4 text-slate-400 flex-shrink-0 mt-0.5" />
-                      <div className="flex-1 space-y-1">
-                        {cafe.informasi_biaya?.menu_items && Array.isArray(cafe.informasi_biaya.menu_items) ? (
-                          cafe.informasi_biaya.menu_items.map((menu, mIdx) => (
+                    {cafe.informasi_biaya?.menu_items && Array.isArray(cafe.informasi_biaya.menu_items) && cafe.informasi_biaya.menu_items.length > 0 && (
+                      <div className="flex items-start gap-2.5">
+                        <CreditCard className="w-4 h-4 text-slate-400 flex-shrink-0 mt-0.5" />
+                        <div className="flex-1 space-y-1">
+                          {cafe.informasi_biaya.menu_items.map((menu, mIdx) => (
                             <div key={mIdx} className="flex justify-between items-center text-slate-700 font-semibold">
                               <span className="text-slate-600">{menu.nama}</span>
                               <span className="text-slate-900 font-bold">{menu.harga}</span>
                             </div>
-                          ))
-                        ) : (
-                          <div className="flex justify-between items-center">
-                            <span className="text-slate-500 font-medium">Kisaran Harga</span>
-                            <span className="text-slate-900 font-bold">{cafe.informasi_biaya?.harga_tiket || 'Hubungi kedai'}</span>
-                          </div>
-                        )}
+                          ))}
+                        </div>
                       </div>
-                    </div>
+                    )}
                     
                     {/* Divider line between multiple cafes (except last one) */}
                     {idx < servingCafes.length - 1 && (

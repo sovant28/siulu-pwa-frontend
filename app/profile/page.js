@@ -243,7 +243,7 @@ export default function ProfilePage() {
 
         {/* 2. Jelajah */}
         <button
-          onClick={() => router.push('/destinasi')}
+          onClick={() => {}}
           className="flex flex-col items-center justify-center w-16 py-1 text-slate-400 hover:text-slate-500 active:scale-90 transition cursor-pointer"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >

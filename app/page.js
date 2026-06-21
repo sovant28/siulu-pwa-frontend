@@ -168,7 +168,7 @@ export default function AppHome() {
             <Image src="/avatar_v2.png" alt="Avatar" fill className="object-cover" />
           </div>
           <div className="flex flex-col text-left">
-            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider leading-none">{greeting}</span>
+            <span className="text-[10px] font-bold text-slate-500 tracking-wider leading-none">{greeting}</span>
             <span className="text-sm font-black text-slate-700 mt-0.5 leading-none">
               {username || "Guest"}
             </span>
@@ -229,8 +229,8 @@ export default function AppHome() {
                 />
                 {/* Bottom Dark Gradient Overlay with Text details */}
                 <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent pt-12 pb-5 px-5.5 flex flex-col justify-end text-left">
-                  <span className="text-[9px] font-black text-rose-400 uppercase tracking-widest leading-none mb-1">Featured Event</span>
-                  <h4 className="text-base font-black text-white leading-snug line-clamp-1 drop-shadow-sm">{event.nama_tempat}</h4>
+                  <span className="text-[9px] font-black text-rose-400 tracking-widest leading-none mb-1">Featured Event</span>
+                  <h4 className="text-base font-black text-white leading-snug line-clamp-1">{event.nama_tempat}</h4>
                   {formatEventDate(event.jam_operasional) && (
                     <p className="text-[11px] text-white/85 font-semibold mt-0.5">{formatEventDate(event.jam_operasional)}</p>
                   )}
@@ -315,7 +315,7 @@ export default function AppHome() {
           {/* Card 5: Tiket */}
           <div className="flex flex-col items-center space-y-1.5">
             <div className="relative w-14 h-14 opacity-60 saturate-75">
-              <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[6.5px] font-black px-1.5 py-0.5 rounded-full border border-white z-10 leading-none uppercase tracking-wider select-none pointer-events-none scale-90">Soon</span>
+              <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[6.5px] font-black px-1.5 py-0.5 rounded-full border border-white z-10 leading-none tracking-wider select-none pointer-events-none scale-90">Soon</span>
               <button
                 onClick={() => { }}
                 className="w-full h-full flex items-center justify-center rounded-2xl bg-[#DCD2FF] border border-[#DCD2FF] cursor-default select-none outline-none overflow-hidden"
@@ -330,7 +330,7 @@ export default function AppHome() {
           {/* Card 6: Oleh-oleh */}
           <div className="flex flex-col items-center space-y-1.5">
             <div className="relative w-14 h-14 opacity-60 saturate-75">
-              <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[6.5px] font-black px-1.5 py-0.5 rounded-full border border-white z-10 leading-none uppercase tracking-wider select-none pointer-events-none scale-90">Soon</span>
+              <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[6.5px] font-black px-1.5 py-0.5 rounded-full border border-white z-10 leading-none tracking-wider select-none pointer-events-none scale-90">Soon</span>
               <button
                 onClick={() => { }}
                 className="w-full h-full flex items-center justify-center rounded-2xl bg-[#DCD2FF] border border-[#DCD2FF] cursor-default select-none outline-none overflow-hidden"
@@ -345,7 +345,7 @@ export default function AppHome() {
           {/* Card 7: Pengaduan */}
           <div className="flex flex-col items-center space-y-1.5">
             <div className="relative w-14 h-14 opacity-60 saturate-75">
-              <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[6.5px] font-black px-1.5 py-0.5 rounded-full border border-white z-10 leading-none uppercase tracking-wider select-none pointer-events-none scale-90">Soon</span>
+              <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[6.5px] font-black px-1.5 py-0.5 rounded-full border border-white z-10 leading-none tracking-wider select-none pointer-events-none scale-90">Soon</span>
               <button
                 onClick={() => { }}
                 className="w-full h-full flex items-center justify-center rounded-2xl bg-[#DCD2FF] border border-[#DCD2FF] cursor-default select-none outline-none overflow-hidden"
@@ -360,7 +360,7 @@ export default function AppHome() {
           {/* Card 8: Bantuan */}
           <div className="flex flex-col items-center space-y-1.5">
             <div className="relative w-14 h-14 opacity-60 saturate-75">
-              <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[6.5px] font-black px-1.5 py-0.5 rounded-full border border-white z-10 leading-none uppercase tracking-wider select-none pointer-events-none scale-90">Soon</span>
+              <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[6.5px] font-black px-1.5 py-0.5 rounded-full border border-white z-10 leading-none tracking-wider select-none pointer-events-none scale-90">Soon</span>
               <button
                 onClick={() => { }}
                 className="w-full h-full flex items-center justify-center rounded-2xl bg-[#DCD2FF] border border-[#DCD2FF] cursor-default select-none outline-none overflow-hidden"

@@ -130,7 +130,7 @@ export default function ProfilePage() {
             </div>
           )}
           
-          <span className="text-xs font-bold text-slate-500 uppercase tracking-widest mt-2">Wisatawan Domestik</span>
+          <span className="text-xs font-bold text-slate-500 tracking-widest mt-2">Wisatawan Domestik</span>
         </div>
 
         {/* Settings options group */}

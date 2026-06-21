@@ -378,7 +378,7 @@ export default function EventDetailPage() {
         {/* Floating Date Badge inside image (bottom right) */}
         {isEvent && displayDay && (
           <div className="absolute bottom-10 right-4 bg-white/95 backdrop-blur-sm rounded-2xl py-1.5 px-3 flex flex-col items-center border border-slate-200/80 min-w-[52px] z-10">
-            <span className="text-[10px] font-extrabold text-[#4C1D95] uppercase tracking-wider leading-none">
+            <span className="text-[10px] font-extrabold text-[#4C1D95] tracking-wider leading-none">
               {displayMonth}
             </span>
             <span className="text-lg font-black text-slate-800 leading-none mt-1">
@@ -410,7 +410,7 @@ export default function EventDetailPage() {
                   <Calendar className="w-4 h-4" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider leading-none">Tanggal</span>
+                  <span className="text-[10px] font-bold text-slate-500 tracking-wider leading-none">Tanggal</span>
                   <span className="text-xs font-bold text-slate-800 mt-1 leading-snug">
                     {dateInfo.startStr}
                     {dateInfo.endStr && dateInfo.endStr !== dateInfo.startStr && ` — ${dateInfo.endStr}`}
@@ -426,7 +426,7 @@ export default function EventDetailPage() {
                   <Clock className="w-4 h-4" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider leading-none">Waktu / Jam Buka</span>
+                  <span className="text-[10px] font-bold text-slate-500 tracking-wider leading-none">Waktu / Jam Buka</span>
                   <span className="text-xs font-bold text-slate-800 mt-1 leading-snug">
                     {isEvent ? dateInfo.timeStr : event.jam_operasional}
                   </span>
@@ -441,7 +441,7 @@ export default function EventDetailPage() {
                   <MapPin className="w-4 h-4" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider leading-none">Lokasi</span>
+                  <span className="text-[10px] font-bold text-slate-500 tracking-wider leading-none">Lokasi</span>
                   <span className="text-xs font-bold text-slate-800 mt-1 leading-snug">
                     {event.lokasi_wilayah}
                   </span>
@@ -608,7 +608,7 @@ export default function EventDetailPage() {
         {isEvent && showPrice ? (
           <>
             <div className="flex flex-col text-left">
-              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider leading-none">Biaya Masuk</span>
+              <span className="text-[10px] font-bold text-slate-500 tracking-wider leading-none">Biaya Masuk</span>
               <span className="text-sm font-black text-slate-850 mt-1.5 leading-none">
                 {ticketPrice}
               </span>

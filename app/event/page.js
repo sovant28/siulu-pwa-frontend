@@ -222,7 +222,7 @@ export default function EventListPage() {
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >
                 {/* Foto dengan Aspect Ratio 16:10, rounded-3xl di semua sisi */}
-                <div className="relative w-full aspect-[16/10] bg-slate-100 rounded-3xl overflow-hidden border border-slate-100/50 shadow-sm">
+                <div className="relative w-full aspect-[16/10] bg-slate-100 rounded-3xl overflow-hidden border border-slate-200/80">
                   {imageUrl ? (
                     <Image
                       src={imageUrl}

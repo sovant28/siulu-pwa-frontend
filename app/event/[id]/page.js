@@ -14,6 +14,9 @@ import {
   ExternalLink,
   Share2,
   UtensilsCrossed,
+  Home,
+  Phone,
+  CreditCard,
 } from 'lucide-react';
 
 /* ─── Helpers ─── */
@@ -118,6 +121,109 @@ function parseCostInfo(costObj) {
 
 /* ─── Main Component ─── */
 
+// Fallback local datasets for dynamic detail route loading
+const localCulinaryFallback = [
+  {
+    id: "FOOD-PAPIONG-AYAM",
+    nama_tempat: "Pa'piong Ayam Khas Toraja",
+    kategori: "kuliner",
+    lokasi_wilayah: "Rantepao & Sangalla",
+    koordinat_gps: [-2.9734, 119.8972],
+    deskripsi_lengkap: `Pa'piong Ayam adalah kuliner khas tradisional Toraja yang dimasak secara unik di dalam tabung bambu tipis. Potongan daging ayam kampung segar dicampur dengan parutan kelapa muda, batang pisang muda (kallang) yang diiris tipis, cabai lokal (katokkon) yang pedas segar, garam, serta rempah-rempah Toraja.
+
+Setelah semua bumbu merata, adonan dimasukkan ke dalam bambu yang dilapisi daun pisang, lalu dibakar di atas bara api terbuka selama sekitar 1 hingga 1.5 jam hingga matang sempurna dan mengeluarkan aroma harum bambu yang khas.
+
+Bahan & Cara Membuat:
+1. 1 ekor ayam kampung segar (potong kecil-kecil)
+2. 1 batang pisang muda bagian dalam (kallang), iris halus
+3. 1 butir kelapa parut setengah muda
+4. 5-10 buah cabai katokkon (cabai khas Toraja)
+5. Garam, sereh, dan daun kemangi secukupnya
+6. Tabung bambu sedang (sekitar 50-60 cm)`,
+    jam_operasional: "Tersedia di rumah makan tradisional",
+    informasi_biaya: {
+      jenis: "makanan_khas",
+      harga_tiket: "Rp 40.000 - Rp 80.000 / porsi",
+      image_url: "/ai_food.png"
+    },
+    fitur_fasilitas: ["TOR-ARAS-CAF", "TOR-LEMO-CAF"],
+    aturan_tips: "Pa'piong tradisional memakan waktu masak yang cukup lama karena harus dibakar perlahan. Jika ingin memesan langsung di restoran, disarankan menelepon kedai terlebih dahulu agar hidangan siap saat Anda tiba.",
+    kontak_info: ""
+  },
+  {
+    id: "FOOD-DEPPA-TORI",
+    nama_tempat: "Deppa Tori' Kue Manis Toraja",
+    kategori: "kuliner",
+    lokasi_wilayah: "Makale & Rantepao",
+    koordinat_gps: [-3.1028, 119.8556],
+    deskripsi_lengkap: `Deppa Tori' adalah kue tradisional camilan khas Tana Toraja yang terbuat dari tepung beras pilihan, gula merah aren lokal yang manis legit, dan taburan biji wijen di bagian luarnya. Kue ini memiliki bentuk lonjong memanjang khas and bertekstur renyah di luar namun empuk dan gurih di bagian dalamnya.
+
+Sangat cocok disajikan sebagai teman bersantai minum kopi Toraja hangat di pagi atau sore hari.
+
+Bahan-bahan Utama:
+1. Tepung beras ketan lokal
+2. Gula merah aren Toraja asli
+3. Air bersih & minyak kelapa untuk menggoreng
+4. Biji wijen sangrai untuk taburan luar`,
+    jam_operasional: "Tersedia di pasar tradisional & toko oleh-oleh",
+    informasi_biaya: {
+      jenis: "makanan_khas",
+      harga_tiket: "Rp 15.000 - Rp 35.000 / bungkus",
+      image_url: "/icon_kopi.png"
+    },
+    fitur_fasilitas: ["TOR-ARAS-CAF"],
+    aturan_tips: "Deppa Tori' sangat lezat disajikan dalam kondisi hangat bersama secangkir kopi Toraja Arabika tanpa gula.",
+    kontak_info: ""
+  }
+];
+
+const localPlacesFallback = [
+  {
+    id: "TOR-ARAS-CAF",
+    nama_tempat: "Café Aras Rantepao",
+    kategori: "kuliner",
+    lokasi_wilayah: "Rantepao",
+    koordinat_gps: [-2.973412, 119.897213],
+    deskripsi_lengkap: "Café Aras adalah salah satu kafe legendaris dan paling populer bagi wisatawan asing maupun domestik di pusat kota Rantepao. Kafe ini menyediakan aneka hidangan kuliner khas Toraja yang dijamin 100% Halal (seperti Pa'piong Ayam halal, Kapurung) serta kopi specialty Toraja Arabika dengan berbagai metode seduh manual.\n\nTempatnya sangat nyaman dengan dekorasi interior penuh ukiran kayu khas Toraja yang artistik dan bernuansa hangat.",
+    jam_operasional: "10:00 - 22:00 WITA",
+    informasi_biaya: {
+      jenis: "tempat_makan",
+      harga_tiket: "Rp 25.000 - Rp 100.000",
+      image_url: "/dummy_destination.png",
+      menu_items: [
+        { nama: "Pa'piong Ayam Bambu (Halal)", harga: "Rp 70.000" },
+        { nama: "Kapurung Toraja", harga: "Rp 30.000" },
+        { nama: "Kopi Arabika Specialty", harga: "Rp 25.000" }
+      ]
+    },
+    fitur_fasilitas: ["Makan di tempat", "Halal", "Kopi Specialty Toraja", "Free Wifi", "Dekorasi Ukiran Toraja"],
+    aturan_tips: "Cobalah menu Pa'piong Ayam bambu halal mereka yang sangat otentik. Kafe ini sangat ramai menjelang makan malam, jadi disarankan datang lebih awal agar mendapat tempat duduk.",
+    kontak_info: "0813-4212-3456"
+  },
+  {
+    id: "TOR-LEMO-CAF",
+    nama_tempat: "Lemo Café",
+    kategori: "kuliner",
+    lokasi_wilayah: "Makale Utara (Lemo)",
+    koordinat_gps: [-3.0135, 119.8789],
+    deskripsi_lengkap: "Lemo Café terletak strategis di dekat situs makam batu Lemo. Menyajikan hidangan khas Toraja seperti Pa'piong dan kopi Toraja asli sambil menyuguhkan pemandangan sawah hijau yang membentang indah di belakang kafe. Tempat singgah yang sempurna setelah menjelajahi situs budaya Lemo.",
+    jam_operasional: "09:00 - 21:00 WITA",
+    informasi_biaya: {
+      jenis: "tempat_makan",
+      harga_tiket: "Rp 20.000 - Rp 75.000",
+      image_url: "/dummy_destination.png",
+      menu_items: [
+        { nama: "Pa'piong Ayam Tradisional", harga: "Rp 75.000" },
+        { nama: "Deppa Tori' Wijen Hangat", harga: "Rp 20.000" },
+        { nama: "Kopi Robusta Toraja", harga: "Rp 20.000" }
+      ]
+    },
+    fitur_fasilitas: ["Makan di tempat", "Pemandangan Sawah", "Dekat Situs Lemo", "Kopi Toraja"],
+    aturan_tips: "Duduklah di area balkon belakang untuk menikmati pemandangan sawah terbaik. Pa'piong di sini dimasak dengan bumbu rempah tradisional yang sangat gurih.",
+    kontak_info: "0812-3456-7890"
+  }
+];
+
 export default function EventDetailPage() {
   const router = useRouter();
   const params = useParams();
@@ -131,6 +237,14 @@ export default function EventDetailPage() {
   const [isSaved, setIsSaved] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [openMaps, setOpenMaps] = useState({});
+
+  const toggleMap = (cafeId) => {
+    setOpenMaps(prev => ({
+      ...prev,
+      [cafeId]: !prev[cafeId]
+    }));
+  };
 
   // Check saved status from localStorage
   useEffect(() => {
@@ -161,11 +275,38 @@ export default function EventDetailPage() {
       try {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || '';
         const res = await fetch(`${apiUrl}/api/knowledge/destinasi`);
-        if (!res.ok) throw new Error('Gagal memuat data');
-        const data = await res.json();
-        setAllDestinations(data);
-        const found = data.find(d => d.id === eventId);
-        if (!found) throw new Error('Event tidak ditemukan');
+        let data = [];
+        if (res.ok) {
+          data = await res.json();
+        }
+        
+        // Merge API data with fallback datasets and parse string fields
+        const combined = [...data].map(item => {
+          if (item.informasi_biaya && typeof item.informasi_biaya === 'string') {
+            try {
+              item.informasi_biaya = JSON.parse(item.informasi_biaya);
+            } catch (e) {
+              console.error('Failed to parse informasi_biaya:', e);
+            }
+          }
+          return item;
+        });
+        
+        localPlacesFallback.forEach(p => {
+          if (!combined.some(item => item.id === p.id)) {
+            combined.push(p);
+          }
+        });
+        
+        localCulinaryFallback.forEach(c => {
+          if (!combined.some(item => item.id === c.id)) {
+            combined.push(c);
+          }
+        });
+
+        setAllDestinations(combined);
+        const found = combined.find(d => d.id === eventId);
+        if (!found) throw new Error('Detail destinasi tidak ditemukan');
         setEvent(found);
       } catch (err) {
         console.error('Failed to fetch event:', err);
@@ -260,7 +401,15 @@ export default function EventDetailPage() {
   const dateInfo = parseEventDates(event.jam_operasional);
   const mapsUrl = buildMapsUrl(event.koordinat_gps, event.lokasi_wilayah, event.nama_tempat);
   const isEvent = event.kategori === 'event';
-  const isFoodCatalog = event.kategori === 'kuliner' && event.informasi_biaya?.jenis === 'makanan_khas';
+  const isFoodCatalog = 
+    event.kategori === 'kuliner' && 
+    (
+      event.id?.startsWith('FOOD-') || 
+      (event.informasi_biaya && (
+        event.informasi_biaya.jenis === 'makanan_khas' ||
+        (typeof event.informasi_biaya === 'string' && event.informasi_biaya.includes('makanan_khas'))
+      ))
+    );
   const description = event.deskripsi_lengkap;
   const costItems = parseCostInfo(event.informasi_biaya);
 
@@ -419,61 +568,65 @@ export default function EventDetailPage() {
             {event.nama_tempat}
           </h1>
 
-          {/* Divider */}
-          <div className="h-[1px] bg-slate-100 my-4" />
+          {!isFoodCatalog && (
+            <>
+              {/* Divider */}
+              <div className="h-[1px] bg-slate-100 my-4" />
 
-          {/* Info Items List */}
-          <div className="space-y-4">
-            {/* 1. Date Info (Only if startStr is present) */}
-            {dateInfo && dateInfo.startStr && (
-              <div className="flex items-start gap-3.5">
-                <div className={`w-8.5 h-8.5 rounded-xl flex items-center justify-center flex-shrink-0 ${themeBgLight}`}>
-                  <Calendar className="w-4 h-4" />
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-[10px] font-bold text-slate-500 tracking-wider leading-none">Tanggal</span>
-                  <span className="text-xs font-bold text-slate-800 mt-1 leading-snug">
-                    {dateInfo.startStr}
-                    {dateInfo.endStr && dateInfo.endStr !== dateInfo.startStr && ` — ${dateInfo.endStr}`}
-                  </span>
-                </div>
-              </div>
-            )}
+              {/* Info Items List */}
+              <div className="space-y-4">
+                {/* 1. Date Info (Only if startStr is present) */}
+                {dateInfo && dateInfo.startStr && (
+                  <div className="flex items-start gap-3.5">
+                    <div className={`w-8.5 h-8.5 rounded-xl flex items-center justify-center flex-shrink-0 ${themeBgLight}`}>
+                      <Calendar className="w-4 h-4" />
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-[10px] font-bold text-slate-500 tracking-wider leading-none">Tanggal</span>
+                      <span className="text-xs font-bold text-slate-800 mt-1 leading-snug">
+                        {dateInfo.startStr}
+                        {dateInfo.endStr && dateInfo.endStr !== dateInfo.startStr && ` — ${dateInfo.endStr}`}
+                      </span>
+                    </div>
+                  </div>
+                )}
 
-            {/* 2. Operational Hours (For non-events, or events if they have timeStr) */}
-            {((isEvent && dateInfo?.timeStr) || (!isEvent && event.jam_operasional)) && (
-              <div className="flex items-start gap-3.5">
-                <div className={`w-8.5 h-8.5 rounded-xl flex items-center justify-center flex-shrink-0 ${themeBgLight}`}>
-                  <Clock className="w-4 h-4" />
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-[10px] font-bold text-slate-500 tracking-wider leading-none">Waktu / Jam Buka</span>
-                  <span className="text-xs font-bold text-slate-800 mt-1 leading-snug">
-                    {isEvent ? dateInfo.timeStr : event.jam_operasional}
-                  </span>
-                </div>
-              </div>
-            )}
+                {/* 2. Operational Hours (For non-events, or events if they have timeStr) */}
+                {((isEvent && dateInfo?.timeStr) || (!isEvent && event.jam_operasional)) && (
+                  <div className="flex items-start gap-3.5">
+                    <div className={`w-8.5 h-8.5 rounded-xl flex items-center justify-center flex-shrink-0 ${themeBgLight}`}>
+                      <Clock className="w-4 h-4" />
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-[10px] font-bold text-slate-500 tracking-wider leading-none">Waktu / Jam Buka</span>
+                      <span className="text-xs font-bold text-slate-800 mt-1 leading-snug">
+                        {isEvent ? dateInfo.timeStr : event.jam_operasional}
+                      </span>
+                    </div>
+                  </div>
+                )}
 
-            {/* 3. Location Wilayah */}
-            {event.lokasi_wilayah && (
-              <div className="flex items-start gap-3.5">
-                <div className={`w-8.5 h-8.5 rounded-xl flex items-center justify-center flex-shrink-0 ${themeBgLight}`}>
-                  <MapPin className="w-4 h-4" />
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-[10px] font-bold text-slate-500 tracking-wider leading-none">Lokasi</span>
-                  <span className="text-xs font-bold text-slate-800 mt-1 leading-snug">
-                    {event.lokasi_wilayah}
-                  </span>
-                </div>
+                {/* 3. Location Wilayah */}
+                {event.lokasi_wilayah && (
+                  <div className="flex items-start gap-3.5">
+                    <div className={`w-8.5 h-8.5 rounded-xl flex items-center justify-center flex-shrink-0 ${themeBgLight}`}>
+                      <MapPin className="w-4 h-4" />
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="text-[10px] font-bold text-slate-500 tracking-wider leading-none">Lokasi</span>
+                      <span className="text-xs font-bold text-slate-800 mt-1 leading-snug">
+                        {event.lokasi_wilayah}
+                      </span>
+                    </div>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
+            </>
+          )}
         </div>
 
         {/* Card 2: YouTube / Instagram Embeds */}
-        {(event.youtube_url || event.instagram_url) && (
+        {!isFoodCatalog && (event.youtube_url || event.instagram_url) && (
           <div className="bg-white rounded-3xl p-5 border border-slate-200/80 space-y-4 text-left">
             <h3 className="text-sm font-bold text-slate-800">
               Dokumentasi & Media
@@ -510,7 +663,7 @@ export default function EventDetailPage() {
         {description && (
           <div className="bg-white rounded-3xl p-5 border border-slate-200/80 text-left">
             <h3 className="text-sm font-bold text-slate-800 mb-3">
-              Tentang {isEvent ? 'Event' : (categoryLabels[event.kategori] || 'Wisata')}
+              {isFoodCatalog ? `Tentang ${event.nama_tempat}` : `Tentang ${isEvent ? 'Event' : (categoryLabels[event.kategori] || 'Wisata')}`}
             </h3>
             <div className={`relative ${!isDescExpanded ? 'max-h-[8rem] overflow-hidden' : ''}`}>
               <p className="text-xs font-semibold text-slate-700 leading-relaxed whitespace-pre-line">
@@ -534,7 +687,7 @@ export default function EventDetailPage() {
         )}
 
         {/* Card 4: Detailed Breakdown of ticket prices */}
-        {((costItems && costItems.length > 0) || event.informasi_biaya?.harga_tiket) && (
+        {!isFoodCatalog && ((costItems && costItems.length > 0) || event.informasi_biaya?.harga_tiket) && (
           <div className="bg-white rounded-3xl p-5 border border-slate-200/80 text-left">
             <h3 className="text-sm font-bold text-slate-800 mb-3">
               Rincian Biaya & Tiket
@@ -576,44 +729,115 @@ export default function EventDetailPage() {
 
         {/* Card: Linked Cafes & Restaurants (only for Food Catalog) */}
         {isFoodCatalog && servingCafes.length > 0 && (
-          <div id="kedai-penyedia" className="bg-white rounded-3xl p-5 border border-slate-200/80 text-left">
-            <h3 className="text-sm font-bold text-slate-800 mb-3.5">
+          <div id="kedai-penyedia" className="bg-white rounded-3xl p-5 border border-slate-200/80 text-left space-y-6">
+            <h3 className="text-sm font-bold text-slate-800 border-b border-slate-100 pb-2">
               Tempat Menikmati Hidangan Ini
             </h3>
-            <div className="space-y-4">
-              {servingCafes.map((cafe) => (
-                <div
-                  key={cafe.id}
-                  onClick={() => router.push(`/event/${cafe.id}`)}
-                  className="flex items-center gap-3.5 p-3 rounded-2xl border border-slate-100 hover:border-slate-300 active:scale-[0.99] transition-all cursor-pointer bg-slate-50/50"
-                  style={{ WebkitTapHighlightColor: 'transparent' }}
-                >
-                  {/* Small cafe thumbnail */}
-                  <div className="relative w-14 h-14 rounded-xl overflow-hidden border border-slate-200 flex-shrink-0 bg-slate-100">
-                    <Image
-                      src={cafe.informasi_biaya?.image_url || "/dummy_destination.png"}
-                      alt={cafe.nama_tempat}
-                      fill
-                      className="object-cover"
-                      unoptimized
-                    />
+            <div className="space-y-6">
+              {servingCafes.map((cafe, idx) => {
+                const cafeLat = cafe.koordinat_gps ? cafe.koordinat_gps[0] : null;
+                const cafeLng = cafe.koordinat_gps ? cafe.koordinat_gps[1] : null;
+                const cafeHasCoords = cafeLat !== null && cafeLng !== null;
+                const cafeDelta = 0.003;
+                const cafeBbox = cafeHasCoords ? `${cafeLng - cafeDelta}%2C${cafeLat - cafeDelta}%2C${cafeLng + cafeDelta}%2C${cafeLat + cafeDelta}` : '';
+                const cafeOsmUrl = cafeHasCoords ? `https://www.openstreetmap.org/export/embed.html?bbox=${cafeBbox}&layer=mapnik&marker=${cafeLat}%2C${cafeLng}` : '';
+                
+                const isMapOpen = !!openMaps[cafe.id];
+                
+                return (
+                  <div key={cafe.id} className="space-y-3.5 text-xs text-slate-700 font-semibold">
+                    {/* Cafe Header: Home Icon + Name (clickable to detail) */}
+                    <div 
+                      onClick={() => router.push(`/event/${cafe.id}`)}
+                      className="flex items-center gap-2.5 cursor-pointer text-slate-900 group active:scale-[0.99] transition-all"
+                    >
+                      <Home className="w-4 h-4 text-[#4C1D95] flex-shrink-0" />
+                      <span className="text-sm font-black group-hover:text-[#4C1D95] transition-colors">
+                        {cafe.nama_tempat}
+                      </span>
+                      <ExternalLink className="w-3 h-3 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </div>
+                    
+                    {/* Address Row: Pin Icon + Address + OPEN MAP button */}
+                    <div className="flex items-start gap-2.5 justify-between">
+                      <div className="flex items-start gap-2.5">
+                        <MapPin className="w-4 h-4 text-slate-400 flex-shrink-0 mt-0.5" />
+                        <span>{cafe.lokasi_wilayah}</span>
+                      </div>
+                      {cafeHasCoords && (
+                        <button
+                          onClick={() => toggleMap(cafe.id)}
+                          className="text-[10px] font-black text-[#4C1D95] border border-slate-200 rounded-lg px-2 py-1 active:bg-slate-50 transition-colors uppercase tracking-wider flex-shrink-0"
+                        >
+                          {isMapOpen ? 'Close Map' : 'Open Map'}
+                        </button>
+                      )}
+                    </div>
+                    
+                    {/* Inline Map Dropdown */}
+                    {cafeHasCoords && isMapOpen && (
+                      <div className="relative rounded-2xl overflow-hidden border border-slate-200 bg-slate-50 h-40 w-full my-2 transition-all duration-300">
+                        <iframe
+                          title={`Peta ${cafe.nama_tempat}`}
+                          width="100%"
+                          height="100%"
+                          frameBorder="0"
+                          scrolling="no"
+                          src={cafeOsmUrl}
+                          className="w-full h-full"
+                        />
+                      </div>
+                    )}
+                    
+                    {/* Phone Row */}
+                    {cafe.kontak_info && (
+                      <div className="flex items-center gap-2.5">
+                        <Phone className="w-4 h-4 text-slate-400 flex-shrink-0" />
+                        <span>{cafe.kontak_info}</span>
+                      </div>
+                    )}
+                    
+                    {/* Hours Row */}
+                    {cafe.jam_operasional && (
+                      <div className="flex items-center gap-2.5">
+                        <Clock className="w-4 h-4 text-slate-400 flex-shrink-0" />
+                        <span>{cafe.jam_operasional}</span>
+                      </div>
+                    )}
+                    
+                    {/* Menu Price List Row */}
+                    <div className="flex items-start gap-2.5">
+                      <CreditCard className="w-4 h-4 text-slate-400 flex-shrink-0 mt-0.5" />
+                      <div className="flex-1 space-y-1">
+                        {cafe.informasi_biaya?.menu_items && Array.isArray(cafe.informasi_biaya.menu_items) ? (
+                          cafe.informasi_biaya.menu_items.map((menu, mIdx) => (
+                            <div key={mIdx} className="flex justify-between items-center text-slate-700 font-semibold">
+                              <span className="text-slate-600">{menu.nama}</span>
+                              <span className="text-slate-900 font-bold">{menu.harga}</span>
+                            </div>
+                          ))
+                        ) : (
+                          <div className="flex justify-between items-center">
+                            <span className="text-slate-500 font-medium">Kisaran Harga</span>
+                            <span className="text-slate-900 font-bold">{cafe.informasi_biaya?.harga_tiket || 'Hubungi kedai'}</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    
+                    {/* Divider line between multiple cafes (except last one) */}
+                    {idx < servingCafes.length - 1 && (
+                      <div className="h-[1px] bg-slate-100 my-5 pt-3" />
+                    )}
                   </div>
-                  {/* Cafe Info */}
-                  <div className="flex flex-col flex-1 min-w-0">
-                    <span className="text-xs font-bold text-slate-900 truncate leading-snug">{cafe.nama_tempat}</span>
-                    <span className="text-[10px] text-slate-500 font-semibold mt-1 flex items-center gap-1">
-                      <MapPin className="w-3 h-3 text-slate-400" />
-                      <span className="truncate">{cafe.lokasi_wilayah}</span>
-                    </span>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         )}
 
         {/* Card 6: Rules & Tips */}
-        {event.aturan_tips && (
+        {!isFoodCatalog && event.aturan_tips && (
           <div className="bg-white rounded-3xl p-5 border border-slate-200/80 text-left">
             <h3 className="text-sm font-bold text-slate-800 mb-3">
               Tips & Aturan

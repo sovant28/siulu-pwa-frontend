@@ -15,27 +15,67 @@ import {
   UtensilsCrossed,
 } from 'lucide-react';
 
+// Fallback local culinary dataset
+const localCulinaryFallback = [
+  {
+    id: "FOOD-PAPIONG-AYAM",
+    nama_tempat: "Pa'piong Ayam Khas Toraja",
+    kategori: "kuliner",
+    lokasi_wilayah: "Rantepao & Sangalla",
+    koordinat_gps: [-2.9734, 119.8972],
+    deskripsi_lengkap: `Pa'piong Ayam adalah kuliner khas tradisional Toraja yang dimasak secara unik di dalam tabung bambu tipis. Potongan daging ayam kampung segar dicampur dengan parutan kelapa muda, batang pisang muda (kallang) yang diiris tipis, cabai lokal (katokkon) yang pedas segar, garam, serta rempah-rempah Toraja.
+
+Setelah semua bumbu merata, adonan dimasukkan ke dalam bambu yang dilapisi daun pisang, lalu dibakar di atas bara api terbuka selama sekitar 1 hingga 1.5 jam hingga matang sempurna dan mengeluarkan aroma harum bambu yang khas.
+
+Bahan & Cara Membuat:
+1. 1 ekor ayam kampung segar (potong kecil-kecil)
+2. 1 batang pisang muda bagian dalam (kallang), iris halus
+3. 1 butir kelapa parut setengah muda
+4. 5-10 buah cabai katokkon (cabai khas Toraja)
+5. Garam, sereh, dan daun kemangi secukupnya
+6. Tabung bambu sedang (sekitar 50-60 cm)`,
+    jam_operasional: "Tersedia di rumah makan tradisional",
+    informasi_biaya: {
+      jenis: "makanan_khas",
+      harga_tiket: "Rp 40.000 - Rp 80.000 / porsi",
+      image_url: "/ai_food.png"
+    },
+    fitur_fasilitas: ["TOR-ARAS-CAF", "TOR-LEMO-CAF"],
+    aturan_tips: "Pa'piong tradisional memakan waktu masak yang cukup lama karena harus dibakar perlahan. Jika ingin memesan langsung di restoran, disarankan menelepon kedai terlebih dahulu agar hidangan siap saat Anda tiba.",
+    kontak_info: ""
+  },
+  {
+    id: "FOOD-DEPPA-TORI",
+    nama_tempat: "Deppa Tori' Kue Manis Toraja",
+    kategori: "kuliner",
+    lokasi_wilayah: "Makale & Rantepao",
+    koordinat_gps: [-3.1028, 119.8556],
+    deskripsi_lengkap: `Deppa Tori' adalah kue tradisional camilan khas Tana Toraja yang terbuat dari tepung beras pilihan, gula merah aren lokal yang manis legit, dan taburan biji wijen di bagian luarnya. Kue ini memiliki bentuk lonjong memanjang khas dan bertekstur renyah di luar namun empuk dan gurih di bagian dalamnya.
+
+Sangat cocok disajikan sebagai teman bersantai minum kopi Toraja hangat di pagi atau sore hari.
+
+Bahan-bahan Utama:
+1. Tepung beras ketan lokal
+2. Gula merah aren Toraja asli
+3. Air bersih & minyak kelapa untuk menggoreng
+4. Biji wijen sangrai untuk taburan luar`,
+    jam_operasional: "Tersedia di pasar tradisional & toko oleh-oleh",
+    informasi_biaya: {
+      jenis: "makanan_khas",
+      harga_tiket: "Rp 15.000 - Rp 35.000 / bungkus",
+      image_url: "/icon_kopi.png"
+    },
+    fitur_fasilitas: ["TOR-ARAS-CAF"],
+    aturan_tips: "Deppa Tori' sangat lezat disajikan dalam kondisi hangat bersama secangkir kopi Toraja Arabika tanpa gula.",
+    kontak_info: ""
+  }
+];
+
 function KulinerListContent() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const tabParam = searchParams.get('tab');
-  
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
-  const [activeTab, setActiveTab] = useState('makanan_khas'); // 'makanan_khas' atau 'tempat_makan'
-
-  const tabLabels = {
-    makanan_khas: 'Makanan Khas',
-    tempat_makan: 'Tempat Makan',
-  };
-
-  // Sync active tab from URL query param if present
-  useEffect(() => {
-    if (tabParam && tabLabels[tabParam]) {
-      setActiveTab(tabParam);
-    }
-  }, [tabParam]);
 
   // Fetch culinary items from API
   useEffect(() => {
@@ -43,14 +83,29 @@ function KulinerListContent() {
       try {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || '';
         const res = await fetch(`${apiUrl}/api/knowledge/destinasi`);
-        if (!res.ok) throw new Error('Gagal mengambil data');
-        const data = await res.json();
+        let data = [];
+        if (res.ok) {
+          data = await res.json();
+        }
         
-        // Filter by category 'kuliner'
-        const culinaryItems = data.filter(item => item.kategori === 'kuliner');
-        setItems(culinaryItems);
+        // Filter traditional foods (makanan_khas)
+        const apiCulinaryItems = data.filter(
+          item => item.kategori === 'kuliner' && item.informasi_biaya?.jenis === 'makanan_khas'
+        );
+        
+        // Merge with local fallback
+        const combined = [...apiCulinaryItems];
+        localCulinaryFallback.forEach(fallback => {
+          if (!combined.some(item => item.id === fallback.id)) {
+            combined.push(fallback);
+          }
+        });
+
+        setItems(combined);
       } catch (err) {
         console.error('Failed to fetch culinary items:', err);
+        // On failure, load fallbacks anyway
+        setItems(localCulinaryFallback);
       } finally {
         setLoading(false);
       }
@@ -58,30 +113,20 @@ function KulinerListContent() {
     fetchCulinary();
   }, []);
 
-  // Filter logic based on search query and active tab selection
+  // Filter logic based on search query
   const filteredItems = items.filter(item => {
-    // 1. Search Query Filter
-    const matchesSearch = 
+    return (
       item.nama_tempat.toLowerCase().includes(searchQuery.toLowerCase()) ||
       (item.lokasi_wilayah && item.lokasi_wilayah.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      (item.deskripsi_lengkap && item.deskripsi_lengkap.toLowerCase().includes(searchQuery.toLowerCase()));
-    
-    if (!matchesSearch) return false;
-
-    // 2. Tab Filter
-    const isFoodCatalog = item.informasi_biaya?.jenis === 'makanan_khas';
-    if (activeTab === 'makanan_khas') {
-      return isFoodCatalog;
-    } else {
-      return !isFoodCatalog;
-    }
+      (item.deskripsi_lengkap && item.deskripsi_lengkap.toLowerCase().includes(searchQuery.toLowerCase()))
+    );
   });
 
   return (
     <div className="flex flex-col w-full min-h-[100dvh] bg-[#F6F7F9] font-sans pb-[calc(env(safe-area-inset-bottom)+76px)] relative overflow-x-hidden">
       
       {/* ── COMPACT STICKY HEADER ── */}
-      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md pt-[calc(env(safe-area-inset-top)+8px)] flex flex-col gap-3 border-b border-slate-200">
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md pt-[calc(env(safe-area-inset-top)+8px)] pb-3 flex flex-col gap-3 border-b border-slate-200">
         {/* Row 1: Back Button & Page Title */}
         <div className="flex items-center gap-3 px-5">
           <button
@@ -100,36 +145,12 @@ function KulinerListContent() {
             <Search className="w-4 h-4 text-slate-400 mr-2 flex-shrink-0" />
             <input
               type="text"
-              placeholder={activeTab === 'makanan_khas' ? "Cari makanan khas..." : "Cari kedai / restoran..."}
+              placeholder="Cari makanan khas..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full text-sm font-medium text-slate-800 bg-transparent border-none outline-none placeholder-slate-400"
             />
           </div>
-        </div>
-
-        {/* Filter Tabs ("Makanan Khas" vs "Tempat Makan") */}
-        <div className="px-5 flex items-center space-x-6 overflow-x-auto no-scrollbar scroll-smooth bg-white pb-0 flex-shrink-0">
-          {Object.entries(tabLabels).map(([key, label]) => {
-            const isActive = activeTab === key;
-            return (
-              <button
-                key={key}
-                onClick={() => setActiveTab(key)}
-                className={`pb-2.5 text-xs font-bold whitespace-nowrap transition-all flex-shrink-0 relative ${
-                  isActive ? 'text-[#4C1D95]' : 'text-slate-500 active:text-[#4C1D95]'
-                }`}
-                style={{ WebkitTapHighlightColor: 'transparent' }}
-              >
-                <span className="transition-colors duration-150">{label}</span>
-                <span
-                  className={`absolute bottom-0 left-0 right-0 h-[3px] rounded-t-full transition-all duration-200 origin-center ${
-                    isActive ? 'bg-[#4C1D95] scale-x-100' : 'bg-transparent scale-x-0'
-                  }`}
-                />
-              </button>
-            );
-          })}
         </div>
       </header>
 
@@ -137,7 +158,7 @@ function KulinerListContent() {
       {!loading && (
         <div className="px-5 mt-3">
           <p className="text-[11px] font-semibold text-slate-400">
-            {filteredItems.length} {activeTab === 'makanan_khas' ? 'kuliner khas' : 'tempat makan'} ditemukan
+            {filteredItems.length} kuliner khas ditemukan
           </p>
         </div>
       )}

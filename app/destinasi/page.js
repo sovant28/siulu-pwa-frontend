@@ -14,6 +14,54 @@ import {
   User,
 } from 'lucide-react';
 
+// Fallback local places dataset for destinations
+const localPlacesFallback = [
+  {
+    id: "TOR-ARAS-CAF",
+    nama_tempat: "Café Aras Rantepao",
+    kategori: "kuliner",
+    lokasi_wilayah: "Rantepao",
+    koordinat_gps: [-2.973412, 119.897213],
+    deskripsi_lengkap: "Café Aras adalah salah satu kafe legendaris dan paling populer bagi wisatawan asing maupun domestik di pusat kota Rantepao. Kafe ini menyediakan aneka hidangan kuliner khas Toraja yang dijamin 100% Halal (seperti Pa'piong Ayam halal, Kapurung) serta kopi specialty Toraja Arabika dengan berbagai metode seduh manual.\n\nTempatnya sangat nyaman dengan dekorasi interior penuh ukiran kayu khas Toraja yang artistik dan bernuansa hangat.",
+    jam_operasional: "10:00 - 22:00 WITA",
+    informasi_biaya: {
+      jenis: "tempat_makan",
+      harga_tiket: "Rp 25.000 - Rp 100.000",
+      image_url: "/dummy_destination.png",
+      menu_items: [
+        { nama: "Pa'piong Ayam Bambu (Halal)", harga: "Rp 70.000" },
+        { nama: "Kapurung Toraja", harga: "Rp 30.000" },
+        { nama: "Kopi Arabika Specialty", harga: "Rp 25.000" }
+      ]
+    },
+    fitur_fasilitas: ["Makan di tempat", "Halal", "Kopi Specialty Toraja", "Free Wifi", "Dekorasi Ukiran Toraja"],
+    aturan_tips: "Cobalah menu Pa'piong Ayam bambu halal mereka yang sangat otentik. Kafe ini sangat ramai menjelang makan malam, jadi disarankan datang lebih awal agar mendapat tempat duduk.",
+    kontak_info: "0813-4212-3456"
+  },
+  {
+    id: "TOR-LEMO-CAF",
+    nama_tempat: "Lemo Café",
+    kategori: "kuliner",
+    lokasi_wilayah: "Makale Utara (Lemo)",
+    koordinat_gps: [-3.0135, 119.8789],
+    deskripsi_lengkap: "Lemo Café terletak strategis di dekat situs makam batu Lemo. Menyajikan hidangan khas Toraja seperti Pa'piong dan kopi Toraja asli sambil menyuguhkan pemandangan sawah hijau yang membentang indah di belakang kafe. Tempat singgah yang sempurna setelah menjelajahi situs budaya Lemo.",
+    jam_operasional: "09:00 - 21:00 WITA",
+    informasi_biaya: {
+      jenis: "tempat_makan",
+      harga_tiket: "Rp 20.000 - Rp 75.000",
+      image_url: "/dummy_destination.png",
+      menu_items: [
+        { nama: "Pa'piong Ayam Tradisional", harga: "Rp 75.000" },
+        { nama: "Deppa Tori' Wijen Hangat", harga: "Rp 20.000" },
+        { nama: "Kopi Robusta Toraja", harga: "Rp 20.000" }
+      ]
+    },
+    fitur_fasilitas: ["Makan di tempat", "Pemandangan Sawah", "Dekat Situs Lemo", "Kopi Toraja"],
+    aturan_tips: "Duduklah di area balkon belakang untuk menikmati pemandangan sawah terbaik. Pa'piong di sini dimasak dengan bumbu rempah tradisional yang sangat gurih.",
+    kontak_info: "0812-3456-7890"
+  }
+];
+
 function DestinasiListContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -28,6 +76,7 @@ function DestinasiListContent() {
     semua: 'Semua Destinasi',
     alam: 'Wisata Alam',
     budaya_religi: 'Budaya & Religi',
+    tempat_makan: 'Tempat Makan',
   };
 
   // Sync active filter from URL query param
@@ -43,14 +92,30 @@ function DestinasiListContent() {
       try {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || '';
         const res = await fetch(`${apiUrl}/api/knowledge/destinasi`);
-        if (!res.ok) throw new Error('Gagal mengambil data');
-        const data = await res.json();
-        // Saring kategori yang diizinkan (wisata alam, budaya/religi)
-        const allowedCategories = ['alam', 'budaya_religi'];
-        const filtered = data.filter(item => allowedCategories.includes(item.kategori));
-        setDestinations(filtered);
+        let data = [];
+        if (res.ok) {
+          data = await res.json();
+        }
+        
+        // Filter allowed categories (alam, budaya_religi, and eating places from kuliner)
+        const filtered = data.filter(item => 
+          item.kategori === 'alam' || 
+          item.kategori === 'budaya_religi' ||
+          (item.kategori === 'kuliner' && item.informasi_biaya?.jenis === 'tempat_makan')
+        );
+
+        // Merge with local fallback
+        const combined = [...filtered];
+        localPlacesFallback.forEach(fallback => {
+          if (!combined.some(item => item.id === fallback.id)) {
+            combined.push(fallback);
+          }
+        });
+
+        setDestinations(combined);
       } catch (err) {
         console.error('Failed to fetch destinations:', err);
+        setDestinations(localPlacesFallback);
       } finally {
         setLoading(false);
       }
@@ -70,6 +135,9 @@ function DestinasiListContent() {
 
     // 2. Category Filter
     if (activeFilter === 'semua') return true;
+    if (activeFilter === 'tempat_makan') {
+      return item.kategori === 'kuliner' && item.informasi_biaya?.jenis === 'tempat_makan';
+    }
     return item.kategori === activeFilter;
   });
 

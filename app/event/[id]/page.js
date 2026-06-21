@@ -13,6 +13,7 @@ import {
   ChevronUp,
   ExternalLink,
   Share2,
+  UtensilsCrossed,
 } from 'lucide-react';
 
 /* ─── Helpers ─── */
@@ -123,6 +124,7 @@ export default function EventDetailPage() {
   const eventId = params.id;
 
   const [event, setEvent] = useState(null);
+  const [allDestinations, setAllDestinations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isDescExpanded, setIsDescExpanded] = useState(false);
@@ -161,6 +163,7 @@ export default function EventDetailPage() {
         const res = await fetch(`${apiUrl}/api/knowledge/destinasi`);
         if (!res.ok) throw new Error('Gagal memuat data');
         const data = await res.json();
+        setAllDestinations(data);
         const found = data.find(d => d.id === eventId);
         if (!found) throw new Error('Event tidak ditemukan');
         setEvent(found);
@@ -257,8 +260,26 @@ export default function EventDetailPage() {
   const dateInfo = parseEventDates(event.jam_operasional);
   const mapsUrl = buildMapsUrl(event.koordinat_gps, event.lokasi_wilayah, event.nama_tempat);
   const isEvent = event.kategori === 'event';
+  const isFoodCatalog = event.kategori === 'kuliner' && event.informasi_biaya?.jenis === 'makanan_khas';
   const description = event.deskripsi_lengkap;
   const costItems = parseCostInfo(event.informasi_biaya);
+
+  const servingCafes = isFoodCatalog && event.fitur_fasilitas && allDestinations.length > 0
+    ? allDestinations.filter(d => event.fitur_fasilitas.includes(d.id))
+    : [];
+
+  const firstCafe = servingCafes[0];
+  const foodMapsUrl = firstCafe 
+    ? buildMapsUrl(firstCafe.koordinat_gps, firstCafe.lokasi_wilayah, firstCafe.nama_tempat)
+    : mapsUrl;
+
+  const scrollToCafes = (e) => {
+    e.preventDefault();
+    const element = document.getElementById("kedai-penyedia");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   const categoryLabels = {
     event: 'Event',
@@ -536,8 +557,8 @@ export default function EventDetailPage() {
           </div>
         )}
 
-        {/* Card 5: Facilities */}
-        {event.fitur_fasilitas && event.fitur_fasilitas.length > 0 && (
+        {/* Card 5: Facilities (Only for non-food catalog items) */}
+        {!isFoodCatalog && event.fitur_fasilitas && event.fitur_fasilitas.length > 0 && (
           <div className="bg-white rounded-3xl p-5 border border-slate-200/80 text-left">
             <h3 className="text-sm font-bold text-slate-800 mb-3">
               Fasilitas Tersedia
@@ -548,6 +569,44 @@ export default function EventDetailPage() {
                   <span className={themeText}>✓</span>
                   {fac}
                 </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Card: Linked Cafes & Restaurants (only for Food Catalog) */}
+        {isFoodCatalog && servingCafes.length > 0 && (
+          <div id="kedai-penyedia" className="bg-white rounded-3xl p-5 border border-slate-200/80 text-left">
+            <h3 className="text-sm font-bold text-slate-800 mb-3.5">
+              Tempat Menikmati Hidangan Ini
+            </h3>
+            <div className="space-y-4">
+              {servingCafes.map((cafe) => (
+                <div
+                  key={cafe.id}
+                  onClick={() => router.push(`/event/${cafe.id}`)}
+                  className="flex items-center gap-3.5 p-3 rounded-2xl border border-slate-100 hover:border-slate-300 active:scale-[0.99] transition-all cursor-pointer bg-slate-50/50"
+                  style={{ WebkitTapHighlightColor: 'transparent' }}
+                >
+                  {/* Small cafe thumbnail */}
+                  <div className="relative w-14 h-14 rounded-xl overflow-hidden border border-slate-200 flex-shrink-0 bg-slate-100">
+                    <Image
+                      src={cafe.informasi_biaya?.image_url || "/dummy_destination.png"}
+                      alt={cafe.nama_tempat}
+                      fill
+                      className="object-cover"
+                      unoptimized
+                    />
+                  </div>
+                  {/* Cafe Info */}
+                  <div className="flex flex-col flex-1 min-w-0">
+                    <span className="text-xs font-bold text-slate-900 truncate leading-snug">{cafe.nama_tempat}</span>
+                    <span className="text-[10px] text-slate-500 font-semibold mt-1 flex items-center gap-1">
+                      <MapPin className="w-3 h-3 text-slate-400" />
+                      <span className="truncate">{cafe.lokasi_wilayah}</span>
+                    </span>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
@@ -567,45 +626,69 @@ export default function EventDetailPage() {
           </div>
         )}
 
-        {/* Card 7: Location & Map */}
-        <div className="bg-white rounded-3xl p-5 border border-slate-200/80 text-left">
-          <h3 className="text-sm font-bold text-slate-800 mb-3">
-            Lokasi & Peta
-          </h3>
-          
-          {hasCoords ? (
-            <div className="relative rounded-2xl overflow-hidden border border-slate-200 bg-slate-50 h-40 w-full mb-3.5">
-              <iframe
-                title="Peta Lokasi"
-                width="100%"
-                height="100%"
-                frameBorder="0"
-                scrolling="no"
-                marginHeight="0"
-                marginWidth="0"
-                src={osmUrl}
-                className="w-full h-full pointer-events-auto"
-              />
-            </div>
-          ) : (
-            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-center text-slate-500 text-xs mb-3.5 font-semibold">
-              Peta koordinat GPS tidak tersedia.
-            </div>
-          )}
-          
-          {event.kontak_info && (
-            <div className="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-2xl p-3.5 text-xs font-bold text-slate-800">
-              <span className="text-sm">📞</span>
-              <span>{event.kontak_info}</span>
-            </div>
-          )}
-        </div>
+        {/* Card 7: Location & Map (Only for non-food catalog items) */}
+        {!isFoodCatalog && (
+          <div className="bg-white rounded-3xl p-5 border border-slate-200/80 text-left">
+            <h3 className="text-sm font-bold text-slate-800 mb-3">
+              Lokasi & Peta
+            </h3>
+            
+            {hasCoords ? (
+              <div className="relative rounded-2xl overflow-hidden border border-slate-200 bg-slate-50 h-40 w-full mb-3.5">
+                <iframe
+                  title="Peta Lokasi"
+                  width="100%"
+                  height="100%"
+                  frameBorder="0"
+                  scrolling="no"
+                  marginHeight="0"
+                  marginWidth="0"
+                  src={osmUrl}
+                  className="w-full h-full pointer-events-auto"
+                />
+              </div>
+            ) : (
+              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-center text-slate-500 text-xs mb-3.5 font-semibold">
+                Peta koordinat GPS tidak tersedia.
+              </div>
+            )}
+            
+            {event.kontak_info && (
+              <div className="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-2xl p-3.5 text-xs font-bold text-slate-800">
+                <span className="text-sm">📞</span>
+                <span>{event.kontak_info}</span>
+              </div>
+            )}
+          </div>
+        )}
 
       </div>
 
       {/* ── STICKY BOTTOM ACTION BAR ── */}
       <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white/95 backdrop-blur-lg border-t border-slate-200 px-5 py-4 flex items-center justify-between z-40 rounded-t-3xl">
-        {isEvent && showPrice ? (
+        {isFoodCatalog ? (
+          servingCafes.length > 1 ? (
+            <button
+              onClick={scrollToCafes}
+              className="flex items-center justify-center gap-1.5 w-full py-3.5 text-white font-bold text-xs rounded-2xl active:scale-95 transition-all bg-[#4C1D95] hover:bg-[#3B1570]"
+              style={{ WebkitTapHighlightColor: 'transparent' }}
+            >
+              <UtensilsCrossed className="w-3.5 h-3.5" />
+              <span>Lihat Kedai Penyedia ({servingCafes.length})</span>
+            </button>
+          ) : (
+            <a
+              href={foodMapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-1.5 w-full py-3.5 text-white font-bold text-xs rounded-2xl active:scale-95 transition-all bg-[#4C1D95] hover:bg-[#3B1570]"
+              style={{ WebkitTapHighlightColor: 'transparent' }}
+            >
+              <MapPin className="w-3.5 h-3.5" />
+              <span>Petunjuk Arah Ke {firstCafe?.nama_tempat || 'Kedai'}</span>
+            </a>
+          )
+        ) : isEvent && showPrice ? (
           <>
             <div className="flex flex-col text-left">
               <span className="text-[10px] font-bold text-slate-500 tracking-wider leading-none">Biaya Masuk</span>

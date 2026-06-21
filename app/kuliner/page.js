@@ -178,7 +178,9 @@ function KulinerListContent() {
           ))
         ) : filteredItems.length > 0 ? (
           filteredItems.map((item) => {
-            const imageUrl = item.informasi_biaya?.image_url;
+            const imageUrl = item.informasi_biaya?.image_url || 
+              (item.id === 'FOOD-PAPIONG-AYAM' ? '/ai_food.png' : 
+               item.id === 'FOOD-DEPPA-TORI' ? '/icon_kopi.png' : null);
             const priceRange = item.informasi_biaya?.harga_tiket;
 
             return (

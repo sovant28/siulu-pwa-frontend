@@ -397,7 +397,9 @@ export default function EventDetailPage() {
   }
 
   /* ─── Parse Data ─── */
-  const imageUrl = event.informasi_biaya?.image_url;
+  const imageUrl = event.informasi_biaya?.image_url || 
+    (event.id === 'FOOD-PAPIONG-AYAM' ? '/ai_food.png' : 
+     event.id === 'FOOD-DEPPA-TORI' ? '/icon_kopi.png' : null);
   const dateInfo = parseEventDates(event.jam_operasional);
   const mapsUrl = buildMapsUrl(event.koordinat_gps, event.lokasi_wilayah, event.nama_tempat);
   const isEvent = event.kategori === 'event';

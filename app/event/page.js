@@ -133,7 +133,7 @@ export default function EventListPage() {
     <div className="flex flex-col w-full min-h-[100dvh] bg-[#F6F7F9] font-sans pb-[calc(env(safe-area-inset-bottom)+76px)] relative overflow-x-hidden">
       
       {/* ── STICKY HEADER ── */}
-      <header className="sticky top-0 z-40 bg-white/95 px-6 pt-[calc(env(safe-area-inset-top)+10px)] pb-3 flex flex-col space-y-4 backdrop-blur-md border-b border-slate-100/30">
+      <header className="sticky top-0 z-40 bg-white/90 px-6 pt-[calc(env(safe-area-inset-top)+10px)] pb-3 flex flex-col space-y-4 backdrop-blur-md">
         {/* Row 1: Logo (centered, matching homepage styling) */}
         <div className="text-center w-full">
           <span className="text-3xl font-black text-[#BE1641] tracking-tight select-none">siulu</span>
@@ -143,7 +143,7 @@ export default function EventListPage() {
         <div className="grid grid-cols-3 items-center w-full">
           <button
             onClick={() => router.push('/')}
-            className="w-9 h-9 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-800 active:scale-90 transition-transform hover:bg-slate-100 justify-self-start"
+            className="w-9 h-9 rounded-full bg-white border border-slate-100 flex items-center justify-center text-slate-800 active:scale-90 transition-transform hover:bg-slate-50 justify-self-start"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             <ArrowLeft className="w-4.5 h-4.5 text-slate-800" />
@@ -157,14 +157,14 @@ export default function EventListPage() {
 
       {/* ── SEARCH ROW ── */}
       <div className="px-6 mt-5">
-        <div className="relative w-full flex items-center bg-slate-100 rounded-full px-4.5 py-3">
-          <Search className="w-4 h-4 text-slate-400 mr-2 flex-shrink-0" />
+        <div className="relative w-full flex items-center bg-white border border-slate-100 rounded-2xl px-4.5 py-3">
+          <Search className="w-4 h-4 text-slate-500 mr-2.5 flex-shrink-0" />
           <input
             type="text"
             placeholder="Cari event..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full text-base font-semibold text-slate-800 bg-transparent border-none outline-none placeholder-slate-400"
+            className="w-full text-sm font-semibold text-slate-800 bg-transparent border-none outline-none placeholder-slate-500"
           />
         </div>
       </div>
@@ -179,7 +179,7 @@ export default function EventListPage() {
               onClick={() => setActiveFilter(key)}
               className={`px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap transition-all border ${
                 isActive
-                  ? 'bg-[#BE1641] text-white border-[#BE1641]'
+                  ? 'bg-[#4C1D95] text-white border-[#4C1D95]'
                   : 'bg-white text-slate-700 border-slate-200 active:bg-slate-50'
               }`}
               style={{ WebkitTapHighlightColor: 'transparent' }}
@@ -192,7 +192,7 @@ export default function EventListPage() {
 
       {/* ── RESULTS TITLE ── */}
       <div className="px-6 mt-6">
-        <h2 className="text-lg font-black text-slate-800 tracking-wider">
+        <h2 className="text-xl font-black text-slate-800">
           {searchQuery ? 'Hasil Pencarian' : filterLabels[activeFilter]}
         </h2>
       </div>
@@ -247,15 +247,15 @@ export default function EventListPage() {
                   </h3>
                   
                   {event.lokasi_wilayah && (
-                    <div className="mt-1 flex items-center text-sm font-semibold text-slate-700 gap-1 truncate">
-                      <MapPin className="w-3.5 h-3.5 text-slate-700 flex-shrink-0" />
+                    <div className="mt-1 flex items-center text-sm font-semibold text-slate-500 gap-1 truncate">
+                      <MapPin className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
                       <span>{event.lokasi_wilayah}</span>
                     </div>
                   )}
  
                   {dateInfo && dateInfo.startStr && (
-                    <div className="mt-2 text-sm font-bold text-slate-700 flex items-center gap-1.5 truncate">
-                      <Calendar className="w-3.5 h-3.5 text-slate-700 flex-shrink-0" />
+                    <div className="mt-1.5 text-sm font-bold text-[#4C1D95] flex items-center gap-1.5 truncate">
+                      <Calendar className="w-3.5 h-3.5 text-[#4C1D95] flex-shrink-0" />
                       <span>
                         {dateInfo.startStr}
                         {dateInfo.endStr && dateInfo.endStr !== dateInfo.startStr && ` - ${dateInfo.endStr}`}
@@ -276,7 +276,7 @@ export default function EventListPage() {
 
       {/* BOTTOM NAVIGATION */}
       <nav
-        className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white/80 backdrop-blur-lg border-t border-slate-100/50 px-6 pt-2 pb-[calc(env(safe-area-inset-bottom)+6px)] flex justify-between items-center z-50 rounded-t-3xl select-none shadow-[0_-8px_30px_rgba(0,0,0,0.03)]"
+        className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white/80 backdrop-blur-lg border-t border-slate-100/50 px-6 pt-2 pb-[calc(env(safe-area-inset-bottom)+6px)] flex justify-between items-center z-50 rounded-t-3xl select-none"
       >
         {/* Rainbow Gradient Definition for AI Icon */}
         <svg width="0" height="0" className="absolute pointer-events-none">

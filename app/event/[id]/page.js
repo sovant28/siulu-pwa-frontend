@@ -216,7 +216,7 @@ export default function EventDetailPage() {
 
         {/* Content skeleton */}
         <div className="px-5 mt-4 space-y-4">
-          <div className="bg-white rounded-3xl p-5 space-y-4">
+          <div className="bg-white rounded-3xl p-5 border border-slate-200/80 space-y-4">
             <div className="h-4 w-1/3 bg-slate-200 rounded-md" />
             <div className="h-6 w-3/4 bg-slate-200 rounded-lg mt-2" />
             <div className="h-[1px] bg-slate-100 my-4" />
@@ -225,7 +225,7 @@ export default function EventDetailPage() {
               <div className="h-4 w-2/3 bg-slate-100 rounded-md" />
             </div>
           </div>
-          <div className="bg-white rounded-3xl p-5 h-28 bg-slate-100" />
+          <div className="bg-white rounded-3xl p-5 border border-slate-200 h-28 bg-slate-100" />
         </div>
       </div>
     );
@@ -297,13 +297,22 @@ export default function EventDetailPage() {
   const bbox = hasCoords ? `${lng - delta}%2C${lat - delta}%2C${lng + delta}%2C${lat + delta}` : '';
   const osmUrl = hasCoords ? `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${lat}%2C${lng}` : '';
 
+  // Ticket price check for Bottom Bar
+  const ticketPrice = event.informasi_biaya?.harga_tiket || (costItems.length > 0 ? costItems[0].value : null);
+  const showPrice = ticketPrice && 
+                    ticketPrice.toLowerCase() !== 'gratis' && 
+                    ticketPrice.toLowerCase() !== 'free' && 
+                    ticketPrice.toLowerCase() !== '0' && 
+                    ticketPrice.toLowerCase() !== 'rp 0' && 
+                    ticketPrice.toLowerCase() !== 'tidak ada';
+
   return (
     <div className="flex flex-col w-full min-h-[100dvh] bg-[#F6F7F9] font-sans relative">
       
       {/* ── STICKY FLOATING HEADER ── */}
       <header className={`fixed top-0 left-0 right-0 max-w-md mx-auto z-40 px-5 pt-[calc(env(safe-area-inset-top)+10px)] pb-3 flex items-center justify-between transition-all duration-300 ${
         scrolled 
-          ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-100' 
+          ? 'bg-white/95 backdrop-blur-md border-b border-slate-200' 
           : 'bg-transparent'
       }`}>
         {/* Back button */}
@@ -311,7 +320,7 @@ export default function EventDetailPage() {
           onClick={() => router.back()}
           className={`w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 ${
             scrolled 
-              ? 'bg-slate-50 text-slate-800 border border-slate-100 active:bg-slate-100' 
+              ? 'bg-slate-50 text-slate-800 border border-slate-200 active:bg-slate-100' 
               : 'bg-black/25 text-white hover:bg-black/35 active:scale-95'
           }`}
           style={{ WebkitTapHighlightColor: 'transparent' }}
@@ -320,7 +329,7 @@ export default function EventDetailPage() {
         </button>
 
         {/* Page Title (scrolled only) */}
-        <span className={`text-[15px] font-black text-slate-800 truncate px-4 flex-1 text-center transition-opacity duration-300 ${
+        <span className={`text-[15px] font-black text-slate-855 truncate px-4 flex-1 text-center transition-opacity duration-300 ${
           scrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}>
           {event.nama_tempat}
@@ -332,7 +341,7 @@ export default function EventDetailPage() {
             onClick={handleShare}
             className={`w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 ${
               scrolled 
-                ? 'bg-slate-50 text-slate-800 border border-slate-100 active:bg-slate-100' 
+                ? 'bg-slate-50 text-slate-800 border border-slate-200 active:bg-slate-100' 
                 : 'bg-black/25 text-white hover:bg-black/35 active:scale-95'
             }`}
             style={{ WebkitTapHighlightColor: 'transparent' }}
@@ -343,7 +352,7 @@ export default function EventDetailPage() {
             onClick={toggleSave}
             className={`w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 ${
               scrolled 
-                ? `${isSaved ? 'bg-rose-50 text-[#BE1641] border-rose-100' : 'bg-slate-50 text-slate-800 border-slate-100'} border active:bg-slate-100` 
+                ? `${isSaved ? 'bg-rose-50 text-[#BE1641] border-rose-200' : 'bg-slate-50 text-slate-800 border-slate-200'} border active:bg-slate-100` 
                 : `bg-black/25 ${isSaved ? 'text-rose-500' : 'text-white'} hover:bg-black/35 active:scale-95`
             }`}
             style={{ WebkitTapHighlightColor: 'transparent' }}
@@ -369,7 +378,7 @@ export default function EventDetailPage() {
 
         {/* Floating Date Badge inside image (bottom right) */}
         {isEvent && displayDay && (
-          <div className="absolute bottom-10 right-4 bg-white/95 backdrop-blur-sm rounded-2xl py-1.5 px-3 flex flex-col items-center border border-slate-100/50 shadow-md min-w-[52px] z-10">
+          <div className="absolute bottom-10 right-4 bg-white/95 backdrop-blur-sm rounded-2xl py-1.5 px-3 flex flex-col items-center border border-slate-200/80 min-w-[52px] z-10">
             <span className="text-[10px] font-extrabold text-[#4C1D95] uppercase tracking-wider leading-none">
               {displayMonth}
             </span>
@@ -384,7 +393,7 @@ export default function EventDetailPage() {
       <div className="relative -mt-6 z-20 bg-[#F6F7F9] rounded-t-3xl pt-6 pb-28 px-4 space-y-4">
         
         {/* Card 1: Title, Category & Key Info Grid */}
-        <div className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100/50 text-left">
+        <div className="bg-white rounded-3xl p-5 border border-slate-200/80 text-left">
           {/* Category tag */}
           <div className={`inline-flex px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${themeBgLight}`}>
             {isEvent ? 'Event' : (categoryLabels[event.kategori] || 'Wisata')}
@@ -407,8 +416,8 @@ export default function EventDetailPage() {
                   <Calendar className="w-4 h-4" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider leading-none">Tanggal</span>
-                  <span className="text-xs font-bold text-slate-700 mt-1 leading-snug">
+                  <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider leading-none">Tanggal</span>
+                  <span className="text-xs font-bold text-slate-800 mt-1 leading-snug">
                     {dateInfo.startStr}
                     {dateInfo.endStr && dateInfo.endStr !== dateInfo.startStr && ` — ${dateInfo.endStr}`}
                   </span>
@@ -423,8 +432,8 @@ export default function EventDetailPage() {
                   <Clock className="w-4 h-4" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider leading-none">Waktu / Jam Buka</span>
-                  <span className="text-xs font-bold text-slate-700 mt-1 leading-snug">
+                  <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider leading-none">Waktu / Jam Buka</span>
+                  <span className="text-xs font-bold text-slate-800 mt-1 leading-snug">
                     {isEvent ? dateInfo.timeStr : event.jam_operasional}
                   </span>
                 </div>
@@ -438,8 +447,8 @@ export default function EventDetailPage() {
                   <MapPin className="w-4 h-4" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider leading-none">Lokasi</span>
-                  <span className="text-xs font-bold text-slate-700 mt-1 leading-snug">
+                  <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider leading-none">Lokasi</span>
+                  <span className="text-xs font-bold text-slate-800 mt-1 leading-snug">
                     {event.lokasi_wilayah}
                   </span>
                 </div>
@@ -447,15 +456,15 @@ export default function EventDetailPage() {
             )}
 
             {/* 4. Ticket / Price Info Summary */}
-            {(event.informasi_biaya?.harga_tiket || (costItems && costItems.length > 0)) && (
+            {showPrice && (
               <div className="flex items-start gap-3.5">
                 <div className={`w-8.5 h-8.5 rounded-xl flex items-center justify-center flex-shrink-0 ${themeBgLight}`}>
                   <Sparkles className="w-4 h-4" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider leading-none">Biaya Masuk</span>
-                  <span className="text-xs font-bold text-slate-700 mt-1 leading-snug">
-                    {event.informasi_biaya?.harga_tiket || "Lihat rincian biaya di bawah"}
+                  <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider leading-none">Biaya Masuk</span>
+                  <span className="text-xs font-bold text-slate-800 mt-1 leading-snug">
+                    {ticketPrice}
                   </span>
                 </div>
               </div>
@@ -465,12 +474,12 @@ export default function EventDetailPage() {
 
         {/* Card 2: YouTube / Instagram Embeds */}
         {(event.youtube_url || event.instagram_url) && (
-          <div className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100/50 space-y-4 text-left">
+          <div className="bg-white rounded-3xl p-5 border border-slate-200/80 space-y-4 text-left">
             <h3 className={`text-xs font-black text-slate-800 uppercase tracking-wider pl-2 border-l-4 ${isEvent ? 'border-[#4C1D95]' : 'border-[#BE1641]'}`}>
               Dokumentasi & Media
             </h3>
             {event.youtube_url && (
-              <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-100 bg-slate-50">
+              <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-200 bg-slate-50">
                 <iframe
                   title="YouTube Video"
                   src={getYouTubeEmbedUrl(event.youtube_url)}
@@ -483,7 +492,7 @@ export default function EventDetailPage() {
             )}
 
             {event.instagram_url && (
-              <div className="relative w-full rounded-2xl overflow-hidden border border-slate-100 bg-slate-50" style={{ height: '480px' }}>
+              <div className="relative w-full rounded-2xl overflow-hidden border border-slate-200 bg-slate-50" style={{ height: '480px' }}>
                 <iframe
                   title="Instagram Post"
                   src={getInstagramEmbedUrl(event.instagram_url)}
@@ -499,14 +508,14 @@ export default function EventDetailPage() {
 
         {/* Card 3: Description (Tentang) */}
         {description && (
-          <div className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100/50 text-left">
+          <div className="bg-white rounded-3xl p-5 border border-slate-200/80 text-left">
             <h3 className={`text-xs font-black text-slate-800 uppercase tracking-wider pl-2 border-l-4 ${
               isEvent ? 'border-[#4C1D95]' : 'border-[#BE1641]'
             } mb-3.5`}>
               Tentang {isEvent ? 'Event' : (categoryLabels[event.kategori] || 'Wisata')}
             </h3>
             <div className={`relative ${!isDescExpanded ? 'max-h-[8rem] overflow-hidden' : ''}`}>
-              <p className="text-xs font-medium text-slate-600 leading-relaxed whitespace-pre-line">
+              <p className="text-xs font-semibold text-slate-700 leading-relaxed whitespace-pre-line">
                 {description}
               </p>
               {!isDescExpanded && description.length > 180 && (
@@ -528,7 +537,7 @@ export default function EventDetailPage() {
 
         {/* Card 4: Detailed Breakdown of ticket prices */}
         {((costItems && costItems.length > 0) || event.informasi_biaya?.harga_tiket) && (
-          <div className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100/50 text-left">
+          <div className="bg-white rounded-3xl p-5 border border-slate-200/80 text-left">
             <h3 className={`text-xs font-black text-slate-800 uppercase tracking-wider pl-2 border-l-4 ${
               isEvent ? 'border-[#4C1D95]' : 'border-[#BE1641]'
             } mb-3.5`}>
@@ -545,7 +554,7 @@ export default function EventDetailPage() {
               </div>
             )}
             {event.informasi_biaya?.harga_tiket && (
-              <p className="text-xs font-medium text-slate-600 mt-3 bg-slate-50 p-3.5 rounded-2xl border border-slate-100 leading-relaxed whitespace-pre-line">
+              <p className="text-xs font-medium text-slate-700 mt-3 bg-slate-50 p-3.5 rounded-2xl border border-slate-200 leading-relaxed whitespace-pre-line">
                 {event.informasi_biaya.harga_tiket}
               </p>
             )}
@@ -554,7 +563,7 @@ export default function EventDetailPage() {
 
         {/* Card 5: Facilities */}
         {event.fitur_fasilitas && event.fitur_fasilitas.length > 0 && (
-          <div className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100/50 text-left">
+          <div className="bg-white rounded-3xl p-5 border border-slate-200/80 text-left">
             <h3 className={`text-xs font-black text-slate-800 uppercase tracking-wider pl-2 border-l-4 ${
               isEvent ? 'border-[#4C1D95]' : 'border-[#BE1641]'
             } mb-3.5`}>
@@ -562,7 +571,7 @@ export default function EventDetailPage() {
             </h3>
             <div className="flex flex-wrap gap-2">
               {event.fitur_fasilitas.map((fac, idx) => (
-                <span key={idx} className="bg-slate-50 text-slate-700 text-xs font-bold px-3.5 py-2.5 rounded-2xl border border-slate-100 flex items-center gap-1.5">
+                <span key={idx} className="bg-slate-50 text-slate-800 text-xs font-bold px-3.5 py-2.5 rounded-2xl border border-slate-200 flex items-center gap-1.5">
                   <span className={themeText}>✓</span>
                   {fac}
                 </span>
@@ -573,7 +582,7 @@ export default function EventDetailPage() {
 
         {/* Card 6: Rules & Tips */}
         {event.aturan_tips && (
-          <div className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100/50 text-left">
+          <div className="bg-white rounded-3xl p-5 border border-slate-200/80 text-left">
             <h3 className={`text-xs font-black text-slate-800 uppercase tracking-wider pl-2 border-l-4 ${
               isEvent ? 'border-[#4C1D95]' : 'border-[#BE1641]'
             } mb-3.5`}>
@@ -581,10 +590,10 @@ export default function EventDetailPage() {
             </h3>
             <div className={`p-4 rounded-2xl border ${
               isEvent 
-                ? 'bg-purple-50/40 border-purple-100 text-[#4C1D95]' 
-                : 'bg-rose-50/40 border-rose-100 text-[#BE1641]'
+                ? 'bg-purple-50/40 border-purple-200 text-[#4C1D95]' 
+                : 'bg-rose-50/40 border-rose-200 text-[#BE1641]'
             }`}>
-              <p className="text-xs font-bold leading-relaxed text-slate-700">
+              <p className="text-xs font-bold leading-relaxed text-slate-800">
                 {event.aturan_tips}
               </p>
             </div>
@@ -592,7 +601,7 @@ export default function EventDetailPage() {
         )}
 
         {/* Card 7: Location & Map */}
-        <div className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100/50 text-left">
+        <div className="bg-white rounded-3xl p-5 border border-slate-200/80 text-left">
           <h3 className={`text-xs font-black text-slate-800 uppercase tracking-wider pl-2 border-l-4 ${
             isEvent ? 'border-[#4C1D95]' : 'border-[#BE1641]'
           } mb-3.5`}>
@@ -600,7 +609,7 @@ export default function EventDetailPage() {
           </h3>
           
           {hasCoords ? (
-            <div className="relative rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 h-40 w-full mb-3.5">
+            <div className="relative rounded-2xl overflow-hidden border border-slate-200 bg-slate-50 h-40 w-full mb-3.5">
               <iframe
                 title="Peta Lokasi"
                 width="100%"
@@ -614,13 +623,13 @@ export default function EventDetailPage() {
               />
             </div>
           ) : (
-            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 text-center text-slate-500 text-xs mb-3.5 font-semibold">
+            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-center text-slate-500 text-xs mb-3.5 font-semibold">
               Peta koordinat GPS tidak tersedia.
             </div>
           )}
           
           {event.kontak_info && (
-            <div className="flex items-center gap-2 bg-slate-50 border border-slate-100 rounded-2xl p-3.5 text-xs font-bold text-slate-700">
+            <div className="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-2xl p-3.5 text-xs font-bold text-slate-800">
               <span className="text-sm">📞</span>
               <span>{event.kontak_info}</span>
             </div>
@@ -630,26 +639,43 @@ export default function EventDetailPage() {
       </div>
 
       {/* ── STICKY BOTTOM ACTION BAR ── */}
-      <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white/90 backdrop-blur-lg border-t border-slate-100 px-5 py-4.5 flex items-center justify-between z-40 shadow-[0_-4px_24px_rgba(0,0,0,0.06)] rounded-t-3xl">
-        <div className="flex flex-col text-left">
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider leading-none">Biaya Masuk</span>
-          <span className="text-sm font-black text-slate-800 mt-1.5 leading-none">
-            {event.informasi_biaya?.harga_tiket || (costItems.length > 0 ? costItems[0].value : "Gratis")}
-          </span>
-        </div>
-        
-        <a
-          href={mapsUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`flex items-center justify-center gap-1.5 px-6 py-3.5 text-white font-bold text-xs rounded-2xl shadow-sm active:scale-95 transition-all ${
-            isEvent ? 'bg-[#4C1D95] hover:bg-[#3B1570]' : 'bg-[#BE1641] hover:bg-[#a01235]'
-          }`}
-          style={{ WebkitTapHighlightColor: 'transparent' }}
-        >
-          <MapPin className="w-3.5 h-3.5" />
-          <span>Petunjuk Arah</span>
-        </a>
+      <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white/95 backdrop-blur-lg border-t border-slate-200 px-5 py-4 flex items-center justify-between z-40 rounded-t-3xl">
+        {showPrice ? (
+          <>
+            <div className="flex flex-col text-left">
+              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider leading-none">Biaya Masuk</span>
+              <span className="text-sm font-black text-slate-800 mt-1.5 leading-none">
+                {ticketPrice}
+              </span>
+            </div>
+            
+            <a
+              href={mapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`flex items-center justify-center gap-1.5 px-6 py-3.5 text-white font-bold text-xs rounded-2xl active:scale-95 transition-all ${
+                isEvent ? 'bg-[#4C1D95] hover:bg-[#3B1570]' : 'bg-[#BE1641] hover:bg-[#a01235]'
+              }`}
+              style={{ WebkitTapHighlightColor: 'transparent' }}
+            >
+              <MapPin className="w-3.5 h-3.5" />
+              <span>Petunjuk Arah</span>
+            </a>
+          </>
+        ) : (
+          <a
+            href={mapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`flex items-center justify-center gap-1.5 w-full py-3.5 text-white font-bold text-xs rounded-2xl active:scale-95 transition-all ${
+              isEvent ? 'bg-[#4C1D95] hover:bg-[#3B1570]' : 'bg-[#BE1641] hover:bg-[#a01235]'
+            }`}
+            style={{ WebkitTapHighlightColor: 'transparent' }}
+          >
+            <MapPin className="w-3.5 h-3.5" />
+            <span>Petunjuk Arah</span>
+          </a>
+        )}
       </div>
 
     </div>

@@ -162,24 +162,24 @@ export default function EventListPage() {
         </div>
 
         {/* ── FILTER TABS ── */}
-        <div className="px-5 flex items-center space-x-6 overflow-x-auto no-scrollbar scroll-smooth bg-white pb-2 flex-shrink-0">
+        <div className="px-5 flex items-center space-x-6 overflow-x-auto no-scrollbar scroll-smooth bg-white pb-0 flex-shrink-0">
           {Object.entries(filterLabels).map(([key, label]) => {
             const isActive = activeFilter === key;
             return (
               <button
                 key={key}
                 onClick={() => setActiveFilter(key)}
-                className={`pb-1 text-xs font-bold whitespace-nowrap transition-all flex flex-col items-center gap-0.5 flex-shrink-0 relative ${
+                className={`pb-2.5 text-xs font-bold whitespace-nowrap transition-all flex-shrink-0 relative ${
                   isActive
                     ? 'text-[#4C1D95]'
-                    : 'text-slate-400 active:text-slate-600'
+                    : 'text-slate-500 active:text-[#4C1D95]'
                 }`}
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >
                 <span className="transition-colors duration-150">{label}</span>
                 <span
-                  className={`w-1.5 h-1.5 rounded-full transition-all duration-200 ${
-                    isActive ? 'bg-[#4C1D95] scale-100' : 'bg-transparent scale-0'
+                  className={`absolute bottom-0 left-0 right-0 h-[3px] rounded-t-full transition-all duration-200 origin-center ${
+                    isActive ? 'bg-[#4C1D95] scale-x-100' : 'bg-transparent scale-x-0'
                   }`}
                 />
               </button>

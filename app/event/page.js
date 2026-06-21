@@ -132,55 +132,45 @@ export default function EventListPage() {
   return (
     <div className="flex flex-col w-full min-h-[100dvh] bg-[#F6F7F9] font-sans pb-[calc(env(safe-area-inset-bottom)+76px)] relative overflow-x-hidden">
       
-      {/* ── STICKY HEADER ── */}
-      <header className="sticky top-0 z-40 bg-white/90 px-6 pt-[calc(env(safe-area-inset-top)+10px)] pb-3 flex flex-col space-y-4 backdrop-blur-md">
-        {/* Row 1: Logo (centered, matching homepage styling) */}
-        <div className="text-center w-full">
-          <span className="text-3xl font-black text-[#BE1641] tracking-tight select-none">siulu</span>
-        </div>
-
-        {/* Row 2: Back Button & Page Title */}
-        <div className="grid grid-cols-3 items-center w-full">
+      {/* ── COMPACT STICKY HEADER (App-style) ── */}
+      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md px-5 pt-[calc(env(safe-area-inset-top)+8px)] pb-3 flex flex-col gap-3">
+        {/* Row 1: Back + Title */}
+        <div className="flex items-center gap-3">
           <button
             onClick={() => router.push('/')}
-            className="w-9 h-9 rounded-full bg-white border border-slate-100 flex items-center justify-center text-slate-800 active:scale-90 transition-transform hover:bg-slate-50 justify-self-start"
+            className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-700 active:scale-90 transition-transform flex-shrink-0"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
-            <ArrowLeft className="w-4.5 h-4.5 text-slate-800" />
+            <ArrowLeft className="w-4 h-4" />
           </button>
-          <span className="text-lg font-black text-slate-800 text-center select-none whitespace-nowrap">
-            Daftar Event
-          </span>
-          <div className="w-9 h-9 justify-self-end" />
+          <h1 className="text-[17px] font-black text-slate-800 select-none">Daftar Event</h1>
         </div>
-      </header>
 
-      {/* ── SEARCH ROW ── */}
-      <div className="px-6 mt-5">
-        <div className="relative w-full flex items-center bg-white border border-slate-100 rounded-2xl px-4.5 py-3">
-          <Search className="w-4 h-4 text-slate-500 mr-2.5 flex-shrink-0" />
+        {/* Row 2: Search bar (inside header for compact feel) */}
+        <div className="relative w-full flex items-center bg-[#F6F7F9] rounded-xl px-3.5 py-2.5">
+          <Search className="w-4 h-4 text-slate-400 mr-2 flex-shrink-0" />
           <input
             type="text"
             placeholder="Cari event..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full text-sm font-semibold text-slate-800 bg-transparent border-none outline-none placeholder-slate-500"
+            className="w-full text-sm font-medium text-slate-800 bg-transparent border-none outline-none placeholder-slate-400"
           />
         </div>
-      </div>
+      </header>
 
-      {/* ── FILTER PILLS (HORIZONTAL SCROLL) ── */}
-      <div className="px-6 mt-4 flex items-center space-x-2 overflow-x-auto no-scrollbar scroll-smooth">
+      {/* ── FILTER PILLS ── */}
+      <div className="px-5 mt-3 flex items-center space-x-2 overflow-x-auto no-scrollbar scroll-smooth">
         {Object.entries(filterLabels).map(([key, label]) => {
           const isActive = activeFilter === key;
           return (
             <button
               key={key}
               onClick={() => setActiveFilter(key)}
-              className={`px-4 py-2 rounded-full text-sm font-bold whitespace-nowrap transition-all border ${
+              className={`px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all border ${
                 isActive
                   ? 'bg-[#4C1D95] text-white border-[#4C1D95]'
-                  : 'bg-white text-slate-700 border-slate-200 active:bg-slate-50'
+                  : 'bg-white text-slate-600 border-slate-200 active:bg-slate-50'
               }`}
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
@@ -192,13 +182,13 @@ export default function EventListPage() {
 
       {/* ── RESULTS COUNT ── */}
       {!loading && (
-        <div className="px-6 mt-1">
-          <p className="text-xs font-semibold text-slate-400">{filteredEvents.length} event ditemukan</p>
+        <div className="px-5 mt-3">
+          <p className="text-[11px] font-semibold text-slate-400">{filteredEvents.length} event ditemukan</p>
         </div>
       )}
 
       {/* ── EVENT LIST (CARD VIEW) ── */}
-      <div className="px-6 mt-3 space-y-4 pb-2">
+      <div className="px-5 mt-3 space-y-4 pb-2">
         {loading ? (
           // Loading Skeleton — card style
           [1, 2, 3].map((i) => (

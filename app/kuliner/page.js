@@ -90,7 +90,8 @@ function KulinerListContent() {
         
         // Filter traditional foods (makanan_khas)
         const apiCulinaryItems = data.filter(
-          item => item.kategori === 'kuliner' && item.informasi_biaya?.jenis === 'makanan_khas'
+          item => item.kategori === 'kuliner' && 
+                  (item.informasi_biaya?.jenis === 'makanan_khas' || item.id.startsWith('FOOD-'))
         );
         
         // Merge with local fallback

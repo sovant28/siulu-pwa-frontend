@@ -101,7 +101,7 @@ function DestinasiListContent() {
         const filtered = data.filter(item => 
           item.kategori === 'alam' || 
           item.kategori === 'budaya_religi' ||
-          (item.kategori === 'kuliner' && item.informasi_biaya?.jenis === 'tempat_makan')
+          (item.kategori === 'kuliner' && (item.informasi_biaya?.jenis === 'tempat_makan' || !item.id.startsWith('FOOD-')))
         );
 
         // Merge with local fallback
@@ -136,7 +136,7 @@ function DestinasiListContent() {
     // 2. Category Filter
     if (activeFilter === 'semua') return true;
     if (activeFilter === 'tempat_makan') {
-      return item.kategori === 'kuliner' && item.informasi_biaya?.jenis === 'tempat_makan';
+      return item.kategori === 'kuliner' && (item.informasi_biaya?.jenis === 'tempat_makan' || !item.id.startsWith('FOOD-'));
     }
     return item.kategori === activeFilter;
   });

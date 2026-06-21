@@ -246,20 +246,20 @@ export default function EventListPage() {
                     {event.nama_tempat}
                   </h3>
 
-                  {event.lokasi_wilayah && (
-                    <div className="mt-2 flex items-center text-xs font-semibold text-slate-400 gap-1.5">
-                      <MapPin className="w-3.5 h-3.5 text-slate-300 flex-shrink-0" />
-                      <span className="truncate">{event.lokasi_wilayah}</span>
-                    </div>
-                  )}
-
                   {dateInfo && dateInfo.startStr && (
-                    <div className="mt-1.5 flex items-center text-xs font-bold text-[#4C1D95] gap-1.5">
+                    <div className="mt-2 flex items-center text-xs font-bold text-[#4C1D95] gap-1.5">
                       <Calendar className="w-3.5 h-3.5 flex-shrink-0" />
                       <span>
                         {dateInfo.startStr}
                         {dateInfo.endStr && dateInfo.endStr !== dateInfo.startStr && ` — ${dateInfo.endStr}`}
                       </span>
+                    </div>
+                  )}
+
+                  {event.lokasi_wilayah && (
+                    <div className="mt-1.5 flex items-center text-xs font-semibold text-slate-500 gap-1.5">
+                      <MapPin className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
+                      <span className="truncate">{event.lokasi_wilayah}</span>
                     </div>
                   )}
                 </div>

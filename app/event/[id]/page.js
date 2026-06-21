@@ -129,6 +129,7 @@ export default function EventDetailPage() {
   const [isDescExpanded, setIsDescExpanded] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
   // Check saved status from localStorage
   useEffect(() => {
@@ -139,6 +140,19 @@ export default function EventDetailPage() {
       setIsSaved(false);
     }
   }, [eventId]);
+
+  // Handle scroll to transition header
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Fetch event data
   useEffect(() => {
@@ -196,32 +210,22 @@ export default function EventDetailPage() {
   /* ─── Loading State ─── */
   if (loading) {
     return (
-      <div className="flex flex-col w-full min-h-[100dvh] bg-white font-sans animate-pulse pb-12">
-        {/* Header skeleton */}
-        <div className="sticky top-0 bg-white px-6 pt-[calc(env(safe-area-inset-top)+10px)] pb-3 flex flex-col space-y-4 z-40">
-          <div className="text-center w-full flex justify-center">
-            <div className="h-6 w-20 bg-slate-100 rounded-lg" />
-          </div>
-          <div className="grid grid-cols-3 items-center w-full">
-            <div className="w-9 h-9 rounded-full bg-slate-100 justify-self-start" />
-            <div className="h-4 w-20 bg-slate-100 rounded-md mx-auto" />
-            <div className="w-9 h-9 justify-self-end" />
-          </div>
-        </div>
-        
+      <div className="flex flex-col w-full min-h-[100dvh] bg-[#F6F7F9] font-sans animate-pulse pb-12">
         {/* Cover image skeleton */}
-        <div className="px-6 mt-3">
-          <div className="w-full aspect-[1.6] bg-slate-100 rounded-2xl" />
-        </div>
+        <div className="w-full aspect-[4/3] bg-slate-200" />
 
         {/* Content skeleton */}
-        <div className="px-6 mt-4 space-y-4">
-          <div className="flex justify-between items-start gap-4">
-            <div className="h-6 w-3/4 bg-slate-100 rounded-lg" />
-            <div className="w-9 h-9 rounded-full bg-slate-100" />
+        <div className="px-5 mt-4 space-y-4">
+          <div className="bg-white rounded-3xl p-5 space-y-4">
+            <div className="h-4 w-1/3 bg-slate-200 rounded-md" />
+            <div className="h-6 w-3/4 bg-slate-200 rounded-lg mt-2" />
+            <div className="h-[1px] bg-slate-100 my-4" />
+            <div className="space-y-3">
+              <div className="h-4 w-1/2 bg-slate-100 rounded-md" />
+              <div className="h-4 w-2/3 bg-slate-100 rounded-md" />
+            </div>
           </div>
-          <div className="h-3.5 w-1/2 bg-slate-100 rounded-lg" />
-          <div className="h-20 w-full bg-slate-100 rounded-2xl mt-4" />
+          <div className="bg-white rounded-3xl p-5 h-28 bg-slate-100" />
         </div>
       </div>
     );
@@ -230,7 +234,7 @@ export default function EventDetailPage() {
   /* ─── Error State ─── */
   if (error || !event) {
     return (
-      <div className="flex flex-col items-center justify-center w-full min-h-[100dvh] bg-white font-sans px-6">
+      <div className="flex flex-col items-center justify-center w-full min-h-[100dvh] bg-[#F6F7F9] font-sans px-6">
         <div className="w-16 h-16 rounded-full bg-rose-50 flex items-center justify-center mb-3 border border-rose-100">
           <span className="text-2xl">😕</span>
         </div>
@@ -267,6 +271,13 @@ export default function EventDetailPage() {
     darurat: 'Darurat',
   };
 
+  // Dynamic Theme Colors
+  const accentColor = isEvent ? '#4C1D95' : '#BE1641';
+  const themeBg = isEvent ? 'bg-[#4C1D95]' : 'bg-[#BE1641]';
+  const themeText = isEvent ? 'text-[#4C1D95]' : 'text-[#BE1641]';
+  const themeBorder = isEvent ? 'border-[#4C1D95]' : 'border-[#BE1641]';
+  const themeBgLight = isEvent ? 'bg-purple-50 text-[#4C1D95]' : 'bg-rose-50 text-[#BE1641]';
+
   // Extract month and day for event badge
   let displayDay = "";
   let displayMonth = "";
@@ -287,270 +298,359 @@ export default function EventDetailPage() {
   const osmUrl = hasCoords ? `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${lat}%2C${lng}` : '';
 
   return (
-    <div className="flex flex-col w-full min-h-[100dvh] bg-white font-sans pb-12 relative">
+    <div className="flex flex-col w-full min-h-[100dvh] bg-[#F6F7F9] font-sans relative">
       
-      {/* ── STICKY HEADER ── */}
-      <header className="sticky top-0 z-40 bg-white/95 px-6 pt-[calc(env(safe-area-inset-top)+10px)] pb-3 flex flex-col space-y-4 backdrop-blur-md">
-        {/* Row 1: Logo (centered, matching home page styling) */}
-        <div className="text-center w-full">
-          <span className="text-3xl font-black text-[#BE1641] tracking-tight select-none">siulu</span>
-        </div>
+      {/* ── STICKY FLOATING HEADER ── */}
+      <header className={`fixed top-0 left-0 right-0 max-w-md mx-auto z-40 px-5 pt-[calc(env(safe-area-inset-top)+10px)] pb-3 flex items-center justify-between transition-all duration-300 ${
+        scrolled 
+          ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-100' 
+          : 'bg-transparent'
+      }`}>
+        {/* Back button */}
+        <button
+          onClick={() => router.back()}
+          className={`w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 ${
+            scrolled 
+              ? 'bg-slate-50 text-slate-800 border border-slate-100 active:bg-slate-100' 
+              : 'bg-black/25 text-white hover:bg-black/35 active:scale-95'
+          }`}
+          style={{ WebkitTapHighlightColor: 'transparent' }}
+        >
+          <ArrowLeft className="w-4.5 h-4.5" />
+        </button>
 
-        {/* Row 2: Back Button & Page Title */}
-        <div className="grid grid-cols-3 items-center w-full">
+        {/* Page Title (scrolled only) */}
+        <span className={`text-[15px] font-black text-slate-800 truncate px-4 flex-1 text-center transition-opacity duration-300 ${
+          scrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        }`}>
+          {event.nama_tempat}
+        </span>
+
+        {/* Action Buttons */}
+        <div className="flex items-center gap-2">
           <button
-            onClick={() => router.back()}
-            className="w-9 h-9 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-800 active:scale-90 transition-transform hover:bg-slate-100 justify-self-start"
+            onClick={handleShare}
+            className={`w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 ${
+              scrolled 
+                ? 'bg-slate-50 text-slate-800 border border-slate-100 active:bg-slate-100' 
+                : 'bg-black/25 text-white hover:bg-black/35 active:scale-95'
+            }`}
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
-            <ArrowLeft className="w-4.5 h-4.5 text-slate-800" />
+            <Share2 className="w-4 h-4" />
           </button>
-          <span className="text-lg font-black text-slate-800 text-center select-none whitespace-nowrap">
-            {isEvent ? 'Detail Event' : (categoryLabels[event.kategori] || 'Detail Wisata')}
-          </span>
-          <div className="w-9 h-9 justify-self-end" />
-        </div>
-      </header>
-
-      {/* ── IMAGE COVER CARD ── */}
-      <div className="px-6 mt-3">
-        <div className="relative w-full aspect-[1.6] bg-slate-100 rounded-2xl overflow-hidden">
-          <Image
-            src={imageUrl || "/dummy_destination.png"}
-            alt={event.nama_tempat}
-            fill
-            className={`object-cover transition-opacity duration-500 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
-            onLoad={() => setImageLoaded(true)}
-            priority
-            unoptimized
-          />
-
-          {/* Floating Date Badge for Event */}
-          {isEvent && displayDay && (
-            <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-sm rounded-xl py-1 px-2.5 flex flex-col items-center border border-slate-100 min-w-[48px]">
-              <span className="text-[10px] font-bold text-[#BE1641] uppercase tracking-wider leading-none">
-                {displayMonth}
-              </span>
-              <span className="text-base font-extrabold text-slate-800 leading-none mt-0.5">
-                {displayDay}
-              </span>
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* ── TITLE & SUB-INFO ── */}
-      <div className="px-6 mt-4">
-        <div className="flex justify-between items-start gap-4">
-          <h1 className="text-2xl font-black text-slate-900 leading-snug flex-1">
-            {event.nama_tempat}
-          </h1>
           <button
             onClick={toggleSave}
-            className={`w-9 h-9 rounded-full flex items-center justify-center active:scale-90 transition-all border flex-shrink-0 ${
-              isSaved
-                ? 'bg-[#BE1641] text-white border-[#BE1641]'
-                : 'bg-white text-slate-400 border-slate-100 hover:text-slate-655'
+            className={`w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 ${
+              scrolled 
+                ? `${isSaved ? 'bg-rose-50 text-[#BE1641] border-rose-100' : 'bg-slate-50 text-slate-800 border-slate-100'} border active:bg-slate-100` 
+                : `bg-black/25 ${isSaved ? 'text-rose-500' : 'text-white'} hover:bg-black/35 active:scale-95`
             }`}
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             <Heart className={`w-4 h-4 ${isSaved ? 'fill-current' : ''}`} />
           </button>
         </div>
+      </header>
 
-        {/* Sub-info Row: Location & Date/Time inline */}
-        {(event.lokasi_wilayah || dateInfo || event.jam_operasional) && (
-          <div className="mt-1.5 flex flex-wrap items-center gap-1.5 text-sm font-bold text-slate-700">
-            {event.lokasi_wilayah && <span>{event.lokasi_wilayah}</span>}
-            
-            {/* For Event Category: Show Date & Time Info */}
-            {isEvent && dateInfo && dateInfo.startStr && (
-              <>
-                <span className="text-slate-300 select-none">•</span>
-                <span>
-                  {dateInfo.startStr}
-                  {dateInfo.endStr && dateInfo.endStr !== dateInfo.startStr && ` s/d ${dateInfo.endStr}`}
-                </span>
-                {dateInfo.timeStr && (
-                  <>
-                    <span className="text-slate-300 select-none">•</span>
-                    <span>{dateInfo.timeStr}</span>
-                  </>
-                )}
-              </>
-            )}
+      {/* ── IMAGE COVER (EDGE-TO-EDGE) ── */}
+      <div className="relative w-full aspect-[4/3] bg-slate-100">
+        <Image
+          src={imageUrl || "/dummy_destination.png"}
+          alt={event.nama_tempat}
+          fill
+          className={`object-cover transition-opacity duration-500 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+          onLoad={() => setImageLoaded(true)}
+          priority
+          unoptimized
+        />
+        {/* Dark overlay at top for floating buttons legibility */}
+        <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-black/45 via-black/10 to-transparent pointer-events-none" />
 
-            {/* For Non-Event Category: Show Jam Operasional */}
-            {!isEvent && event.jam_operasional && (
-              <>
-                <span className="text-slate-300 select-none">•</span>
-                <span>{event.jam_operasional}</span>
-              </>
-            )}
+        {/* Floating Date Badge inside image (bottom right) */}
+        {isEvent && displayDay && (
+          <div className="absolute bottom-10 right-4 bg-white/95 backdrop-blur-sm rounded-2xl py-1.5 px-3 flex flex-col items-center border border-slate-100/50 shadow-md min-w-[52px] z-10">
+            <span className="text-[10px] font-extrabold text-[#4C1D95] uppercase tracking-wider leading-none">
+              {displayMonth}
+            </span>
+            <span className="text-lg font-black text-slate-800 leading-none mt-1">
+              {displayDay}
+            </span>
           </div>
         )}
       </div>
 
-      <div className="w-full h-[1px] bg-slate-100 my-4 px-6" />
+      {/* ── DETAILS WRAPPER (OVERLAPPING CARD STYLE) ── */}
+      <div className="relative -mt-6 z-20 bg-[#F6F7F9] rounded-t-3xl pt-6 pb-28 px-4 space-y-4">
+        
+        {/* Card 1: Title, Category & Key Info Grid */}
+        <div className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100/50 text-left">
+          {/* Category tag */}
+          <div className={`inline-flex px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${themeBgLight}`}>
+            {isEvent ? 'Event' : (categoryLabels[event.kategori] || 'Wisata')}
+          </div>
 
-      {/* ── SOCIAL MEDIA EMBEDS ── */}
-      {(event.youtube_url || event.instagram_url) && (
-        <div className="px-6 pb-4 space-y-4">
-          {event.youtube_url && (
-            <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-100 bg-slate-50">
-              <iframe
-                title="YouTube Video"
-                src={getYouTubeEmbedUrl(event.youtube_url)}
-                className="absolute inset-0 w-full h-full"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            </div>
-          )}
+          {/* Title */}
+          <h1 className="text-xl font-black text-slate-800 leading-snug mt-2.5">
+            {event.nama_tempat}
+          </h1>
 
-          {event.instagram_url && (
-            <div className="relative w-full rounded-2xl overflow-hidden border border-slate-100 bg-slate-50" style={{ height: '480px' }}>
-              <iframe
-                title="Instagram Post"
-                src={getInstagramEmbedUrl(event.instagram_url)}
-                className="absolute inset-0 w-full h-full"
-                frameBorder="0"
-                scrolling="no"
-                allowTransparency="true"
-              />
-            </div>
-          )}
-        </div>
-      )}
+          {/* Divider */}
+          <div className="h-[1px] bg-slate-100 my-4" />
 
-      {/* ── DESCRIPTION ── */}
-      {description && (
-        <div className="px-6">
-          <h3 className="text-lg font-bold text-slate-900 mb-1.5">
-            Tentang {isEvent ? 'Event' : categoryLabels[event.kategori] || 'Tempat'} Ini
-          </h3>
-          <div className={`relative ${!isDescExpanded ? 'max-h-[7rem] overflow-hidden' : ''}`}>
-            <p className="text-base text-slate-800 leading-relaxed whitespace-pre-line">
-              {description}
-            </p>
-            {!isDescExpanded && description.length > 180 && (
-              <div className="absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-white to-transparent" />
+          {/* Info Items List */}
+          <div className="space-y-4">
+            {/* 1. Date Info (Only if startStr is present) */}
+            {dateInfo && dateInfo.startStr && (
+              <div className="flex items-start gap-3.5">
+                <div className={`w-8.5 h-8.5 rounded-xl flex items-center justify-center flex-shrink-0 ${themeBgLight}`}>
+                  <Calendar className="w-4 h-4" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider leading-none">Tanggal</span>
+                  <span className="text-xs font-bold text-slate-700 mt-1 leading-snug">
+                    {dateInfo.startStr}
+                    {dateInfo.endStr && dateInfo.endStr !== dateInfo.startStr && ` — ${dateInfo.endStr}`}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {/* 2. Operational Hours (For non-events, or events if they have timeStr) */}
+            {((isEvent && dateInfo?.timeStr) || (!isEvent && event.jam_operasional)) && (
+              <div className="flex items-start gap-3.5">
+                <div className={`w-8.5 h-8.5 rounded-xl flex items-center justify-center flex-shrink-0 ${themeBgLight}`}>
+                  <Clock className="w-4 h-4" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider leading-none">Waktu / Jam Buka</span>
+                  <span className="text-xs font-bold text-slate-700 mt-1 leading-snug">
+                    {isEvent ? dateInfo.timeStr : event.jam_operasional}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {/* 3. Location Wilayah */}
+            {event.lokasi_wilayah && (
+              <div className="flex items-start gap-3.5">
+                <div className={`w-8.5 h-8.5 rounded-xl flex items-center justify-center flex-shrink-0 ${themeBgLight}`}>
+                  <MapPin className="w-4 h-4" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider leading-none">Lokasi</span>
+                  <span className="text-xs font-bold text-slate-700 mt-1 leading-snug">
+                    {event.lokasi_wilayah}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {/* 4. Ticket / Price Info Summary */}
+            {(event.informasi_biaya?.harga_tiket || (costItems && costItems.length > 0)) && (
+              <div className="flex items-start gap-3.5">
+                <div className={`w-8.5 h-8.5 rounded-xl flex items-center justify-center flex-shrink-0 ${themeBgLight}`}>
+                  <Sparkles className="w-4 h-4" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider leading-none">Biaya Masuk</span>
+                  <span className="text-xs font-bold text-slate-700 mt-1 leading-snug">
+                    {event.informasi_biaya?.harga_tiket || "Lihat rincian biaya di bawah"}
+                  </span>
+                </div>
+              </div>
             )}
           </div>
-          {description.length > 180 && (
-            <button
-              onClick={() => setIsDescExpanded(!isDescExpanded)}
-              className="flex items-center space-x-1 mt-1 text-[#BE1641] text-xs font-extrabold active:scale-95 transition"
-              style={{ WebkitTapHighlightColor: 'transparent' }}
-            >
-              <span>{isDescExpanded ? 'Sembunyikan' : 'Selengkapnya'}</span>
-              {isDescExpanded ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
-            </button>
-          )}
         </div>
-      )}
 
-      {/* ── BIAYA MASUK / TIKET ── */}
-      {costItems && costItems.length > 0 && (
-        <div className="px-6 mt-6">
-          <h3 className="text-lg font-bold text-slate-900 mb-2.5">Biaya & Tiket Masuk</h3>
-          <div className="bg-slate-50 border border-slate-100 rounded-2xl p-4.5 space-y-3">
-            {costItems.map((item, idx) => (
-              <div key={idx} className="flex justify-between items-center text-base font-bold text-slate-800">
-                <span className="text-slate-600 font-normal">{item.label}</span>
-                <span>{item.value}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Show Harga Tiket if present */}
-      {event.informasi_biaya?.harga_tiket && (
-        <div className="px-6 mt-6">
-          <h3 className="text-lg font-bold text-slate-900 mb-2.5">Harga Tiket</h3>
-          <div className="bg-slate-50 border border-slate-100 rounded-2xl p-4.5 text-base font-bold text-slate-800 whitespace-pre-line">
-            {event.informasi_biaya.harga_tiket}
-          </div>
-        </div>
-      )}
-
-      {/* ── FASILITAS ── */}
-      {event.fitur_fasilitas && event.fitur_fasilitas.length > 0 && (
-        <div className="px-6 mt-6">
-          <h3 className="text-lg font-bold text-slate-900 mb-2.5">Fasilitas</h3>
-          <div className="flex flex-wrap gap-2">
-            {event.fitur_fasilitas.map((fac, idx) => (
-              <span key={idx} className="bg-slate-50 text-slate-800 text-sm font-bold px-3.5 py-2 rounded-xl border border-slate-100 flex items-center gap-1.5">
-                <span className="text-[#C6A470] font-bold">✓</span>
-                {fac}
-              </span>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* ── ATURAN & TIPS ── */}
-      {event.aturan_tips && (
-        <div className="px-6 mt-6">
-          <div className="bg-[#C6A470]/10 border border-[#C6A470]/30 rounded-2xl p-4.5">
-            <h3 className="text-sm font-black text-slate-800 uppercase tracking-wider mb-2 flex items-center gap-1.5 select-none">
-              💡 Tips & Aturan Berkunjung
+        {/* Card 2: YouTube / Instagram Embeds */}
+        {(event.youtube_url || event.instagram_url) && (
+          <div className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100/50 space-y-4 text-left">
+            <h3 className={`text-xs font-black text-slate-800 uppercase tracking-wider pl-2 border-l-4 ${isEvent ? 'border-[#4C1D95]' : 'border-[#BE1641]'}`}>
+              Dokumentasi & Media
             </h3>
-            <p className="text-base text-slate-800 leading-relaxed font-semibold">
-              {event.aturan_tips}
-            </p>
-          </div>
-        </div>
-      )}
+            {event.youtube_url && (
+              <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-100 bg-slate-50">
+                <iframe
+                  title="YouTube Video"
+                  src={getYouTubeEmbedUrl(event.youtube_url)}
+                  className="absolute inset-0 w-full h-full"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+            )}
 
-      {/* ── LIVE INTERACTIVE MAP ── */}
-      <div className="px-6 mt-6">
-        <h3 className="text-lg font-bold text-slate-900 mb-2">Lokasi</h3>
-
-        {hasCoords ? (
-          <div className="relative rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 h-40 w-full mb-2.5">
-            <iframe
-              title="Peta Lokasi"
-              width="100%"
-              height="100%"
-              frameBorder="0"
-              scrolling="no"
-              marginHeight="0"
-              marginWidth="0"
-              src={osmUrl}
-              className="w-full h-full pointer-events-auto"
-            />
-          </div>
-        ) : (
-          <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 text-center text-slate-700 text-sm mb-2.5">
-            Peta koordinat GPS tidak tersedia.
+            {event.instagram_url && (
+              <div className="relative w-full rounded-2xl overflow-hidden border border-slate-100 bg-slate-50" style={{ height: '480px' }}>
+                <iframe
+                  title="Instagram Post"
+                  src={getInstagramEmbedUrl(event.instagram_url)}
+                  className="absolute inset-0 w-full h-full"
+                  frameBorder="0"
+                  scrolling="no"
+                  allowTransparency="true"
+                />
+              </div>
+            )}
           </div>
         )}
 
-        {/* Primary Route Button (Inline) */}
+        {/* Card 3: Description (Tentang) */}
+        {description && (
+          <div className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100/50 text-left">
+            <h3 className={`text-xs font-black text-slate-800 uppercase tracking-wider pl-2 border-l-4 ${
+              isEvent ? 'border-[#4C1D95]' : 'border-[#BE1641]'
+            } mb-3.5`}>
+              Tentang {isEvent ? 'Event' : (categoryLabels[event.kategori] || 'Wisata')}
+            </h3>
+            <div className={`relative ${!isDescExpanded ? 'max-h-[8rem] overflow-hidden' : ''}`}>
+              <p className="text-xs font-medium text-slate-600 leading-relaxed whitespace-pre-line">
+                {description}
+              </p>
+              {!isDescExpanded && description.length > 180 && (
+                <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-white via-white/80 to-transparent" />
+              )}
+            </div>
+            {description.length > 180 && (
+              <button
+                onClick={() => setIsDescExpanded(!isDescExpanded)}
+                className={`flex items-center space-x-1 mt-3.5 text-xs font-black active:scale-95 transition-transform ${themeText}`}
+                style={{ WebkitTapHighlightColor: 'transparent' }}
+              >
+                <span>{isDescExpanded ? 'Sembunyikan' : 'Selengkapnya'}</span>
+                {isDescExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+              </button>
+            )}
+          </div>
+        )}
+
+        {/* Card 4: Detailed Breakdown of ticket prices */}
+        {((costItems && costItems.length > 0) || event.informasi_biaya?.harga_tiket) && (
+          <div className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100/50 text-left">
+            <h3 className={`text-xs font-black text-slate-800 uppercase tracking-wider pl-2 border-l-4 ${
+              isEvent ? 'border-[#4C1D95]' : 'border-[#BE1641]'
+            } mb-3.5`}>
+              Rincian Biaya & Tiket
+            </h3>
+            {costItems && costItems.length > 0 && (
+              <div className="space-y-3">
+                {costItems.map((item, idx) => (
+                  <div key={idx} className="flex justify-between items-center text-xs font-bold text-slate-700">
+                    <span className="text-slate-500 font-medium">{item.label}</span>
+                    <span>{item.value}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+            {event.informasi_biaya?.harga_tiket && (
+              <p className="text-xs font-medium text-slate-600 mt-3 bg-slate-50 p-3.5 rounded-2xl border border-slate-100 leading-relaxed whitespace-pre-line">
+                {event.informasi_biaya.harga_tiket}
+              </p>
+            )}
+          </div>
+        )}
+
+        {/* Card 5: Facilities */}
+        {event.fitur_fasilitas && event.fitur_fasilitas.length > 0 && (
+          <div className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100/50 text-left">
+            <h3 className={`text-xs font-black text-slate-800 uppercase tracking-wider pl-2 border-l-4 ${
+              isEvent ? 'border-[#4C1D95]' : 'border-[#BE1641]'
+            } mb-3.5`}>
+              Fasilitas Tersedia
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {event.fitur_fasilitas.map((fac, idx) => (
+                <span key={idx} className="bg-slate-50 text-slate-700 text-xs font-bold px-3.5 py-2.5 rounded-2xl border border-slate-100 flex items-center gap-1.5">
+                  <span className={themeText}>✓</span>
+                  {fac}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Card 6: Rules & Tips */}
+        {event.aturan_tips && (
+          <div className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100/50 text-left">
+            <h3 className={`text-xs font-black text-slate-800 uppercase tracking-wider pl-2 border-l-4 ${
+              isEvent ? 'border-[#4C1D95]' : 'border-[#BE1641]'
+            } mb-3.5`}>
+              Tips & Aturan
+            </h3>
+            <div className={`p-4 rounded-2xl border ${
+              isEvent 
+                ? 'bg-purple-50/40 border-purple-100 text-[#4C1D95]' 
+                : 'bg-rose-50/40 border-rose-100 text-[#BE1641]'
+            }`}>
+              <p className="text-xs font-bold leading-relaxed text-slate-700">
+                {event.aturan_tips}
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Card 7: Location & Map */}
+        <div className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100/50 text-left">
+          <h3 className={`text-xs font-black text-slate-800 uppercase tracking-wider pl-2 border-l-4 ${
+            isEvent ? 'border-[#4C1D95]' : 'border-[#BE1641]'
+          } mb-3.5`}>
+            Lokasi & Peta
+          </h3>
+          
+          {hasCoords ? (
+            <div className="relative rounded-2xl overflow-hidden border border-slate-100 bg-slate-50 h-40 w-full mb-3.5">
+              <iframe
+                title="Peta Lokasi"
+                width="100%"
+                height="100%"
+                frameBorder="0"
+                scrolling="no"
+                marginHeight="0"
+                marginWidth="0"
+                src={osmUrl}
+                className="w-full h-full pointer-events-auto"
+              />
+            </div>
+          ) : (
+            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 text-center text-slate-500 text-xs mb-3.5 font-semibold">
+              Peta koordinat GPS tidak tersedia.
+            </div>
+          )}
+          
+          {event.kontak_info && (
+            <div className="flex items-center gap-2 bg-slate-50 border border-slate-100 rounded-2xl p-3.5 text-xs font-bold text-slate-700">
+              <span className="text-sm">📞</span>
+              <span>{event.kontak_info}</span>
+            </div>
+          )}
+        </div>
+
+      </div>
+
+      {/* ── STICKY BOTTOM ACTION BAR ── */}
+      <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white/90 backdrop-blur-lg border-t border-slate-100 px-5 py-4.5 flex items-center justify-between z-40 shadow-[0_-4px_24px_rgba(0,0,0,0.06)] rounded-t-3xl">
+        <div className="flex flex-col text-left">
+          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider leading-none">Biaya Masuk</span>
+          <span className="text-sm font-black text-slate-800 mt-1.5 leading-none">
+            {event.informasi_biaya?.harga_tiket || (costItems.length > 0 ? costItems[0].value : "Gratis")}
+          </span>
+        </div>
+        
         <a
           href={mapsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center justify-center gap-1.5 w-full py-2.5 bg-[#BE1641] hover:bg-[#a01235] text-white font-bold text-sm rounded-xl text-center active:scale-98 transition"
+          className={`flex items-center justify-center gap-1.5 px-6 py-3.5 text-white font-bold text-xs rounded-2xl shadow-sm active:scale-95 transition-all ${
+            isEvent ? 'bg-[#4C1D95] hover:bg-[#3B1570]' : 'bg-[#BE1641] hover:bg-[#a01235]'
+          }`}
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
           <MapPin className="w-3.5 h-3.5" />
           <span>Petunjuk Arah</span>
         </a>
       </div>
-
-      {/* ── KONTAK INFORMASI ── */}
-      {event.kontak_info && (
-        <div className="px-6 mt-6">
-          <h3 className="text-lg font-bold text-slate-900 mb-2">Kontak Informasi</h3>
-          <p className="text-base font-bold text-slate-800 bg-slate-50 border border-slate-100 rounded-xl p-3.5 flex items-center gap-2">
-            📞 <span className="text-slate-800">{event.kontak_info}</span>
-          </p>
-        </div>
-      )}
 
     </div>
   );

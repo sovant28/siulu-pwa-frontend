@@ -190,21 +190,21 @@ export default function EventListPage() {
         })}
       </div>
 
-      {/* ── RESULTS TITLE ── */}
-      <div className="px-6 mt-6">
-        <h2 className="text-xl font-black text-slate-800">
-          {searchQuery ? 'Hasil Pencarian' : filterLabels[activeFilter]}
-        </h2>
-      </div>
+      {/* ── RESULTS COUNT ── */}
+      {!loading && (
+        <div className="px-6 mt-1">
+          <p className="text-xs font-semibold text-slate-400">{filteredEvents.length} event ditemukan</p>
+        </div>
+      )}
 
-      {/* ── EVENT LIST (SPLIT ROW VIEW) ── */}
-      <div className="px-6 mt-2.5 space-y-1">
+      {/* ── EVENT LIST (CARD VIEW) ── */}
+      <div className="px-6 mt-3 space-y-4 pb-2">
         {loading ? (
-          // Loading Skeleton state
-          [1, 2, 3, 4].map((i) => (
-            <div key={i} className="flex items-center py-4 border-b border-slate-200 animate-pulse">
-              <div className="w-24 h-24 rounded-2xl bg-slate-100 flex-shrink-0" />
-              <div className="ml-4 flex-1 space-y-2">
+          // Loading Skeleton — card style
+          [1, 2, 3].map((i) => (
+            <div key={i} className="bg-white rounded-2xl overflow-hidden border border-slate-100 animate-pulse">
+              <div className="w-full h-44 bg-slate-100" />
+              <div className="p-4 space-y-2.5">
                 <div className="h-4 w-3/4 bg-slate-100 rounded-md" />
                 <div className="h-3 w-1/2 bg-slate-100 rounded-md" />
                 <div className="h-3 w-2/3 bg-slate-100 rounded-md" />
@@ -215,16 +215,17 @@ export default function EventListPage() {
           filteredEvents.map((event) => {
             const dateInfo = parseEventDates(event.jam_operasional);
             const imageUrl = event.informasi_biaya?.image_url;
+            const subKategori = event.informasi_biaya?.sub_kategori;
 
             return (
               <div
                 key={event.id}
                 onClick={() => router.push(`/event/${event.id}`)}
-                className="flex items-center py-4 border-b border-slate-200 cursor-pointer active:scale-[0.99] transition-transform"
+                className="bg-white rounded-2xl overflow-hidden border border-slate-100 cursor-pointer active:scale-[0.98] transition-all duration-150"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >
-                {/* Left: Square Image */}
-                <div className="relative w-24 h-24 rounded-2xl overflow-hidden bg-slate-100 flex-shrink-0">
+                {/* Top: Hero Image */}
+                <div className="relative w-full h-44 bg-slate-100">
                   {imageUrl ? (
                     <Image
                       src={imageUrl}
@@ -234,31 +235,38 @@ export default function EventListPage() {
                       unoptimized
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-slate-50">
-                      <span className="text-xl">📅</span>
+                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#EDE9FE] to-[#DDD6FE]">
+                      <span className="text-4xl">📅</span>
                     </div>
+                  )}
+
+                  {/* Category Badge (top-left) */}
+                  {subKategori && (
+                    <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-[10px] font-black text-[#4C1D95] uppercase tracking-wider px-2.5 py-1 rounded-full leading-none select-none">
+                      {subKategori}
+                    </span>
                   )}
                 </div>
 
-                {/* Right: Info details */}
-                <div className="ml-4 flex-1 min-w-0 flex flex-col justify-center">
-                  <h3 className="text-base font-bold text-slate-800 truncate leading-snug">
+                {/* Bottom: Info */}
+                <div className="p-4">
+                  <h3 className="text-[15px] font-black text-slate-800 leading-snug line-clamp-2">
                     {event.nama_tempat}
                   </h3>
-                  
+
                   {event.lokasi_wilayah && (
-                    <div className="mt-1 flex items-center text-sm font-semibold text-slate-500 gap-1 truncate">
-                      <MapPin className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
-                      <span>{event.lokasi_wilayah}</span>
+                    <div className="mt-2 flex items-center text-xs font-semibold text-slate-400 gap-1.5">
+                      <MapPin className="w-3.5 h-3.5 text-slate-300 flex-shrink-0" />
+                      <span className="truncate">{event.lokasi_wilayah}</span>
                     </div>
                   )}
- 
+
                   {dateInfo && dateInfo.startStr && (
-                    <div className="mt-1.5 text-sm font-bold text-[#4C1D95] flex items-center gap-1.5 truncate">
-                      <Calendar className="w-3.5 h-3.5 text-[#4C1D95] flex-shrink-0" />
+                    <div className="mt-1.5 flex items-center text-xs font-bold text-[#4C1D95] gap-1.5">
+                      <Calendar className="w-3.5 h-3.5 flex-shrink-0" />
                       <span>
                         {dateInfo.startStr}
-                        {dateInfo.endStr && dateInfo.endStr !== dateInfo.startStr && ` - ${dateInfo.endStr}`}
+                        {dateInfo.endStr && dateInfo.endStr !== dateInfo.startStr && ` — ${dateInfo.endStr}`}
                       </span>
                     </div>
                   )}
@@ -267,9 +275,10 @@ export default function EventListPage() {
             );
           })
         ) : (
-          <div className="text-center py-12 px-6 bg-white rounded-2xl border border-slate-200 mt-4">
-            <span className="text-3xl block mb-2">🔍</span>
-            <p className="text-sm text-slate-600 font-bold">Tidak ada event yang cocok.</p>
+          <div className="text-center py-16 px-6">
+            <span className="text-4xl block mb-3">🔍</span>
+            <p className="text-sm text-slate-500 font-bold">Tidak ada event yang cocok.</p>
+            <p className="text-xs text-slate-400 font-medium mt-1">Coba kata kunci lain atau ubah filter.</p>
           </div>
         )}
       </div>

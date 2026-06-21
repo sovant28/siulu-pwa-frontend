@@ -196,7 +196,7 @@ export default function EventListPage() {
       )}
 
       {/* ── EVENT LIST (BORDERLESS CARD VIEW) ── */}
-      <div className="px-5 mt-4 space-y-7 pb-4">
+      <div className="px-5 mt-4 space-y-9 pb-4">
         {loading ? (
           // Loading Skeleton — borderless destinasi style
           [1, 2, 3].map((i) => (

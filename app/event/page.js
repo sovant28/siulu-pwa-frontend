@@ -134,9 +134,9 @@ export default function EventListPage() {
     <div className="flex flex-col w-full min-h-[100dvh] bg-[#F6F7F9] font-sans pb-[calc(env(safe-area-inset-bottom)+76px)] relative overflow-x-hidden">
       
       {/* ── COMPACT STICKY HEADER (App-style) ── */}
-      <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md px-5 pt-[calc(env(safe-area-inset-top)+8px)] pb-3 flex flex-col gap-3">
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md pt-[calc(env(safe-area-inset-top)+8px)] flex flex-col gap-3 border-b border-slate-100/80">
         {/* Row 1: Back + Title */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 px-5">
           <button
             onClick={() => router.push('/')}
             className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-700 active:scale-90 transition-transform flex-shrink-0"
@@ -148,43 +148,45 @@ export default function EventListPage() {
         </div>
 
         {/* Row 2: Search bar (inside header for compact feel) */}
-        <div className="relative w-full flex items-center bg-[#F6F7F9] rounded-xl px-3.5 py-2.5">
-          <Search className="w-4 h-4 text-slate-400 mr-2 flex-shrink-0" />
-          <input
-            type="text"
-            placeholder="Cari event..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full text-sm font-medium text-slate-800 bg-transparent border-none outline-none placeholder-slate-400"
-          />
+        <div className="px-5">
+          <div className="relative w-full flex items-center bg-[#F6F7F9] rounded-xl px-3.5 py-2.5">
+            <Search className="w-4 h-4 text-slate-400 mr-2 flex-shrink-0" />
+            <input
+              type="text"
+              placeholder="Cari event..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full text-sm font-medium text-slate-800 bg-transparent border-none outline-none placeholder-slate-400"
+            />
+          </div>
+        </div>
+
+        {/* ── FILTER TABS ── */}
+        <div className="px-5 flex items-center space-x-6 overflow-x-auto no-scrollbar scroll-smooth bg-white pb-2 flex-shrink-0">
+          {Object.entries(filterLabels).map(([key, label]) => {
+            const isActive = activeFilter === key;
+            return (
+              <button
+                key={key}
+                onClick={() => setActiveFilter(key)}
+                className={`pb-1 text-xs font-bold whitespace-nowrap transition-all flex flex-col items-center gap-0.5 flex-shrink-0 relative ${
+                  isActive
+                    ? 'text-[#4C1D95]'
+                    : 'text-slate-400 active:text-slate-600'
+                }`}
+                style={{ WebkitTapHighlightColor: 'transparent' }}
+              >
+                <span className="transition-colors duration-150">{label}</span>
+                <span
+                  className={`w-1.5 h-1.5 rounded-full transition-all duration-200 ${
+                    isActive ? 'bg-[#4C1D95] scale-100' : 'bg-transparent scale-0'
+                  }`}
+                />
+              </button>
+            );
+          })}
         </div>
       </header>
-
-      {/* ── FILTER TABS ── */}
-      <div className="px-5 mt-2 flex items-center space-x-6 overflow-x-auto no-scrollbar scroll-smooth border-b border-slate-100/80 bg-white py-2 flex-shrink-0">
-        {Object.entries(filterLabels).map(([key, label]) => {
-          const isActive = activeFilter === key;
-          return (
-            <button
-              key={key}
-              onClick={() => setActiveFilter(key)}
-              className={`pb-1 text-xs font-bold whitespace-nowrap transition-all flex flex-col items-center gap-1 flex-shrink-0 relative ${
-                isActive
-                  ? 'text-[#4C1D95]'
-                  : 'text-slate-400 active:text-slate-600'
-              }`}
-              style={{ WebkitTapHighlightColor: 'transparent' }}
-            >
-              <span className="transition-colors duration-150">{label}</span>
-              <span
-                className={`w-1.5 h-1.5 rounded-full transition-all duration-200 ${
-                  isActive ? 'bg-[#4C1D95] scale-100' : 'bg-transparent scale-0'
-                }`}
-              />
-            </button>
-          );
-        })}
-      </div>
 
       {/* ── RESULTS COUNT ── */}
       {!loading && (

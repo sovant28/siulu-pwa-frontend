@@ -65,10 +65,6 @@ export default function EventListPage() {
     religi: 'Event Religi'
   };
 
-  const subCategoryLabels = {
-    budaya: 'Upacara Adat',
-    religi: 'Event Religi'
-  };
 
   // Fetch events from API
   useEffect(() => {
@@ -164,22 +160,27 @@ export default function EventListPage() {
         </div>
       </header>
 
-      {/* ── FILTER PILLS ── */}
-      <div className="px-5 mt-3 flex items-center space-x-2 overflow-x-auto no-scrollbar scroll-smooth">
+      {/* ── FILTER TABS ── */}
+      <div className="px-5 mt-2 flex items-center space-x-6 overflow-x-auto no-scrollbar scroll-smooth border-b border-slate-100/80 bg-white py-2 flex-shrink-0">
         {Object.entries(filterLabels).map(([key, label]) => {
           const isActive = activeFilter === key;
           return (
             <button
               key={key}
               onClick={() => setActiveFilter(key)}
-              className={`px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all border ${
+              className={`pb-1 text-xs font-bold whitespace-nowrap transition-all flex flex-col items-center gap-1 flex-shrink-0 relative ${
                 isActive
-                  ? 'bg-[#4C1D95] text-white border-[#4C1D95]'
-                  : 'bg-white text-slate-600 border-slate-200 active:bg-slate-50'
+                  ? 'text-[#4C1D95]'
+                  : 'text-slate-400 active:text-slate-600'
               }`}
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
-              {label}
+              <span className="transition-colors duration-150">{label}</span>
+              <span
+                className={`w-1.5 h-1.5 rounded-full transition-all duration-200 ${
+                  isActive ? 'bg-[#4C1D95] scale-100' : 'bg-transparent scale-0'
+                }`}
+              />
             </button>
           );
         })}
@@ -210,7 +211,6 @@ export default function EventListPage() {
           filteredEvents.map((event) => {
             const dateInfo = parseEventDates(event.jam_operasional);
             const imageUrl = event.informasi_biaya?.image_url;
-            const subKategori = event.informasi_biaya?.sub_kategori;
 
             return (
               <div
@@ -235,12 +235,7 @@ export default function EventListPage() {
                     </div>
                   )}
 
-                  {/* Category Badge (top-left) */}
-                  {subKategori && (
-                    <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-[10px] font-black text-[#4C1D95] uppercase tracking-wider px-2.5 py-1 rounded-full leading-none select-none">
-                      {subCategoryLabels[subKategori.toLowerCase()] || subKategori}
-                    </span>
-                  )}
+
                 </div>
 
                 {/* Bottom: Info */}

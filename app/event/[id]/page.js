@@ -328,7 +328,7 @@ export default function EventDetailPage() {
         </button>
 
         {/* Page Title (scrolled only) */}
-        <span className={`text-[15px] font-black text-slate-850 truncate px-4 flex-1 text-center transition-opacity duration-300 ${
+        <span className={`text-[15px] font-black text-slate-800 truncate px-4 flex-1 text-center transition-opacity duration-300 ${
           scrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}>
           {event.nama_tempat}
@@ -609,7 +609,7 @@ export default function EventDetailPage() {
           <>
             <div className="flex flex-col text-left">
               <span className="text-[10px] font-bold text-slate-500 tracking-wider leading-none">Biaya Masuk</span>
-              <span className="text-sm font-black text-slate-850 mt-1.5 leading-none">
+              <span className="text-sm font-black text-slate-800 mt-1.5 leading-none">
                 {ticketPrice}
               </span>
             </div>

@@ -65,6 +65,11 @@ export default function EventListPage() {
     religi: 'Event Religi'
   };
 
+  const subCategoryLabels = {
+    budaya: 'Upacara Adat',
+    religi: 'Event Religi'
+  };
+
   // Fetch events from API
   useEffect(() => {
     const fetchEvents = async () => {
@@ -233,7 +238,7 @@ export default function EventListPage() {
                   {/* Category Badge (top-left) */}
                   {subKategori && (
                     <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-[10px] font-black text-[#4C1D95] uppercase tracking-wider px-2.5 py-1 rounded-full leading-none select-none">
-                      {subKategori}
+                      {subCategoryLabels[subKategori.toLowerCase()] || subKategori}
                     </span>
                   )}
                 </div>

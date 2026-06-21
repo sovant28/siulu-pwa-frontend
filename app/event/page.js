@@ -195,17 +195,17 @@ export default function EventListPage() {
         </div>
       )}
 
-      {/* ── EVENT LIST (CARD VIEW) ── */}
-      <div className="px-5 mt-3 space-y-4 pb-2">
+      {/* ── EVENT LIST (BORDERLESS CARD VIEW) ── */}
+      <div className="px-5 mt-4 space-y-7 pb-4">
         {loading ? (
-          // Loading Skeleton — card style
+          // Loading Skeleton — borderless destinasi style
           [1, 2, 3].map((i) => (
-            <div key={i} className="bg-white rounded-2xl overflow-hidden border border-slate-100 animate-pulse">
-              <div className="w-full h-44 bg-slate-100" />
-              <div className="p-4 space-y-2.5">
-                <div className="h-4 w-3/4 bg-slate-100 rounded-md" />
-                <div className="h-3 w-1/2 bg-slate-100 rounded-md" />
-                <div className="h-3 w-2/3 bg-slate-100 rounded-md" />
+            <div key={i} className="flex flex-col animate-pulse space-y-3">
+              <div className="w-full aspect-[16/10] bg-slate-200 rounded-3xl" />
+              <div className="space-y-2 px-1">
+                <div className="h-4.5 w-3/4 bg-slate-200 rounded-md" />
+                <div className="h-3.5 w-1/2 bg-slate-200 rounded-md mt-1" />
+                <div className="h-3.5 w-2/3 bg-slate-200 rounded-md" />
               </div>
             </div>
           ))
@@ -218,11 +218,11 @@ export default function EventListPage() {
               <div
                 key={event.id}
                 onClick={() => router.push(`/event/${event.id}`)}
-                className="bg-white rounded-2xl overflow-hidden border border-slate-100 cursor-pointer active:scale-[0.98] transition-all duration-150"
+                className="flex flex-col active:scale-[0.98] transition-all cursor-pointer space-y-3"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >
-                {/* Top: Hero Image */}
-                <div className="relative w-full h-44 bg-slate-100">
+                {/* Foto dengan Aspect Ratio 16:10, rounded-3xl di semua sisi */}
+                <div className="relative w-full aspect-[16/10] bg-slate-100 rounded-3xl overflow-hidden border border-slate-100/50 shadow-sm">
                   {imageUrl ? (
                     <Image
                       src={imageUrl}
@@ -236,18 +236,16 @@ export default function EventListPage() {
                       <span className="text-4xl">📅</span>
                     </div>
                   )}
-
-
                 </div>
 
-                {/* Bottom: Info */}
-                <div className="p-4">
-                  <h3 className="text-[15px] font-black text-slate-800 leading-snug line-clamp-2">
+                {/* Bottom: Info Details */}
+                <div className="text-left px-1">
+                  <h3 className="text-[16px] font-black text-slate-900 leading-snug">
                     {event.nama_tempat}
                   </h3>
 
                   {dateInfo && dateInfo.startStr && (
-                    <div className="mt-2 flex items-center text-xs font-bold text-[#4C1D95] gap-1.5">
+                    <div className="mt-1.5 flex items-center text-xs font-bold text-[#4C1D95] gap-1.5">
                       <Calendar className="w-3.5 h-3.5 flex-shrink-0" />
                       <span>
                         {dateInfo.startStr}
@@ -257,7 +255,7 @@ export default function EventListPage() {
                   )}
 
                   {event.lokasi_wilayah && (
-                    <div className="mt-1.5 flex items-center text-xs font-semibold text-slate-500 gap-1.5">
+                    <div className="mt-1 flex items-center text-xs font-semibold text-slate-500 gap-1.5">
                       <MapPin className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
                       <span className="truncate">{event.lokasi_wilayah}</span>
                     </div>

@@ -182,7 +182,7 @@ function DestinasiListContent() {
 
                   {/* Baris 3: Deskripsi Singkat */}
                   {dest.deskripsi_lengkap && (
-                    <p className="text-xs font-semibold text-slate-500 mt-1.5 line-clamp-2 leading-relaxed">
+                    <p className="text-xs font-semibold text-slate-800 mt-1.5 line-clamp-2 leading-relaxed">
                       {dest.deskripsi_lengkap}
                     </p>
                   )}
@@ -231,14 +231,14 @@ function DestinasiListContent() {
           <span className="text-[10px] font-bold mt-1 leading-none">Beranda</span>
         </button>
 
-        {/* 2. Jelajah (Active) */}
+        {/* 2. Jelajah */}
         <button
           onClick={() => {}}
-          className="flex flex-col items-center justify-center w-16 py-1 text-[#4C1D95] active:scale-90 transition cursor-pointer"
+          className="flex flex-col items-center justify-center w-16 py-1 text-slate-400 hover:text-slate-500 active:scale-90 transition cursor-pointer"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
-          <Compass className="w-5.5 h-5.5" fill="currentColor" />
-          <span className="text-[10px] font-black mt-1 leading-none text-[#4C1D95]">Jelajah</span>
+          <Compass className="w-5.5 h-5.5" />
+          <span className="text-[10px] font-bold mt-1 leading-none text-slate-400">Jelajah</span>
         </button>
 
         {/* 3. Tanya AI */}

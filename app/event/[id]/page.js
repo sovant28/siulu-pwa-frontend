@@ -561,7 +561,7 @@ export default function EventDetailPage() {
       </div>
 
       {/* ── DETAILS WRAPPER (OVERLAPPING CARD STYLE) ── */}
-      <div className="relative -mt-6 z-20 bg-[#F6F7F9] rounded-t-3xl pt-6 pb-28 px-4 space-y-4">
+      <div className={`relative -mt-6 z-20 bg-[#F6F7F9] rounded-t-3xl pt-6 px-4 space-y-4 ${isFoodCatalog ? 'pb-12' : 'pb-28'}`}>
         
         {/* Card 1: Title, Category & Key Info Grid */}
         <div className="bg-white rounded-3xl p-5 border border-slate-200/80 text-left">
@@ -824,7 +824,7 @@ export default function EventDetailPage() {
                     
                     {/* Divider line between multiple cafes (except last one) */}
                     {idx < servingCafes.length - 1 && (
-                      <div className="h-[1px] bg-slate-100 my-5 pt-3" />
+                      <div className="border-t border-slate-100 my-6" />
                     )}
                   </div>
                 );
@@ -886,62 +886,42 @@ export default function EventDetailPage() {
       </div>
 
       {/* ── STICKY BOTTOM ACTION BAR ── */}
-      <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white/95 backdrop-blur-lg border-t border-slate-200 px-5 py-4 flex items-center justify-between z-40 rounded-t-3xl">
-        {isFoodCatalog ? (
-          servingCafes.length > 1 ? (
-            <button
-              onClick={scrollToCafes}
-              className="flex items-center justify-center gap-1.5 w-full py-3.5 text-white font-bold text-xs rounded-2xl active:scale-95 transition-all bg-[#4C1D95] hover:bg-[#3B1570]"
-              style={{ WebkitTapHighlightColor: 'transparent' }}
-            >
-              <UtensilsCrossed className="w-3.5 h-3.5" />
-              <span>Lihat Kedai Penyedia ({servingCafes.length})</span>
-            </button>
+      {!isFoodCatalog && (
+        <div className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white/95 backdrop-blur-lg border-t border-slate-200 px-5 py-4 flex items-center justify-between z-40 rounded-t-3xl">
+          {isEvent && showPrice ? (
+            <>
+              <div className="flex flex-col text-left">
+                <span className="text-[10px] font-bold text-slate-500 tracking-wider leading-none">Biaya Masuk</span>
+                <span className="text-sm font-black text-slate-800 mt-1.5 leading-none">
+                  {ticketPrice}
+                </span>
+              </div>
+              
+              <a
+                href={mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-1.5 px-6 py-3.5 text-white font-bold text-xs rounded-2xl active:scale-95 transition-all bg-[#4C1D95] hover:bg-[#3B1570]"
+                style={{ WebkitTapHighlightColor: 'transparent' }}
+              >
+                <MapPin className="w-3.5 h-3.5" />
+                <span>Petunjuk Arah</span>
+              </a>
+            </>
           ) : (
-            <a
-              href={foodMapsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-1.5 w-full py-3.5 text-white font-bold text-xs rounded-2xl active:scale-95 transition-all bg-[#4C1D95] hover:bg-[#3B1570]"
-              style={{ WebkitTapHighlightColor: 'transparent' }}
-            >
-              <MapPin className="w-3.5 h-3.5" />
-              <span>Petunjuk Arah Ke {firstCafe?.nama_tempat || 'Kedai'}</span>
-            </a>
-          )
-        ) : isEvent && showPrice ? (
-          <>
-            <div className="flex flex-col text-left">
-              <span className="text-[10px] font-bold text-slate-500 tracking-wider leading-none">Biaya Masuk</span>
-              <span className="text-sm font-black text-slate-800 mt-1.5 leading-none">
-                {ticketPrice}
-              </span>
-            </div>
-            
             <a
               href={mapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-1.5 px-6 py-3.5 text-white font-bold text-xs rounded-2xl active:scale-95 transition-all bg-[#4C1D95] hover:bg-[#3B1570]"
+              className="flex items-center justify-center gap-1.5 w-full py-3.5 text-white font-bold text-xs rounded-2xl active:scale-95 transition-all bg-[#4C1D95] hover:bg-[#3B1570]"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <MapPin className="w-3.5 h-3.5" />
               <span>Petunjuk Arah</span>
             </a>
-          </>
-        ) : (
-          <a
-            href={mapsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-1.5 w-full py-3.5 text-white font-bold text-xs rounded-2xl active:scale-95 transition-all bg-[#4C1D95] hover:bg-[#3B1570]"
-            style={{ WebkitTapHighlightColor: 'transparent' }}
-          >
-            <MapPin className="w-3.5 h-3.5" />
-            <span>Petunjuk Arah</span>
-          </a>
-        )}
-      </div>
+          )}
+        </div>
+      )}
 
     </div>
   );

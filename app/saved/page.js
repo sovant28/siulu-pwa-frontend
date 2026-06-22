@@ -163,7 +163,7 @@ export default function SavedPage() {
             </div>
             <h3 className="text-lg font-black text-slate-800">Belum ada item disimpan</h3>
             <p className="text-sm text-slate-600 mt-2 max-w-xs leading-relaxed font-semibold">
-              Jelajahi keindahan pariwisata Toraja dan ketuk ikon hati untuk menyimpan destinasi favorit Anda.
+              Jelajahi keindahan pariwisata Tana Toraja dan ketuk ikon hati untuk menyimpan destinasi favorit Anda.
             </p>
             <button
               onClick={() => router.push('/destinasi')}

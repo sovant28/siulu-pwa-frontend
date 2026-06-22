@@ -94,7 +94,7 @@ export default function LoginPage() {
           {/* Welcome Message */}
           <div className="text-left">
             <h3 className="text-xl font-black text-slate-800">Selamat Datang Kembali</h3>
-            <p className="text-sm font-semibold text-slate-500 mt-1">Masuk untuk menjelajahi Toraja bersama AI.</p>
+            <p className="text-sm font-semibold text-slate-500 mt-1">Masuk untuk menjelajahi Tana Toraja bersama AI.</p>
           </div>
 
           {error && (

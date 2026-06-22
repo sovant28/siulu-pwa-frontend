@@ -7,7 +7,7 @@ export const metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "Siulu Toraja",
+    title: "Siulu Tana Toraja",
   },
 };
 

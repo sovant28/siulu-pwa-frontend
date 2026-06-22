@@ -237,7 +237,7 @@ export default function AppHome() {
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
           <Search className="w-4 h-4 text-slate-500 mr-2.5 flex-shrink-0" />
-          <span className="text-sm font-semibold text-slate-500">Cari destinasi pariwisata Toraja...</span>
+          <span className="text-sm font-semibold text-slate-500">Cari destinasi pariwisata Tana Toraja...</span>
         </div>
       </div>
 

@@ -115,7 +115,7 @@ export default function RegisterPage() {
               {/* Welcome Message */}
               <div className="text-left">
                 <h3 className="text-xl font-black text-slate-800">Mulai Perjalanan Anda</h3>
-                <p className="text-sm font-semibold text-slate-500 mt-1">Buat akun gratis untuk mengobrol AI pariwisata Toraja tanpa batas.</p>
+                <p className="text-sm font-semibold text-slate-500 mt-1">Buat akun gratis untuk mengobrol AI pariwisata Tana Toraja tanpa batas.</p>
               </div>
 
               {/* Social Signup (Google) */}

@@ -432,7 +432,7 @@ export default function ChatAI() {
             </div>
             <div className="flex flex-col">
               <span className="text-sm font-black text-slate-800 leading-tight">Mebali AI</span>
-              <span className="text-[10px] font-semibold text-slate-400 leading-tight">Asisten Wisata Toraja</span>
+              <span className="text-[10px] font-semibold text-slate-400 leading-tight">Asisten Wisata Tana Toraja</span>
             </div>
           </div>
         </div>
@@ -465,7 +465,7 @@ export default function ChatAI() {
               {greeting}, {username || 'Traveler'}
             </h1>
             <p className="text-sm text-slate-400 font-semibold text-center mb-8">
-              Tanyakan apa saja tentang wisata Toraja
+              Tanyakan apa saja tentang wisata Tana Toraja
             </p>
 
             {/* Suggestion Chips */}
@@ -638,7 +638,7 @@ export default function ChatAI() {
               }
             }}
             disabled={!user && messageCount >= 10}
-            placeholder={(!user && messageCount >= 10) ? "Daftar untuk lanjut mengobrol..." : "Tanya tentang Toraja..."}
+            placeholder={(!user && messageCount >= 10) ? "Daftar untuk lanjut mengobrol..." : "Tanya tentang Tana Toraja..."}
             rows={1}
             className="flex-1 bg-transparent text-sm font-medium text-slate-800 focus:outline-none placeholder:text-slate-400 disabled:text-slate-400 resize-none py-1.5 max-h-[120px] leading-relaxed no-scrollbar"
           />

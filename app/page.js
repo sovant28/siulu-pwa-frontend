@@ -193,7 +193,7 @@ export default function AppHome() {
       {/* HEADER BAR (Horizontal & Native-like) */}
       <header className="w-full flex items-center justify-between px-6 pt-[calc(env(safe-area-inset-top)+14px)] pb-2 relative z-10">
         {/* Left Side: Avatar & Greeting/Name (Clickable to profile/login) */}
-        <div 
+        <div
           onClick={() => router.push(user ? '/profile' : '/login')}
           className="flex items-center space-x-2.5 cursor-pointer active:scale-95 transition-transform"
           style={{ WebkitTapHighlightColor: 'transparent' }}
@@ -228,7 +228,7 @@ export default function AppHome() {
 
       {/* PROMINENT SEARCH BAR (Native-like) */}
       <div className="px-6 mt-3">
-        <div 
+        <div
           onClick={() => router.push('/destinasi')}
           role="button"
           tabIndex={0}
@@ -315,7 +315,7 @@ export default function AppHome() {
             >
               <Image src="/icon_event.png" alt="Event" width={56} height={56} className="w-full h-full object-contain" />
             </button>
-            <span className="text-[11px] font-black text-slate-700 tracking-wide">Event</span>
+            <span className="text-[11px] font-normal text-slate-700 tracking-wide">Event</span>
           </div>
 
           {/* Card 2: Destinasi */}
@@ -327,7 +327,7 @@ export default function AppHome() {
             >
               <Image src="/icon_destinasi.png" alt="Destinasi" width={56} height={56} className="w-full h-full object-contain scale-[1.35]" />
             </button>
-            <span className="text-[11px] font-black text-slate-700 tracking-wide">Destinasi</span>
+            <span className="text-[11px] font-normal text-slate-700 tracking-wide">Destinasi</span>
           </div>
 
           {/* Card 3: Kuliner */}
@@ -339,7 +339,7 @@ export default function AppHome() {
             >
               <Image src="/icon_kuliner.png" alt="Kuliner" width={56} height={56} className="w-full h-full object-contain" />
             </button>
-            <span className="text-[11px] font-black text-slate-700 tracking-wide">Kuliner</span>
+            <span className="text-[11px] font-normal text-slate-700 tracking-wide">Kuliner</span>
           </div>
 
           {/* Card 4: Hotel */}
@@ -351,7 +351,7 @@ export default function AppHome() {
             >
               <Image src="/icon_hotel.png" alt="Hotel" width={56} height={56} className="w-full h-full object-contain scale-[1.35]" />
             </button>
-            <span className="text-[11px] font-black text-slate-700 tracking-wide">Hotel</span>
+            <span className="text-[11px] font-normal text-slate-700 tracking-wide">Hotel</span>
           </div>
 
           {/* Card 5: Tiket */}
@@ -366,7 +366,7 @@ export default function AppHome() {
                 <Image src="/icon_tiket.png" alt="Tiket" width={56} height={56} className="w-full h-full object-contain" />
               </button>
             </div>
-            <span className="text-[11px] font-black text-slate-700/80 tracking-wide select-none">Tiket</span>
+            <span className="text-[11px] font-normal text-slate-700/80 tracking-wide select-none">Tiket</span>
           </div>
 
           {/* Card 6: Oleh-oleh */}
@@ -381,7 +381,7 @@ export default function AppHome() {
                 <Image src="/icon_oleh_oleh.png" alt="Oleh-oleh" width={56} height={56} className="w-full h-full object-contain" />
               </button>
             </div>
-            <span className="text-[11px] font-black text-slate-700/80 tracking-wide select-none">Oleh-oleh</span>
+            <span className="text-[11px] font-normal text-slate-700/80 tracking-wide select-none">Oleh-oleh</span>
           </div>
 
           {/* Card 7: Pengaduan */}
@@ -396,7 +396,7 @@ export default function AppHome() {
                 <Image src="/icon_pengaduan.png" alt="Pengaduan" width={56} height={56} className="w-full h-full object-contain" />
               </button>
             </div>
-            <span className="text-[11px] font-black text-slate-700/80 tracking-wide select-none">Pengaduan</span>
+            <span className="text-[11px] font-normal text-slate-700/80 tracking-wide select-none">Pengaduan</span>
           </div>
 
           {/* Card 8: Bantuan */}
@@ -411,7 +411,7 @@ export default function AppHome() {
                 <Image src="/icon_darurat.png" alt="Bantuan" width={56} height={56} className="w-full h-full object-contain" />
               </button>
             </div>
-            <span className="text-[11px] font-black text-slate-700/80 tracking-wide select-none">Bantuan</span>
+            <span className="text-[11px] font-normal text-slate-700/80 tracking-wide select-none">Bantuan</span>
           </div>
         </div>
       </section>
@@ -419,7 +419,7 @@ export default function AppHome() {
       {/* YOUTUBE VIDEO HOOK */}
       <section className="px-6 mt-8">
         <h3 className="text-xl font-black text-slate-800">Pesona Tana Toraja</h3>
-        <p className="text-xs font-semibold text-slate-500 mt-1 mb-4 leading-relaxed">
+        <p className="text-xs font-normal text-slate-500 mt-1 mb-4 leading-relaxed">
           Ikuti perjalanan spiritual Maria menelusuri Tana Toraja.
         </p>
         <div className="relative w-full aspect-video rounded-3xl overflow-hidden border border-slate-100 bg-slate-100">
@@ -482,7 +482,7 @@ export default function AppHome() {
 
         {/* 2. Jelajah */}
         <button
-          onClick={() => {}}
+          onClick={() => { }}
           className="flex flex-col items-center justify-center w-16 py-1 text-slate-400 hover:text-slate-500 active:scale-90 transition cursor-pointer"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >

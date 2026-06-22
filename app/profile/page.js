@@ -137,9 +137,15 @@ export default function ProfilePage() {
         
         {/* Amelia's User Card */}
         <div className="flex flex-col items-center p-6 bg-white rounded-3xl border border-slate-200/80">
-          <div className="relative w-20 h-20 rounded-full overflow-hidden border border-slate-200/80 bg-slate-50">
-            <Image src="/avatar_v2.png" alt="User Avatar" fill className="object-cover" />
-          </div>
+          {user ? (
+            <div className="relative w-20 h-20 rounded-full overflow-hidden border border-slate-200/80 bg-slate-50 mb-4">
+              <Image src="/avatar_v2.png" alt="User Avatar" fill className="object-cover" />
+            </div>
+          ) : (
+            <div className="w-20 h-20 rounded-full bg-slate-100 border border-slate-200/80 flex items-center justify-center text-slate-400 mb-4">
+              <User className="w-10 h-10" />
+            </div>
+          )}
           
           {isEditing ? (
             <div className="flex items-center space-x-2 w-full max-w-[200px] justify-center mt-1">

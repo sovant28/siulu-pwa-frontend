@@ -198,9 +198,15 @@ export default function AppHome() {
           className="flex items-center space-x-2.5 cursor-pointer active:scale-95 transition-transform"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
-          <div className="relative w-10 h-10 rounded-full overflow-hidden border border-slate-200/80 bg-white flex-shrink-0">
-            <Image src="/avatar_v2.png" alt="Avatar" fill className="object-cover" />
-          </div>
+          {user ? (
+            <div className="relative w-10 h-10 rounded-full overflow-hidden border border-slate-200/80 bg-white flex-shrink-0">
+              <Image src="/avatar_v2.png" alt="Avatar" fill className="object-cover" />
+            </div>
+          ) : (
+            <div className="w-10 h-10 rounded-full bg-slate-100 border border-slate-200/80 flex items-center justify-center text-slate-400 flex-shrink-0">
+              <User className="w-5 h-5" />
+            </div>
+          )}
           <div className="flex flex-col text-left">
             <span className="text-[10px] font-bold text-slate-500 tracking-wider leading-none">{greeting}</span>
             {user ? (

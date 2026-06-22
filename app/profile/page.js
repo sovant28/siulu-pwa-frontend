@@ -136,8 +136,8 @@ export default function ProfilePage() {
       <div className="px-6 mt-6 flex-grow space-y-6">
         
         {/* Amelia's User Card */}
-        <div className="flex flex-col items-center p-6 bg-white rounded-3xl border border-slate-100/80 shadow-[0_8px_30px_rgba(0,0,0,0.02)]">
-          <div className="relative w-20 h-20 rounded-full overflow-hidden border-2 border-slate-100 shadow-sm mb-4 bg-slate-50">
+        <div className="flex flex-col items-center p-6 bg-white rounded-3xl border border-slate-200/80">
+          <div className="relative w-20 h-20 rounded-full overflow-hidden border border-slate-200/80 bg-slate-50">
             <Image src="/avatar_v2.png" alt="User Avatar" fill className="object-cover" />
           </div>
           
@@ -183,7 +183,7 @@ export default function ProfilePage() {
         </div>
 
         {/* Settings options group */}
-        <div className="bg-white rounded-3xl border border-slate-100/80 shadow-[0_8px_30px_rgba(0,0,0,0.02)] overflow-hidden">
+        <div className="bg-white rounded-3xl border border-slate-200/80 overflow-hidden">
           <div className="divide-y divide-slate-100">
             {/* 1. Bahasa */}
             <div
@@ -191,7 +191,7 @@ export default function ProfilePage() {
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <div className="flex items-center space-x-3.5">
-                <div className="w-9 h-9 rounded-2xl bg-indigo-50 flex items-center justify-center text-indigo-600">
+                <div className="w-9 h-9 rounded-2xl bg-violet-50 flex items-center justify-center text-[#4C1D95]">
                   <Globe className="w-4.5 h-4.5" />
                 </div>
                 <div className="flex flex-col text-left">
@@ -208,7 +208,7 @@ export default function ProfilePage() {
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <div className="flex items-center space-x-3.5">
-                <div className="w-9 h-9 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-600">
+                <div className="w-9 h-9 rounded-2xl bg-violet-50 flex items-center justify-center text-[#4C1D95]">
                   <Shield className="w-4.5 h-4.5" />
                 </div>
                 <div className="flex flex-col text-left">
@@ -225,7 +225,7 @@ export default function ProfilePage() {
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <div className="flex items-center space-x-3.5">
-                <div className="w-9 h-9 rounded-2xl bg-amber-50 flex items-center justify-center text-amber-600">
+                <div className="w-9 h-9 rounded-2xl bg-violet-50 flex items-center justify-center text-[#4C1D95]">
                   <HelpCircle className="w-4.5 h-4.5" />
                 </div>
                 <div className="flex flex-col text-left">
@@ -242,7 +242,7 @@ export default function ProfilePage() {
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <div className="flex items-center space-x-3.5">
-                <div className="w-9 h-9 rounded-2xl bg-rose-50 flex items-center justify-center text-rose-600">
+                <div className="w-9 h-9 rounded-2xl bg-violet-50 flex items-center justify-center text-[#4C1D95]">
                   <FileText className="w-4.5 h-4.5" />
                 </div>
                 <div className="flex flex-col text-left">
@@ -279,7 +279,7 @@ export default function ProfilePage() {
 
       {/* BOTTOM NAVIGATION */}
       <nav
-        className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white/80 backdrop-blur-lg border-t border-slate-100/50 px-6 pt-2 pb-[calc(env(safe-area-inset-bottom)+6px)] flex justify-between items-center z-50 rounded-t-3xl select-none shadow-[0_-8px_30px_rgba(0,0,0,0.03)]"
+        className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white/80 backdrop-blur-lg border-t border-slate-200/80 px-6 pt-2 pb-[calc(env(safe-area-inset-bottom)+6px)] flex justify-between items-center z-50 rounded-t-3xl select-none"
       >
         {/* Rainbow Gradient Definition for AI Icon */}
         <svg width="0" height="0" className="absolute pointer-events-none">

@@ -74,7 +74,7 @@ export default function SavedPage() {
       <header className="sticky top-0 z-40 bg-white/95 px-6 pt-[calc(env(safe-area-inset-top)+10px)] pb-3 flex flex-col space-y-4 backdrop-blur-md border-b border-slate-100/30">
         {/* Row 1: Logo */}
         <div className="text-center w-full">
-          <span className="text-3xl font-black text-[#BE1641] tracking-tight select-none">siulu</span>
+          <span className="text-3xl font-black text-[#8B5CF6] tracking-tight select-none">siulu</span>
         </div>
 
         {/* Row 2: Back Button & Page Title */}

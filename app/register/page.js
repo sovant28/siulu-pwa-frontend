@@ -55,7 +55,7 @@ export default function RegisterPage() {
       const { error: oAuthError } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: window.location.origin + '/chat'
+          redirectTo: window.location.origin
         }
       });
       if (oAuthError) setError(oAuthError.message);

@@ -498,7 +498,7 @@ export default function ChatAI() {
               className="text-sm px-2.5 py-1.5 bg-violet-50 hover:bg-violet-100 border border-[#4C1D95]/20 rounded-lg text-[#4C1D95] font-bold transition flex items-center space-x-1"
             >
               <RotateCcw className="w-3 h-3 text-[#4C1D95]" />
-              <span>Reset</span>
+              <span>Mulai Baru</span>
             </button>
           </>
         )}

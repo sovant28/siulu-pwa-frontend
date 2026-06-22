@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { supabase } from './supabase';
 import {
   Bell,
   Search,
@@ -40,12 +41,13 @@ function formatEventDate(jam_operasional) {
 
 export default function AppHome() {
   const router = useRouter();
+  const [username, setUsername] = useState("");
+  const [greeting, setGreeting] = useState("Selamat pagi");
+  const [user, setUser] = useState(null);
   const [featuredEvents, setFeaturedEvents] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [username, setUsername] = useState(null);
-  const [greeting, setGreeting] = useState("Selamat pagi");
-  const [weather, setWeather] = useState({ temp: "22°C", text: "Berawan", type: "cloud" });
+  const [weather, setWeather] = useState({ temp: "22°C", text: "Cerah Berawan", type: "cloud-sun" });
   const carouselRef = useRef(null);
 
   const renderWeatherIcon = (type) => {
@@ -106,10 +108,34 @@ export default function AppHome() {
 
 
   useEffect(() => {
-    const storedName = localStorage.getItem('username') || localStorage.getItem('user_name') || localStorage.getItem('name');
-    if (storedName) {
-      setUsername(storedName);
-    }
+    const checkUser = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session && session.user) {
+        setUser(session.user);
+        const name = session.user.user_metadata?.name || session.user.email.split('@')[0];
+        setUsername(name);
+      } else {
+        setUser(null);
+        const storedName = localStorage.getItem('username') || localStorage.getItem('user_name') || localStorage.getItem('name');
+        if (storedName) {
+          setUsername(storedName);
+        } else {
+          setUsername("");
+        }
+      }
+    };
+    checkUser();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session && session.user) {
+        setUser(session.user);
+        const name = session.user.user_metadata?.name || session.user.email.split('@')[0];
+        setUsername(name);
+      } else {
+        setUser(null);
+        setUsername("");
+      }
+    });
 
     const hrs = new Date().getHours();
     if (hrs < 11) {
@@ -132,6 +158,10 @@ export default function AppHome() {
     } else {
       setWeather({ temp: "19°C", text: "Cerah/Dingin", type: "moon" });
     }
+
+    return () => {
+      subscription?.unsubscribe();
+    };
   }, []);
 
   useEffect(() => {
@@ -162,16 +192,28 @@ export default function AppHome() {
 
       {/* HEADER BAR (Horizontal & Native-like) */}
       <header className="w-full flex items-center justify-between px-6 pt-[calc(env(safe-area-inset-top)+14px)] pb-2 relative z-10">
-        {/* Left Side: Avatar & Greeting/Name */}
-        <div className="flex items-center space-x-2.5">
-          <div className="relative w-9 h-9 rounded-full overflow-hidden border border-slate-200/60 bg-white flex-shrink-0">
+        {/* Left Side: Avatar & Greeting/Name (Clickable to profile/login) */}
+        <div 
+          onClick={() => router.push(user ? '/profile' : '/login')}
+          className="flex items-center space-x-2.5 cursor-pointer active:scale-95 transition-transform"
+          style={{ WebkitTapHighlightColor: 'transparent' }}
+        >
+          <div className="relative w-10 h-10 rounded-full overflow-hidden border border-slate-200/80 bg-white flex-shrink-0">
             <Image src="/avatar_v2.png" alt="Avatar" fill className="object-cover" />
           </div>
           <div className="flex flex-col text-left">
             <span className="text-[10px] font-bold text-slate-500 tracking-wider leading-none">{greeting}</span>
-            <span className="text-sm font-black text-slate-700 mt-0.5 leading-none">
-              {username || "Guest"}
-            </span>
+            {user ? (
+              <span className="text-sm font-black text-slate-800 mt-1.5 leading-none">
+                {username}
+              </span>
+            ) : (
+              <div className="flex items-center space-x-1.5 mt-1.5 leading-none">
+                <span className="text-sm font-black text-slate-800 leading-none">Guest</span>
+                <span className="h-1 w-1 rounded-full bg-slate-300"></span>
+                <span className="text-[10px] font-bold text-[#BE1641] hover:underline leading-none">Masuk / Daftar</span>
+              </div>
+            )}
           </div>
         </div>
 

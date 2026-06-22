@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { ArrowLeft, Send, RotateCcw, Home, Compass, Bookmark, MessageSquare, User, Map, MapPin, Landmark, Utensils, ThumbsUp, ThumbsDown, Heart, Sparkles, Mic, Plus, Image as LucideImage, ChevronsLeft, RotateCw, MoreVertical } from 'lucide-react';
+import { ArrowLeft, Send, RotateCcw, MapPin, ThumbsUp, ThumbsDown, Sparkles, RotateCw, ChevronDown } from 'lucide-react';
 import { supabase } from '../supabase';
 
 export default function ChatAI() {
@@ -25,6 +25,7 @@ export default function ChatAI() {
   const [feedbackText, setFeedbackText] = useState('');
 
   const messagesEndRef = useRef(null);
+  const inputRef = useRef(null);
 
   useEffect(() => {
     const hour = new Date().getHours();
@@ -56,7 +57,6 @@ export default function ChatAI() {
       const { data: { session } } = await supabase.auth.getSession();
       if (session && session.user) {
         setUser(session.user);
-        // Set username from metadata if available
         const name = session.user.user_metadata?.full_name || session.user.user_metadata?.name || session.user.email.split('@')[0];
         setUsername(name);
         localStorage.setItem('username', name);
@@ -153,7 +153,7 @@ export default function ChatAI() {
                 href={url} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="inline-flex items-center justify-center space-x-2 px-5 py-3 bg-violet-50 hover:bg-violet-100 text-[#4C1D95] border border-[#4C1D95]/20 rounded-2xl font-bold transition shadow-sm active:scale-95 duration-150 text-sm cursor-pointer select-none"
+                className="inline-flex items-center justify-center space-x-2 px-5 py-3 bg-violet-50 hover:bg-violet-100 text-[#4C1D95] border border-[#4C1D95]/20 rounded-2xl font-bold transition active:scale-95 duration-150 text-sm cursor-pointer select-none"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >
                 <MapPin className="w-4 h-4 text-[#4C1D95]" />
@@ -181,7 +181,7 @@ export default function ChatAI() {
       // Check if it's bold text
       const boldMatch = part.match(/^\*\*([^*]+)\*\*$/);
       if (boldMatch) {
-        return <strong key={index} className="font-extrabold text-slate-900">{boldMatch[1]}</strong>;
+        return <strong key={index} className="font-extrabold">{boldMatch[1]}</strong>;
       }
       
       // Otherwise, return normal text
@@ -414,116 +414,88 @@ export default function ChatAI() {
     }
   };
 
+  // ── LOADING SCREEN ──
   if (isInitializing) {
     return (
-      <div className="flex flex-col items-center justify-center w-full h-[100dvh] bg-white font-sans">
-        {/* Logo Box with Spinner */}
-        <div className="relative w-20 h-20 flex items-center justify-center mb-5">
-          {/* Spinning Outer Ring */}
-          <div className="absolute inset-0 rounded-full border-2 border-slate-100 border-t-[#2C2C2E] animate-spin"></div>
-          
-          {/* Logo square inside */}
-          <div className="w-12 h-12 rounded-xl bg-[#2C2C2E] flex items-center justify-center shadow-md z-10">
-            <svg viewBox="0 0 24 24" className="w-6 h-6 fill-white text-white">
-              <polygon points="12,5 21,19 3,19" className="origin-center rotate-180" />
-            </svg>
+      <div className="flex flex-col items-center justify-center w-full h-[100dvh] bg-[#0D0D0D] font-sans">
+        <div className="relative w-20 h-20 flex items-center justify-center mb-6">
+          <div className="absolute inset-0 rounded-full border-2 border-slate-700 border-t-violet-400 animate-spin"></div>
+          <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center z-10">
+            <Sparkles className="w-5.5 h-5.5 text-white" />
           </div>
         </div>
-        
-        {/* Loading Text */}
-        <p className="text-sm text-slate-500 font-semibold tracking-wide animate-pulse">
+        <p className="text-sm text-slate-500 font-medium tracking-wide animate-pulse">
           Menghubungkan ke Mebali AI...
         </p>
       </div>
     );
   }
 
+  // ── MAIN CHAT INTERFACE ──
   return (
-    <div className="flex flex-col w-full h-[100dvh] min-h-[100dvh] bg-white font-sans relative overflow-hidden">
+    <div className="flex flex-col w-full h-[100dvh] min-h-[100dvh] bg-[#0D0D0D] font-sans relative overflow-hidden">
       
-      {/* Rainbow Gradient Definition for AI Icon */}
-      <svg width="0" height="0" className="absolute pointer-events-none">
-        <defs>
-          <linearGradient id="rainbow-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#7C3AED" />
-            <stop offset="100%" stopColor="#3B82F6" />
-          </linearGradient>
-        </defs>
-      </svg>
-      
-      {/* HEADER */}
-      <header className="bg-white px-4 pt-[calc(env(safe-area-inset-top)+12px)] pb-3 border-b border-slate-100 flex items-center justify-between sticky top-0 z-20">
-        {messages.length === 0 ? (
-          /* Empty State Header */
-          <>
-            <div className="flex items-center space-x-3">
-              <div 
-                onClick={() => router.push('/')}
-                className="relative w-12 h-12 rounded-full overflow-hidden border border-slate-200 cursor-pointer active:scale-95 transition flex-shrink-0"
-              >
-                <Image src="/avatar_v2.png" alt="User Avatar" fill className="object-cover" />
-              </div>
-              <h2 className="text-3xl font-black text-slate-900 tracking-tight">
-                Hello {username || 'Traveler'}!
-              </h2>
+      {/* ── HEADER BAR ── */}
+      <header className="bg-[#0D0D0D]/95 backdrop-blur-xl px-4 pt-[calc(env(safe-area-inset-top)+8px)] pb-2.5 flex items-center justify-between sticky top-0 z-20 border-b border-white/[0.06]">
+        <div className="flex items-center space-x-3 flex-1">
+          <button 
+            onClick={() => router.push('/')} 
+            className="w-9 h-9 rounded-full bg-white/[0.08] flex items-center justify-center text-slate-400 active:scale-90 transition-transform hover:bg-white/[0.12]"
+            style={{ WebkitTapHighlightColor: 'transparent' }}
+          >
+            <ArrowLeft className="w-4.5 h-4.5" />
+          </button>
+          <div className="flex items-center space-x-2.5">
+            <div className="w-9 h-9 rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center relative">
+              <Sparkles className="w-4.5 h-4.5 text-white" />
+              {/* Online indicator */}
+              <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 rounded-full border-2 border-[#0D0D0D]"></div>
             </div>
-            <button 
-              onClick={() => router.push('/')}
-              className="w-9 h-9 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-800 active:scale-90 transition-transform hover:bg-slate-100"
-              title="Kembali ke Beranda"
-              style={{ WebkitTapHighlightColor: 'transparent' }}
-            >
-              <ArrowLeft className="w-4.5 h-4.5 text-slate-800" />
-            </button>
-          </>
-        ) : (
-          /* Active Chat Header */
-          <>
-            <div className="flex items-center space-x-2.5 flex-1">
-              <button 
-                onClick={() => router.push('/')} 
-                className="w-9 h-9 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-800 active:scale-90 transition-transform hover:bg-slate-100"
-                title="Kembali ke Beranda"
-                style={{ WebkitTapHighlightColor: 'transparent' }}
-              >
-                <ArrowLeft className="w-4.5 h-4.5 text-slate-800" />
-              </button>
-              <div className="flex items-center space-x-2.5">
-                <div className="w-9 h-9 rounded-lg bg-[#2C2C2E] flex items-center justify-center shadow-sm">
-                  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-white text-white">
-                    <polygon points="12,5 21,19 3,19" className="origin-center rotate-180" />
-                  </svg>
-                </div>
-                <h2 className="text-lg font-bold text-slate-900 tracking-tight">Mebali AI</h2>
-              </div>
+            <div className="flex flex-col">
+              <span className="text-sm font-bold text-white leading-tight">Mebali AI</span>
+              <span className="text-[10px] font-medium text-slate-500 leading-tight">Asisten Wisata Toraja</span>
             </div>
-            <button 
-              onClick={resetSession} 
-              className="text-sm px-2.5 py-1.5 bg-violet-50 hover:bg-violet-100 border border-[#4C1D95]/20 rounded-lg text-[#4C1D95] font-bold transition flex items-center space-x-1"
-            >
-              <RotateCcw className="w-3 h-3 text-[#4C1D95]" />
-              <span>Mulai Baru</span>
-            </button>
-          </>
+          </div>
+        </div>
+        {messages.length > 0 && (
+          <button 
+            onClick={resetSession} 
+            className="text-xs px-3 py-1.5 bg-white/[0.06] hover:bg-white/[0.10] border border-white/[0.08] rounded-full text-slate-400 font-semibold transition flex items-center space-x-1.5 active:scale-95"
+            style={{ WebkitTapHighlightColor: 'transparent' }}
+          >
+            <RotateCcw className="w-3 h-3" />
+            <span>Mulai Baru</span>
+          </button>
         )}
       </header>
 
-      {/* MAIN CONTENT AREA */}
-      <main className="flex-1 overflow-y-auto p-4 space-y-4 no-scrollbar bg-white pb-36 relative">
+      {/* ── MAIN CONTENT AREA ── */}
+      <main className="flex-1 overflow-y-auto px-4 pt-4 pb-44 no-scrollbar relative">
         
-        {/* DASHBOARD (Show when chat is empty) */}
+        {/* EMPTY STATE / DASHBOARD */}
         {messages.length === 0 ? (
-          <div className="flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-500 pb-10">
-            <div className="text-center mt-20 mb-10">
-              <h1 className="text-4xl font-black text-slate-900 tracking-tight">How can I help you?</h1>
+          <div className="flex flex-col items-center justify-center min-h-[60vh] animate-in fade-in slide-in-from-bottom-4 duration-500">
+            
+            {/* AI Avatar */}
+            <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center mb-6">
+              <Sparkles className="w-7 h-7 text-white" />
             </div>
 
-            <div className="flex flex-wrap justify-center gap-2.5 max-w-sm mx-auto px-2">
+            {/* Greeting */}
+            <h1 className="text-2xl font-bold text-white text-center tracking-tight mb-1">
+              {greeting}, {username || 'Traveler'}
+            </h1>
+            <p className="text-sm text-slate-500 font-medium text-center mb-8">
+              Tanyakan apapun tentang wisata Toraja
+            </p>
+
+            {/* Suggestion Pills */}
+            <div className="flex flex-wrap justify-center gap-2 max-w-sm mx-auto px-2">
               {suggestions.map((sug, idx) => (
                 <button 
                   key={idx}
                   onClick={() => handleSend(sug)}
-                  className="bg-[#F2F2F7] hover:bg-[#E5E5EA] text-base font-semibold text-slate-800 px-5 py-3 rounded-full transition-all duration-150 active:scale-95 cursor-pointer border border-slate-200/10 leading-snug"
+                  className="bg-white/[0.06] hover:bg-white/[0.10] text-sm font-medium text-slate-300 px-4 py-2.5 rounded-full transition-all duration-150 active:scale-95 cursor-pointer border border-white/[0.06] leading-snug"
                   style={{ WebkitTapHighlightColor: 'transparent' }}
                 >
                   {sug}
@@ -532,182 +504,212 @@ export default function ChatAI() {
             </div>
           </div>
         ) : (
-          /* CHAT MESSAGES */
-          <>
+          /* ── CHAT MESSAGES ── */
+          <div className="space-y-5">
             {messages.map((msg, idx) => (
-              <div key={idx} className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'} animate-in fade-in slide-in-from-bottom-3 duration-300`}>
-                <div className={`max-w-[80%] rounded-[22px] px-5 py-3.5 text-base leading-relaxed ${
-                  msg.role === 'user' 
-                    ? 'bg-[#F2F2F7] text-slate-900 font-normal' 
-                    : 'bg-[#2C2C2E] text-white font-normal'
-                }`}>
-                  {renderMessageContent(msg.content)}
-                </div>
-                
-                {/* Feedback Buttons for AI */}
-                {msg.role !== 'user' && user && (
-                  <div className="flex items-center space-x-2 mt-1 ml-1">
-                    <button 
-                      onClick={() => handleFeedback(idx, 'up')} 
-                      className={`p-1.5 rounded-full transition ${
-                        msg.feedback === 'up' 
-                          ? 'bg-emerald-100 text-emerald-600' 
-                          : 'text-slate-400 hover:text-emerald-500 hover:bg-emerald-50'
-                      }`} 
-                      title="Membantu"
-                    >
-                      <ThumbsUp className={`w-3.5 h-3.5 ${msg.feedback === 'up' ? 'fill-current' : ''}`} />
-                    </button>
-                    <button 
-                      onClick={() => handleFeedback(idx, 'down')} 
-                      className={`p-1.5 rounded-full transition ${
-                        msg.feedback === 'down' 
-                          ? 'bg-rose-100 text-rose-600' 
-                          : 'text-slate-400 hover:text-rose-500 hover:bg-rose-50'
-                      }`} 
-                      title="Kurang Tepat"
-                    >
-                      <ThumbsDown className={`w-3.5 h-3.5 ${msg.feedback === 'down' ? 'fill-current' : ''}`} />
-                    </button>
+              <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} animate-in fade-in slide-in-from-bottom-2 duration-300`}>
+                <div className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'} max-w-[85%]`}>
+                  
+                  {/* Bot Avatar + Name row */}
+                  {msg.role !== 'user' && (
+                    <div className="flex items-center space-x-2 mb-1.5 ml-1">
+                      <div className="w-5 h-5 rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center">
+                        <Sparkles className="w-3 h-3 text-white" />
+                      </div>
+                      <span className="text-[11px] font-semibold text-slate-500">Mebali AI</span>
+                    </div>
+                  )}
+
+                  {/* Message Bubble */}
+                  <div className={`rounded-2xl px-4 py-3 text-[15px] leading-relaxed ${
+                    msg.role === 'user' 
+                      ? 'bg-violet-600 text-white rounded-br-md' 
+                      : 'bg-white/[0.06] text-slate-200 border border-white/[0.06] rounded-bl-md'
+                  }`}>
+                    {renderMessageContent(msg.content)}
                   </div>
-                )}
-                
-                {/* Feedback Form (Visible when button clicked) */}
-                {activeFeedbackIdx === idx && (
-                  <div className="mt-2 ml-1 p-3 bg-white border border-slate-200 rounded-xl shadow-sm animate-in fade-in slide-in-from-top-1 w-full min-w-[250px]">
-                    <p className="text-sm font-bold text-slate-700 mb-1.5">
-                      {msg.feedback === 'up' ? 'Apa yang Anda sukai dari jawaban ini?' : 'Apa yang bisa kami perbaiki?'}
-                    </p>
-                    <textarea 
-                      rows={2}
-                      className="w-full text-base text-slate-900 p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#4C1D95] focus:ring-1 focus:ring-[#4C1D95] transition resize-none"
-                      placeholder="Tulis masukan Anda di sini (opsional)..."
-                      value={feedbackText}
-                      onChange={(e) => setFeedbackText(e.target.value)}
-                    ></textarea>
-                    <div className="flex justify-end mt-2 space-x-2">
+                  
+                  {/* Feedback Buttons for AI (Logged-in users only) */}
+                  {msg.role !== 'user' && user && (
+                    <div className="flex items-center space-x-1 mt-1.5 ml-1">
                       <button 
-                        onClick={() => setActiveFeedbackIdx(null)}
-                        className="px-3 py-1 text-sm font-bold text-slate-400 hover:text-slate-600 transition"
+                        onClick={() => handleFeedback(idx, 'up')} 
+                        className={`p-1.5 rounded-lg transition ${
+                          msg.feedback === 'up' 
+                            ? 'bg-emerald-500/20 text-emerald-400' 
+                            : 'text-slate-600 hover:text-emerald-400 hover:bg-emerald-500/10'
+                        }`} 
+                        title="Membantu"
                       >
-                        Batal
+                        <ThumbsUp className={`w-3.5 h-3.5 ${msg.feedback === 'up' ? 'fill-current' : ''}`} />
                       </button>
                       <button 
-                        onClick={() => submitFeedback(idx)}
-                        className="px-3 py-1 text-sm font-bold bg-slate-800 hover:bg-black text-white rounded-md transition"
+                        onClick={() => handleFeedback(idx, 'down')} 
+                        className={`p-1.5 rounded-lg transition ${
+                          msg.feedback === 'down' 
+                            ? 'bg-rose-500/20 text-rose-400' 
+                            : 'text-slate-600 hover:text-rose-400 hover:bg-rose-500/10'
+                        }`} 
+                        title="Kurang Tepat"
                       >
-                        Kirim
+                        <ThumbsDown className={`w-3.5 h-3.5 ${msg.feedback === 'down' ? 'fill-current' : ''}`} />
                       </button>
                     </div>
-                  </div>
-                )}
+                  )}
+                  
+                  {/* Feedback Form (Visible when button clicked) */}
+                  {activeFeedbackIdx === idx && (
+                    <div className="mt-2 ml-1 p-3 bg-white/[0.04] border border-white/[0.08] rounded-xl animate-in fade-in slide-in-from-top-1 w-full min-w-[250px]">
+                      <p className="text-xs font-semibold text-slate-400 mb-1.5">
+                        {msg.feedback === 'up' ? 'Apa yang Anda sukai dari jawaban ini?' : 'Apa yang bisa kami perbaiki?'}
+                      </p>
+                      <textarea 
+                        rows={2}
+                        className="w-full text-sm text-white p-2.5 bg-white/[0.04] border border-white/[0.08] rounded-lg focus:outline-none focus:border-violet-500/50 transition resize-none placeholder:text-slate-600"
+                        placeholder="Tulis masukan Anda di sini (opsional)..."
+                        value={feedbackText}
+                        onChange={(e) => setFeedbackText(e.target.value)}
+                      ></textarea>
+                      <div className="flex justify-end mt-2 space-x-2">
+                        <button 
+                          onClick={() => setActiveFeedbackIdx(null)}
+                          className="px-3 py-1 text-xs font-semibold text-slate-500 hover:text-slate-300 transition"
+                        >
+                          Batal
+                        </button>
+                        <button 
+                          onClick={() => submitFeedback(idx)}
+                          className="px-3 py-1 text-xs font-semibold bg-violet-600 hover:bg-violet-500 text-white rounded-lg transition"
+                        >
+                          Kirim
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
             ))}
+
+            {/* Loading indicator */}
             {loading && (
-              <div className="flex items-center space-x-2 text-sm text-slate-500 pl-2 mt-2">
-                <span>Searching...</span>
-                <RotateCw className="w-3.5 h-3.5 animate-spin" />
+              <div className="flex justify-start animate-in fade-in duration-300">
+                <div className="flex items-start space-x-2 max-w-[85%]">
+                  <div className="flex flex-col items-start">
+                    <div className="flex items-center space-x-2 mb-1.5 ml-1">
+                      <div className="w-5 h-5 rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center">
+                        <Sparkles className="w-3 h-3 text-white" />
+                      </div>
+                      <span className="text-[11px] font-semibold text-slate-500">Mebali AI</span>
+                    </div>
+                    <div className="bg-white/[0.06] border border-white/[0.06] rounded-2xl rounded-bl-md px-5 py-4">
+                      <div className="flex items-center space-x-1.5">
+                        <div className="w-2 h-2 rounded-full bg-violet-400 animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                        <div className="w-2 h-2 rounded-full bg-violet-400 animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                        <div className="w-2 h-2 rounded-full bg-violet-400 animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             )}
             <div ref={messagesEndRef} />
-          </>
+          </div>
         )}
       </main>
 
-      {/* BOTTOM INPUT AREA */}
+      {/* ── BOTTOM INPUT AREA ── */}
       <div 
-        className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-slate-100/80 pt-3 pb-[calc(env(safe-area-inset-bottom)+16px)] px-4 flex flex-col space-y-3 z-40"
+        className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-gradient-to-t from-[#0D0D0D] via-[#0D0D0D] to-transparent pt-6 pb-[calc(env(safe-area-inset-bottom)+12px)] px-4 flex flex-col space-y-2.5 z-40"
       >
+        {/* Guest Limit Badge */}
         {!user && (
-          <div className="w-full bg-violet-50 border border-violet-100 rounded-2xl p-3 text-center animate-in fade-in slide-in-from-bottom-2 duration-300">
-            <p className="text-xs font-bold text-[#4C1D95] flex items-center justify-center gap-1">
-              <span>⚠️</span> Kuota Chat Gratis: {messageCount}/10
+          <div className="w-full bg-violet-500/10 border border-violet-500/15 rounded-2xl px-4 py-2.5 text-center animate-in fade-in slide-in-from-bottom-2 duration-300">
+            <p className="text-xs font-semibold text-violet-300 flex items-center justify-center gap-1.5">
+              <Sparkles className="w-3 h-3" />
+              Kuota Chat Gratis: {messageCount}/10
             </p>
             {messageCount >= 10 ? (
-              <p className="text-[10px] text-slate-600 mt-1 font-semibold">
-                Batas obrolan gratis tercapai. Silakan masuk atau daftar akun untuk melanjutkan obrolan tanpa batas!
+              <p className="text-[10px] text-slate-500 mt-0.5 font-medium">
+                Batas tercapai. Silakan daftar untuk lanjut mengobrol tanpa batas.
               </p>
             ) : (
-              <p className="text-[10px] text-slate-600 mt-0.5">
-                Anda dapat mengirim {10 - messageCount} pesan gratis lagi sebelum harus mendaftar gratis.
+              <p className="text-[10px] text-slate-500 mt-0.5">
+                {10 - messageCount} pesan gratis tersisa
               </p>
             )}
           </div>
         )}
 
-        <div className="flex items-center space-x-3.5 w-full">
-          {/* Plus Button */}
-          <button 
-            onClick={() => alert("Fitur berbagi file segera hadir!")}
-            className="text-slate-500 hover:text-slate-700 transition cursor-pointer active:scale-95 flex-shrink-0"
-          >
-            <Plus className="w-6 h-6" />
-          </button>
-  
-          {/* Image/Gallery Button */}
-          <button 
-            onClick={() => alert("Fitur unggah gambar segera hadir!")}
-            className="text-slate-500 hover:text-slate-700 transition cursor-pointer active:scale-95 flex-shrink-0"
-          >
-            <LucideImage className="w-6 h-6" />
-          </button>
-  
-          {/* Input Capsule */}
-          <div className={`flex-1 rounded-full px-5 py-2.5 border flex items-center ${(!user && messageCount >= 10) ? 'bg-slate-100 border-slate-200' : 'bg-white border-slate-200'}`}>
-            <input 
-              type="text" 
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-              disabled={!user && messageCount >= 10}
-              placeholder={(!user && messageCount >= 10) ? "Daftar untuk lanjut mengobrol..." : "Tanya Mebali AI tentang Toraja..."}
-              className="w-full bg-transparent text-base font-medium text-slate-800 focus:outline-none placeholder:text-slate-400 placeholder:font-normal disabled:text-slate-400"
-            />
-          </div>
-  
+        {/* Input Bar */}
+        <div className={`flex items-end space-x-2.5 w-full rounded-[28px] border px-4 py-2 ${
+          (!user && messageCount >= 10) 
+            ? 'bg-white/[0.03] border-white/[0.04]' 
+            : 'bg-white/[0.06] border-white/[0.08]'
+        }`}>
+          <textarea 
+            ref={inputRef}
+            value={input}
+            onChange={(e) => {
+              setInput(e.target.value);
+              // Auto-resize
+              e.target.style.height = 'auto';
+              e.target.style.height = Math.min(e.target.scrollHeight, 120) + 'px';
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleSend();
+              }
+            }}
+            disabled={!user && messageCount >= 10}
+            placeholder={(!user && messageCount >= 10) ? "Daftar untuk lanjut mengobrol..." : "Tanya tentang Toraja..."}
+            rows={1}
+            className="flex-1 bg-transparent text-sm font-medium text-white focus:outline-none placeholder:text-slate-600 disabled:text-slate-600 resize-none py-1.5 max-h-[120px] leading-relaxed no-scrollbar"
+          />
+          
           {/* Send Button */}
           <button 
             onClick={() => handleSend()}
             disabled={loading || !input.trim() || (!user && messageCount >= 10)}
-            className="bg-black hover:bg-slate-900 disabled:opacity-50 text-white rounded-full p-2.5 transition active:scale-95 flex items-center justify-center cursor-pointer select-none flex-shrink-0"
+            className="bg-violet-600 hover:bg-violet-500 disabled:bg-white/[0.06] disabled:text-slate-600 text-white rounded-full p-2 transition active:scale-90 flex items-center justify-center cursor-pointer select-none flex-shrink-0"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
-            <Send className="w-4.5 h-4.5 fill-current text-white" />
+            <Send className="w-4 h-4" />
           </button>
         </div>
       </div>
 
-      {/* Paywall Limit Modal */}
+      {/* ── PAYWALL LIMIT MODAL ── */}
       {showLimitModal && (
-        <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-6 z-50 animate-in fade-in duration-200">
-          <div className="bg-white border border-slate-200/80 rounded-3xl p-6 w-full max-w-sm flex flex-col items-center text-center space-y-6">
-            <div className="w-14 h-14 rounded-full bg-violet-50 flex items-center justify-center text-[#4C1D95]">
-              <Sparkles className="w-6 h-6 fill-current" />
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center p-6 z-50 animate-in fade-in duration-200">
+          <div className="bg-[#1A1A1A] border border-white/[0.08] rounded-3xl p-6 w-full max-w-sm flex flex-col items-center text-center space-y-5">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center">
+              <Sparkles className="w-6 h-6 text-white" />
             </div>
             <div className="space-y-2">
-              <h3 className="text-lg font-black text-slate-900 leading-snug">Obrolan AI Terbatas!</h3>
-              <p className="text-xs text-slate-600 leading-relaxed font-semibold">
-                Halo! Anda telah menggunakan 10 kuota obrolan gratis Anda. Silakan masuk atau buat akun baru secara gratis untuk melanjutkan konsultasi wisata tanpa batas.
+              <h3 className="text-lg font-bold text-white leading-snug">Kuota Obrolan Habis</h3>
+              <p className="text-xs text-slate-400 leading-relaxed font-medium">
+                Anda telah menggunakan 10 kuota obrolan gratis. Daftar atau masuk akun untuk melanjutkan konsultasi wisata tanpa batas.
               </p>
             </div>
             <div className="flex flex-col w-full gap-2.5">
               <button
                 onClick={() => router.push('/register')}
-                className="w-full py-3.5 bg-[#4C1D95] hover:bg-[#3b1670] text-white font-bold rounded-2xl text-xs transition active:scale-[0.98] cursor-pointer"
+                className="w-full py-3.5 bg-violet-600 hover:bg-violet-500 text-white font-bold rounded-2xl text-sm transition active:scale-[0.98] cursor-pointer"
               >
-                Daftar Akun Baru
+                Daftar Akun Gratis
               </button>
               <button
                 onClick={() => router.push('/login')}
-                className="w-full py-3.5 bg-slate-50 border border-slate-200 hover:bg-slate-100 text-slate-800 font-bold rounded-2xl text-xs transition active:scale-[0.98] cursor-pointer"
+                className="w-full py-3.5 bg-white/[0.06] border border-white/[0.08] hover:bg-white/[0.10] text-slate-300 font-bold rounded-2xl text-sm transition active:scale-[0.98] cursor-pointer"
               >
                 Masuk Ke Akun
               </button>
               <button
                 onClick={() => setShowLimitModal(false)}
-                className="text-[11px] font-bold text-slate-400 hover:text-slate-600 pt-1 transition cursor-pointer"
+                className="text-[11px] font-semibold text-slate-500 hover:text-slate-300 pt-1 transition cursor-pointer"
               >
-                Tutup & Lihat Riwayat
+                Tutup
               </button>
             </div>
           </div>

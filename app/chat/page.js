@@ -333,6 +333,10 @@ export default function ChatAI() {
   }, [isInitializing, activeBot]);
 
   const saveFeedbackToDB = async (aiResponse, feedbackType, note) => {
+    if (!user) {
+      console.warn("Feedback diblokir: Harus masuk akun terlebih dahulu!");
+      return;
+    }
     if (!sessionId) {
       console.warn("Sesi obrolan belum terbentuk untuk feedback!");
       return;
@@ -541,7 +545,7 @@ export default function ChatAI() {
                 </div>
                 
                 {/* Feedback Buttons for AI */}
-                {msg.role !== 'user' && (
+                {msg.role !== 'user' && user && (
                   <div className="flex items-center space-x-2 mt-1 ml-1">
                     <button 
                       onClick={() => handleFeedback(idx, 'up')} 

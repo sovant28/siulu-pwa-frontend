@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '../supabase';
-import { ArrowLeft, User, Mail, Lock, UserPlus } from 'lucide-react';
+import { ArrowLeft, User, Mail, Lock, UserPlus, Shield } from 'lucide-react';
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -146,6 +146,10 @@ export default function RegisterPage() {
                   </svg>
                   <span>Daftar dengan Google</span>
                 </button>
+                <div className="flex items-center justify-center space-x-1.5 text-[10px] font-bold text-slate-400 select-none">
+                  <Shield className="w-3.5 h-3.5 text-emerald-500" />
+                  <span>Daftar aman didukung oleh Google & Supabase</span>
+                </div>
               </div>
 
               {/* Divider */}

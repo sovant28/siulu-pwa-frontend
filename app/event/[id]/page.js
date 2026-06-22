@@ -523,8 +523,8 @@ export default function EventDetailPage() {
             onClick={toggleSave}
             className={`w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 ${
               scrolled 
-                ? `${isSaved ? 'bg-rose-50 text-[#BE1641] border-rose-200' : 'bg-slate-50 text-slate-800 border-slate-200'} border active:bg-slate-100` 
-                : `bg-black/25 ${isSaved ? 'text-rose-500' : 'text-white'} hover:bg-black/35 active:scale-95`
+                ? `${isSaved ? 'bg-violet-50 text-[#4C1D95] border-violet-200' : 'bg-slate-50 text-slate-800 border-slate-200'} border active:bg-slate-100` 
+                : `bg-black/25 ${isSaved ? 'text-violet-400' : 'text-white'} hover:bg-black/35 active:scale-95`
             }`}
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >

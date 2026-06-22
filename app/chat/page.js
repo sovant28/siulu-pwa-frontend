@@ -151,10 +151,10 @@ export default function ChatAI() {
                 href={url} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="inline-flex items-center justify-center space-x-2 px-5 py-3 bg-rose-50 hover:bg-rose-100 text-[#BE1641] border border-[#BE1641]/20 rounded-2xl font-bold transition shadow-sm active:scale-95 duration-150 text-sm cursor-pointer select-none"
+                className="inline-flex items-center justify-center space-x-2 px-5 py-3 bg-violet-50 hover:bg-violet-100 text-[#4C1D95] border border-[#4C1D95]/20 rounded-2xl font-bold transition shadow-sm active:scale-95 duration-150 text-sm cursor-pointer select-none"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >
-                <MapPin className="w-4 h-4 text-[#BE1641]" />
+                <MapPin className="w-4 h-4 text-[#4C1D95]" />
                 <span>{anchor}</span>
               </a>
             </span>
@@ -167,7 +167,7 @@ export default function ChatAI() {
             href={url} 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="text-[#BE1641] font-extrabold underline hover:text-[#9A1032] inline-flex items-center transition mx-1 cursor-pointer py-0.5 px-1.5 bg-rose-50/50 rounded hover:bg-rose-50 select-none"
+            className="text-[#4C1D95] font-extrabold underline hover:text-[#3b1670] inline-flex items-center transition mx-1 cursor-pointer py-0.5 px-1.5 bg-violet-50/50 rounded hover:bg-violet-50 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             <MapPin className="w-3.5 h-3.5 mr-0.5 inline-block" />
@@ -493,9 +493,9 @@ export default function ChatAI() {
             </div>
             <button 
               onClick={resetSession} 
-              className="text-sm px-2.5 py-1.5 bg-rose-50 hover:bg-rose-100 border border-[#BE1641]/20 rounded-lg text-[#BE1641] font-bold transition flex items-center space-x-1"
+              className="text-sm px-2.5 py-1.5 bg-violet-50 hover:bg-violet-100 border border-[#4C1D95]/20 rounded-lg text-[#4C1D95] font-bold transition flex items-center space-x-1"
             >
-              <RotateCcw className="w-3 h-3 text-[#BE1641]" />
+              <RotateCcw className="w-3 h-3 text-[#4C1D95]" />
               <span>Reset</span>
             </button>
           </>
@@ -574,7 +574,7 @@ export default function ChatAI() {
                     </p>
                     <textarea 
                       rows={2}
-                      className="w-full text-base text-slate-900 p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#BE1641] focus:ring-1 focus:ring-[#BE1641] transition resize-none"
+                      className="w-full text-base text-slate-900 p-2.5 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:border-[#4C1D95] focus:ring-1 focus:ring-[#4C1D95] transition resize-none"
                       placeholder="Tulis masukan Anda di sini (opsional)..."
                       value={feedbackText}
                       onChange={(e) => setFeedbackText(e.target.value)}
@@ -613,8 +613,8 @@ export default function ChatAI() {
         className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-slate-100/80 pt-3 pb-[calc(env(safe-area-inset-bottom)+16px)] px-4 flex flex-col space-y-3 z-40"
       >
         {!user && (
-          <div className="w-full bg-rose-50 border border-rose-100 rounded-2xl p-3 text-center animate-in fade-in slide-in-from-bottom-2 duration-300">
-            <p className="text-xs font-bold text-[#BE1641] flex items-center justify-center gap-1">
+          <div className="w-full bg-violet-50 border border-violet-100 rounded-2xl p-3 text-center animate-in fade-in slide-in-from-bottom-2 duration-300">
+            <p className="text-xs font-bold text-[#4C1D95] flex items-center justify-center gap-1">
               <span>⚠️</span> Kuota Chat Gratis: {messageCount}/10
             </p>
             {messageCount >= 10 ? (
@@ -675,7 +675,7 @@ export default function ChatAI() {
       {showLimitModal && (
         <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-6 z-50 animate-in fade-in duration-200">
           <div className="bg-white border border-slate-200/80 rounded-3xl p-6 w-full max-w-sm flex flex-col items-center text-center space-y-6">
-            <div className="w-14 h-14 rounded-full bg-rose-50 flex items-center justify-center text-[#BE1641]">
+            <div className="w-14 h-14 rounded-full bg-violet-50 flex items-center justify-center text-[#4C1D95]">
               <Sparkles className="w-6 h-6 fill-current" />
             </div>
             <div className="space-y-2">
@@ -687,7 +687,7 @@ export default function ChatAI() {
             <div className="flex flex-col w-full gap-2.5">
               <button
                 onClick={() => router.push('/register')}
-                className="w-full py-3.5 bg-[#BE1641] hover:bg-[#a31337] text-white font-bold rounded-2xl text-xs transition active:scale-[0.98] cursor-pointer"
+                className="w-full py-3.5 bg-[#4C1D95] hover:bg-[#3b1670] text-white font-bold rounded-2xl text-xs transition active:scale-[0.98] cursor-pointer"
               >
                 Daftar Akun Baru
               </button>

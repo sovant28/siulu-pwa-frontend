@@ -17,13 +17,13 @@ export const viewport = {
   maximumScale: 1,
   userScalable: false,
   viewportFit: "cover",
-  themeColor: "#BE1641",
+  themeColor: "#4C1D95",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="font-sans antialiased max-w-md mx-auto bg-slate-50 min-h-screen relative shadow-2xl">
+      <body className="font-sans antialiased max-w-md mx-auto bg-slate-50 min-h-screen relative border-x border-slate-200/40">
         {children}
       </body>
     </html>

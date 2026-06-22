@@ -133,7 +133,7 @@ export default function ProfilePage() {
                 value={tempName}
                 onChange={(e) => setTempName(e.target.value)}
                 maxLength={20}
-                className="w-full text-center text-base font-black text-slate-800 border-b-2 border-[#BE1641] outline-none bg-transparent py-0.5"
+                className="w-full text-center text-base font-black text-slate-800 border-b-2 border-[#4C1D95] outline-none bg-transparent py-0.5"
                 autoFocus
               />
               <button
@@ -244,7 +244,7 @@ export default function ProfilePage() {
         {user ? (
           <button
             onClick={handleLogout}
-            className="w-full py-4.5 bg-white border border-rose-100 rounded-3xl flex items-center justify-center space-x-2 text-[#BE1641] font-bold text-sm active:scale-[0.98] transition hover:bg-rose-50/30 cursor-pointer"
+            className="w-full py-4.5 bg-white border border-violet-100 rounded-3xl flex items-center justify-center space-x-2 text-[#4C1D95] font-bold text-sm active:scale-[0.98] transition hover:bg-violet-50/30 cursor-pointer"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             <LogOut className="w-4.5 h-4.5" />
@@ -253,7 +253,7 @@ export default function ProfilePage() {
         ) : (
           <button
             onClick={() => router.push('/login')}
-            className="w-full py-4.5 bg-[#BE1641] hover:bg-[#a31337] text-white font-bold rounded-3xl flex items-center justify-center space-x-2 text-sm active:scale-[0.98] transition cursor-pointer"
+            className="w-full py-4.5 bg-[#4C1D95] hover:bg-[#3b1670] text-white font-bold rounded-3xl flex items-center justify-center space-x-2 text-sm active:scale-[0.98] transition cursor-pointer"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             <LogIn className="w-4.5 h-4.5" />

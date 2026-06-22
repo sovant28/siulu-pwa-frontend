@@ -133,7 +133,7 @@ export default function SavedPage() {
                     {/* Floating Heart toggle button to remove */}
                     <button
                       onClick={(e) => handleRemoveSaved(e, dest.id)}
-                      className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-[#BE1641] active:scale-90 transition-transform shadow-md hover:bg-white"
+                      className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center text-[#4C1D95] active:scale-90 transition-transform border border-slate-100/50 hover:bg-white"
                       style={{ WebkitTapHighlightColor: 'transparent' }}
                     >
                       <Heart className="w-4.5 h-4.5 fill-current" />
@@ -157,8 +157,8 @@ export default function SavedPage() {
           </div>
         ) : (
           // Beautiful Empty State Card
-          <div className="flex flex-col items-center justify-center py-16 px-6 bg-white rounded-3xl border border-slate-100/80 shadow-[0_8px_30px_rgba(0,0,0,0.02)] text-center mt-2">
-            <div className="w-16 h-16 rounded-full bg-rose-50 flex items-center justify-center text-[#BE1641] mb-5">
+          <div className="flex flex-col items-center justify-center py-16 px-6 bg-white rounded-3xl border border-slate-150 text-center mt-2">
+            <div className="w-16 h-16 rounded-full bg-violet-50 flex items-center justify-center text-[#4C1D95] mb-5">
               <Heart className="w-7 h-7" />
             </div>
             <h3 className="text-lg font-black text-slate-800">Belum ada item disimpan</h3>
@@ -167,7 +167,7 @@ export default function SavedPage() {
             </p>
             <button
               onClick={() => router.push('/destinasi')}
-              className="mt-6 px-6 py-3 bg-[#BE1641] text-white font-bold rounded-full text-sm shadow-sm active:scale-95 transition-transform hover:bg-[#a31337]"
+              className="mt-6 px-6 py-3 bg-[#4C1D95] text-white font-bold rounded-full text-sm active:scale-95 transition-transform hover:bg-[#3b1670] border border-[#4C1D95]/20"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               Cari Destinasi

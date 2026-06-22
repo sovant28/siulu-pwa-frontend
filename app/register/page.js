@@ -117,7 +117,7 @@ export default function RegisterPage() {
                       placeholder="Nama lengkap Anda"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="w-full bg-white border border-slate-200 rounded-2xl pl-12 pr-4 py-3.5 text-base text-slate-800 font-medium placeholder-slate-400 focus:outline-none focus:border-[#BE1641] transition"
+                      className="w-full bg-white border border-slate-200 rounded-2xl pl-12 pr-4 py-3.5 text-base text-slate-800 font-medium placeholder-slate-400 focus:outline-none focus:border-[#4C1D95] transition"
                     />
                   </div>
                 </div>
@@ -133,7 +133,7 @@ export default function RegisterPage() {
                       placeholder="nama@email.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full bg-white border border-slate-200 rounded-2xl pl-12 pr-4 py-3.5 text-base text-slate-800 font-medium placeholder-slate-400 focus:outline-none focus:border-[#BE1641] transition"
+                      className="w-full bg-white border border-slate-200 rounded-2xl pl-12 pr-4 py-3.5 text-base text-slate-800 font-medium placeholder-slate-400 focus:outline-none focus:border-[#4C1D95] transition"
                     />
                   </div>
                 </div>
@@ -150,7 +150,7 @@ export default function RegisterPage() {
                       placeholder="Minimal 6 karakter"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className="w-full bg-white border border-slate-200 rounded-2xl pl-12 pr-4 py-3.5 text-base text-slate-800 font-medium placeholder-slate-400 focus:outline-none focus:border-[#BE1641] transition"
+                      className="w-full bg-white border border-slate-200 rounded-2xl pl-12 pr-4 py-3.5 text-base text-slate-800 font-medium placeholder-slate-400 focus:outline-none focus:border-[#4C1D95] transition"
                     />
                   </div>
                 </div>
@@ -159,7 +159,7 @@ export default function RegisterPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-4 bg-[#BE1641] hover:bg-[#a31337] text-white font-bold rounded-2xl text-base flex items-center justify-center space-x-2 transition active:scale-[0.98] mt-6 cursor-pointer"
+                  className="w-full py-4 bg-[#4C1D95] hover:bg-[#3b1670] text-white font-bold rounded-2xl text-base flex items-center justify-center space-x-2 transition active:scale-[0.98] mt-6 cursor-pointer"
                   style={{ WebkitTapHighlightColor: 'transparent' }}
                 >
                   {loading ? (
@@ -182,7 +182,7 @@ export default function RegisterPage() {
               <span className="text-sm font-semibold text-slate-500">Sudah punya akun? </span>
               <Link 
                 href="/login" 
-                className="text-sm font-bold text-[#BE1641] hover:underline"
+                className="text-sm font-bold text-[#4C1D95] hover:underline"
               >
                 Masuk
               </Link>

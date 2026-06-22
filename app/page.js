@@ -211,7 +211,7 @@ export default function AppHome() {
               <div className="flex items-center space-x-1.5 mt-1.5 leading-none">
                 <span className="text-sm font-black text-slate-800 leading-none">Guest</span>
                 <span className="h-1 w-1 rounded-full bg-slate-300"></span>
-                <span className="text-[10px] font-bold text-[#BE1641] hover:underline leading-none">Masuk / Daftar</span>
+                <span className="text-[10px] font-bold text-[#4C1D95] hover:underline leading-none">Masuk / Daftar</span>
               </div>
             )}
           </div>

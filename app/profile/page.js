@@ -35,7 +35,7 @@ export default function ProfilePage() {
       const { data: { session } } = await supabase.auth.getSession();
       if (session && session.user) {
         setUser(session.user);
-        const name = session.user.user_metadata?.name || session.user.email.split('@')[0];
+        const name = session.user.user_metadata?.full_name || session.user.user_metadata?.name || session.user.email.split('@')[0];
         setUsername(name);
       } else {
         const storedName = localStorage.getItem('username') || localStorage.getItem('user_name') || localStorage.getItem('name');
@@ -47,6 +47,21 @@ export default function ProfilePage() {
       }
     };
     checkUser();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session && session.user) {
+        setUser(session.user);
+        const name = session.user.user_metadata?.full_name || session.user.user_metadata?.name || session.user.email.split('@')[0];
+        setUsername(name);
+      } else {
+        setUser(null);
+        setUsername("Pengunjung Anonim");
+      }
+    });
+
+    return () => {
+      subscription?.unsubscribe();
+    };
   }, []);
 
   const startEditing = () => {

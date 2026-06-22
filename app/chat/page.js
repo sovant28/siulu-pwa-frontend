@@ -57,8 +57,9 @@ export default function ChatAI() {
       if (session && session.user) {
         setUser(session.user);
         // Set username from metadata if available
-        const name = session.user.user_metadata?.name || session.user.email.split('@')[0];
+        const name = session.user.user_metadata?.full_name || session.user.user_metadata?.name || session.user.email.split('@')[0];
         setUsername(name);
+        localStorage.setItem('username', name);
       }
     };
     checkUser();
@@ -66,8 +67,9 @@ export default function ChatAI() {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       if (session && session.user) {
         setUser(session.user);
-        const name = session.user.user_metadata?.name || session.user.email.split('@')[0];
+        const name = session.user.user_metadata?.full_name || session.user.user_metadata?.name || session.user.email.split('@')[0];
         setUsername(name);
+        localStorage.setItem('username', name);
       } else {
         setUser(null);
       }

@@ -112,7 +112,7 @@ export default function AppHome() {
       const { data: { session } } = await supabase.auth.getSession();
       if (session && session.user) {
         setUser(session.user);
-        const name = session.user.user_metadata?.name || session.user.email.split('@')[0];
+        const name = session.user.user_metadata?.full_name || session.user.user_metadata?.name || session.user.email.split('@')[0];
         setUsername(name);
       } else {
         setUser(null);
@@ -129,7 +129,7 @@ export default function AppHome() {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       if (session && session.user) {
         setUser(session.user);
-        const name = session.user.user_metadata?.name || session.user.email.split('@')[0];
+        const name = session.user.user_metadata?.full_name || session.user.user_metadata?.name || session.user.email.split('@')[0];
         setUsername(name);
       } else {
         setUser(null);

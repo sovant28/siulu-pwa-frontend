@@ -337,7 +337,7 @@ export default function AppHome() {
               className="w-14 h-14 flex items-center justify-center rounded-2xl bg-white border border-slate-200/80 active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
-              <Image src="/icon_kuliner.png?v=2" alt="Kuliner" width={56} height={56} className="w-full h-full object-contain" />
+              <Image src="/icon_kuliner.png?v=3" alt="Kuliner" width={56} height={56} className="w-full h-full object-contain" />
             </button>
             <span className="text-[11px] font-semibold text-slate-700 tracking-wide">Kuliner</span>
           </div>

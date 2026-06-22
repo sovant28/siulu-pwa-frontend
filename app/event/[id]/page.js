@@ -280,8 +280,8 @@ export default function EventDetailPage() {
           data = await res.json();
         }
         
-        // Merge API data with fallback datasets and parse string fields
-        const combined = [...data].map(item => {
+        // Parse string fields for database items
+        const parsedData = [...data].map(item => {
           if (item.informasi_biaya && typeof item.informasi_biaya === 'string') {
             try {
               item.informasi_biaya = JSON.parse(item.informasi_biaya);
@@ -291,21 +291,15 @@ export default function EventDetailPage() {
           }
           return item;
         });
-        
-        localPlacesFallback.forEach(p => {
-          if (!combined.some(item => item.id === p.id)) {
-            combined.push(p);
-          }
-        });
-        
-        localCulinaryFallback.forEach(c => {
-          if (!combined.some(item => item.id === c.id)) {
-            combined.push(c);
-          }
-        });
 
-        setAllDestinations(combined);
-        const found = combined.find(d => d.id === eventId);
+        let found = parsedData.find(d => d.id === eventId);
+        if (!found) {
+          // If not found in database, check fallbacks
+          const allFallbacks = [...localPlacesFallback, ...localCulinaryFallback];
+          found = allFallbacks.find(f => f.id === eventId);
+        }
+
+        setAllDestinations(parsedData.length > 0 ? parsedData : [...localPlacesFallback, ...localCulinaryFallback]);
         if (!found) throw new Error('Detail destinasi tidak ditemukan');
         setEvent(found);
       } catch (err) {

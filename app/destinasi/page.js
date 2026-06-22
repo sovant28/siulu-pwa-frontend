@@ -104,15 +104,7 @@ function DestinasiListContent() {
           (item.kategori === 'kuliner' && (item.informasi_biaya?.jenis === 'tempat_makan' || !item.id.startsWith('FOOD-')))
         );
 
-        // Merge with local fallback
-        const combined = [...filtered];
-        localPlacesFallback.forEach(fallback => {
-          if (!combined.some(item => item.id === fallback.id)) {
-            combined.push(fallback);
-          }
-        });
-
-        setDestinations(combined);
+        setDestinations(filtered);
       } catch (err) {
         console.error('Failed to fetch destinations:', err);
         setDestinations(localPlacesFallback);

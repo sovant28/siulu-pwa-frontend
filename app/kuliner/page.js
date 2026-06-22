@@ -94,15 +94,7 @@ function KulinerListContent() {
                   (item.informasi_biaya?.jenis === 'makanan_khas' || item.id.startsWith('FOOD-'))
         );
         
-        // Merge with local fallback
-        const combined = [...apiCulinaryItems];
-        localCulinaryFallback.forEach(fallback => {
-          if (!combined.some(item => item.id === fallback.id)) {
-            combined.push(fallback);
-          }
-        });
-
-        setItems(combined);
+        setItems(apiCulinaryItems);
       } catch (err) {
         console.error('Failed to fetch culinary items:', err);
         // On failure, load fallbacks anyway

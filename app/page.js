@@ -325,7 +325,7 @@ export default function AppHome() {
               className="w-14 h-14 flex items-center justify-center rounded-2xl bg-white border border-slate-200/80 active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
-              <Image src="/icon_destinasi.png" alt="Destinasi" width={56} height={56} className="w-full h-full object-contain scale-[1.05]" />
+              <Image src="/icon_destinasi.png" alt="Destinasi" width={56} height={56} className="w-full h-full object-contain" />
             </button>
             <span className="text-[11px] font-semibold text-slate-700 tracking-wide">Destinasi</span>
           </div>
@@ -349,7 +349,7 @@ export default function AppHome() {
               className="w-14 h-14 flex items-center justify-center rounded-2xl bg-white border border-slate-200/80 active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
-              <Image src="/icon_hotel.png" alt="Hotel" width={56} height={56} className="w-full h-full object-contain scale-[1.05]" />
+              <Image src="/icon_hotel.png" alt="Hotel" width={56} height={56} className="w-full h-full object-contain" />
             </button>
             <span className="text-[11px] font-semibold text-slate-700 tracking-wide">Hotel</span>
           </div>

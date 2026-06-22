@@ -19,19 +19,34 @@ import {
   Edit2,
   Check,
   X,
+  LogIn,
 } from 'lucide-react';
+import { supabase } from '../supabase';
 
 export default function ProfilePage() {
   const router = useRouter();
-  const [username, setUsername] = useState("Amelia");
+  const [username, setUsername] = useState("Pengunjung Anonim");
+  const [user, setUser] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [tempName, setTempName] = useState("");
 
   useEffect(() => {
-    const storedName = localStorage.getItem('username') || localStorage.getItem('user_name') || localStorage.getItem('name');
-    if (storedName) {
-      setUsername(storedName);
-    }
+    const checkUser = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session && session.user) {
+        setUser(session.user);
+        const name = session.user.user_metadata?.name || session.user.email.split('@')[0];
+        setUsername(name);
+      } else {
+        const storedName = localStorage.getItem('username') || localStorage.getItem('user_name') || localStorage.getItem('name');
+        if (storedName) {
+          setUsername(storedName);
+        } else {
+          setUsername("Pengunjung Anonim");
+        }
+      }
+    };
+    checkUser();
   }, []);
 
   const startEditing = () => {
@@ -43,19 +58,36 @@ export default function ProfilePage() {
     setIsEditing(false);
   };
 
-  const saveName = () => {
+  const saveName = async () => {
     if (tempName.trim()) {
-      setUsername(tempName.trim());
-      localStorage.setItem('username', tempName.trim());
+      const newName = tempName.trim();
+      setUsername(newName);
+      localStorage.setItem('username', newName);
+
+      if (user) {
+        try {
+          await supabase.auth.updateUser({
+            data: { name: newName }
+          });
+        } catch (err) {
+          console.error("Gagal memperbarui nama profil di Supabase:", err);
+        }
+      }
     }
     setIsEditing(false);
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    try {
+      await supabase.auth.signOut();
+    } catch (err) {
+      console.error("Gagal logout dari Supabase:", err);
+    }
     localStorage.removeItem('username');
     localStorage.removeItem('user_name');
     localStorage.removeItem('name');
-    setUsername("Amelia");
+    setUsername("Pengunjung Anonim");
+    setUser(null);
     router.push('/');
   };
 
@@ -130,7 +162,9 @@ export default function ProfilePage() {
             </div>
           )}
           
-          <span className="text-xs font-bold text-slate-500 tracking-widest mt-2">Wisatawan Domestik</span>
+          <span className="text-xs font-bold text-slate-500 tracking-widest mt-2">
+            {user ? 'Anggota Terdaftar' : 'Pengunjung Anonim'}
+          </span>
         </div>
 
         {/* Settings options group */}
@@ -206,15 +240,26 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        {/* Log Out Button */}
-        <button
-          onClick={handleLogout}
-          className="w-full py-4.5 bg-white border border-rose-100 rounded-3xl flex items-center justify-center space-x-2 text-[#BE1641] font-bold text-sm shadow-[0_8px_30px_rgba(0,0,0,0.01)] active:scale-[0.98] transition hover:bg-rose-50/30"
-          style={{ WebkitTapHighlightColor: 'transparent' }}
-        >
-          <LogOut className="w-4.5 h-4.5" />
-          <span>Keluar Akun</span>
-        </button>
+        {/* Log Out / Log In Button */}
+        {user ? (
+          <button
+            onClick={handleLogout}
+            className="w-full py-4.5 bg-white border border-rose-100 rounded-3xl flex items-center justify-center space-x-2 text-[#BE1641] font-bold text-sm active:scale-[0.98] transition hover:bg-rose-50/30 cursor-pointer"
+            style={{ WebkitTapHighlightColor: 'transparent' }}
+          >
+            <LogOut className="w-4.5 h-4.5" />
+            <span>Keluar Akun</span>
+          </button>
+        ) : (
+          <button
+            onClick={() => router.push('/login')}
+            className="w-full py-4.5 bg-[#BE1641] hover:bg-[#a31337] text-white font-bold rounded-3xl flex items-center justify-center space-x-2 text-sm active:scale-[0.98] transition cursor-pointer"
+            style={{ WebkitTapHighlightColor: 'transparent' }}
+          >
+            <LogIn className="w-4.5 h-4.5" />
+            <span>Masuk atau Daftar</span>
+          </button>
+        )}
       </div>
 
       {/* BOTTOM NAVIGATION */}

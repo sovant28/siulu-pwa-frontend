@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { ArrowLeft, Send, RotateCcw, Home, Compass, Bookmark, MessageSquare, User, Map, MapPin, Landmark, Utensils, ThumbsUp, ThumbsDown, Heart, Sparkles, Mic, Plus, Image as LucideImage, ChevronsLeft, RotateCw, MoreVertical } from 'lucide-react';
+import { supabase } from '../supabase';
 
 export default function ChatAI() {
   const router = useRouter();
@@ -16,6 +17,8 @@ export default function ChatAI() {
   const [username, setUsername] = useState('');
   const [isInitializing, setIsInitializing] = useState(true);
   const [messageCount, setMessageCount] = useState(0);
+  const [user, setUser] = useState(null);
+  const [showLimitModal, setShowLimitModal] = useState(false);
   
   // Feedback states
   const [activeFeedbackIdx, setActiveFeedbackIdx] = useState(null);
@@ -47,6 +50,32 @@ export default function ChatAI() {
       const count = parseInt(localStorage.getItem('chat_message_count') || '0', 10);
       setMessageCount(count);
     }
+
+    // Check auth session
+    const checkUser = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session && session.user) {
+        setUser(session.user);
+        // Set username from metadata if available
+        const name = session.user.user_metadata?.name || session.user.email.split('@')[0];
+        setUsername(name);
+      }
+    };
+    checkUser();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session && session.user) {
+        setUser(session.user);
+        const name = session.user.user_metadata?.name || session.user.email.split('@')[0];
+        setUsername(name);
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => {
+      subscription?.unsubscribe();
+    };
   }, []);
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL ? `${process.env.NEXT_PUBLIC_API_URL}/api` : '/api';
@@ -202,8 +231,9 @@ export default function ChatAI() {
     
     // Check limit
     const currentCount = parseInt(localStorage.getItem('chat_message_count') || '0', 10);
-    if (currentCount >= 15) {
-      alert("Batas testing tercapai! Anda telah mencapai batas maksimal 15 pesan.");
+    const isLimitReached = !user && currentCount >= 10;
+    if (isLimitReached) {
+      setShowLimitModal(true);
       return;
     }
     
@@ -212,10 +242,12 @@ export default function ChatAI() {
     setMessages(prev => [...prev, { role: 'user', content: userMsg }]);
     setLoading(true);
 
-    // Update count
-    const newCount = currentCount + 1;
-    localStorage.setItem('chat_message_count', newCount.toString());
-    setMessageCount(newCount);
+    // Update count if guest
+    if (!user) {
+      const newCount = currentCount + 1;
+      localStorage.setItem('chat_message_count', newCount.toString());
+      setMessageCount(newCount);
+    }
 
     try {
       let botToUse = activeBot;
@@ -580,14 +612,20 @@ export default function ChatAI() {
       <div 
         className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-slate-100/80 pt-3 pb-[calc(env(safe-area-inset-bottom)+16px)] px-4 flex flex-col space-y-3 z-40"
       >
-        {messageCount >= 15 && (
+        {!user && (
           <div className="w-full bg-rose-50 border border-rose-100 rounded-2xl p-3 text-center animate-in fade-in slide-in-from-bottom-2 duration-300">
             <p className="text-xs font-bold text-[#BE1641] flex items-center justify-center gap-1">
-              <span>⚠️</span> Batas Testing Chatbot Tercapai
+              <span>⚠️</span> Kuota Chat Gratis: {messageCount}/10
             </p>
-            <p className="text-[10px] text-slate-600 mt-0.5">
-              Anda telah mengirim 15 pesan. Silakan hubungi admin untuk mereset kuota perangkat Anda.
-            </p>
+            {messageCount >= 10 ? (
+              <p className="text-[10px] text-slate-600 mt-1 font-semibold">
+                Batas obrolan gratis tercapai. Silakan masuk atau daftar akun untuk melanjutkan obrolan tanpa batas!
+              </p>
+            ) : (
+              <p className="text-[10px] text-slate-600 mt-0.5">
+                Anda dapat mengirim {10 - messageCount} pesan gratis lagi sebelum harus mendaftar gratis.
+              </p>
+            )}
           </div>
         )}
 
@@ -609,14 +647,14 @@ export default function ChatAI() {
           </button>
   
           {/* Input Capsule */}
-          <div className={`flex-1 rounded-full px-5 py-2.5 border flex items-center ${messageCount >= 15 ? 'bg-slate-100 border-slate-200' : 'bg-white border-slate-200'}`}>
+          <div className={`flex-1 rounded-full px-5 py-2.5 border flex items-center ${(!user && messageCount >= 10) ? 'bg-slate-100 border-slate-200' : 'bg-white border-slate-200'}`}>
             <input 
               type="text" 
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-              disabled={messageCount >= 15}
-              placeholder={messageCount >= 15 ? "Batas testing 15 pesan tercapai..." : "Tanya Mebali AI tentang Toraja..."}
+              disabled={!user && messageCount >= 10}
+              placeholder={(!user && messageCount >= 10) ? "Daftar untuk lanjut mengobrol..." : "Tanya Mebali AI tentang Toraja..."}
               className="w-full bg-transparent text-base font-medium text-slate-800 focus:outline-none placeholder:text-slate-400 placeholder:font-normal disabled:text-slate-400"
             />
           </div>
@@ -624,7 +662,7 @@ export default function ChatAI() {
           {/* Send Button */}
           <button 
             onClick={() => handleSend()}
-            disabled={loading || !input.trim() || messageCount >= 15}
+            disabled={loading || !input.trim() || (!user && messageCount >= 10)}
             className="bg-black hover:bg-slate-900 disabled:opacity-50 text-white rounded-full p-2.5 transition active:scale-95 flex items-center justify-center cursor-pointer select-none flex-shrink-0"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
@@ -632,6 +670,43 @@ export default function ChatAI() {
           </button>
         </div>
       </div>
+
+      {/* Paywall Limit Modal */}
+      {showLimitModal && (
+        <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-6 z-50 animate-in fade-in duration-200">
+          <div className="bg-white border border-slate-200/80 rounded-3xl p-6 w-full max-w-sm flex flex-col items-center text-center space-y-6">
+            <div className="w-14 h-14 rounded-full bg-rose-50 flex items-center justify-center text-[#BE1641]">
+              <Sparkles className="w-6 h-6 fill-current" />
+            </div>
+            <div className="space-y-2">
+              <h3 className="text-lg font-black text-slate-900 leading-snug">Obrolan AI Terbatas!</h3>
+              <p className="text-xs text-slate-600 leading-relaxed font-semibold">
+                Halo! Anda telah menggunakan 10 kuota obrolan gratis Anda. Silakan masuk atau buat akun baru secara gratis untuk melanjutkan konsultasi wisata tanpa batas.
+              </p>
+            </div>
+            <div className="flex flex-col w-full gap-2.5">
+              <button
+                onClick={() => router.push('/register')}
+                className="w-full py-3.5 bg-[#BE1641] hover:bg-[#a31337] text-white font-bold rounded-2xl text-xs transition active:scale-[0.98] cursor-pointer"
+              >
+                Daftar Akun Baru
+              </button>
+              <button
+                onClick={() => router.push('/login')}
+                className="w-full py-3.5 bg-slate-50 border border-slate-200 hover:bg-slate-100 text-slate-800 font-bold rounded-2xl text-xs transition active:scale-[0.98] cursor-pointer"
+              >
+                Masuk Ke Akun
+              </button>
+              <button
+                onClick={() => setShowLimitModal(false)}
+                className="text-[11px] font-bold text-slate-400 hover:text-slate-600 pt-1 transition cursor-pointer"
+              >
+                Tutup & Lihat Riwayat
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   );

@@ -319,7 +319,7 @@ export default function AppHome() {
               className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#D3EFFF] border border-[#D3EFFF] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
-              <Image src="/icon_event.png?v=2" alt="Event" width={56} height={56} className="w-full h-full object-contain" />
+              <Image src="/icon_event.png?v=4" alt="Event" width={56} height={56} className="w-full h-full object-contain" />
             </button>
             <span className="text-[11px] font-semibold text-slate-700 tracking-wide">Event</span>
           </div>
@@ -331,7 +331,7 @@ export default function AppHome() {
               className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#DCD2FF] border border-[#DCD2FF] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
-              <Image src="/icon_destinasi.png?v=2" alt="Destinasi" width={56} height={56} className="w-full h-full object-contain" />
+              <Image src="/icon_destinasi.png?v=4" alt="Destinasi" width={56} height={56} className="w-full h-full object-contain" />
             </button>
             <span className="text-[11px] font-semibold text-slate-700 tracking-wide">Destinasi</span>
           </div>
@@ -355,7 +355,7 @@ export default function AppHome() {
               className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#DCD2FF] border border-[#DCD2FF] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
-              <Image src="/icon_hotel.png?v=2" alt="Hotel" width={56} height={56} className="w-full h-full object-contain" />
+              <Image src="/icon_hotel.png?v=4" alt="Hotel" width={56} height={56} className="w-full h-full object-contain" />
             </button>
             <span className="text-[11px] font-semibold text-slate-700 tracking-wide">Hotel</span>
           </div>

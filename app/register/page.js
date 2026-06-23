@@ -5,6 +5,33 @@ import { useRouter } from 'next/navigation';
 import { supabase } from '../supabase';
 import { ArrowLeft, User, Mail, Lock, UserPlus, Shield } from 'lucide-react';
 
+const DISPOSABLE_EMAIL_DOMAINS = [
+  'yopmail.com',
+  'mailinator.com',
+  'tempmail.com',
+  '10minutemail.com',
+  'dispostable.com',
+  'guerrillamail.com',
+  'guerrillamail.net',
+  'guerrillamail.org',
+  'maildrop.cc',
+  'trashmail.com',
+  'getairmail.com',
+  'sharklasers.com',
+  'temp-mail.org',
+  'generator.email',
+  'discard.email'
+];
+
+const isDisposableEmail = (emailStr) => {
+  if (!emailStr) return false;
+  const parts = emailStr.trim().toLowerCase().split('@');
+  if (parts.length < 2) return false;
+  const domain = parts[1];
+  return DISPOSABLE_EMAIL_DOMAINS.includes(domain) || 
+         DISPOSABLE_EMAIL_DOMAINS.some(d => domain.endsWith('.' + d));
+};
+
 export default function RegisterPage() {
   const router = useRouter();
   const [name, setName] = useState('');
@@ -18,6 +45,12 @@ export default function RegisterPage() {
     e.preventDefault();
     setLoading(true);
     setError('');
+
+    if (isDisposableEmail(email)) {
+      setError('Pendaftaran ditolak. Silakan gunakan email pribadi atau kerja yang valid.');
+      setLoading(false);
+      return;
+    }
 
     try {
       const { data, error: signUpError } = await supabase.auth.signUp({

@@ -369,7 +369,7 @@ export default function AppHome() {
                 className="w-full h-full flex items-center justify-center rounded-2xl bg-[#DCD2FF] border border-[#DCD2FF] cursor-default select-none outline-none overflow-hidden"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >
-                <Image src="/icon_tiket.png?v=2" alt="Tiket" width={56} height={56} className="w-full h-full object-contain" />
+                <Image src="/icon_tiket.png?v=4" alt="Tiket" width={56} height={56} className="w-full h-full object-contain" />
               </button>
             </div>
             <span className="text-[11px] font-semibold text-slate-700/80 tracking-wide select-none">Tiket</span>
@@ -384,7 +384,7 @@ export default function AppHome() {
                 className="w-full h-full flex items-center justify-center rounded-2xl bg-[#D3EFFF] border border-[#D3EFFF] cursor-default select-none outline-none overflow-hidden"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >
-                <Image src="/icon_oleh_oleh.png?v=2" alt="Oleh-oleh" width={56} height={56} className="w-full h-full object-contain" />
+                <Image src="/icon_oleh_oleh.png?v=4" alt="Oleh-oleh" width={56} height={56} className="w-full h-full object-contain" />
               </button>
             </div>
             <span className="text-[11px] font-semibold text-slate-700/80 tracking-wide select-none">Oleh-oleh</span>
@@ -399,7 +399,7 @@ export default function AppHome() {
                 className="w-full h-full flex items-center justify-center rounded-2xl bg-[#DCD2FF] border border-[#DCD2FF] cursor-default select-none outline-none overflow-hidden"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >
-                <Image src="/icon_pengaduan.png?v=2" alt="Pengaduan" width={56} height={56} className="w-full h-full object-contain" />
+                <Image src="/icon_pengaduan.png?v=4" alt="Pengaduan" width={56} height={56} className="w-full h-full object-contain" />
               </button>
             </div>
             <span className="text-[11px] font-semibold text-slate-700/80 tracking-wide select-none">Pengaduan</span>
@@ -414,7 +414,7 @@ export default function AppHome() {
                 className="w-full h-full flex items-center justify-center rounded-2xl bg-[#D3EFFF] border border-[#D3EFFF] cursor-default select-none outline-none overflow-hidden"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >
-                <Image src="/icon_darurat.png?v=2" alt="Bantuan" width={56} height={56} className="w-full h-full object-contain" />
+                <Image src="/icon_darurat.png?v=4" alt="Bantuan" width={56} height={56} className="w-full h-full object-contain" />
               </button>
             </div>
             <span className="text-[11px] font-semibold text-slate-700/80 tracking-wide select-none">Bantuan</span>

@@ -316,7 +316,7 @@ export default function AppHome() {
           <div className="flex flex-col items-center space-y-1.5">
             <button
               onClick={() => router.push('/event')}
-              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#D3EFFF] border border-[#D3EFFF] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
+              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#DCD2FF] border border-[#DCD2FF] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <Image src="/icon_event.png?v=4" alt="Event" width={56} height={56} className="w-full h-full object-contain" />
@@ -340,7 +340,7 @@ export default function AppHome() {
           <div className="flex flex-col items-center space-y-1.5">
             <button
               onClick={() => router.push('/kuliner')}
-              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#D3EFFF] border border-[#D3EFFF] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
+              className="w-14 h-14 flex items-center justify-center rounded-2xl bg-[#DCD2FF] border border-[#DCD2FF] active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <Image src="/icon_kuliner.png?v=3" alt="Kuliner" width={56} height={56} className="w-full h-full object-contain" />
@@ -381,7 +381,7 @@ export default function AppHome() {
               <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[6.5px] font-black px-1.5 py-0.5 rounded-full border border-white z-10 leading-none tracking-wider select-none pointer-events-none scale-90">Soon</span>
               <button
                 onClick={() => { }}
-                className="w-full h-full flex items-center justify-center rounded-2xl bg-[#D3EFFF] border border-[#D3EFFF] cursor-default select-none outline-none overflow-hidden"
+                className="w-full h-full flex items-center justify-center rounded-2xl bg-[#DCD2FF] border border-[#DCD2FF] cursor-default select-none outline-none overflow-hidden"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >
                 <Image src="/icon_oleh_oleh.png?v=4" alt="Oleh-oleh" width={56} height={56} className="w-full h-full object-contain" />
@@ -411,7 +411,7 @@ export default function AppHome() {
               <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[6.5px] font-black px-1.5 py-0.5 rounded-full border border-white z-10 leading-none tracking-wider select-none pointer-events-none scale-90">Soon</span>
               <button
                 onClick={() => { }}
-                className="w-full h-full flex items-center justify-center rounded-2xl bg-[#D3EFFF] border border-[#D3EFFF] cursor-default select-none outline-none overflow-hidden"
+                className="w-full h-full flex items-center justify-center rounded-2xl bg-[#DCD2FF] border border-[#DCD2FF] cursor-default select-none outline-none overflow-hidden"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >
                 <Image src="/icon_darurat.png?v=4" alt="Bantuan" width={56} height={56} className="w-full h-full object-contain" />

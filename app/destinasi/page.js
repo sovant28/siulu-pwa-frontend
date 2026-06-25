@@ -77,6 +77,7 @@ function DestinasiListContent() {
     alam: 'Wisata Alam',
     budaya_religi: 'Budaya & Religi',
     tempat_makan: 'Tempat Makan',
+    akomodasi: 'Hotel & Akomodasi',
   };
 
   // Sync active filter from URL query param
@@ -97,10 +98,11 @@ function DestinasiListContent() {
           data = await res.json();
         }
         
-        // Filter allowed categories (alam, budaya_religi, and eating places from kuliner)
+        // Filter allowed categories (alam, budaya_religi, akomodasi, and eating places from kuliner)
         const filtered = data.filter(item => 
           item.kategori === 'alam' || 
           item.kategori === 'budaya_religi' ||
+          item.kategori === 'akomodasi' ||
           (item.kategori === 'kuliner' && (item.informasi_biaya?.jenis === 'tempat_makan' || !item.id.startsWith('FOOD-')))
         );
 

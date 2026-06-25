@@ -310,7 +310,7 @@ export default function AppHome() {
 
 
       <section className="px-5 mt-5">
-        <h3 className="text-base font-black text-slate-800">Kategori Populer</h3>
+        <h3 className="text-base font-semibold text-slate-800">Kategori Populer</h3>
         <div className="grid grid-cols-4 gap-y-4 gap-x-3 mt-4">
           {/* Card 1: Events */}
           <div className="flex flex-col items-center space-y-1.5">
@@ -424,7 +424,7 @@ export default function AppHome() {
 
       {/* YOUTUBE VIDEO HOOK */}
       <section className="px-5 mt-5">
-        <h3 className="text-base font-black text-slate-800">Pesona Tana Toraja</h3>
+        <h3 className="text-base font-semibold text-slate-800">Pesona Tana Toraja</h3>
         <p className="text-xs font-normal text-slate-500 mt-1 mb-4 leading-relaxed">
           Ikuti perjalanan spiritual Maria menelusuri Tana Toraja.
         </p>

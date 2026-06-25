@@ -248,7 +248,7 @@ export default function AppHome() {
       </div>
 
       {/* FEATURED CAROUSEL */}
-      <section className="mt-5 px-5">
+      <section className="mt-6 px-5">
         <div
           ref={carouselRef}
           onScroll={handleScroll}
@@ -309,7 +309,7 @@ export default function AppHome() {
       </section>
 
 
-      <section className="px-5 mt-5">
+      <section className="px-5 mt-8">
         <h3 className="text-base font-semibold text-slate-800">Kategori Populer</h3>
         <div className="grid grid-cols-4 gap-y-4 gap-x-3 mt-4">
           {/* Card 1: Events */}
@@ -423,7 +423,7 @@ export default function AppHome() {
       </section>
 
       {/* YOUTUBE VIDEO HOOK */}
-      <section className="px-5 mt-5">
+      <section className="px-5 mt-8">
         <h3 className="text-base font-semibold text-slate-800">Pesona Tana Toraja</h3>
         <p className="text-xs font-normal text-slate-500 mt-1 mb-4 leading-relaxed">
           Ikuti perjalanan spiritual Maria menelusuri Tana Toraja.
@@ -442,7 +442,7 @@ export default function AppHome() {
       </section>
 
       {/* AI BANNER PROMO */}
-      <section className="px-5 mt-5 mb-6">
+      <section className="px-5 mt-8 mb-8">
         <div
           onClick={() => router.push('/chat')}
           role="button"

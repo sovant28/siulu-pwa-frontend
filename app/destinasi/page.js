@@ -71,6 +71,12 @@ function DestinasiListContent() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFilter, setActiveFilter] = useState('semua');
+  const [visibleCount, setVisibleCount] = useState(6);
+
+  // Reset visible items count when filter or search query changes
+  useEffect(() => {
+    setVisibleCount(6);
+  }, [activeFilter, searchQuery]);
 
   const filterLabels = {
     semua: 'Semua Destinasi',
@@ -216,7 +222,8 @@ function DestinasiListContent() {
             </div>
           ))
         ) : filteredDestinations.length > 0 ? (
-          filteredDestinations.map((dest) => {
+          <>
+            {filteredDestinations.slice(0, visibleCount).map((dest) => {
             const imageUrl = dest.informasi_biaya?.image_url;
 
             return (
@@ -261,8 +268,21 @@ function DestinasiListContent() {
                 </div>
               </div>
             );
-          })
-        ) : (
+          })}
+          
+          {filteredDestinations.length > visibleCount && (
+            <div className="flex justify-center pt-2 pb-6">
+              <button
+                onClick={() => setVisibleCount(prev => prev + 6)}
+                className="px-6 py-3 bg-white border border-slate-200/80 rounded-xl text-xs font-bold text-slate-700 active:scale-95 transition-all duration-150 select-none outline-none w-full max-w-[200px]"
+                style={{ WebkitTapHighlightColor: 'transparent' }}
+              >
+                Muat Lebih Banyak
+              </button>
+            </div>
+          )}
+        </>
+      ) : (
           <div className="text-center py-16 px-6">
             <span className="text-4xl block mb-3">🔍</span>
             <p className="text-sm text-slate-500 font-bold">Tidak ada tempat wisata yang cocok.</p>

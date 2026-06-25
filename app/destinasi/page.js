@@ -126,7 +126,9 @@ function DestinasiListContent() {
     if (!matchesSearch) return false;
 
     // 2. Category Filter
-    if (activeFilter === 'semua') return true;
+    if (activeFilter === 'semua') {
+      return item.kategori === 'alam' || item.kategori === 'budaya_religi';
+    }
     if (activeFilter === 'tempat_makan') {
       return item.kategori === 'kuliner' && (item.informasi_biaya?.jenis === 'tempat_makan' || !item.id.startsWith('FOOD-'));
     }

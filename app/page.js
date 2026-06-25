@@ -191,7 +191,7 @@ export default function AppHome() {
     <div className="flex flex-col w-full min-h-[100dvh] bg-[#F6F7F9] font-sans pb-[calc(env(safe-area-inset-bottom)+68px)] relative overflow-x-hidden">
 
       {/* HEADER BAR (Horizontal & Native-like) */}
-      <header className="w-full flex items-center justify-between px-6 pt-[calc(env(safe-area-inset-top)+14px)] pb-2 relative z-10">
+      <header className="w-full flex items-center justify-between px-5 pt-[calc(env(safe-area-inset-top)+14px)] pb-2 relative z-10">
         {/* Left Side: Avatar & Greeting/Name (Clickable to profile/login) */}
         <div
           onClick={() => router.push(user ? '/profile' : '/login')}
@@ -233,7 +233,7 @@ export default function AppHome() {
       </header>
 
       {/* PROMINENT SEARCH BAR (Native-like) */}
-      <div className="px-6 mt-3">
+      <div className="px-5 mt-3">
         <div
           onClick={() => router.push('/destinasi')}
           role="button"
@@ -248,7 +248,7 @@ export default function AppHome() {
       </div>
 
       {/* FEATURED CAROUSEL */}
-      <section className="mt-6 px-6">
+      <section className="mt-5 px-5">
         <div
           ref={carouselRef}
           onScroll={handleScroll}
@@ -309,7 +309,7 @@ export default function AppHome() {
       </section>
 
 
-      <section className="px-6 mt-8">
+      <section className="px-5 mt-5">
         <h3 className="text-base font-black text-slate-800">Kategori Populer</h3>
         <div className="grid grid-cols-4 gap-y-4 gap-x-3 mt-4">
           {/* Card 1: Events */}
@@ -423,7 +423,7 @@ export default function AppHome() {
       </section>
 
       {/* YOUTUBE VIDEO HOOK */}
-      <section className="px-6 mt-8">
+      <section className="px-5 mt-5">
         <h3 className="text-base font-black text-slate-800">Pesona Tana Toraja</h3>
         <p className="text-xs font-normal text-slate-500 mt-1 mb-4 leading-relaxed">
           Ikuti perjalanan spiritual Maria menelusuri Tana Toraja.
@@ -442,7 +442,7 @@ export default function AppHome() {
       </section>
 
       {/* AI BANNER PROMO */}
-      <section className="px-6 mt-8 mb-6">
+      <section className="px-5 mt-5 mb-6">
         <div
           onClick={() => router.push('/chat')}
           role="button"
@@ -464,7 +464,7 @@ export default function AppHome() {
 
       {/* BOTTOM NAVIGATION */}
       <nav
-        className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white/80 backdrop-blur-lg border-t border-slate-100/50 px-6 pt-2 pb-[calc(env(safe-area-inset-bottom)+6px)] flex justify-between items-center z-50 rounded-t-3xl select-none"
+        className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white/80 backdrop-blur-lg border-t border-slate-100/50 px-5 pt-2 pb-[calc(env(safe-area-inset-bottom)+6px)] flex justify-between items-center z-50 rounded-t-3xl select-none"
       >
         {/* Rainbow Gradient Definition for AI Icon */}
         <svg width="0" height="0" className="absolute pointer-events-none">

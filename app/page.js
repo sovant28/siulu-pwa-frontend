@@ -68,8 +68,9 @@ export default function AppHome() {
   const handleScroll = (e) => {
     const container = e.target;
     const scrollPosition = container.scrollLeft;
-    const itemWidth = container.clientWidth;
-    if (itemWidth > 0) {
+    const containerWidth = container.clientWidth;
+    if (containerWidth > 0) {
+      const itemWidth = containerWidth * 0.88;
       const activeIndex = Math.round(scrollPosition / (itemWidth + 16));
       setCurrentSlide(activeIndex);
     }
@@ -77,7 +78,8 @@ export default function AppHome() {
 
   const handleDotClick = (index) => {
     if (carouselRef.current) {
-      const itemWidth = carouselRef.current.clientWidth;
+      const containerWidth = carouselRef.current.clientWidth;
+      const itemWidth = containerWidth * 0.88;
       carouselRef.current.scrollTo({
         left: index * (itemWidth + 16),
         behavior: 'smooth'
@@ -93,7 +95,8 @@ export default function AppHome() {
       setCurrentSlide((prev) => {
         const nextIndex = (prev + 1) % featuredEvents.length;
         if (carouselRef.current) {
-          const itemWidth = carouselRef.current.clientWidth;
+          const containerWidth = carouselRef.current.clientWidth;
+          const itemWidth = containerWidth * 0.88;
           carouselRef.current.scrollTo({
             left: nextIndex * (itemWidth + 16),
             behavior: 'smooth'
@@ -191,11 +194,20 @@ export default function AppHome() {
     <div className="flex flex-col w-full min-h-[100dvh] bg-[#F6F7F9] font-sans pb-[calc(env(safe-area-inset-bottom)+68px)] relative overflow-x-hidden">
 
       {/* HEADER BAR (Horizontal & Native-like) */}
-      <header className="w-full flex items-center justify-between px-5 pt-[calc(env(safe-area-inset-top)+14px)] pb-2 relative z-10">
-        {/* Left Side: Avatar & Greeting/Name (Clickable to profile/login) */}
+      <header className="w-full flex flex-col px-5 pt-[calc(env(safe-area-inset-top)+14px)] pb-2 relative z-10 space-y-3.5">
+        {/* Row 1: Logo & Weather Widget */}
+        <div className="flex items-center justify-between w-full">
+          <span className="text-xl font-black text-[#BE1641] tracking-tight select-none">siulu</span>
+          <div className="flex items-center space-x-1.5 bg-white border border-slate-200/80 rounded-full px-3 py-1.5 text-[10px] font-black text-slate-600 select-none">
+            {renderWeatherIcon(weather.type)}
+            <span>{weather.temp} • {weather.text}</span>
+          </div>
+        </div>
+
+        {/* Row 2: Avatar & Greeting/Name (Clickable to profile/login) */}
         <div
           onClick={() => router.push(user ? '/profile' : '/login')}
-          className="flex items-center space-x-2.5 cursor-pointer active:scale-95 transition-transform"
+          className="flex items-center space-x-3 cursor-pointer active:scale-[0.98] transition-all"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
           {user ? (
@@ -203,12 +215,12 @@ export default function AppHome() {
               <Image src="/avatar_v2.png" alt="Avatar" fill className="object-cover" />
             </div>
           ) : (
-            <div className="w-10 h-10 rounded-full bg-slate-100 border border-slate-200/80 flex items-center justify-center text-slate-400 flex-shrink-0">
+            <div className="w-10 h-10 rounded-full bg-white border border-slate-200/80 flex items-center justify-center text-slate-600 flex-shrink-0">
               <User className="w-5 h-5" />
             </div>
           )}
           <div className="flex flex-col text-left">
-            <span className="text-[10px] font-bold text-slate-500 tracking-wider leading-none">{greeting}</span>
+            <span className="text-[10px] font-bold text-slate-700 tracking-wider leading-none">{greeting}</span>
             {user ? (
               <span className="text-sm font-black text-slate-800 mt-1.5 leading-none">
                 {username}
@@ -220,14 +232,6 @@ export default function AppHome() {
                 <span className="text-[10px] font-bold text-[#4C1D95] hover:underline leading-none">Masuk / Daftar</span>
               </div>
             )}
-          </div>
-        </div>
-
-        {/* Right Side: Weather Widget */}
-        <div className="flex items-center space-x-2">
-          <div className="flex items-center space-x-1.5 bg-white border border-slate-100/70 rounded-full px-2.5 py-1 text-[10px] font-black text-slate-600 select-none">
-            {renderWeatherIcon(weather.type)}
-            <span>{weather.temp} • {weather.text}</span>
           </div>
         </div>
       </header>
@@ -242,21 +246,20 @@ export default function AppHome() {
           className="w-full flex items-center bg-white border border-slate-100 rounded-2xl px-4.5 py-3 active:scale-[0.99] transition cursor-pointer select-none"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
-          <Search className="w-4 h-4 text-slate-500 mr-2.5 flex-shrink-0" />
-          <span className="text-sm font-semibold text-slate-500">Cari destinasi pariwisata Tana Toraja...</span>
+          <Search className="w-4 h-4 text-slate-700 mr-2.5 flex-shrink-0" />
+          <span className="text-sm font-semibold text-slate-700">Cari destinasi pariwisata Tana Toraja...</span>
         </div>
       </div>
 
       {/* FEATURED CAROUSEL */}
-      <section className="mt-6 px-5">
+      <section className="mt-6 w-full">
         <div
           ref={carouselRef}
           onScroll={handleScroll}
-          className="flex space-x-4 overflow-x-auto no-scrollbar scroll-smooth snap-x snap-mandatory w-full"
-
+          className="flex space-x-4 overflow-x-auto no-scrollbar scroll-smooth snap-x snap-mandatory w-full px-5 scroll-pl-5 scroll-pr-5"
         >
           {loading ? (
-            <div className="w-full h-48 rounded-3xl bg-slate-200 animate-pulse flex-shrink-0"></div>
+            <div className="w-[88%] h-48 rounded-3xl bg-slate-200 animate-pulse flex-shrink-0"></div>
           ) : featuredEvents.length > 0 ? (
             featuredEvents.map((event) => (
               <div
@@ -265,7 +268,7 @@ export default function AppHome() {
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => e.key === 'Enter' && router.push(`/event/${event.id}`)}
-                className="relative w-full h-48 rounded-3xl overflow-hidden flex-shrink-0 snap-start group cursor-pointer active:scale-[0.98] transition-transform border border-slate-200/50"
+                className="relative w-[88%] h-48 rounded-3xl overflow-hidden flex-shrink-0 snap-start group cursor-pointer active:scale-[0.98] transition-transform border border-slate-200/50"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >
                 <Image
@@ -286,8 +289,8 @@ export default function AppHome() {
               </div>
             ))
           ) : (
-            <div className="w-full h-48 rounded-3xl bg-slate-100 border border-slate-200 flex-shrink-0 flex items-center justify-center p-6 text-center w-full">
-              <p className="text-xs text-slate-500 font-medium">Belum ada event/destinasi bergambar yang diunggah dari CMS.</p>
+            <div className="w-full h-48 rounded-3xl bg-slate-100 border border-slate-200 flex-shrink-0 flex items-center justify-center p-6 text-center select-none">
+              <p className="text-xs text-slate-700 font-medium">Belum ada event/destinasi bergambar yang diunggah dari CMS.</p>
             </div>
           )}
         </div>
@@ -321,7 +324,7 @@ export default function AppHome() {
             >
               <Image src="/icon_event.png?v=4" alt="Event" width={56} height={56} className="w-full h-full object-contain" />
             </button>
-            <span className="text-[11px] font-semibold text-slate-700 tracking-wide">Event</span>
+            <span className="text-[11px] font-semibold text-slate-800 tracking-wide">Event</span>
           </div>
 
           {/* Card 2: Destinasi */}
@@ -333,7 +336,7 @@ export default function AppHome() {
             >
               <Image src="/icon_destinasi.png?v=4" alt="Destinasi" width={56} height={56} className="w-full h-full object-contain" />
             </button>
-            <span className="text-[11px] font-semibold text-slate-700 tracking-wide">Destinasi</span>
+            <span className="text-[11px] font-semibold text-slate-800 tracking-wide">Destinasi</span>
           </div>
 
           {/* Card 3: Kuliner */}
@@ -345,7 +348,7 @@ export default function AppHome() {
             >
               <Image src="/icon_kuliner.png?v=3" alt="Kuliner" width={56} height={56} className="w-full h-full object-contain" />
             </button>
-            <span className="text-[11px] font-semibold text-slate-700 tracking-wide">Kuliner</span>
+            <span className="text-[11px] font-semibold text-slate-800 tracking-wide">Kuliner</span>
           </div>
 
           {/* Card 4: Hotel */}
@@ -357,7 +360,7 @@ export default function AppHome() {
             >
               <Image src="/icon_hotel.png?v=4" alt="Hotel" width={56} height={56} className="w-full h-full object-contain" />
             </button>
-            <span className="text-[11px] font-semibold text-slate-700 tracking-wide">Hotel</span>
+            <span className="text-[11px] font-semibold text-slate-800 tracking-wide">Hotel</span>
           </div>
 
           {/* Card 5: Tiket */}
@@ -372,7 +375,7 @@ export default function AppHome() {
                 <Image src="/icon_tiket.png?v=4" alt="Tiket" width={56} height={56} className="w-full h-full object-contain" />
               </button>
             </div>
-            <span className="text-[11px] font-semibold text-slate-700/80 tracking-wide select-none">Tiket</span>
+            <span className="text-[11px] font-semibold text-slate-700 tracking-wide select-none">Tiket</span>
           </div>
 
           {/* Card 6: Oleh-oleh */}
@@ -387,7 +390,7 @@ export default function AppHome() {
                 <Image src="/icon_oleh_oleh.png?v=4" alt="Oleh-oleh" width={56} height={56} className="w-full h-full object-contain" />
               </button>
             </div>
-            <span className="text-[11px] font-semibold text-slate-700/80 tracking-wide select-none">Oleh-oleh</span>
+            <span className="text-[11px] font-semibold text-slate-700 tracking-wide select-none">Oleh-oleh</span>
           </div>
 
           {/* Card 7: Pengaduan */}
@@ -402,7 +405,7 @@ export default function AppHome() {
                 <Image src="/icon_pengaduan.png?v=4" alt="Pengaduan" width={56} height={56} className="w-full h-full object-contain" />
               </button>
             </div>
-            <span className="text-[11px] font-semibold text-slate-700/80 tracking-wide select-none">Pengaduan</span>
+            <span className="text-[11px] font-semibold text-slate-700 tracking-wide select-none">Pengaduan</span>
           </div>
 
           {/* Card 8: Bantuan */}
@@ -417,15 +420,15 @@ export default function AppHome() {
                 <Image src="/icon_darurat.png?v=4" alt="Bantuan" width={56} height={56} className="w-full h-full object-contain" />
               </button>
             </div>
-            <span className="text-[11px] font-semibold text-slate-700/80 tracking-wide select-none">Bantuan</span>
+            <span className="text-[11px] font-semibold text-slate-700 tracking-wide select-none">Bantuan</span>
           </div>
         </div>
       </section>
 
       {/* YOUTUBE VIDEO HOOK */}
-      <section className="px-5 mt-8">
+      <section className="px-5 mt-8 mb-12">
         <h3 className="text-base font-semibold text-slate-800">Pesona Tana Toraja</h3>
-        <p className="text-xs font-normal text-slate-500 mt-1 mb-4 leading-relaxed">
+        <p className="text-xs font-normal text-slate-700 mt-1 mb-4 leading-relaxed">
           Ikuti perjalanan spiritual Maria menelusuri Tana Toraja.
         </p>
         <div className="relative w-full aspect-video rounded-3xl overflow-hidden border border-slate-100 bg-slate-100">
@@ -441,30 +444,9 @@ export default function AppHome() {
         </div>
       </section>
 
-      {/* AI BANNER PROMO */}
-      <section className="px-5 mt-8 mb-8">
-        <div
-          onClick={() => router.push('/chat')}
-          role="button"
-          tabIndex={0}
-          onKeyDown={(e) => e.key === 'Enter' && router.push('/chat')}
-          className="w-full rounded-3xl overflow-hidden cursor-pointer hover:scale-[1.02] active:scale-95 transition-all select-none border border-slate-100/50"
-          style={{ WebkitTapHighlightColor: 'transparent' }}
-        >
-          <Image
-            src="/mebali_ai_banner.png"
-            alt="Mebali AI Banner"
-            width={800}
-            height={450}
-            className="w-full h-auto object-cover block"
-            priority
-          />
-        </div>
-      </section>
-
       {/* BOTTOM NAVIGATION */}
       <nav
-        className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white/80 backdrop-blur-lg border-t border-slate-100/50 px-5 pt-2 pb-[calc(env(safe-area-inset-bottom)+6px)] flex justify-between items-center z-50 rounded-t-3xl select-none"
+        className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white/85 backdrop-blur-lg border-t border-slate-200/50 px-5 pt-2 pb-[calc(env(safe-area-inset-bottom)+6px)] flex justify-between items-center z-50 rounded-t-3xl select-none"
       >
         {/* Rainbow Gradient Definition for AI Icon */}
         <svg width="0" height="0" className="absolute pointer-events-none">
@@ -482,18 +464,20 @@ export default function AppHome() {
           className="flex flex-col items-center justify-center w-16 py-1 text-[#4C1D95] active:scale-90 transition cursor-pointer"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
-          <Home className="w-5.5 h-5.5" fill="currentColor" />
+          <Home className="w-5.5 h-5.5" fill="currentColor" strokeWidth={2.5} />
           <span className="text-[10px] font-black mt-1 leading-none">Beranda</span>
+          <div className="h-1 w-1 rounded-full bg-[#4C1D95] mt-1" />
         </button>
 
         {/* 2. Jelajah */}
         <button
-          onClick={() => { }}
-          className="flex flex-col items-center justify-center w-16 py-1 text-slate-400 hover:text-slate-500 active:scale-90 transition cursor-pointer"
+          onClick={() => router.push('/destinasi')}
+          className="flex flex-col items-center justify-center w-16 py-1 text-slate-600 hover:text-slate-700 active:scale-90 transition cursor-pointer"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
-          <Compass className="w-5.5 h-5.5" />
+          <Compass className="w-5.5 h-5.5" strokeWidth={2.5} />
           <span className="text-[10px] font-bold mt-1 leading-none">Jelajah</span>
+          <div className="h-1 w-1 rounded-full bg-transparent mt-1" />
         </button>
 
         {/* 3. Tanya AI */}
@@ -502,28 +486,31 @@ export default function AppHome() {
           className="flex flex-col items-center justify-center w-16 py-1 active:scale-90 transition cursor-pointer"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
-          <MessageSquare className="w-5.5 h-5.5" stroke="url(#rainbow-gradient)" />
-          <span className="text-[10px] font-bold mt-1 leading-none text-slate-400">Tanya AI</span>
+          <MessageSquare className="w-5.5 h-5.5" stroke="url(#rainbow-gradient)" strokeWidth={2.5} />
+          <span className="text-[10px] font-bold mt-1 leading-none text-slate-600">Tanya AI</span>
+          <div className="h-1 w-1 rounded-full bg-transparent mt-1" />
         </button>
 
         {/* 4. Disimpan */}
         <button
           onClick={() => router.push('/saved')}
-          className="flex flex-col items-center justify-center w-16 py-1 text-slate-400 hover:text-slate-500 active:scale-90 transition cursor-pointer"
+          className="flex flex-col items-center justify-center w-16 py-1 text-slate-600 hover:text-slate-700 active:scale-90 transition cursor-pointer"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
-          <Heart className="w-5.5 h-5.5" />
+          <Heart className="w-5.5 h-5.5" strokeWidth={2.5} />
           <span className="text-[10px] font-bold mt-1 leading-none">Tersimpan</span>
+          <div className="h-1 w-1 rounded-full bg-transparent mt-1" />
         </button>
 
         {/* 5. Profil */}
         <button
           onClick={() => router.push('/profile')}
-          className="flex flex-col items-center justify-center w-16 py-1 text-slate-400 hover:text-slate-500 active:scale-90 transition cursor-pointer"
+          className="flex flex-col items-center justify-center w-16 py-1 text-slate-600 hover:text-slate-700 active:scale-90 transition cursor-pointer"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
-          <User className="w-5.5 h-5.5" />
+          <User className="w-5.5 h-5.5" strokeWidth={2.5} />
           <span className="text-[10px] font-bold mt-1 leading-none">Akun</span>
+          <div className="h-1 w-1 rounded-full bg-transparent mt-1" />
         </button>
       </nav>
 

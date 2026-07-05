@@ -25,6 +25,18 @@ body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
+/* Menjinakkan bouncing scroll browser di mobile */
+html, body {
+  overscroll-behavior-y: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Menonaktifkan kilatan tap abu-abu default browser */
+*, *:before, *:after {
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
 /* Hide scrollbar for Chrome, Safari and Opera */
 .no-scrollbar::-webkit-scrollbar {
   display: none;

@@ -464,7 +464,7 @@ export default function AppHome() {
           className="flex flex-col items-center justify-center w-16 py-1 text-[#4C1D95] active:scale-90 transition cursor-pointer"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
-          <Home className="w-5.5 h-5.5" fill="currentColor" strokeWidth={2.5} />
+          <Home className="w-5.5 h-5.5" fill="currentColor" strokeWidth={2} />
           <span className="text-[10px] font-semibold mt-1 leading-none">Beranda</span>
           <div className="h-1 w-1 rounded-full bg-[#4C1D95] mt-1" />
         </button>
@@ -475,7 +475,7 @@ export default function AppHome() {
           className="flex flex-col items-center justify-center w-16 py-1 text-slate-600 hover:text-slate-700 active:scale-90 transition cursor-pointer"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
-          <Compass className="w-5.5 h-5.5" strokeWidth={2.5} />
+          <Compass className="w-5.5 h-5.5" strokeWidth={2} />
           <span className="text-[10px] font-semibold mt-1 leading-none">Jelajah</span>
           <div className="h-1 w-1 rounded-full bg-transparent mt-1" />
         </button>
@@ -486,7 +486,7 @@ export default function AppHome() {
           className="flex flex-col items-center justify-center w-16 py-1 active:scale-90 transition cursor-pointer"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
-          <MessageSquare className="w-5.5 h-5.5" stroke="url(#rainbow-gradient)" strokeWidth={2.5} />
+          <MessageSquare className="w-5.5 h-5.5" stroke="url(#rainbow-gradient)" strokeWidth={2} />
           <span className="text-[10px] font-semibold mt-1 leading-none text-slate-600">Tanya AI</span>
           <div className="h-1 w-1 rounded-full bg-transparent mt-1" />
         </button>
@@ -497,7 +497,7 @@ export default function AppHome() {
           className="flex flex-col items-center justify-center w-16 py-1 text-slate-600 hover:text-slate-700 active:scale-90 transition cursor-pointer"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
-          <Heart className="w-5.5 h-5.5" strokeWidth={2.5} />
+          <Heart className="w-5.5 h-5.5" strokeWidth={2} />
           <span className="text-[10px] font-semibold mt-1 leading-none">Tersimpan</span>
           <div className="h-1 w-1 rounded-full bg-transparent mt-1" />
         </button>
@@ -508,7 +508,7 @@ export default function AppHome() {
           className="flex flex-col items-center justify-center w-16 py-1 text-slate-600 hover:text-slate-700 active:scale-90 transition cursor-pointer"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
-          <User className="w-5.5 h-5.5" strokeWidth={2.5} />
+          <User className="w-5.5 h-5.5" strokeWidth={2} />
           <span className="text-[10px] font-semibold mt-1 leading-none">Akun</span>
           <div className="h-1 w-1 rounded-full bg-transparent mt-1" />
         </button>

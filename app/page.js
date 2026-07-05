@@ -193,6 +193,18 @@ export default function AppHome() {
   return (
     <div className="flex flex-col w-full min-h-[100dvh] bg-[#F6F7F9] font-sans pb-[calc(env(safe-area-inset-bottom)+68px)] relative overflow-x-hidden">
 
+      {/* Header Background Illustration with Smooth Fade */}
+      <div className="absolute top-0 left-0 right-0 h-48 z-0 pointer-events-none overflow-hidden select-none">
+        <Image
+          src="/header.png"
+          alt="Header Background Decoration"
+          fill
+          className="object-cover object-right-top opacity-30"
+          unoptimized
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#F6F7F9]/80 to-[#F6F7F9]" />
+      </div>
+
       {/* HEADER BAR (Horizontal & Native-like) */}
       <header className="w-full flex flex-col px-5 pt-[calc(env(safe-area-inset-top)+14px)] pb-2 relative z-10 space-y-3.5">
         {/* Row 1: Logo & Weather Widget */}

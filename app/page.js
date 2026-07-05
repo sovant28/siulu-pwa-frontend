@@ -259,7 +259,7 @@ export default function AppHome() {
           className="flex space-x-4 overflow-x-auto no-scrollbar scroll-smooth snap-x snap-mandatory w-full px-5 scroll-pl-5 scroll-pr-5"
         >
           {loading ? (
-            <div className="w-[88%] h-48 rounded-3xl bg-slate-200 animate-pulse flex-shrink-0"></div>
+            <div className="w-full h-48 rounded-3xl bg-slate-200 animate-pulse flex-shrink-0"></div>
           ) : featuredEvents.length > 0 ? (
             featuredEvents.map((event) => (
               <div
@@ -268,7 +268,7 @@ export default function AppHome() {
                 role="button"
                 tabIndex={0}
                 onKeyDown={(e) => e.key === 'Enter' && router.push(`/event/${event.id}`)}
-                className="relative w-[88%] h-48 rounded-3xl overflow-hidden flex-shrink-0 snap-start group cursor-pointer active:scale-[0.98] transition-transform border border-slate-200/50"
+                className={`relative ${featuredEvents.length === 1 ? 'w-full' : 'w-[88%]'} h-48 rounded-3xl overflow-hidden flex-shrink-0 snap-start group cursor-pointer active:scale-[0.98] transition-transform border border-slate-200/50`}
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >
                 <Image

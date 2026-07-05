@@ -206,7 +206,7 @@ export default function AppHome() {
             src="/header.png"
             alt="Header Background Decoration"
             fill
-            className="object-cover object-center opacity-20"
+            className="object-cover object-right-top opacity-45"
             unoptimized
           />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#F6F7F9]" />

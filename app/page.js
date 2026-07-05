@@ -194,15 +194,15 @@ export default function AppHome() {
     <div className="flex flex-col w-full min-h-[100dvh] bg-[#F6F7F9] font-sans pb-[calc(env(safe-area-inset-bottom)+68px)] relative overflow-x-hidden">
 
       {/* Header Background Illustration with Smooth Fade */}
-      <div className="absolute top-0 left-0 right-0 h-48 z-0 pointer-events-none overflow-hidden select-none">
+      <div className="absolute top-0 left-0 right-0 h-56 z-0 pointer-events-none overflow-hidden select-none">
         <Image
           src="/header.png"
           alt="Header Background Decoration"
           fill
-          className="object-cover object-right-top opacity-30"
+          className="object-cover object-right-top opacity-45"
           unoptimized
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#F6F7F9]/80 to-[#F6F7F9]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#F6F7F9]" />
       </div>
 
       {/* HEADER BAR (Horizontal & Native-like) */}

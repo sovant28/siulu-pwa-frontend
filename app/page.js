@@ -334,7 +334,7 @@ export default function AppHome() {
           <div className="flex flex-col items-center space-y-1.5">
             <button
               onClick={() => router.push('/event')}
-              className="w-12 h-12 flex items-center justify-center rounded-xl bg-white border border-slate-200/80 active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
+              className="w-12 h-12 flex items-center justify-center rounded-full bg-white border border-slate-200/80 active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <svg 
@@ -366,7 +366,7 @@ export default function AppHome() {
           <div className="flex flex-col items-center space-y-1.5">
             <button
               onClick={() => router.push('/destinasi')}
-              className="w-12 h-12 flex items-center justify-center rounded-xl bg-white border border-slate-200/80 active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
+              className="w-12 h-12 flex items-center justify-center rounded-full bg-white border border-slate-200/80 active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <Image src="/icon_destinasi.png?v=4" alt="Destinasi" width={48} height={48} className="w-full h-full object-contain" />
@@ -378,7 +378,7 @@ export default function AppHome() {
           <div className="flex flex-col items-center space-y-1.5">
             <button
               onClick={() => router.push('/kuliner')}
-              className="w-12 h-12 flex items-center justify-center rounded-xl bg-white border border-slate-200/80 active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
+              className="w-12 h-12 flex items-center justify-center rounded-full bg-white border border-slate-200/80 active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <Image src="/icon_kuliner.png?v=3" alt="Kuliner" width={48} height={48} className="w-full h-full object-contain" />
@@ -390,7 +390,7 @@ export default function AppHome() {
           <div className="flex flex-col items-center space-y-1.5">
             <button
               onClick={() => router.push('/destinasi?filter=akomodasi')}
-              className="w-12 h-12 flex items-center justify-center rounded-xl bg-white border border-slate-200/80 active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
+              className="w-12 h-12 flex items-center justify-center rounded-full bg-white border border-slate-200/80 active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <Image src="/icon_hotel.png?v=4" alt="Hotel" width={48} height={48} className="w-full h-full object-contain" />
@@ -404,7 +404,7 @@ export default function AppHome() {
               <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[6.5px] font-black px-1.5 py-0.5 rounded-full border border-white z-10 leading-none tracking-wider select-none pointer-events-none scale-90">Soon</span>
               <button
                 onClick={() => { }}
-                className="w-full h-full flex items-center justify-center rounded-xl bg-white border border-slate-200/80 cursor-default select-none outline-none overflow-hidden"
+                className="w-full h-full flex items-center justify-center rounded-full bg-white border border-slate-200/80 cursor-default select-none outline-none overflow-hidden"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >
                 <Image src="/icon_tiket.png?v=4" alt="Tiket" width={48} height={48} className="w-full h-full object-contain" />
@@ -419,7 +419,7 @@ export default function AppHome() {
               <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[6.5px] font-black px-1.5 py-0.5 rounded-full border border-white z-10 leading-none tracking-wider select-none pointer-events-none scale-90">Soon</span>
               <button
                 onClick={() => { }}
-                className="w-full h-full flex items-center justify-center rounded-xl bg-white border border-slate-200/80 cursor-default select-none outline-none overflow-hidden"
+                className="w-full h-full flex items-center justify-center rounded-full bg-white border border-slate-200/80 cursor-default select-none outline-none overflow-hidden"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >
                 <Image src="/icon_oleh_oleh.png?v=4" alt="Oleh-oleh" width={48} height={48} className="w-full h-full object-contain" />
@@ -434,7 +434,7 @@ export default function AppHome() {
               <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[6.5px] font-black px-1.5 py-0.5 rounded-full border border-white z-10 leading-none tracking-wider select-none pointer-events-none scale-90">Soon</span>
               <button
                 onClick={() => { }}
-                className="w-full h-full flex items-center justify-center rounded-xl bg-white border border-slate-200/80 cursor-default select-none outline-none overflow-hidden"
+                className="w-full h-full flex items-center justify-center rounded-full bg-white border border-slate-200/80 cursor-default select-none outline-none overflow-hidden"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >
                 <Image src="/icon_pengaduan.png?v=4" alt="Pengaduan" width={48} height={48} className="w-full h-full object-contain" />
@@ -449,7 +449,7 @@ export default function AppHome() {
               <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[6.5px] font-black px-1.5 py-0.5 rounded-full border border-white z-10 leading-none tracking-wider select-none pointer-events-none scale-90">Soon</span>
               <button
                 onClick={() => { }}
-                className="w-full h-full flex items-center justify-center rounded-xl bg-white border border-slate-200/80 cursor-default select-none outline-none overflow-hidden"
+                className="w-full h-full flex items-center justify-center rounded-full bg-white border border-slate-200/80 cursor-default select-none outline-none overflow-hidden"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >
                 <Image src="/icon_darurat.png?v=4" alt="Bantuan" width={48} height={48} className="w-full h-full object-contain" />

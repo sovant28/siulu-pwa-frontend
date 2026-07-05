@@ -486,8 +486,8 @@ export default function AppHome() {
 
         {/* 2. Jelajah */}
         <button
-          onClick={() => router.push('/destinasi')}
-          className="flex flex-col items-center justify-center w-16 py-1 text-slate-700 hover:text-slate-800 active:scale-90 transition cursor-pointer"
+          onClick={() => {}}
+          className="flex flex-col items-center justify-center w-16 py-1 text-slate-700 hover:text-slate-800 active:scale-90 transition cursor-default"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
           <Compass className="w-5.5 h-5.5" strokeWidth={2} />

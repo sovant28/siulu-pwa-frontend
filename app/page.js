@@ -198,19 +198,14 @@ export default function AppHome() {
         className="absolute top-0 left-0 right-0 -z-10 pointer-events-none overflow-hidden select-none"
         style={{ height: 'calc(env(safe-area-inset-top) + 224px)' }}
       >
-        <div 
-          className="relative w-full h-[224px]" 
-          style={{ marginTop: 'env(safe-area-inset-top)' }}
-        >
-          <Image
-            src="/header.png"
-            alt="Header Background Decoration"
-            fill
-            className="object-cover object-right-top opacity-45"
-            unoptimized
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#F6F7F9]" />
-        </div>
+        <Image
+          src="/header.png"
+          alt="Header Background Decoration"
+          fill
+          className="object-cover object-right-top opacity-45"
+          unoptimized
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#F6F7F9]" />
       </div>
 
       {/* HEADER BAR (Horizontal & Native-like) */}

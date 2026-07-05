@@ -324,7 +324,7 @@ export default function AppHome() {
             >
               <Image src="/icon_event.png?v=4" alt="Event" width={48} height={48} className="w-full h-full object-contain" />
             </button>
-            <span className="text-[11px] font-semibold text-slate-800 tracking-wide">Event</span>
+            <span className="text-[11px] font-semibold text-slate-700 tracking-wide">Event</span>
           </div>
 
           {/* Card 2: Destinasi */}
@@ -336,7 +336,7 @@ export default function AppHome() {
             >
               <Image src="/icon_destinasi.png?v=4" alt="Destinasi" width={48} height={48} className="w-full h-full object-contain" />
             </button>
-            <span className="text-[11px] font-semibold text-slate-800 tracking-wide">Destinasi</span>
+            <span className="text-[11px] font-semibold text-slate-700 tracking-wide">Destinasi</span>
           </div>
 
           {/* Card 3: Kuliner */}
@@ -348,7 +348,7 @@ export default function AppHome() {
             >
               <Image src="/icon_kuliner.png?v=3" alt="Kuliner" width={48} height={48} className="w-full h-full object-contain" />
             </button>
-            <span className="text-[11px] font-semibold text-slate-800 tracking-wide">Kuliner</span>
+            <span className="text-[11px] font-semibold text-slate-700 tracking-wide">Kuliner</span>
           </div>
 
           {/* Card 4: Hotel */}
@@ -360,7 +360,7 @@ export default function AppHome() {
             >
               <Image src="/icon_hotel.png?v=4" alt="Hotel" width={48} height={48} className="w-full h-full object-contain" />
             </button>
-            <span className="text-[11px] font-semibold text-slate-800 tracking-wide">Hotel</span>
+            <span className="text-[11px] font-semibold text-slate-700 tracking-wide">Hotel</span>
           </div>
 
           {/* Card 5: Tiket */}
@@ -465,18 +465,18 @@ export default function AppHome() {
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
           <Home className="w-5.5 h-5.5" fill="currentColor" strokeWidth={2} />
-          <span className="text-[10px] font-semibold mt-1 leading-none">Beranda</span>
+          <span className="text-[11px] font-semibold mt-1 leading-none">Beranda</span>
           <div className="h-1 w-1 rounded-full bg-[#4C1D95] mt-1" />
         </button>
 
         {/* 2. Jelajah */}
         <button
           onClick={() => router.push('/destinasi')}
-          className="flex flex-col items-center justify-center w-16 py-1 text-slate-600 hover:text-slate-700 active:scale-90 transition cursor-pointer"
+          className="flex flex-col items-center justify-center w-16 py-1 text-slate-700 hover:text-slate-800 active:scale-90 transition cursor-pointer"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
           <Compass className="w-5.5 h-5.5" strokeWidth={2} />
-          <span className="text-[10px] font-semibold mt-1 leading-none">Jelajah</span>
+          <span className="text-[11px] font-semibold mt-1 leading-none">Jelajah</span>
           <div className="h-1 w-1 rounded-full bg-transparent mt-1" />
         </button>
 
@@ -487,29 +487,29 @@ export default function AppHome() {
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
           <MessageSquare className="w-5.5 h-5.5" stroke="url(#rainbow-gradient)" strokeWidth={2} />
-          <span className="text-[10px] font-semibold mt-1 leading-none text-slate-600">Tanya AI</span>
+          <span className="text-[11px] font-semibold mt-1 leading-none text-slate-700">Tanya AI</span>
           <div className="h-1 w-1 rounded-full bg-transparent mt-1" />
         </button>
 
         {/* 4. Disimpan */}
         <button
           onClick={() => router.push('/saved')}
-          className="flex flex-col items-center justify-center w-16 py-1 text-slate-600 hover:text-slate-700 active:scale-90 transition cursor-pointer"
+          className="flex flex-col items-center justify-center w-16 py-1 text-slate-700 hover:text-slate-800 active:scale-90 transition cursor-pointer"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
           <Heart className="w-5.5 h-5.5" strokeWidth={2} />
-          <span className="text-[10px] font-semibold mt-1 leading-none">Tersimpan</span>
+          <span className="text-[11px] font-semibold mt-1 leading-none">Tersimpan</span>
           <div className="h-1 w-1 rounded-full bg-transparent mt-1" />
         </button>
 
         {/* 5. Profil */}
         <button
           onClick={() => router.push('/profile')}
-          className="flex flex-col items-center justify-center w-16 py-1 text-slate-600 hover:text-slate-700 active:scale-90 transition cursor-pointer"
+          className="flex flex-col items-center justify-center w-16 py-1 text-slate-700 hover:text-slate-800 active:scale-90 transition cursor-pointer"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
           <User className="w-5.5 h-5.5" strokeWidth={2} />
-          <span className="text-[10px] font-semibold mt-1 leading-none">Akun</span>
+          <span className="text-[11px] font-semibold mt-1 leading-none">Akun</span>
           <div className="h-1 w-1 rounded-full bg-transparent mt-1" />
         </button>
       </nav>

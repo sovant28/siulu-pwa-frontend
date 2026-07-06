@@ -179,7 +179,7 @@ function KulinerListContent() {
             return (
               <div
                 key={item.id}
-                onClick={() => router.push(`/event/${item.id}`)}
+                onClick={() => router.push(`/destinasi/${item.id}`)}
                 className="flex flex-col active:scale-[0.98] transition-all cursor-pointer space-y-3"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >

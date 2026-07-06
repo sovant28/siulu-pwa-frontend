@@ -427,7 +427,7 @@ export default function AppHome() {
           {/* Card 4: Hotel */}
           <div className="flex flex-col items-center space-y-1.5">
             <button
-              onClick={() => router.push('/destinasi?filter=akomodasi')}
+              onClick={() => router.push('/hotel')}
               className="w-[52px] h-[52px] flex items-center justify-center rounded-[14px] bg-white border border-slate-200/80 active:scale-90 transition-all duration-150 cursor-pointer select-none outline-none overflow-hidden"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >

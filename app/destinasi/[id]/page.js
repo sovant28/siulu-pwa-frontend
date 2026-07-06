@@ -129,7 +129,7 @@ const localCulinaryFallback = [
     kategori: "kuliner",
     lokasi_wilayah: "Rantepao & Sangalla",
     koordinat_gps: [-2.9734, 119.8972],
-    deskripsi_lengkap: `Pa'piong Ayam adalah kuliner khas tradisional Toraja yang dimasak secara unik di dalam tabung bambu tipis. Potongan daging ayam kampung segar dicampur dengan parutan kelapa muda, batang pisang muda (kallang) yang diiris tipis, cabai lokal (katokkon) yang pedas segar, garam, serta rempah-rempah Toraja.
+    deskripsi_lengkap: `Pa'piong Ayam adalah kuliner khas tradisional Toraja yang dimasak secara unik di dalam tabung bambu tipis. Daging ayam kampung segar dicampur dengan parutan kelapa muda, batang pisang muda (kallang) yang diiris tipis, cabai lokal (katokkon) yang pedas segar, garam, serta rempah-rempah Toraja.
 
 Setelah semua bumbu merata, adonan dimasukkan ke dalam bambu yang dilapisi daun pisang, lalu dibakar di atas bara api terbuka selama sekitar 1 hingga 1.5 jam hingga matang sempurna dan mengeluarkan aroma harum bambu yang khas.
 
@@ -156,7 +156,7 @@ Bahan & Cara Membuat:
     kategori: "kuliner",
     lokasi_wilayah: "Makale & Rantepao",
     koordinat_gps: [-3.1028, 119.8556],
-    deskripsi_lengkap: `Deppa Tori' adalah kue tradisional camilan khas Tana Toraja yang terbuat dari tepung beras pilihan, gula merah aren lokal yang manis legit, dan taburan biji wijen di bagian luarnya. Kue ini memiliki bentuk lonjong memanjang khas and bertekstur renyah di luar namun empuk dan gurih di bagian dalamnya.
+    deskripsi_lengkap: `Deppa Tori' adalah kue tradisional camilan khas Tana Toraja yang terbuat dari tepung beras pilihan, gula merah aren lokal yang manis legit, dan taburan biji wijen di bagian luarnya. Kue ini memiliki bentuk lonjong memanjang khas dan bertekstur renyah di luar namun empuk dan gurih di bagian dalamnya.
 
 Sangat cocok disajikan sebagai teman bersantai minum kopi Toraja hangat di pagi atau sore hari.
 
@@ -256,7 +256,7 @@ const localPlacesFallback = [
   }
 ];
 
-export default function EventDetailPage() {
+export default function DestinasiDetailPage() {
   const router = useRouter();
   const params = useParams();
   const eventId = params.id;
@@ -301,7 +301,7 @@ export default function EventDetailPage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Fetch event data
+  // Fetch destinasi data
   useEffect(() => {
     const fetchEvent = async () => {
       try {
@@ -335,7 +335,7 @@ export default function EventDetailPage() {
         if (!found) throw new Error('Detail destinasi tidak ditemukan');
         setEvent(found);
       } catch (err) {
-        console.error('Failed to fetch event:', err);
+        console.error('Failed to fetch destinasi:', err);
         setError(err.message);
       } finally {
         setLoading(false);

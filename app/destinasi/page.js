@@ -17,6 +17,38 @@ import {
 // Fallback local places dataset for destinations
 const localPlacesFallback = [
   {
+    id: "TOR-LONDA-001",
+    nama_tempat: "Situs Makam Gua Londa",
+    kategori: "budaya_religi",
+    lokasi_wilayah: "Makale Utara (Londa)",
+    koordinat_gps: [-3.0234, 119.8821],
+    deskripsi_lengkap: "Londa adalah situs pemakaman gua alam purbakala khas Toraja yang terletak di tebing batu curam. Gua ini menyimpan peti mati kayu (erong), kerangka manusia, tau-tau (patung kayu personifikasi mendiang), serta sesaji yang diletakkan oleh keluarga kerabat.\n\nPengunjung dapat menjelajahi bagian dalam gua yang gelap dengan menyewa lampu petromaks tradisional yang disediakan oleh pemandu lokal di pintu masuk.",
+    jam_operasional: "08:00 - 18:00 WITA",
+    informasi_biaya: {
+      harga_tiket: "Rp 15.000 (Domestik), Rp 30.000 (Mancanegara)",
+      image_url: "/dummy_destination.png"
+    },
+    fitur_fasilitas: ["Pemandu Lokal", "Sewa Lampu Petromaks", "Area Parkir", "Kios Suvenir"],
+    aturan_tips: "Jaga sopan santun, jangan menyentuh atau memindahkan tulang belulang dan benda sesaji di dalam gua. Sangat disarankan menyewa pemandu lokal demi keselamatan dan informasi sejarah.",
+    kontak_info: ""
+  },
+  {
+    id: "TOR-KETEKESU-002",
+    nama_tempat: "Desa Adat Kete Kesu",
+    kategori: "budaya_religi",
+    lokasi_wilayah: "Sanggalangi (Kete Kesu)",
+    koordinat_gps: [-2.9912, 119.9145],
+    deskripsi_lengkap: "Kete Kesu adalah desa wisata adat tertua di Tana Toraja yang menyajikan kompleks perumahan adat Tongkonan lengkap dengan lumbung padi (alang) yang berjejer rapi di hadapannya. Dinding Tongkonan dihiasi ukiran kayu tradisional Toraja yang sarat makna filosofis.\n\nDi bukit belakang desa, terdapat situs pemakaman tebing batu kuno dengan peti mati erong berusia ratusan tahun.",
+    jam_operasional: "08:00 - 17:30 WITA",
+    informasi_biaya: {
+      harga_tiket: "Rp 15.000 - Rp 25.000",
+      image_url: "/dummy_destination.png"
+    },
+    fitur_fasilitas: ["Tongkonan Kuno", "Situs Kuburan Tebing", "Toko Kerajinan & Suvenir", "Toilet Umum"],
+    aturan_tips: "Hormati keheningan di sekitar situs makam tebing. Gunakan pakaian yang sopan saat berkeliling desa.",
+    kontak_info: ""
+  },
+  {
     id: "TOR-ARAS-CAF",
     nama_tempat: "Café Aras Rantepao",
     kategori: "kuliner",
@@ -82,8 +114,6 @@ function DestinasiListContent() {
     semua: 'Semua Destinasi',
     alam: 'Wisata Alam',
     budaya_religi: 'Budaya & Religi',
-    tempat_makan: 'Tempat Makan',
-    akomodasi: 'Hotel & Akomodasi',
   };
 
   // Sync active filter from URL query param
@@ -104,18 +134,20 @@ function DestinasiListContent() {
           data = await res.json();
         }
         
-        // Filter allowed categories (alam, budaya_religi, akomodasi, and eating places from kuliner)
+        // Filter allowed categories (only tourist destinations: alam and budaya_religi)
         const filtered = data.filter(item => 
           item.kategori === 'alam' || 
-          item.kategori === 'budaya_religi' ||
-          item.kategori === 'akomodasi' ||
-          (item.kategori === 'kuliner' && (item.informasi_biaya?.jenis === 'tempat_makan' || !item.id.startsWith('FOOD-')))
+          item.kategori === 'budaya_religi'
         );
 
         setDestinations(filtered);
       } catch (err) {
         console.error('Failed to fetch destinations:', err);
-        setDestinations(localPlacesFallback);
+        const filteredFallback = localPlacesFallback.filter(item => 
+          item.kategori === 'alam' || 
+          item.kategori === 'budaya_religi'
+        );
+        setDestinations(filteredFallback);
       } finally {
         setLoading(false);
       }
@@ -136,9 +168,6 @@ function DestinasiListContent() {
     // 2. Category Filter
     if (activeFilter === 'semua') {
       return item.kategori === 'alam' || item.kategori === 'budaya_religi';
-    }
-    if (activeFilter === 'tempat_makan') {
-      return item.kategori === 'kuliner' && (item.informasi_biaya?.jenis === 'tempat_makan' || !item.id.startsWith('FOOD-'));
     }
     return item.kategori === activeFilter;
   });
@@ -229,7 +258,7 @@ function DestinasiListContent() {
             return (
               <div
                 key={dest.id}
-                onClick={() => router.push(`/event/${dest.id}`)}
+                onClick={() => router.push(`/destinasi/${dest.id}`)}
                 className="flex flex-col active:scale-[0.98] transition-all cursor-pointer space-y-3"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >

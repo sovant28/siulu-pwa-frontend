@@ -684,11 +684,11 @@ export default function EventDetailPage() {
           <>
             <div className="h-[1px] bg-slate-100" />
             <div className="space-y-3">
-              <h3 className="text-sm font-bold text-slate-800">
-                {isFoodCatalog ? `Tentang ${event.nama_tempat}` : `Tentang ${isEvent ? 'Event' : (categoryLabels[event.kategori] || 'Wisata')}`}
+              <h3 className="text-base font-extrabold text-slate-800 tracking-tight">
+                {isFoodCatalog ? 'Tentang Kuliner' : (isEvent ? 'Tentang Event' : 'Tentang Destinasi')}
               </h3>
               <div className={`relative ${!isDescExpanded ? 'max-h-[8rem] overflow-hidden' : ''}`}>
-                <p className="text-xs font-semibold text-slate-700 leading-relaxed whitespace-pre-line">
+                <p className="text-[13px] font-normal text-slate-600 leading-relaxed whitespace-pre-line">
                   {description}
                 </p>
                 {!isDescExpanded && description.length > 180 && (
@@ -714,7 +714,7 @@ export default function EventDetailPage() {
           <>
             <div className="h-[1px] bg-slate-100" />
             <div className="space-y-4">
-              <h3 className="text-sm font-bold text-slate-800">
+              <h3 className="text-base font-extrabold text-slate-800 tracking-tight">
                 Dokumentasi & Media
               </h3>
               {event.youtube_url && (
@@ -751,7 +751,7 @@ export default function EventDetailPage() {
           <>
             <div className="h-[1px] bg-slate-100" />
             <div className="space-y-3">
-              <h3 className="text-sm font-bold text-slate-800">
+              <h3 className="text-base font-extrabold text-slate-800 tracking-tight">
                 Rincian Biaya & Tiket
               </h3>
               {costItems && costItems.length > 0 && (
@@ -778,7 +778,7 @@ export default function EventDetailPage() {
           <>
             <div className="h-[1px] bg-slate-100" />
             <div className="space-y-3">
-              <h3 className="text-sm font-bold text-slate-800">
+              <h3 className="text-base font-extrabold text-slate-800 tracking-tight">
                 Fasilitas Tersedia
               </h3>
               <div className="flex flex-wrap gap-2 pt-1">
@@ -798,7 +798,7 @@ export default function EventDetailPage() {
           <>
             <div className="h-[1px] bg-slate-100" />
             <div id="kedai-penyedia" className="space-y-4">
-              <h3 className="text-sm font-bold text-slate-800">
+              <h3 className="text-base font-extrabold text-slate-800 tracking-tight">
                 Tempat Menikmati Hidangan Ini
               </h3>
               <div className="space-y-6 pt-1">
@@ -905,7 +905,7 @@ export default function EventDetailPage() {
           <>
             <div className="h-[1px] bg-slate-100" />
             <div className="space-y-3">
-              <h3 className="text-sm font-bold text-slate-800">
+              <h3 className="text-base font-extrabold text-slate-800 tracking-tight">
                 Tips & Aturan
               </h3>
               <div className="p-4 rounded-2xl bg-purple-50/40 border border-purple-100/50 text-[#4C1D95] font-semibold leading-relaxed">
@@ -922,7 +922,7 @@ export default function EventDetailPage() {
           <>
             <div className="h-[1px] bg-slate-100" />
             <div className="space-y-3">
-              <h3 className="text-sm font-bold text-slate-800">
+              <h3 className="text-base font-extrabold text-slate-800 tracking-tight">
                 Lokasi & Peta
               </h3>
               
@@ -954,7 +954,7 @@ export default function EventDetailPage() {
           <>
             <div className="h-[1px] bg-slate-100" />
             <div className="space-y-4">
-              <h3 className="text-sm font-bold text-slate-800">
+              <h3 className="text-base font-extrabold text-slate-800 tracking-tight">
                 Jelajahi Destinasi Lain
               </h3>
               <div className="flex gap-4 overflow-x-auto pb-4 -mx-6 px-6 scroll-pl-6 scroll-pr-6 scrollbar-none snap-x snap-mandatory sm:mx-0 sm:px-0 sm:scroll-pl-0 sm:scroll-pr-0">

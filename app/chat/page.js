@@ -307,7 +307,7 @@ export default function ChatAI() {
   useEffect(() => {
     if (!isInitializing && activeBot) {
       const params = new URLSearchParams(window.location.search);
-      const query = params.get('q');
+      const query = params.get('q') || params.get('prompt');
       if (query) {
         window.history.replaceState(null, '', window.location.pathname);
         handleSend(query);

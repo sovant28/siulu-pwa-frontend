@@ -503,6 +503,20 @@ export default function EventDetailPage() {
                     ticketPrice.toLowerCase() !== 'rp 0' && 
                     ticketPrice.toLowerCase() !== 'tidak ada';
 
+  // Get related destinations (exclude current, match same category group, limit to 4)
+  const relatedDestinations = allDestinations
+    .filter(d => {
+      if (d.id === eventId) return false;
+      if (event.kategori === 'akomodasi') {
+        return d.kategori === 'akomodasi';
+      } else if (event.kategori === 'kuliner') {
+        return d.kategori === 'kuliner';
+      } else {
+        return d.kategori === 'alam' || d.kategori === 'budaya_religi';
+      }
+    })
+    .slice(0, 4);
+
   return (
     <div className="flex flex-col w-full min-h-[100dvh] bg-[#F6F7F9] font-sans relative">
       
@@ -586,327 +600,396 @@ export default function EventDetailPage() {
         )}
       </div>
 
-      {/* ── DETAILS WRAPPER (OVERLAPPING CARD STYLE) ── */}
-      <div className={`relative -mt-6 z-20 bg-[#F6F7F9] rounded-t-3xl pt-6 px-4 space-y-4 ${isFoodCatalog ? 'pb-12' : 'pb-28'}`}>
+      {/* ── DETAILS WRAPPER (UNIFIED CANVAS STYLE) ── */}
+      <div className={`relative -mt-6 z-20 bg-white rounded-t-[32px] pt-8 px-6 space-y-8 text-left ${isFoodCatalog ? 'pb-12' : 'pb-28'} border-t border-slate-100`}>
         
-        {/* Card 1: Title, Category & Key Info Grid */}
-        <div className="bg-white rounded-3xl p-5 border border-slate-200/80 text-left">
+        {/* Section 1: Title, Category & Key Info Grid */}
+        <div className="space-y-4">
           {/* Title */}
           <h1 className="text-xl font-black text-slate-800 leading-snug">
             {event.nama_tempat}
           </h1>
 
           {!isFoodCatalog && (
-            <>
-              {/* Divider */}
-              <div className="h-[1px] bg-slate-100 my-4" />
-
-              {/* Info Items List */}
-              <div className="space-y-4">
-                {/* 1. Date Info (Only if startStr is present) */}
-                {dateInfo && dateInfo.startStr && (
-                  <div className="flex items-start gap-3.5">
-                    <div className={`w-8.5 h-8.5 rounded-xl flex items-center justify-center flex-shrink-0 ${themeBgLight}`}>
-                      <Calendar className="w-4 h-4" />
-                    </div>
-                    <div className="flex flex-col">
-                      <span className="text-[10px] font-bold text-slate-500 tracking-wider leading-none">Tanggal</span>
-                      <span className="text-xs font-bold text-slate-800 mt-1 leading-snug">
-                        {dateInfo.startStr}
-                        {dateInfo.endStr && dateInfo.endStr !== dateInfo.startStr && ` — ${dateInfo.endStr}`}
-                      </span>
-                    </div>
+            <div className="space-y-4 pt-2">
+              {/* 1. Date Info */}
+              {dateInfo && dateInfo.startStr && (
+                <div className="flex items-start gap-3.5">
+                  <div className={`w-8.5 h-8.5 rounded-xl flex items-center justify-center flex-shrink-0 ${themeBgLight}`}>
+                    <Calendar className="w-4 h-4" />
                   </div>
-                )}
-
-                {/* 2. Operational Hours (For non-events, or events if they have timeStr) */}
-                {((isEvent && dateInfo?.timeStr) || (!isEvent && event.jam_operasional)) && (
-                  <div className="flex items-start gap-3.5">
-                    <div className={`w-8.5 h-8.5 rounded-xl flex items-center justify-center flex-shrink-0 ${themeBgLight}`}>
-                      <Clock className="w-4 h-4" />
-                    </div>
-                    <div className="flex flex-col">
-                      <span className="text-[10px] font-bold text-slate-500 tracking-wider leading-none">Waktu / Jam Buka</span>
-                      <span className="text-xs font-bold text-slate-800 mt-1 leading-snug">
-                        {isEvent ? dateInfo.timeStr : event.jam_operasional}
-                      </span>
-                    </div>
+                  <div className="flex flex-col">
+                    <span className="text-[10px] font-bold text-slate-400 tracking-wider leading-none">Tanggal</span>
+                    <span className="text-xs font-bold text-slate-800 mt-1 leading-snug">
+                      {dateInfo.startStr}
+                      {dateInfo.endStr && dateInfo.endStr !== dateInfo.startStr && ` — ${dateInfo.endStr}`}
+                    </span>
                   </div>
-                )}
+                </div>
+              )}
 
-                {/* 3. Location Wilayah */}
-                {event.lokasi_wilayah && (
-                  <div className="flex items-start gap-3.5">
-                    <div className={`w-8.5 h-8.5 rounded-xl flex items-center justify-center flex-shrink-0 ${themeBgLight}`}>
-                      <MapPin className="w-4 h-4" />
-                    </div>
-                    <div className="flex flex-col">
-                      <span className="text-[10px] font-bold text-slate-500 tracking-wider leading-none">Lokasi</span>
-                      <span className="text-xs font-bold text-slate-800 mt-1 leading-snug">
-                        {event.lokasi_wilayah}
-                      </span>
-                    </div>
+              {/* 2. Operational Hours */}
+              {((isEvent && dateInfo?.timeStr) || (!isEvent && event.jam_operasional)) && (
+                <div className="flex items-start gap-3.5">
+                  <div className={`w-8.5 h-8.5 rounded-xl flex items-center justify-center flex-shrink-0 ${themeBgLight}`}>
+                    <Clock className="w-4 h-4" />
                   </div>
-                )}
-              </div>
-            </>
+                  <div className="flex flex-col">
+                    <span className="text-[10px] font-bold text-slate-400 tracking-wider leading-none">Waktu / Jam Buka</span>
+                    <span className="text-xs font-bold text-slate-800 mt-1 leading-snug">
+                      {isEvent ? dateInfo.timeStr : event.jam_operasional}
+                    </span>
+                  </div>
+                </div>
+              )}
+
+              {/* 3. Location Wilayah */}
+              {event.lokasi_wilayah && (
+                <div className="flex items-start gap-3.5">
+                  <div className={`w-8.5 h-8.5 rounded-xl flex items-center justify-center flex-shrink-0 ${themeBgLight}`}>
+                    <MapPin className="w-4 h-4" />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-[10px] font-bold text-slate-400 tracking-wider leading-none">Lokasi</span>
+                    <span className="text-xs font-bold text-slate-800 mt-1 leading-snug">
+                      {event.lokasi_wilayah}
+                    </span>
+                  </div>
+                </div>
+              )}
+            </div>
           )}
         </div>
 
-        {/* Card 2: YouTube / Instagram Embeds */}
-        {!isFoodCatalog && (event.youtube_url || event.instagram_url) && (
-          <div className="bg-white rounded-3xl p-5 border border-slate-200/80 space-y-4 text-left">
-            <h3 className="text-sm font-bold text-slate-800">
-              Dokumentasi & Media
-            </h3>
-            {event.youtube_url && (
-              <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-200 bg-slate-50">
-                <iframe
-                  title="YouTube Video"
-                  src={getYouTubeEmbedUrl(event.youtube_url)}
-                  className="absolute inset-0 w-full h-full"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              </div>
-            )}
-
-            {event.instagram_url && (
-              <div className="relative w-full rounded-2xl overflow-hidden border border-slate-200 bg-slate-50" style={{ height: '480px' }}>
-                <iframe
-                  title="Instagram Post"
-                  src={getInstagramEmbedUrl(event.instagram_url)}
-                  className="absolute inset-0 w-full h-full"
-                  frameBorder="0"
-                  scrolling="no"
-                  allowTransparency="true"
-                />
-              </div>
-            )}
+        {/* Section 2: AI Chat Link */}
+        <div className="bg-gradient-to-r from-violet-50 to-indigo-50 border border-violet-100/80 rounded-2xl p-5 flex flex-col gap-3">
+          <div className="flex items-center gap-2">
+            <span className="text-base">✨</span>
+            <h4 className="text-xs font-black text-slate-800">Tanya AI Siulu'</h4>
           </div>
-        )}
+          <p className="text-xs text-slate-600 font-semibold leading-relaxed">
+            Ingin tahu cerita sejarah, legenda rakyat, atau tips tersembunyi tentang {event.nama_tempat}? Tanyakan langsung kepada AI.
+          </p>
+          <button
+            onClick={() => router.push(`/chat?prompt=Ceritakan kepada saya tentang sejarah, mitos, dan tips menarik untuk berkunjung ke ${event.nama_tempat}`)}
+            className="bg-[#4C1D95] text-white font-bold text-xs py-3 px-4 rounded-xl active:scale-[0.98] transition-all text-center w-full mt-1"
+            style={{ WebkitTapHighlightColor: 'transparent' }}
+          >
+            Mulai Obrolan AI
+          </button>
+        </div>
 
-        {/* Card 3: Description (Tentang) */}
+        {/* Section 3: Description (Tentang) */}
         {description && (
-          <div className="bg-white rounded-3xl p-5 border border-slate-200/80 text-left">
-            <h3 className="text-sm font-bold text-slate-800 mb-3">
-              {isFoodCatalog ? `Tentang ${event.nama_tempat}` : `Tentang ${isEvent ? 'Event' : (categoryLabels[event.kategori] || 'Wisata')}`}
-            </h3>
-            <div className={`relative ${!isDescExpanded ? 'max-h-[8rem] overflow-hidden' : ''}`}>
-              <p className="text-xs font-semibold text-slate-700 leading-relaxed whitespace-pre-line">
-                {description}
-              </p>
-              {!isDescExpanded && description.length > 180 && (
-                <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-white via-white/80 to-transparent" />
+          <>
+            <div className="h-[1px] bg-slate-100" />
+            <div className="space-y-3">
+              <h3 className="text-sm font-bold text-slate-800">
+                {isFoodCatalog ? `Tentang ${event.nama_tempat}` : `Tentang ${isEvent ? 'Event' : (categoryLabels[event.kategori] || 'Wisata')}`}
+              </h3>
+              <div className={`relative ${!isDescExpanded ? 'max-h-[8rem] overflow-hidden' : ''}`}>
+                <p className="text-xs font-semibold text-slate-700 leading-relaxed whitespace-pre-line">
+                  {description}
+                </p>
+                {!isDescExpanded && description.length > 180 && (
+                  <div className="absolute inset-x-0 bottom-0 h-10 bg-gradient-to-t from-white via-white/80 to-transparent" />
+                )}
+              </div>
+              {description.length > 180 && (
+                <button
+                  onClick={() => setIsDescExpanded(!isDescExpanded)}
+                  className={`flex items-center space-x-1 mt-3.5 text-xs font-black active:scale-95 transition-transform ${themeText}`}
+                  style={{ WebkitTapHighlightColor: 'transparent' }}
+                >
+                  <span>{isDescExpanded ? 'Sembunyikan' : 'Selengkapnya'}</span>
+                  {isDescExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                </button>
               )}
             </div>
-            {description.length > 180 && (
-              <button
-                onClick={() => setIsDescExpanded(!isDescExpanded)}
-                className={`flex items-center space-x-1 mt-3.5 text-xs font-black active:scale-95 transition-transform ${themeText}`}
-                style={{ WebkitTapHighlightColor: 'transparent' }}
-              >
-                <span>{isDescExpanded ? 'Sembunyikan' : 'Selengkapnya'}</span>
-                {isDescExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
-              </button>
-            )}
-          </div>
+          </>
         )}
 
-        {/* Card 4: Detailed Breakdown of ticket prices */}
+        {/* Section 4: YouTube / Instagram Embeds */}
+        {!isFoodCatalog && (event.youtube_url || event.instagram_url) && (
+          <>
+            <div className="h-[1px] bg-slate-100" />
+            <div className="space-y-4">
+              <h3 className="text-sm font-bold text-slate-800">
+                Dokumentasi & Media
+              </h3>
+              {event.youtube_url && (
+                <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-200 bg-slate-50">
+                  <iframe
+                    title="YouTube Video"
+                    src={getYouTubeEmbedUrl(event.youtube_url)}
+                    className="absolute inset-0 w-full h-full"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+              )}
+
+              {event.instagram_url && (
+                <div className="relative w-full rounded-2xl overflow-hidden border border-slate-200 bg-slate-50" style={{ height: '480px' }}>
+                  <iframe
+                    title="Instagram Post"
+                    src={getInstagramEmbedUrl(event.instagram_url)}
+                    className="absolute inset-0 w-full h-full"
+                    frameBorder="0"
+                    scrolling="no"
+                    allowTransparency="true"
+                  />
+                </div>
+              )}
+            </div>
+          </>
+        )}
+
+        {/* Section 5: Detailed Breakdown of ticket prices */}
         {!isFoodCatalog && ((costItems && costItems.length > 0) || event.informasi_biaya?.harga_tiket) && (
-          <div className="bg-white rounded-3xl p-5 border border-slate-200/80 text-left">
-            <h3 className="text-sm font-bold text-slate-800 mb-3">
-              Rincian Biaya & Tiket
-            </h3>
-            {costItems && costItems.length > 0 && (
-              <div className="space-y-3">
-                {costItems.map((item, idx) => (
-                  <div key={idx} className="flex justify-between items-center text-xs font-bold text-slate-700">
-                    <span className="text-slate-500 font-medium">{item.label}</span>
-                    <span>{item.value}</span>
-                  </div>
+          <>
+            <div className="h-[1px] bg-slate-100" />
+            <div className="space-y-3">
+              <h3 className="text-sm font-bold text-slate-800">
+                Rincian Biaya & Tiket
+              </h3>
+              {costItems && costItems.length > 0 && (
+                <div className="space-y-3 pt-1">
+                  {costItems.map((item, idx) => (
+                    <div key={idx} className="flex justify-between items-center text-xs font-bold text-slate-700">
+                      <span className="text-slate-500 font-medium">{item.label}</span>
+                      <span>{item.value}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+              {event.informasi_biaya?.harga_tiket && (
+                <p className="text-xs font-semibold text-slate-600 mt-2 bg-slate-50 p-4 rounded-2xl border border-slate-100 leading-relaxed whitespace-pre-line">
+                  {event.informasi_biaya.harga_tiket}
+                </p>
+              )}
+            </div>
+          </>
+        )}
+
+        {/* Section 6: Facilities (Only for non-food catalog items) */}
+        {!isFoodCatalog && event.fitur_fasilitas && event.fitur_fasilitas.length > 0 && (
+          <>
+            <div className="h-[1px] bg-slate-100" />
+            <div className="space-y-3">
+              <h3 className="text-sm font-bold text-slate-800">
+                Fasilitas Tersedia
+              </h3>
+              <div className="flex flex-wrap gap-2 pt-1">
+                {event.fitur_fasilitas.map((fac, idx) => (
+                  <span key={idx} className="bg-slate-50 text-slate-700 text-xs font-bold px-3.5 py-2.5 rounded-full border border-slate-100 flex items-center gap-1.5">
+                    <span className={themeText}>✓</span>
+                    {fac}
+                  </span>
                 ))}
               </div>
-            )}
-            {event.informasi_biaya?.harga_tiket && (
-              <p className="text-xs font-medium text-slate-700 mt-3 bg-slate-50 p-3.5 rounded-2xl border border-slate-200 leading-relaxed whitespace-pre-line">
-                {event.informasi_biaya.harga_tiket}
-              </p>
-            )}
-          </div>
-        )}
-
-        {/* Card 5: Facilities (Only for non-food catalog items) */}
-        {!isFoodCatalog && event.fitur_fasilitas && event.fitur_fasilitas.length > 0 && (
-          <div className="bg-white rounded-3xl p-5 border border-slate-200/80 text-left">
-            <h3 className="text-sm font-bold text-slate-800 mb-3">
-              Fasilitas Tersedia
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              {event.fitur_fasilitas.map((fac, idx) => (
-                <span key={idx} className="bg-slate-50 text-slate-800 text-xs font-bold px-3.5 py-2.5 rounded-2xl border border-slate-200 flex items-center gap-1.5">
-                  <span className={themeText}>✓</span>
-                  {fac}
-                </span>
-              ))}
             </div>
-          </div>
+          </>
         )}
 
-        {/* Card: Linked Cafes & Restaurants (only for Food Catalog) */}
+        {/* Section: Linked Cafes & Restaurants (only for Food Catalog) */}
         {isFoodCatalog && servingCafes.length > 0 && (
-          <div id="kedai-penyedia" className="bg-white rounded-3xl p-5 border border-slate-200/80 text-left space-y-6">
-            <h3 className="text-sm font-bold text-slate-800 border-b border-slate-100 pb-2">
-              Tempat Menikmati Hidangan Ini
-            </h3>
-            <div className="space-y-6">
-              {servingCafes.map((cafe, idx) => {
-                const cafeLat = cafe.koordinat_gps ? cafe.koordinat_gps[0] : null;
-                const cafeLng = cafe.koordinat_gps ? cafe.koordinat_gps[1] : null;
-                const cafeHasCoords = cafeLat !== null && cafeLng !== null;
-                const cafeDelta = 0.003;
-                const cafeBbox = cafeHasCoords ? `${cafeLng - cafeDelta}%2C${cafeLat - cafeDelta}%2C${cafeLng + cafeDelta}%2C${cafeLat + cafeDelta}` : '';
-                const cafeOsmUrl = cafeHasCoords ? `https://www.openstreetmap.org/export/embed.html?bbox=${cafeBbox}&layer=mapnik&marker=${cafeLat}%2C${cafeLng}` : '';
-                
-                const isMapOpen = !!openMaps[cafe.id];
-                
-                return (
-                  <div key={cafe.id} className="space-y-3.5 text-xs text-slate-700 font-semibold">
-                    {/* Cafe Header: Home Icon + Name (clickable to detail) */}
-                    <div 
-                      onClick={() => router.push(`/destinasi/${cafe.id}`)}
-                      className="flex items-center gap-2.5 cursor-pointer text-slate-900 group active:scale-[0.99] transition-all"
-                    >
-                      <Home className="w-4 h-4 text-[#4C1D95] flex-shrink-0" />
-                      <span className="text-sm font-black group-hover:text-[#4C1D95] transition-colors">
-                        {cafe.nama_tempat}
-                      </span>
-                      <ExternalLink className="w-3 h-3 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </div>
-                    
-                    {/* Address Row: Pin Icon + Address + OPEN MAP button */}
-                    <div className="flex items-start gap-2.5 justify-between">
-                      <div className="flex items-start gap-2.5">
-                        <MapPin className="w-4 h-4 text-slate-400 flex-shrink-0 mt-0.5" />
-                        <span>{cafe.lokasi_wilayah}</span>
+          <>
+            <div className="h-[1px] bg-slate-100" />
+            <div id="kedai-penyedia" className="space-y-4">
+              <h3 className="text-sm font-bold text-slate-800">
+                Tempat Menikmati Hidangan Ini
+              </h3>
+              <div className="space-y-6 pt-1">
+                {servingCafes.map((cafe, idx) => {
+                  const cafeLat = cafe.koordinat_gps ? cafe.koordinat_gps[0] : null;
+                  const cafeLng = cafe.koordinat_gps ? cafe.koordinat_gps[1] : null;
+                  const cafeHasCoords = cafeLat !== null && cafeLng !== null;
+                  const cafeDelta = 0.003;
+                  const cafeBbox = cafeHasCoords ? `${cafeLng - cafeDelta}%2C${cafeLat - cafeDelta}%2C${cafeLng + cafeDelta}%2C${cafeLat + cafeDelta}` : '';
+                  const cafeOsmUrl = cafeHasCoords ? `https://www.openstreetmap.org/export/embed.html?bbox=${cafeBbox}&layer=mapnik&marker=${cafeLat}%2C${cafeLng}` : '';
+                  
+                  const isMapOpen = !!openMaps[cafe.id];
+                  
+                  return (
+                    <div key={cafe.id} className="space-y-3.5 text-xs text-slate-700 font-semibold">
+                      {/* Cafe Header: Home Icon + Name (clickable to detail) */}
+                      <div 
+                        onClick={() => router.push(`/destinasi/${cafe.id}`)}
+                        className="flex items-center gap-2.5 cursor-pointer text-slate-900 group active:scale-[0.99] transition-all"
+                      >
+                        <Home className="w-4 h-4 text-[#4C1D95] flex-shrink-0" />
+                        <span className="text-sm font-black group-hover:text-[#4C1D95] transition-colors">
+                          {cafe.nama_tempat}
+                        </span>
+                        <ExternalLink className="w-3 h-3 text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity" />
                       </div>
-                      {cafeHasCoords && (
-                        <button
-                          onClick={() => toggleMap(cafe.id)}
-                          className="text-[10px] font-black text-[#4C1D95] border border-slate-200 rounded-lg px-2 py-1 active:bg-slate-50 transition-colors tracking-wider flex-shrink-0"
-                        >
-                          {isMapOpen ? 'Close Map' : 'Open Map'}
-                        </button>
+                      
+                      {/* Address Row: Pin Icon + Address + OPEN MAP button */}
+                      <div className="flex items-start gap-2.5 justify-between">
+                        <div className="flex items-start gap-2.5">
+                          <MapPin className="w-4 h-4 text-slate-400 flex-shrink-0 mt-0.5" />
+                          <span>{cafe.lokasi_wilayah}</span>
+                        </div>
+                        {cafeHasCoords && (
+                          <button
+                            onClick={() => toggleMap(cafe.id)}
+                            className="text-[10px] font-black text-[#4C1D95] border border-slate-200 rounded-lg px-2 py-1 active:bg-slate-50 transition-colors tracking-wider flex-shrink-0"
+                          >
+                            {isMapOpen ? 'Close Map' : 'Open Map'}
+                          </button>
+                        )}
+                      </div>
+                      
+                      {/* Inline Map Dropdown */}
+                      {cafeHasCoords && isMapOpen && (
+                        <div className="relative rounded-2xl overflow-hidden border border-slate-200 bg-slate-50 h-40 w-full my-2 transition-all duration-300">
+                          <iframe
+                            title={`Peta ${cafe.nama_tempat}`}
+                            width="100%"
+                            height="100%"
+                            frameBorder="0"
+                            scrolling="no"
+                            src={cafeOsmUrl}
+                            className="w-full h-full"
+                          />
+                        </div>
+                      )}
+                      
+                      {/* Phone Row */}
+                      {cafe.kontak_info && (
+                        <div className="flex items-center gap-2.5">
+                          <Phone className="w-4 h-4 text-slate-400 flex-shrink-0" />
+                          <span>{cafe.kontak_info}</span>
+                        </div>
+                      )}
+                      
+                      {/* Hours Row */}
+                      {cafe.jam_operasional && (
+                        <div className="flex items-center gap-2.5">
+                          <Clock className="w-4 h-4 text-slate-400 flex-shrink-0" />
+                          <span>{cafe.jam_operasional}</span>
+                        </div>
+                      )}
+                      
+                      {/* Menu Price List Row */}
+                      {cafe.informasi_biaya?.menu_items && Array.isArray(cafe.informasi_biaya.menu_items) && cafe.informasi_biaya.menu_items.length > 0 && (
+                        <div className="flex items-start gap-2.5">
+                          <CreditCard className="w-4 h-4 text-slate-400 flex-shrink-0 mt-0.5" />
+                          <div className="flex-1 space-y-1">
+                            {cafe.informasi_biaya.menu_items.map((menu, mIdx) => (
+                              <div key={mIdx} className="flex justify-between items-center text-slate-700 font-semibold">
+                                <span className="text-slate-600">{menu.nama}</span>
+                                <span className="text-slate-900 font-bold">{menu.harga}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                      
+                      {/* Divider line between multiple cafes (except last one) */}
+                      {idx < servingCafes.length - 1 && (
+                        <div className="border-t border-slate-100 my-6" />
                       )}
                     </div>
-                    
-                    {/* Inline Map Dropdown */}
-                    {cafeHasCoords && isMapOpen && (
-                      <div className="relative rounded-2xl overflow-hidden border border-slate-200 bg-slate-50 h-40 w-full my-2 transition-all duration-300">
-                        <iframe
-                          title={`Peta ${cafe.nama_tempat}`}
-                          width="100%"
-                          height="100%"
-                          frameBorder="0"
-                          scrolling="no"
-                          src={cafeOsmUrl}
-                          className="w-full h-full"
+                  );
+                })}
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* Section 7: Rules & Tips */}
+        {!isFoodCatalog && event.aturan_tips && (
+          <>
+            <div className="h-[1px] bg-slate-100" />
+            <div className="space-y-3">
+              <h3 className="text-sm font-bold text-slate-800">
+                Tips & Aturan
+              </h3>
+              <div className="p-4 rounded-2xl bg-purple-50/40 border border-purple-100/50 text-[#4C1D95] font-semibold leading-relaxed">
+                <p className="text-xs text-slate-700 font-semibold leading-relaxed">
+                  {event.aturan_tips}
+                </p>
+              </div>
+            </div>
+          </>
+        )}
+
+        {/* Section 8: Location & Map (Only for non-food catalog items) */}
+        {!isFoodCatalog && (
+          <>
+            <div className="h-[1px] bg-slate-100" />
+            <div className="space-y-3">
+              <h3 className="text-sm font-bold text-slate-800">
+                Lokasi & Peta
+              </h3>
+              
+              {hasCoords ? (
+                <div className="relative rounded-2xl overflow-hidden border border-slate-200 bg-slate-50 h-40 w-full mb-3.5">
+                  <iframe
+                    title="Peta Lokasi"
+                    width="100%"
+                    height="100%"
+                    frameBorder="0"
+                    scrolling="no"
+                    marginHeight="0"
+                    marginWidth="0"
+                    src={osmUrl}
+                    className="w-full h-full pointer-events-auto"
+                  />
+                </div>
+              ) : (
+                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-center text-slate-500 text-xs mb-3.5 font-semibold">
+                  Peta koordinat GPS tidak tersedia.
+                </div>
+              )}
+            </div>
+          </>
+        )}
+
+        {/* Section 9: Related Destinations Carousel */}
+        {relatedDestinations.length > 0 && (
+          <>
+            <div className="h-[1px] bg-slate-100" />
+            <div className="space-y-4">
+              <h3 className="text-sm font-bold text-slate-800">
+                Jelajahi Destinasi Lain
+              </h3>
+              <div className="flex gap-4 overflow-x-auto pb-4 -mx-6 px-6 scroll-pl-6 scroll-pr-6 scrollbar-none snap-x snap-mandatory sm:mx-0 sm:px-0 sm:scroll-pl-0 sm:scroll-pr-0">
+                {relatedDestinations.map((dest) => {
+                  const imageUrl = dest.informasi_biaya?.image_url;
+                  return (
+                    <div
+                      key={dest.id}
+                      onClick={() => router.push(`/destinasi/${dest.id}`)}
+                      className="w-48 flex-shrink-0 snap-start flex flex-col space-y-2.5 active:scale-95 transition-all cursor-pointer"
+                      style={{ WebkitTapHighlightColor: 'transparent' }}
+                    >
+                      <div className="relative w-full aspect-[16/10] bg-slate-100 rounded-2xl overflow-hidden border border-slate-200/60">
+                        <Image
+                          src={imageUrl || "/dummy_destination.png"}
+                          alt={dest.nama_tempat}
+                          fill
+                          className="object-cover"
+                          unoptimized
                         />
                       </div>
-                    )}
-                    
-                    {/* Phone Row */}
-                    {cafe.kontak_info && (
-                      <div className="flex items-center gap-2.5">
-                        <Phone className="w-4 h-4 text-slate-400 flex-shrink-0" />
-                        <span>{cafe.kontak_info}</span>
+                      <div className="px-1 text-left">
+                        <h4 className="text-xs font-black text-slate-800 line-clamp-1">
+                          {dest.nama_tempat}
+                        </h4>
+                        <p className="text-[10px] font-bold text-slate-400 mt-0.5 truncate">
+                          {dest.lokasi_wilayah}
+                        </p>
                       </div>
-                    )}
-                    
-                    {/* Hours Row */}
-                    {cafe.jam_operasional && (
-                      <div className="flex items-center gap-2.5">
-                        <Clock className="w-4 h-4 text-slate-400 flex-shrink-0" />
-                        <span>{cafe.jam_operasional}</span>
-                      </div>
-                    )}
-                    
-                    {/* Menu Price List Row */}
-                    {cafe.informasi_biaya?.menu_items && Array.isArray(cafe.informasi_biaya.menu_items) && cafe.informasi_biaya.menu_items.length > 0 && (
-                      <div className="flex items-start gap-2.5">
-                        <CreditCard className="w-4 h-4 text-slate-400 flex-shrink-0 mt-0.5" />
-                        <div className="flex-1 space-y-1">
-                          {cafe.informasi_biaya.menu_items.map((menu, mIdx) => (
-                            <div key={mIdx} className="flex justify-between items-center text-slate-700 font-semibold">
-                              <span className="text-slate-600">{menu.nama}</span>
-                              <span className="text-slate-900 font-bold">{menu.harga}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                    
-                    {/* Divider line between multiple cafes (except last one) */}
-                    {idx < servingCafes.length - 1 && (
-                      <div className="border-t border-slate-100 my-6" />
-                    )}
-                  </div>
-                );
-              })}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        )}
-
-        {/* Card 6: Rules & Tips */}
-        {!isFoodCatalog && event.aturan_tips && (
-          <div className="bg-white rounded-3xl p-5 border border-slate-200/80 text-left">
-            <h3 className="text-sm font-bold text-slate-800 mb-3">
-              Tips & Aturan
-            </h3>
-            <div className="p-4 rounded-2xl border bg-purple-50/40 border-purple-200 text-[#4C1D95]">
-              <p className="text-xs font-bold leading-relaxed text-slate-800">
-                {event.aturan_tips}
-              </p>
-            </div>
-          </div>
-        )}
-
-        {/* Card 7: Location & Map (Only for non-food catalog items) */}
-        {!isFoodCatalog && (
-          <div className="bg-white rounded-3xl p-5 border border-slate-200/80 text-left">
-            <h3 className="text-sm font-bold text-slate-800 mb-3">
-              Lokasi & Peta
-            </h3>
-            
-            {hasCoords ? (
-              <div className="relative rounded-2xl overflow-hidden border border-slate-200 bg-slate-50 h-40 w-full mb-3.5">
-                <iframe
-                  title="Peta Lokasi"
-                  width="100%"
-                  height="100%"
-                  frameBorder="0"
-                  scrolling="no"
-                  marginHeight="0"
-                  marginWidth="0"
-                  src={osmUrl}
-                  className="w-full h-full pointer-events-auto"
-                />
-              </div>
-            ) : (
-              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-center text-slate-500 text-xs mb-3.5 font-semibold">
-                Peta koordinat GPS tidak tersedia.
-              </div>
-            )}
-            
-            {event.kontak_info && (
-              <div className="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-2xl p-3.5 text-xs font-bold text-slate-800">
-                <span className="text-sm">📞</span>
-                <span>{event.kontak_info}</span>
-              </div>
-            )}
-          </div>
+          </>
         )}
 
       </div>

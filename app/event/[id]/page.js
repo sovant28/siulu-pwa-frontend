@@ -545,13 +545,19 @@ export default function EventDetailPage() {
   let showingOtherEvents = false;
 
   if (event.kategori === 'event') {
-    // Try to find other events
-    const otherEvents = rawRelated.filter(d => d.kategori === 'event');
-    if (otherEvents.length > 0) {
-      rawRelated = otherEvents;
+    // Try to find other active/upcoming events (exclude completed ones)
+    const otherActiveEvents = rawRelated.filter(d => {
+      if (d.kategori !== 'event') return false;
+      const dDateInfo = parseEventDates(d.jam_operasional);
+      const status = getEventStatus(dDateInfo);
+      return status && status.label !== 'Telah Selesai';
+    });
+
+    if (otherActiveEvents.length > 0) {
+      rawRelated = otherActiveEvents;
       showingOtherEvents = true;
     } else {
-      // Fallback to tourism spots if no other events
+      // Fallback to tourism spots if no active/upcoming events are found
       rawRelated = rawRelated.filter(d => d.kategori === 'alam' || d.kategori === 'budaya_religi');
     }
   } else {

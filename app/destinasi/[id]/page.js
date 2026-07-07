@@ -364,14 +364,15 @@ export default function DestinasiDetailPage() {
   // Trigger share
   const handleShare = () => {
     if (!event) return;
+    const shareUrl = `${window.location.origin}/${event.kategori === 'event' ? 'event' : 'destinasi'}/${event.id}`;
     if (navigator.share) {
       navigator.share({
         title: event.nama_tempat,
         text: event.deskripsi_lengkap,
-        url: window.location.href,
+        url: shareUrl,
       }).catch(console.error);
     } else {
-      navigator.clipboard.writeText(window.location.href);
+      navigator.clipboard.writeText(shareUrl);
       alert("Tautan berhasil disalin!");
     }
   };

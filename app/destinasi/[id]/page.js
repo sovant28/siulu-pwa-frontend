@@ -540,19 +540,36 @@ export default function DestinasiDetailPage() {
                     ticketPrice.toLowerCase() !== 'rp 0' && 
                     ticketPrice.toLowerCase() !== 'tidak ada';
 
-  // Get related destinations (exclude current, match same category group, limit to 4)
-  const relatedDestinations = allDestinations
-    .filter(d => {
-      if (d.id === eventId) return false;
-      if (event.kategori === 'akomodasi') {
-        return d.kategori === 'akomodasi';
-      } else if (event.kategori === 'kuliner') {
-        return d.kategori === 'kuliner';
-      } else {
-        return d.kategori === 'alam' || d.kategori === 'budaya_religi';
-      }
-    })
-    .slice(0, 4);
+  // Get related items with smart event priority and naming fallback
+  let rawRelated = allDestinations.filter(d => d.id !== eventId);
+  let showingOtherEvents = false;
+
+  if (event.kategori === 'event') {
+    // Try to find other events
+    const otherEvents = rawRelated.filter(d => d.kategori === 'event');
+    if (otherEvents.length > 0) {
+      rawRelated = otherEvents;
+      showingOtherEvents = true;
+    } else {
+      // Fallback to tourism spots if no other events
+      rawRelated = rawRelated.filter(d => d.kategori === 'alam' || d.kategori === 'budaya_religi');
+    }
+  } else {
+    // Non-event pages logic
+    if (event.kategori === 'akomodasi') {
+      rawRelated = rawRelated.filter(d => d.kategori === 'akomodasi');
+    } else if (event.kategori === 'kuliner') {
+      rawRelated = rawRelated.filter(d => d.kategori === 'kuliner');
+    } else {
+      rawRelated = rawRelated.filter(d => d.kategori === 'alam' || d.kategori === 'budaya_religi');
+    }
+  }
+
+  const relatedDestinations = rawRelated.slice(0, 4);
+
+  const relatedSectionTitle = showingOtherEvents 
+    ? 'Jelajahi Event Lain' 
+    : (event.kategori === 'event' ? 'Jelajahi Destinasi Wisata' : 'Jelajahi Destinasi Lain');
 
   return (
     <div className="flex flex-col w-full min-h-[100dvh] bg-[#F6F7F9] font-sans relative">
@@ -1019,7 +1036,7 @@ export default function DestinasiDetailPage() {
             <div className="h-[1px] bg-slate-100" />
             <div className="space-y-4">
               <h3 className="text-base font-extrabold text-slate-800 tracking-tight">
-                Jelajahi Destinasi Lain
+                {relatedSectionTitle}
               </h3>
               <div className="flex gap-4 overflow-x-auto pb-4 -mx-6 px-6 scroll-pl-6 scroll-pr-6 scrollbar-none snap-x snap-mandatory sm:mx-0 sm:px-0 sm:scroll-pl-0 sm:scroll-pr-0">
                 {relatedDestinations.map((dest) => {
@@ -1027,7 +1044,7 @@ export default function DestinasiDetailPage() {
                   return (
                     <div
                       key={dest.id}
-                      onClick={() => router.push(`/destinasi/${dest.id}`)}
+                      onClick={() => router.push(`/${dest.kategori === 'event' ? 'event' : 'destinasi'}/${dest.id}`)}
                       className="w-48 flex-shrink-0 snap-start flex flex-col space-y-2.5 active:scale-95 transition-all cursor-pointer"
                       style={{ WebkitTapHighlightColor: 'transparent' }}
                     >

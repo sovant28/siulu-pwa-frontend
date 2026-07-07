@@ -38,7 +38,8 @@ Bahan & Cara Membuat:
     informasi_biaya: {
       jenis: "makanan_khas",
       harga_tiket: "Rp 40.000 - Rp 80.000 / porsi",
-      image_url: "/ai_food.png"
+      image_url: "/ai_food.png",
+      halal: true
     },
     fitur_fasilitas: ["TOR-ARAS-CAF", "TOR-LEMO-CAF"],
     aturan_tips: "Pa'piong tradisional memakan waktu masak yang cukup lama karena harus dibakar perlahan. Jika ingin memesan langsung di restoran, disarankan menelepon kedai terlebih dahulu agar hidangan siap saat Anda tiba.",
@@ -63,19 +64,105 @@ Bahan-bahan Utama:
     informasi_biaya: {
       jenis: "makanan_khas",
       harga_tiket: "Rp 15.000 - Rp 35.000 / bungkus",
-      image_url: "/icon_kopi.png"
+      image_url: "/icon_kopi.png",
+      halal: true
     },
     fitur_fasilitas: ["TOR-ARAS-CAF"],
     aturan_tips: "Deppa Tori' sangat lezat disajikan dalam kondisi hangat bersama secangkir kopi Toraja Arabika tanpa gula.",
     kontak_info: ""
+  },
+  {
+    id: "FOOD-KOPI-TORAJA",
+    nama_tempat: "Kopi Arabika Specialty Toraja",
+    kategori: "kuliner",
+    lokasi_wilayah: "Tana Toraja & Toraja Utara (Dataran Tinggi)",
+    koordinat_gps: [-2.98, 119.89],
+    deskripsi_lengkap: "Kopi Arabika Toraja adalah salah satu kopi specialty Indonesia yang paling terkenal di dunia. Ditanam di ketinggian di atas 1.400 mdpl di dataran tinggi Toraja, kopi ini memiliki rasa khas herbal alami, keasaman (acidity) medium yang segar, bodi tebal (full body), dan aroma rempah-rempah yang harum.\n\nSangat digemari oleh pecinta kopi lokal maupun mancanegara.",
+    jam_operasional: "Tersedia di kafe-kafe & toko oleh-oleh",
+    informasi_biaya: {
+      jenis: "makanan_khas",
+      harga_tiket: "Rp 30.000 - Rp 150.000 / kemasan",
+      image_url: "/icon_kopi.png",
+      halal: true
+    },
+    fitur_fasilitas: ["TOR-ARAS-CAF", "TOR-LEMO-CAF"],
+    aturan_tips: "Beli biji kopi arabika Toraja berlabel specialty atau single origin langsung dari pemanggang lokal untuk rasa terbaik.",
+    kontak_info: ""
+  },
+  {
+    id: "FOOD-KAPURUNG",
+    nama_tempat: "Kapurung Tradisional Toraja",
+    kategori: "kuliner",
+    lokasi_wilayah: "Rantepao & Makale",
+    koordinat_gps: [-2.9735, 119.8973],
+    deskripsi_lengkap: "Kapurung adalah makanan khas Sulawesi Selatan (termasuk Toraja) yang terbuat dari sari sagu basah disiram air panas mendidih hingga mengental dan kenyal. Sagu dibentuk bulat-bulat kecil lalu disajikan dalam kuah kuning bumbu asam rempah bersama irisan sayuran segar (bayam, kacang panjang, jagung pipil), ikan suwir, ayam, atau udang.\n\nMakanan ini disajikan hangat dengan cita rasa gurih asam pedas yang segar.",
+    jam_operasional: "Tersedia di rumah makan tradisional",
+    informasi_biaya: {
+      jenis: "makanan_khas",
+      harga_tiket: "Rp 15.000 - Rp 30.000 / porsi",
+      image_url: "/ai_food.png",
+      halal: true
+    },
+    fitur_fasilitas: ["TOR-ARAS-CAF"],
+    aturan_tips: "Sangat lezat dinikmati selagi panas dengan tambahan perasan jeruk nipis dan cabai katokkon ulek.",
+    kontak_info: ""
+  },
+  {
+    id: "FOOD-PAPIONG-BABI",
+    nama_tempat: "Pa'piong Babi Tradisional (Non-Halal)",
+    kategori: "kuliner",
+    lokasi_wilayah: "Sanggalangi & Sangalla",
+    koordinat_gps: [-2.9912, 119.9145],
+    deskripsi_lengkap: "Pa'piong Babi merupakan hidangan tradisional upacara adat Toraja yang berbahan dasar daging babi segar dicampur dengan daun miana (mayana), parutan kelapa muda, cabai katokkon, sereh, dan garam. Seluruh adonan dimasukkan ke dalam bambu lalu dibakar di atas api terbuka.\n\nHidangan ini sangat sakral dan wajib disajikan dalam upacara adat Rambu Solo' (kematian) maupun Rambu Tuka' (syukuran).",
+    jam_operasional: "Tersedia di rumah makan khusus hidangan babi",
+    informasi_biaya: {
+      jenis: "makanan_khas",
+      harga_tiket: "Rp 50.000 - Rp 100.000 / porsi",
+      image_url: "/ai_food.png",
+      halal: false
+    },
+    fitur_fasilitas: ["TOR-LEMO-CAF"],
+    aturan_tips: "Harap diperhatikan bahwa hidangan ini secara tradisional mengandung daging babi dan tidak halal bagi wisatawan Muslim.",
+    kontak_info: ""
   }
 ];
+
+function checkIfHalal(item) {
+  if (item.informasi_biaya && typeof item.informasi_biaya === 'object' && item.informasi_biaya.halal !== undefined) {
+    return item.informasi_biaya.halal;
+  }
+  const text = `${item.nama_tempat} ${item.deskripsi_lengkap}`.toLowerCase();
+  if (text.includes('babi') || text.includes('pork') || text.includes('sangsang') || text.includes('sang-sang') || text.includes('darah') || text.includes('anjing') || text.includes('rw')) {
+    return false;
+  }
+  return true;
+}
+
+function getFoodSubcategory(item) {
+  const text = `${item.nama_tempat} ${item.deskripsi_lengkap}`.toLowerCase();
+  if (text.includes('kopi') || text.includes('coffee') || text.includes('arabika') || text.includes('robusta') || text.includes('minuman')) {
+    return 'kopi';
+  }
+  if (text.includes('deppa') || text.includes('tori') || text.includes('kue') || text.includes('manis') || text.includes('wijen') || text.includes('camilan') || text.includes('oleh-oleh') || text.includes('roti')) {
+    return 'camilan';
+  }
+  return 'makanan';
+}
 
 function KulinerListContent() {
   const router = useRouter();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
+  const [activeFilter, setActiveFilter] = useState('semua');
+
+  const filterLabels = {
+    semua: 'Semua Kuliner',
+    halal: 'Halal',
+    makanan: 'Makanan Utama',
+    camilan: 'Camilan & Oleh-oleh',
+    kopi: 'Kopi Toraja'
+  };
 
   // Fetch culinary items from API
   useEffect(() => {
@@ -94,7 +181,7 @@ function KulinerListContent() {
                   (item.informasi_biaya?.jenis === 'makanan_khas' || item.id.startsWith('FOOD-'))
         );
         
-        setItems(apiCulinaryItems);
+        setItems(apiCulinaryItems.length > 0 ? apiCulinaryItems : localCulinaryFallback);
       } catch (err) {
         console.error('Failed to fetch culinary items:', err);
         // On failure, load fallbacks anyway
@@ -106,13 +193,23 @@ function KulinerListContent() {
     fetchCulinary();
   }, []);
 
-  // Filter logic based on search query
+  // Filter logic based on search query and active tab
   const filteredItems = items.filter(item => {
-    return (
+    // 1. Search filter
+    const matchesSearch = 
       item.nama_tempat.toLowerCase().includes(searchQuery.toLowerCase()) ||
       (item.lokasi_wilayah && item.lokasi_wilayah.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      (item.deskripsi_lengkap && item.deskripsi_lengkap.toLowerCase().includes(searchQuery.toLowerCase()))
-    );
+      (item.deskripsi_lengkap && item.deskripsi_lengkap.toLowerCase().includes(searchQuery.toLowerCase()));
+    
+    if (!matchesSearch) return false;
+
+    // 2. Active Tab filter
+    if (activeFilter === 'semua') return true;
+    if (activeFilter === 'halal') {
+      return checkIfHalal(item);
+    }
+    const subcat = getFoodSubcategory(item);
+    return subcat === activeFilter;
   });
 
   return (
@@ -145,6 +242,32 @@ function KulinerListContent() {
             />
           </div>
         </div>
+
+        {/* Row 3: Filter tabs */}
+        <div className="px-5 flex items-center space-x-6 overflow-x-auto no-scrollbar scroll-smooth bg-white pb-0 flex-shrink-0">
+          {Object.entries(filterLabels).map(([key, label]) => {
+            const isActive = activeFilter === key;
+            return (
+              <button
+                key={key}
+                onClick={() => setActiveFilter(key)}
+                className={`pb-2.5 text-xs font-bold whitespace-nowrap transition-all flex-shrink-0 relative ${
+                  isActive
+                    ? 'text-[#4C1D95]'
+                    : 'text-slate-500 active:text-[#4C1D95]'
+                }`}
+                style={{ WebkitTapHighlightColor: 'transparent' }}
+              >
+                <span className="transition-colors duration-150">{label}</span>
+                <span
+                  className={`absolute bottom-0 left-0 right-0 h-[3px] rounded-t-full transition-all duration-200 origin-center ${
+                    isActive ? 'bg-[#4C1D95] scale-x-100' : 'bg-transparent scale-x-0'
+                  }`}
+                />
+              </button>
+            );
+          })}
+        </div>
       </header>
 
       {/* ── RESULTS COUNT ── */}
@@ -175,6 +298,8 @@ function KulinerListContent() {
               (item.id === 'FOOD-PAPIONG-AYAM' ? '/ai_food.png' : 
                item.id === 'FOOD-DEPPA-TORI' ? '/icon_kopi.png' : null);
             const priceRange = item.informasi_biaya?.harga_tiket;
+            const isHalal = checkIfHalal(item);
+            const subcat = getFoodSubcategory(item);
 
             return (
               <div
@@ -185,6 +310,20 @@ function KulinerListContent() {
               >
                 {/* Baris 1: Cover Photo (Aspect 16:10, Rounded 3xl, border outline) */}
                 <div className="relative w-full aspect-[16/10] bg-slate-100 rounded-3xl overflow-hidden border border-slate-200/80">
+                  {/* Halal Badge overlay */}
+                  <span className={`absolute top-4 left-4 z-10 text-[9px] font-extrabold border px-2.5 py-1 rounded-full tracking-wider shadow-none ${
+                    isHalal 
+                      ? 'bg-emerald-50 text-emerald-700 border-emerald-100' 
+                      : 'bg-rose-50 text-rose-700 border-rose-100'
+                  }`}>
+                    {isHalal ? 'Halal' : 'Non-Halal'}
+                  </span>
+                  
+                  {/* Subcategory Badge overlay */}
+                  <span className="absolute top-4 right-4 z-10 text-[9px] font-extrabold bg-white/95 backdrop-blur-sm text-slate-600 border border-slate-200/60 px-2.5 py-1 rounded-full tracking-wider shadow-none">
+                    {subcat === 'kopi' ? 'Kopi & Minuman' : subcat === 'camilan' ? 'Camilan & Oleh-oleh' : 'Makanan Utama'}
+                  </span>
+                  
                   <Image
                     src={imageUrl || "/dummy_destination.png"}
                     alt={item.nama_tempat}

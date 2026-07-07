@@ -51,6 +51,38 @@ function parseEventDates(jam_operasional) {
   return { startStr, endStr, timeStr, raw: jam_operasional };
 }
 
+function getEventStatus(dateInfo) {
+  if (!dateInfo || !dateInfo.raw) return null;
+  const raw = dateInfo.raw;
+  const startMatch = raw.match(/Mulai:\s*([\d-]+)/);
+  const endMatch = raw.match(/Selesai:\s*([\d-]+)/);
+  
+  if (!startMatch) return null;
+  
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  
+  const startDate = new Date(startMatch[1]);
+  startDate.setHours(0, 0, 0, 0);
+  
+  let endDate = null;
+  if (endMatch && endMatch[1]) {
+    endDate = new Date(endMatch[1]);
+    endDate.setHours(23, 59, 59, 999);
+  } else {
+    endDate = new Date(startMatch[1]);
+    endDate.setHours(23, 59, 59, 999);
+  }
+  
+  if (today < startDate) {
+    return { label: 'Akan Datang', color: 'bg-indigo-50 text-indigo-700 border-indigo-100', weight: 2 };
+  } else if (today >= startDate && today <= endDate) {
+    return { label: 'Sedang Berlangsung', color: 'bg-emerald-50 text-emerald-700 border-emerald-100', weight: 1 };
+  } else {
+    return { label: 'Telah Selesai', color: 'bg-slate-50 text-slate-500 border-slate-200/80', weight: 3 };
+  }
+}
+
 export default function EventListPage() {
   const router = useRouter();
   const [events, setEvents] = useState([]);
@@ -128,6 +160,40 @@ export default function EventListPage() {
     return true;
   });
 
+  // Sort logic for events:
+  // 1. Ongoing/Upcoming (weight 1 & 2) come first, Finished (weight 3) comes last.
+  // 2. Within Ongoing/Upcoming: sort by startDate ascending (closest start date first!).
+  // 3. Within Finished: sort by startDate descending (most recently finished/started first).
+  const sortedEvents = [...filteredEvents].sort((a, b) => {
+    const aDateInfo = parseEventDates(a.jam_operasional);
+    const bDateInfo = parseEventDates(b.jam_operasional);
+    
+    const aStatus = getEventStatus(aDateInfo);
+    const bStatus = getEventStatus(bDateInfo);
+    
+    const aWeight = aStatus ? aStatus.weight : 99;
+    const bWeight = bStatus ? bStatus.weight : 99;
+    
+    if (aWeight !== bWeight) {
+      return aWeight - bWeight; // Ongoing (1) -> Upcoming (2) -> Finished (3)
+    }
+    
+    // Within same weight, sort by date
+    const aStartMatch = aDateInfo?.raw?.match(/Mulai:\s*([\d-]+)/);
+    const bStartMatch = bDateInfo?.raw?.match(/Mulai:\s*([\d-]+)/);
+    
+    const aTime = aStartMatch ? new Date(aStartMatch[1]).getTime() : 0;
+    const bTime = bStartMatch ? new Date(bStartMatch[1]).getTime() : 0;
+    
+    if (aWeight === 3) {
+      // For finished events: descending order (newest first)
+      return bTime - aTime;
+    }
+    
+    // For ongoing/upcoming events: ascending order (closest first)
+    return aTime - bTime;
+  });
+
 
 
   return (
@@ -191,7 +257,7 @@ export default function EventListPage() {
       {/* ── RESULTS COUNT ── */}
       {!loading && (
         <div className="px-5 mt-3">
-          <p className="text-[11px] font-semibold text-slate-400">{filteredEvents.length} event ditemukan</p>
+          <p className="text-[11px] font-semibold text-slate-400">{sortedEvents.length} event ditemukan</p>
         </div>
       )}
 
@@ -209,26 +275,37 @@ export default function EventListPage() {
               </div>
             </div>
           ))
-        ) : filteredEvents.length > 0 ? (
-          filteredEvents.map((event) => {
+        ) : sortedEvents.length > 0 ? (
+          sortedEvents.map((event) => {
             const dateInfo = parseEventDates(event.jam_operasional);
             const imageUrl = event.informasi_biaya?.image_url;
+            const statusInfo = getEventStatus(dateInfo);
+            const isFinished = statusInfo?.label === 'Telah Selesai';
 
             return (
               <div
                 key={event.id}
                 onClick={() => router.push(`/event/${event.id}`)}
-                className="flex flex-col active:scale-[0.98] transition-all cursor-pointer space-y-3"
+                className={`flex flex-col active:scale-[0.98] transition-all cursor-pointer space-y-3 ${
+                  isFinished ? 'opacity-75' : ''
+                }`}
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >
                 {/* Foto dengan Aspect Ratio 16:10, rounded-3xl di semua sisi */}
                 <div className="relative w-full aspect-[16/10] bg-slate-100 rounded-3xl overflow-hidden border border-slate-200/80">
+                  {/* Status Badge overlay inside image */}
+                  {statusInfo && (
+                    <span className={`absolute top-4 left-4 z-10 text-[9px] font-extrabold border px-2.5 py-1 rounded-full tracking-wider shadow-none ${statusInfo.color}`}>
+                      {statusInfo.label}
+                    </span>
+                  )}
+                  
                   {imageUrl ? (
                     <Image
                       src={imageUrl}
                       alt={event.nama_tempat}
                       fill
-                      className="object-cover"
+                      className={`object-cover ${isFinished ? 'grayscale opacity-60' : ''}`}
                       unoptimized
                     />
                   ) : (
@@ -240,12 +317,12 @@ export default function EventListPage() {
 
                 {/* Bottom: Info Details */}
                 <div className="text-left px-1">
-                  <h3 className="text-[16px] font-black text-slate-900 leading-snug">
+                  <h3 className={`text-[16px] font-black leading-snug ${isFinished ? 'text-slate-500 font-bold' : 'text-slate-900'}`}>
                     {event.nama_tempat}
                   </h3>
 
                   {dateInfo && dateInfo.startStr && (
-                    <div className="mt-1.5 flex items-center text-xs font-bold text-[#4C1D95] gap-1.5">
+                    <div className={`mt-1.5 flex items-center text-xs font-bold gap-1.5 ${isFinished ? 'text-slate-400' : 'text-[#4C1D95]'}`}>
                       <Calendar className="w-3.5 h-3.5 flex-shrink-0" />
                       <span>
                         {dateInfo.startStr}
@@ -255,8 +332,8 @@ export default function EventListPage() {
                   )}
 
                   {event.lokasi_wilayah && (
-                    <div className="mt-1 flex items-center text-xs font-semibold text-slate-500 gap-1.5">
-                      <MapPin className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
+                    <div className="mt-1 flex items-center text-xs font-semibold text-slate-400 gap-1.5">
+                      <MapPin className="w-3.5 h-3.5 text-slate-300 flex-shrink-0" />
                       <span className="truncate">{event.lokasi_wilayah}</span>
                     </div>
                   )}

@@ -18,44 +18,44 @@ import {
 // Fallback local places dataset for destinations
 const localPlacesFallback = [
   {
-    id: "TOR-LONDA-001",
-    nama_tempat: "Situs Makam Gua Londa",
+    id: "TOR-LEMO-001",
+    nama_tempat: "Situs Makam Pahat Lemo",
     kategori: "budaya_religi",
-    lokasi_wilayah: "Makale Utara (Londa)",
-    koordinat_gps: [-3.0234, 119.8821],
-    deskripsi_lengkap: "Londa adalah situs pemakaman gua alam purbakala khas Toraja yang terletak di tebing batu curam. Gua ini menyimpan peti mati kayu (erong), kerangka manusia, tau-tau (patung kayu personifikasi mendiang), serta sesaji yang diletakkan oleh keluarga kerabat.\n\nPengunjung dapat menjelajahi bagian dalam gua yang gelap dengan menyewa lampu petromaks tradisional yang disediakan oleh pemandu lokal di pintu masuk.",
-    jam_operasional: "08:00 - 18:00 WITA",
+    lokasi_wilayah: "Makale Utara (Lemo)",
+    koordinat_gps: [-3.0135, 119.8789],
+    deskripsi_lengkap: "Situs Makam Pahat Lemo adalah salah satu situs pemakaman dinding tebing batu tertua dan paling terkenal di Tana Toraja. Tebing batu ini dipahat secara manual menjadi puluhan lubang makam keluarga, lengkap dengan barisan patung kayu (tau-tau) yang berdiri tegak di balkon tebing sebagai simbol personifikasi para leluhur yang dimakamkan di sana.",
+    jam_operasional: "08:00 - 17:30 WITA",
     informasi_biaya: {
       harga_tiket: "Rp 15.000 (Domestik), Rp 30.000 (Mancanegara)",
       image_url: "/dummy_destination.png"
     },
-    fitur_fasilitas: ["Pemandu Lokal", "Sewa Lampu Petromaks", "Area Parkir", "Kios Suvenir"],
-    aturan_tips: "Jaga sopan santun, jangan menyentuh atau memindahkan tulang belulang dan benda sesaji di dalam gua. Sangat disarankan menyewa pemandu lokal demi keselamatan dan informasi sejarah.",
+    fitur_fasilitas: ["Pemandu Lokal", "Akses Jalan Kaki", "Toko Suvenir", "Toilet Umum"],
+    aturan_tips: "Hormati kesakralan situs makam tebing batu ini. Jangan menyentuh tau-tau atau sesaji yang ada di sekitar area tebing.",
     kontak_info: ""
   },
   {
-    id: "TOR-KETEKESU-002",
-    nama_tempat: "Desa Adat Kete Kesu",
+    id: "TOR-SUAYA-002",
+    nama_tempat: "Situs Makam Raja-Raja Suaya",
     kategori: "budaya_religi",
-    lokasi_wilayah: "Sanggalangi (Kete Kesu)",
-    koordinat_gps: [-2.9912, 119.9145],
-    deskripsi_lengkap: "Kete Kesu adalah desa wisata adat tertua di Tana Toraja yang menyajikan kompleks perumahan adat Tongkonan lengkap dengan lumbung padi (alang) yang berjejer rapi di hadapannya. Dinding Tongkonan dihiasi ukiran kayu tradisional Toraja yang sarat makna filosofis.\n\nDi bukit belakang desa, terdapat situs pemakaman tebing batu kuno dengan peti mati erong berusia ratusan tahun.",
-    jam_operasional: "08:00 - 17:30 WITA",
+    lokasi_wilayah: "Sangalla (Suaya)",
+    koordinat_gps: [-3.0852, 119.9213],
+    deskripsi_lengkap: "Situs Makam Raja-Raja Suaya adalah kompleks pemakaman kuno bagi para raja Sangalla beserta sanak keluarganya. Terletak di tebing batu alami yang tenang, situs ini dilengkapi dengan tau-tau (patung kayu personifikasi) leluhur bangsawan yang dipahat dengan detail sangat halus.\n\nDi sekitar situs terdapat tangga batu menuju ke bukit tempat peristirahatan terakhir yang menyajikan pemandangan alam perbukitan Sangalla yang indah.",
+    jam_operasional: "08:00 - 17:00 WITA",
     informasi_biaya: {
-      harga_tiket: "Rp 15.000 - Rp 25.000",
+      harga_tiket: "Rp 15.000",
       image_url: "/dummy_destination.png"
     },
-    fitur_fasilitas: ["Tongkonan Kuno", "Situs Kuburan Tebing", "Toko Kerajinan & Suvenir", "Toilet Umum"],
-    aturan_tips: "Hormati keheningan di sekitar situs makam tebing. Gunakan pakaian yang sopan saat berkeliling desa.",
+    fitur_fasilitas: ["Kompleks Makam Tebing", "Pemandu Lokal", "Area Parkir", "Toilet Umum"],
+    aturan_tips: "Jagalah kebersihan di sekitar kompleks makam suci bangsawan ini. Dianjurkan menggunakan pakaian sopan selama berkunjung.",
     kontak_info: ""
   },
   {
-    id: "TOR-ARAS-CAF",
-    nama_tempat: "Café Aras Rantepao",
+    id: "TOR-ARAS-MAKALE",
+    nama_tempat: "Café Aras Makale",
     kategori: "kuliner",
-    lokasi_wilayah: "Rantepao",
-    koordinat_gps: [-2.973412, 119.897213],
-    deskripsi_lengkap: "Café Aras adalah salah satu kafe legendaris dan paling populer bagi wisatawan asing maupun domestik di pusat kota Rantepao. Kafe ini menyediakan aneka hidangan kuliner khas Toraja yang dijamin 100% Halal (seperti Pa'piong Ayam halal, Kapurung) serta kopi specialty Toraja Arabika dengan berbagai metode seduh manual.\n\nTempatnya sangat nyaman dengan dekorasi interior penuh ukiran kayu khas Toraja yang artistik dan bernuansa hangat.",
+    lokasi_wilayah: "Makale",
+    koordinat_gps: [-3.1024, 119.8512],
+    deskripsi_lengkap: "Café Aras Makale menyajikan berbagai hidangan kuliner khas Tana Toraja yang lezat dan bersertifikat Halal (seperti Pa'piong Ayam Halal, Kapurung, dan Deppa Tori'). Kafe ini juga terkenal dengan sajian kopi specialty Toraja Arabika yang dipetik langsung dari dataran tinggi Mengkendek.\n\nTempatnya didesain dengan nuansa kayu hangat berhiaskan ukiran tradisional Toraja, menjadikannya tempat nongkrong yang nyaman bagi keluarga maupun wisatawan.",
     jam_operasional: "10:00 - 22:00 WITA",
     informasi_biaya: {
       jenis: "tempat_makan",
@@ -68,8 +68,8 @@ const localPlacesFallback = [
       ]
     },
     fitur_fasilitas: ["Makan di tempat", "Halal", "Kopi Specialty Toraja", "Free Wifi", "Dekorasi Ukiran Toraja"],
-    aturan_tips: "Cobalah menu Pa'piong Ayam bambu halal mereka yang sangat otentik. Kafe ini sangat ramai menjelang makan malam, jadi disarankan datang lebih awal agar mendapat tempat duduk.",
-    kontak_info: "0813-4212-3456"
+    aturan_tips: "Menu Pa'piong Ayam halal adalah hidangan favorit wisatawan di sini. Sangat cocok dinikmati hangat di malam hari di pusat kota Makale.",
+    kontak_info: "0813-4212-9988"
   },
   {
     id: "TOR-LEMO-CAF",

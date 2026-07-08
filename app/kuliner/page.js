@@ -22,8 +22,8 @@ const localCulinaryFallback = [
     id: "FOOD-PAPIONG-AYAM",
     nama_tempat: "Pa'piong Ayam Khas Toraja",
     kategori: "kuliner",
-    lokasi_wilayah: "Rantepao & Sangalla",
-    koordinat_gps: [-2.9734, 119.8972],
+    lokasi_wilayah: "Makale & Sangalla",
+    koordinat_gps: [-3.1024, 119.8512],
     deskripsi_lengkap: `Pa'piong Ayam adalah kuliner khas tradisional Toraja yang dimasak secara unik di dalam tabung bambu tipis. Potongan daging ayam kampung segar dicampur dengan parutan kelapa muda, batang pisang muda (kallang) yang diiris tipis, cabai lokal (katokkon) yang pedas segar, garam, serta rempah-rempah Toraja.
 
 Setelah semua bumbu merata, adonan dimasukkan ke dalam bambu yang dilapisi daun pisang, lalu dibakar di atas bara api terbuka selama sekitar 1 hingga 1.5 jam hingga matang sempurna dan mengeluarkan aroma harum bambu yang khas.
@@ -41,7 +41,7 @@ Bahan & Cara Membuat:
       harga_tiket: "Rp 40.000 - Rp 80.000 / porsi",
       image_url: "/ai_food.png"
     },
-    fitur_fasilitas: ["TOR-ARAS-CAF", "TOR-LEMO-CAF"],
+    fitur_fasilitas: ["TOR-ARAS-MAKALE", "TOR-LEMO-CAF"],
     aturan_tips: "Pa'piong tradisional memakan waktu masak yang cukup lama karena harus dibakar perlahan. Jika ingin memesan langsung di restoran, disarankan menelepon kedai terlebih dahulu agar hidangan siap saat Anda tiba.",
     kontak_info: ""
   },
@@ -49,7 +49,7 @@ Bahan & Cara Membuat:
     id: "FOOD-DEPPA-TORI",
     nama_tempat: "Deppa Tori' Kue Manis Toraja",
     kategori: "kuliner",
-    lokasi_wilayah: "Makale & Rantepao",
+    lokasi_wilayah: "Makale & Sangalla",
     koordinat_gps: [-3.1028, 119.8556],
     deskripsi_lengkap: `Deppa Tori' adalah kue tradisional camilan khas Tana Toraja yang terbuat dari tepung beras pilihan, gula merah aren lokal yang manis legit, dan taburan biji wijen di bagian luarnya. Kue ini memiliki bentuk lonjong memanjang khas dan bertekstur renyah di luar namun empuk dan gurih di bagian dalamnya.
 
@@ -66,7 +66,7 @@ Bahan-bahan Utama:
       harga_tiket: "Rp 15.000 - Rp 35.000 / bungkus",
       image_url: "/icon_kopi.png"
     },
-    fitur_fasilitas: ["TOR-ARAS-CAF"],
+    fitur_fasilitas: ["TOR-ARAS-MAKALE"],
     aturan_tips: "Deppa Tori' sangat lezat disajikan dalam kondisi hangat bersama secangkir kopi Toraja Arabika tanpa gula.",
     kontak_info: ""
   }

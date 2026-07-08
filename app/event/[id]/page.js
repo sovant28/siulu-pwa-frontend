@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter, useParams } from 'next/navigation';
+import { fetchDestinationsData } from '../../utils/fetchHelper';
 import {
   ArrowLeft,
   Heart,
@@ -338,24 +339,7 @@ export default function EventDetailPage() {
   useEffect(() => {
     const fetchEvent = async () => {
       try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || '';
-        const res = await fetch(`${apiUrl}/api/knowledge/destinasi`);
-        let data = [];
-        if (res.ok) {
-          data = await res.json();
-        }
-        
-        // Parse string fields for database items
-        const parsedData = [...data].map(item => {
-          if (item.informasi_biaya && typeof item.informasi_biaya === 'string') {
-            try {
-              item.informasi_biaya = JSON.parse(item.informasi_biaya);
-            } catch (e) {
-              console.error('Failed to parse informasi_biaya:', e);
-            }
-          }
-          return item;
-        });
+        const parsedData = await fetchDestinationsData();
 
         let found = parsedData.find(d => d.id === eventId);
         if (!found) {

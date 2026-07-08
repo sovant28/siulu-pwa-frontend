@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { fetchDestinationsData } from '../utils/fetchHelper';
 import {
   ArrowLeft,
   Heart,
@@ -41,13 +42,10 @@ export default function SavedPage() {
           return;
         }
 
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || '';
-        const res = await fetch(`${apiUrl}/api/knowledge/destinasi`);
-        if (!res.ok) throw new Error('Gagal memuat data');
-        const data = await res.json();
+        const data = await fetchDestinationsData();
         
         // Filter destinations whose ID is in savedIds
-        const filtered = data.filter(item => ids.includes(item.id));
+        const filtered = (data || []).filter(item => item && ids.includes(item.id));
         setSavedItems(filtered);
       } catch (err) {
         console.error('Failed to load saved items:', err);

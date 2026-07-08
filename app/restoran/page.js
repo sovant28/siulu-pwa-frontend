@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { fetchDestinationsData } from '../utils/fetchHelper';
 import {
   ArrowLeft,
   Search,
@@ -25,29 +26,12 @@ function RestoranListContent() {
   useEffect(() => {
     const fetchRestaurants = async () => {
       try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || '';
-        const res = await fetch(`${apiUrl}/api/knowledge/destinasi`);
-        let data = [];
-        if (res.ok) {
-          data = await res.json();
-        }
-        
-        // Parse string fields for database items
-        const parsedData = [...data].map(item => {
-          if (item.informasi_biaya && typeof item.informasi_biaya === 'string') {
-            try {
-              item.informasi_biaya = JSON.parse(item.informasi_biaya);
-            } catch (e) {
-              console.error('Failed to parse informasi_biaya:', e);
-            }
-          }
-          return item;
-        });
+        const parsedData = await fetchDestinationsData();
 
         // Filter restaurants/dining places
-        const filtered = parsedData.filter(item => 
-          item.kategori === 'kuliner' && 
-          (item.informasi_biaya?.jenis === 'tempat_makan' || !item.id.startsWith('FOOD-'))
+        const filtered = (parsedData || []).filter(item => 
+          item && item.kategori === 'kuliner' && 
+          (item.informasi_biaya?.jenis === 'tempat_makan' || !item.id?.startsWith('FOOD-'))
         );
         setRestaurants(filtered);
       } catch (err) {

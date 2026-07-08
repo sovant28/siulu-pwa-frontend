@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from 'react';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { fetchDestinationsData } from '../utils/fetchHelper';
 import {
   ArrowLeft,
   Search,
@@ -127,20 +128,22 @@ function DestinasiListContent() {
   useEffect(() => {
     const fetchDestinations = async () => {
       try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || '';
-        const res = await fetch(`${apiUrl}/api/knowledge/destinasi`);
-        let data = [];
-        if (res.ok) {
-          data = await res.json();
-        }
+        const data = await fetchDestinationsData();
         
         // Filter allowed categories (only tourist destinations: alam and budaya_religi)
-        const filtered = data.filter(item => 
-          item.kategori === 'alam' || 
-          item.kategori === 'budaya_religi'
+        const filtered = (data || []).filter(item => 
+          item && (item.kategori === 'alam' || item.kategori === 'budaya_religi')
         );
 
-        setDestinations(filtered);
+        if (filtered.length > 0) {
+          setDestinations(filtered);
+        } else {
+          const filteredFallback = localPlacesFallback.filter(item => 
+            item.kategori === 'alam' || 
+            item.kategori === 'budaya_religi'
+          );
+          setDestinations(filteredFallback);
+        }
       } catch (err) {
         console.error('Failed to fetch destinations:', err);
         const filteredFallback = localPlacesFallback.filter(item => 

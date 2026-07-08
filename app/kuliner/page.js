@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from 'react';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { fetchDestinationsData } from '../utils/fetchHelper';
 import {
   ArrowLeft,
   Search,
@@ -81,17 +82,12 @@ function KulinerListContent() {
   useEffect(() => {
     const fetchCulinary = async () => {
       try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || '';
-        const res = await fetch(`${apiUrl}/api/knowledge/destinasi`);
-        let data = [];
-        if (res.ok) {
-          data = await res.json();
-        }
+        const data = await fetchDestinationsData();
         
         // Filter traditional foods (makanan_khas)
-        const apiCulinaryItems = data.filter(
-          item => item.kategori === 'kuliner' && 
-                  (item.informasi_biaya?.jenis === 'makanan_khas' || item.id.startsWith('FOOD-'))
+        const apiCulinaryItems = (data || []).filter(
+          item => item && item.kategori === 'kuliner' && 
+                  (item.informasi_biaya?.jenis === 'makanan_khas' || item.id?.startsWith('FOOD-'))
         );
         
         setItems(apiCulinaryItems);

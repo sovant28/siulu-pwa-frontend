@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { fetchDestinationsData } from '../utils/fetchHelper';
 import {
   ArrowLeft,
   Search,
@@ -102,11 +103,8 @@ export default function EventListPage() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || '';
-        const res = await fetch(`${apiUrl}/api/knowledge/destinasi`);
-        if (!res.ok) throw new Error('Gagal mengambil data');
-        const data = await res.json();
-        const filtered = data.filter(item => item.kategori === 'event');
+        const data = await fetchDestinationsData();
+        const filtered = (data || []).filter(item => item && item.kategori === 'event');
         setEvents(filtered);
       } catch (err) {
         console.error('Failed to fetch events:', err);

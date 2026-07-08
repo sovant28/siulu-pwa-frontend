@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { fetchDestinationsData } from '../utils/fetchHelper';
 import {
   ArrowLeft,
   Search,
@@ -25,15 +26,10 @@ function HotelListContent() {
   useEffect(() => {
     const fetchHotels = async () => {
       try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || '';
-        const res = await fetch(`${apiUrl}/api/knowledge/destinasi`);
-        let data = [];
-        if (res.ok) {
-          data = await res.json();
-        }
+        const data = await fetchDestinationsData();
         
         // Filter accommodation category
-        const filtered = data.filter(item => item.kategori === 'akomodasi');
+        const filtered = (data || []).filter(item => item && item.kategori === 'akomodasi');
         setHotels(filtered);
       } catch (err) {
         console.error('Failed to fetch hotels:', err);

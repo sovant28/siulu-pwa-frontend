@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect, useRef } from 'react';
-
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { fetchDestinationsData } from './utils/fetchHelper';
 import { supabase } from './supabase';
 import {
   Bell,
@@ -171,16 +171,10 @@ export default function AppHome() {
     // Fetch data for featured events
     const fetchDestinations = async () => {
       try {
-        // Force Vercel rebuild to pick up NEXT_PUBLIC_API_URL
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL ? `${process.env.NEXT_PUBLIC_API_URL}/api` : '/api';
-        const res = await fetch(`${apiUrl}/knowledge/destinasi`);
-        if (res.ok) {
-          const data = await res.json();
-          // Filter out those that are marked as featured event and have an image_url
-          const featured = data.filter(d => d.kategori === 'event' && d.is_featured && d.informasi_biaya && d.informasi_biaya.image_url);
-          setFeaturedEvents(featured.slice(0, 3)); // Take top 3
-
-        }
+        const data = await fetchDestinationsData();
+        // Filter out those that are marked as featured event and have an image_url
+        const featured = (data || []).filter(d => d && d.kategori === 'event' && d.is_featured && d.informasi_biaya && d.informasi_biaya.image_url);
+        setFeaturedEvents(featured.slice(0, 3)); // Take top 3
       } catch (err) {
         console.error("Failed to fetch featured data:", err);
       } finally {

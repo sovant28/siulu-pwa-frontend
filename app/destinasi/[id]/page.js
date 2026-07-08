@@ -422,7 +422,7 @@ export default function DestinasiDetailPage() {
     : (event.kategori === 'event' ? 'Jelajahi Destinasi Wisata' : 'Jelajahi Destinasi Lain');
 
   return (
-    <div className="flex flex-col w-full min-h-[100dvh] bg-[#F6F7F9] font-sans relative pb-[calc(env(safe-area-inset-bottom)+96px)]">
+    <div className="flex flex-col w-full min-h-[100dvh] bg-[#F6F7F9] font-sans relative">
       
       {/* ── STICKY FLOATING HEADER ── */}
       <header className={`fixed top-0 left-0 right-0 max-w-md mx-auto z-40 px-5 pt-[calc(env(safe-area-inset-top)+10px)] pb-3 flex items-center justify-between transition-all duration-300 ${
@@ -505,7 +505,7 @@ export default function DestinasiDetailPage() {
       </div>
 
       {/* ── DETAILS WRAPPER (UNIFIED CANVAS STYLE) ── */}
-      <div className="relative -mt-6 z-20 bg-white rounded-t-[32px] pt-8 px-6 space-y-8 text-left pb-8 border-t border-slate-100">
+      <div className="relative -mt-6 z-20 bg-white rounded-t-[32px] pt-8 px-6 space-y-8 text-left border-t border-slate-100 pb-[calc(env(safe-area-inset-bottom)+96px)]">
         
         {/* Section 1: Title, Category & Key Info Grid */}
         <div className="space-y-4">

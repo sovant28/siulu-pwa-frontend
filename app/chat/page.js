@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { ArrowLeft, Send, RotateCcw, MapPin, ThumbsUp, ThumbsDown, Sparkles } from 'lucide-react';
 import { supabase } from '../supabase';
+import { fetchDestinationsData } from '../utils/fetchHelper';
 
 export default function ChatAI() {
   const router = useRouter();
@@ -19,6 +20,108 @@ export default function ChatAI() {
   const [messageCount, setMessageCount] = useState(0);
   const [user, setUser] = useState(null);
   const [showLimitModal, setShowLimitModal] = useState(false);
+  const [spots, setSpots] = useState([]);
+
+  // Fetch all destinations/spots for dynamic context-aware suggestions
+  useEffect(() => {
+    const loadSpots = async () => {
+      try {
+        const data = await fetchDestinationsData();
+        setSpots(data || []);
+      } catch (err) {
+        console.error("Gagal memuat spots untuk chat suggestions:", err);
+      }
+    };
+    loadSpots();
+  }, []);
+
+  const generateQuestion = (spot) => {
+    const name = spot.nama_tempat;
+    const cat = spot.kategori;
+    const isFood = spot.id?.startsWith('FOOD-') || spot.informasi_biaya?.jenis === 'makanan_khas';
+
+    if (cat === 'kuliner') {
+      if (isFood) {
+        const options = [
+          `Tentang makanan ${name}`,
+          `Cara membuat ${name}`,
+          `Bahan utama ${name}`
+        ];
+        return options[Math.floor(Math.random() * options.length)];
+      } else {
+        const options = [
+          `Menu andalan di ${name}`,
+          `Jam buka ${name}`,
+          `Lokasi ${name}`
+        ];
+        return options[Math.floor(Math.random() * options.length)];
+      }
+    } else if (cat === 'akomodasi') {
+      const options = [
+        `Fasilitas di ${name}`,
+        `Berapa tarif kamar ${name}`,
+        `Lokasi penginapan ${name}`
+      ];
+      return options[Math.floor(Math.random() * options.length)];
+    } else if (cat === 'event') {
+      const options = [
+        `Jadwal acara ${name}`,
+        `Lokasi pelaksanaan ${name}`,
+        `Informasi tiket ${name}`
+      ];
+      return options[Math.floor(Math.random() * options.length)];
+    } else {
+      const options = [
+        `Sejarah singkat ${name}`,
+        `Tiket masuk ${name}`,
+        `Aturan berkunjung ke ${name}`
+      ];
+      return options[Math.floor(Math.random() * options.length)];
+    }
+  };
+
+  const updateSuggestions = (query, reply, spotsList) => {
+    const listToUse = spotsList || spots;
+    if (!listToUse || listToUse.length === 0) return;
+    
+    const text = ((query || "") + " " + (reply || "")).toLowerCase();
+    let detectedCategory = 'destinasi'; // default
+    
+    // Categorize based on keywords
+    if (/kuliner|makanan|makan|minum|kopi|kafe|cafe|restoran|lapar|papiong|tori|deppa/i.test(text)) {
+      detectedCategory = 'kuliner';
+    } else if (/hotel|penginapan|homestay|wisma|menginap|kamar|tidur/i.test(text)) {
+      detectedCategory = 'akomodasi';
+    } else if (/event|acara|rambu solo|ritual|festival|jadwal|tanggal|upacara/i.test(text)) {
+      detectedCategory = 'event';
+    }
+    
+    // Filter spots by category
+    let filtered = [];
+    if (detectedCategory === 'kuliner') {
+      filtered = listToUse.filter(s => s.kategori === 'kuliner');
+    } else if (detectedCategory === 'akomodasi') {
+      filtered = listToUse.filter(s => s.kategori === 'akomodasi');
+    } else if (detectedCategory === 'event') {
+      filtered = listToUse.filter(s => s.kategori === 'event');
+    } else {
+      filtered = listToUse.filter(s => s.kategori === 'alam' || s.kategori === 'budaya_religi');
+    }
+    
+    // Fallback to general spots if none found
+    if (filtered.length === 0) {
+      filtered = listToUse.filter(s => s.kategori === 'alam' || s.kategori === 'budaya_religi');
+    }
+    
+    // Shuffle and pick 3 spots
+    const shuffled = [...filtered].sort(() => 0.5 - Math.random());
+    const selectedSpots = shuffled.slice(0, 3);
+    const newSuggestions = selectedSpots.map(spot => generateQuestion(spot));
+    
+    if (newSuggestions.length > 0) {
+      setSuggestions(newSuggestions);
+    }
+  };
   
   // Feedback states
   const [activeFeedbackIdx, setActiveFeedbackIdx] = useState(null);
@@ -215,9 +318,13 @@ export default function ChatAI() {
         });
 
         let lastChips = null;
+        let lastUserQuery = "";
+        let lastBotResponse = "";
         const formatted = history.map(msg => {
           const parsed = parseSuggestions(msg.content);
           if (msg.role !== 'user' && parsed.chips) lastChips = parsed.chips;
+          if (msg.role === 'user') lastUserQuery = msg.content;
+          else lastBotResponse = parsed.cleanText;
           return {
             role: msg.role === 'user' ? 'user' : 'bot',
             content: parsed.cleanText,
@@ -227,7 +334,11 @@ export default function ChatAI() {
         }).filter(msg => !(msg.role === 'bot' && msg.content && msg.content.includes('Kurresumanga')));
         
         setMessages(formatted);
-        if (lastChips) setSuggestions(lastChips);
+        if (lastChips && lastChips.length > 0) {
+          setSuggestions(lastChips);
+        } else if (lastUserQuery || lastBotResponse) {
+          updateSuggestions(lastUserQuery, lastBotResponse);
+        }
       }
     } catch (err) {
       console.error("Failed to load chat history via Supabase:", err);
@@ -314,7 +425,11 @@ export default function ChatAI() {
         const data = await res.json();
         const parsed = parseSuggestions(data.response);
         setMessages(prev => [...prev, { role: 'bot', content: parsed.cleanText }]);
-        if (parsed.chips) setSuggestions(parsed.chips);
+        if (parsed.chips && parsed.chips.length > 0) {
+          setSuggestions(parsed.chips);
+        } else {
+          updateSuggestions(userMsg, parsed.cleanText);
+        }
         if (data.session_id && data.session_id !== sessionId) {
           setSessionId(data.session_id);
           localStorage.setItem('chat_session_id', data.session_id);

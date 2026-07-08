@@ -25,7 +25,7 @@ const nextConfig = {
   },
 
   async rewrites() {
-    const backendUrl = process.env.BACKEND_API_URL || 'http://127.0.0.1:8000';
+    const backendUrl = process.env.BACKEND_API_URL || 'https://sofwan28-siulu-backend-api.hf.space';
     console.log("Next.js build rewrites: mapping /api to:", backendUrl);
     return [
       {

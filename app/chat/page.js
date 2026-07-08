@@ -85,15 +85,17 @@ export default function ChatAI() {
   useEffect(() => {
     const initBotAndSession = async () => {
       try {
-        const botRes = await fetch(`${API_URL}/bots/active`);
-        if (botRes.ok) {
-          const activeBot = await botRes.json();
-          if (activeBot) {
-            setActiveBot(activeBot);
-          }
+        const { data: botData, error: botErr } = await supabase
+          .from('bots')
+          .select('*')
+          .eq('is_active', true)
+          .maybeSingle();
+
+        if (!botErr && botData) {
+          setActiveBot(botData);
         }
       } catch (e) {
-        console.error("Failed to fetch bots", e);
+        console.error("Failed to fetch bots via Supabase:", e);
       }
       
       const savedSession = localStorage.getItem('chat_session_id');
@@ -245,13 +247,15 @@ export default function ChatAI() {
       let botToUse = activeBot;
       if (!botToUse) {
         try {
-          const botRes = await fetch(`${API_URL}/bots/active`);
-          if (botRes.ok) {
-            const botData = await botRes.json();
-            if (botData) {
-              setActiveBot(botData);
-              botToUse = botData;
-            }
+          const { data: botData, error: botErr } = await supabase
+            .from('bots')
+            .select('*')
+            .eq('is_active', true)
+            .maybeSingle();
+
+          if (!botErr && botData) {
+            setActiveBot(botData);
+            botToUse = botData;
           }
         } catch (fetchErr) {
           console.error("Gagal memulihkan koneksi bot aktif:", fetchErr);

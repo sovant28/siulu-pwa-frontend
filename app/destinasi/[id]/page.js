@@ -561,7 +561,7 @@ export default function DestinasiDetailPage() {
     : (event.kategori === 'event' ? 'Jelajahi Destinasi Wisata' : 'Jelajahi Destinasi Lain');
 
   return (
-    <div className="flex flex-col w-full min-h-[100dvh] bg-[#F6F7F9] font-sans relative pb-[calc(env(safe-area-inset-bottom)+180px)]">
+    <div className="flex flex-col w-full min-h-[100dvh] bg-[#F6F7F9] font-sans relative pb-[calc(env(safe-area-inset-bottom)+96px)]">
       
       {/* ── STICKY FLOATING HEADER ── */}
       <header className={`fixed top-0 left-0 right-0 max-w-md mx-auto z-40 px-5 pt-[calc(env(safe-area-inset-top)+10px)] pb-3 flex items-center justify-between transition-all duration-300 ${
@@ -997,19 +997,35 @@ export default function DestinasiDetailPage() {
               </h3>
               
               {hasCoords ? (
-                <div className="relative rounded-2xl overflow-hidden border border-slate-200 bg-slate-50 h-40 w-full mb-3.5">
-                  <iframe
-                    title="Peta Lokasi"
-                    width="100%"
-                    height="100%"
-                    frameBorder="0"
-                    scrolling="no"
-                    marginHeight="0"
-                    marginWidth="0"
-                    src={osmUrl}
-                    className="w-full h-full pointer-events-auto"
-                  />
-                </div>
+                <>
+                  <div className="relative rounded-2xl overflow-hidden border border-slate-200 bg-slate-50 h-40 w-full mb-3">
+                    <iframe
+                      title="Peta Lokasi"
+                      width="100%"
+                      height="100%"
+                      frameBorder="0"
+                      scrolling="no"
+                      marginHeight="0"
+                      marginWidth="0"
+                      src={osmUrl}
+                      className="w-full h-full pointer-events-auto"
+                    />
+                  </div>
+                  <a
+                    href={mapsUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`flex items-center justify-center gap-1.5 w-full py-3.5 font-bold text-xs rounded-2xl active:scale-95 transition-all ${
+                      statusInfo?.label === 'Telah Selesai'
+                        ? 'bg-slate-100 text-slate-500 border border-slate-200/80 hover:bg-slate-200/50'
+                        : 'bg-[#4C1D95] text-white hover:bg-[#3B1570]'
+                    }`}
+                    style={{ WebkitTapHighlightColor: 'transparent' }}
+                  >
+                    <MapPin className="w-3.5 h-3.5" />
+                    <span>{statusInfo?.label === 'Telah Selesai' ? 'Lokasi Venue (Selesai)' : 'Petunjuk Arah'}</span>
+                  </a>
+                </>
               ) : (
                 <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-center text-slate-500 text-xs mb-3.5 font-semibold">
                   Peta koordinat GPS tidak tersedia.
@@ -1064,51 +1080,7 @@ export default function DestinasiDetailPage() {
 
       </div>
 
-      {/* ── STICKY BOTTOM ACTION BAR ── */}
-      {!isFoodCatalog && (
-        <div className="fixed bottom-[calc(env(safe-area-inset-bottom)+84px)] left-0 right-0 max-w-md mx-auto bg-white/95 backdrop-blur-lg border-t border-slate-200 px-5 py-4 flex items-center justify-between z-40 rounded-t-3xl">
-          {isEvent && showPrice ? (
-            <>
-              <div className="flex flex-col text-left">
-                <span className="text-[10px] font-bold text-slate-500 tracking-wider leading-none">Biaya Masuk</span>
-                <span className="text-sm font-black text-slate-800 mt-1.5 leading-none">
-                  {ticketPrice}
-                </span>
-              </div>
-              
-              <a
-                href={mapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`flex items-center justify-center gap-1.5 px-6 py-3.5 font-bold text-xs rounded-2xl active:scale-95 transition-all ${
-                  statusInfo?.label === 'Telah Selesai'
-                    ? 'bg-slate-100 text-slate-500 border border-slate-200/80 hover:bg-slate-200/50'
-                    : 'bg-[#4C1D95] text-white hover:bg-[#3B1570]'
-                }`}
-                style={{ WebkitTapHighlightColor: 'transparent' }}
-              >
-                <MapPin className="w-3.5 h-3.5" />
-                <span>{statusInfo?.label === 'Telah Selesai' ? 'Lokasi Venue (Selesai)' : 'Petunjuk Arah'}</span>
-              </a>
-            </>
-          ) : (
-            <a
-              href={mapsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`flex items-center justify-center gap-1.5 w-full py-3.5 font-bold text-xs rounded-2xl active:scale-95 transition-all ${
-                statusInfo?.label === 'Telah Selesai'
-                  ? 'bg-slate-100 text-slate-500 border border-slate-200/80 hover:bg-slate-200/50'
-                  : 'bg-[#4C1D95] text-white hover:bg-[#3B1570]'
-              }`}
-              style={{ WebkitTapHighlightColor: 'transparent' }}
-            >
-              <MapPin className="w-3.5 h-3.5" />
-              <span>{statusInfo?.label === 'Telah Selesai' ? 'Lokasi Venue (Event Selesai)' : 'Petunjuk Arah'}</span>
-            </a>
-          )}
-        </div>
-      )}
+
 
       {/* BOTTOM NAVIGATION */}
       <nav

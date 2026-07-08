@@ -16,85 +16,6 @@ import {
 } from 'lucide-react';
 
 // Fallback local places dataset for destinations
-const localPlacesFallback = [
-  {
-    id: "TOR-LEMO-001",
-    nama_tempat: "Situs Makam Pahat Lemo",
-    kategori: "budaya_religi",
-    lokasi_wilayah: "Makale Utara (Lemo)",
-    koordinat_gps: [-3.0135, 119.8789],
-    deskripsi_lengkap: "Situs Makam Pahat Lemo adalah salah satu situs pemakaman dinding tebing batu tertua dan paling terkenal di Tana Toraja. Tebing batu ini dipahat secara manual menjadi puluhan lubang makam keluarga, lengkap dengan barisan patung kayu (tau-tau) yang berdiri tegak di balkon tebing sebagai simbol personifikasi para leluhur yang dimakamkan di sana.",
-    jam_operasional: "08:00 - 17:30 WITA",
-    informasi_biaya: {
-      harga_tiket: "Rp 15.000 (Domestik), Rp 30.000 (Mancanegara)",
-      image_url: "/dummy_destination.png"
-    },
-    fitur_fasilitas: ["Pemandu Lokal", "Akses Jalan Kaki", "Toko Suvenir", "Toilet Umum"],
-    aturan_tips: "Hormati kesakralan situs makam tebing batu ini. Jangan menyentuh tau-tau atau sesaji yang ada di sekitar area tebing.",
-    kontak_info: ""
-  },
-  {
-    id: "TOR-SUAYA-002",
-    nama_tempat: "Situs Makam Raja-Raja Suaya",
-    kategori: "budaya_religi",
-    lokasi_wilayah: "Sangalla (Suaya)",
-    koordinat_gps: [-3.0852, 119.9213],
-    deskripsi_lengkap: "Situs Makam Raja-Raja Suaya adalah kompleks pemakaman kuno bagi para raja Sangalla beserta sanak keluarganya. Terletak di tebing batu alami yang tenang, situs ini dilengkapi dengan tau-tau (patung kayu personifikasi) leluhur bangsawan yang dipahat dengan detail sangat halus.\n\nDi sekitar situs terdapat tangga batu menuju ke bukit tempat peristirahatan terakhir yang menyajikan pemandangan alam perbukitan Sangalla yang indah.",
-    jam_operasional: "08:00 - 17:00 WITA",
-    informasi_biaya: {
-      harga_tiket: "Rp 15.000",
-      image_url: "/dummy_destination.png"
-    },
-    fitur_fasilitas: ["Kompleks Makam Tebing", "Pemandu Lokal", "Area Parkir", "Toilet Umum"],
-    aturan_tips: "Jagalah kebersihan di sekitar kompleks makam suci bangsawan ini. Dianjurkan menggunakan pakaian sopan selama berkunjung.",
-    kontak_info: ""
-  },
-  {
-    id: "TOR-ARAS-MAKALE",
-    nama_tempat: "Café Aras Makale",
-    kategori: "kuliner",
-    lokasi_wilayah: "Makale",
-    koordinat_gps: [-3.1024, 119.8512],
-    deskripsi_lengkap: "Café Aras Makale menyajikan berbagai hidangan kuliner khas Tana Toraja yang lezat dan bersertifikat Halal (seperti Pa'piong Ayam Halal, Kapurung, dan Deppa Tori'). Kafe ini juga terkenal dengan sajian kopi specialty Toraja Arabika yang dipetik langsung dari dataran tinggi Mengkendek.\n\nTempatnya didesain dengan nuansa kayu hangat berhiaskan ukiran tradisional Toraja, menjadikannya tempat nongkrong yang nyaman bagi keluarga maupun wisatawan.",
-    jam_operasional: "10:00 - 22:00 WITA",
-    informasi_biaya: {
-      jenis: "tempat_makan",
-      harga_tiket: "Rp 25.000 - Rp 100.000",
-      image_url: "/dummy_destination.png",
-      menu_items: [
-        { nama: "Pa'piong Ayam Bambu (Halal)", harga: "Rp 70.000" },
-        { nama: "Kapurung Toraja", harga: "Rp 30.000" },
-        { nama: "Kopi Arabika Specialty", harga: "Rp 25.000" }
-      ]
-    },
-    fitur_fasilitas: ["Makan di tempat", "Halal", "Kopi Specialty Toraja", "Free Wifi", "Dekorasi Ukiran Toraja"],
-    aturan_tips: "Menu Pa'piong Ayam halal adalah hidangan favorit wisatawan di sini. Sangat cocok dinikmati hangat di malam hari di pusat kota Makale.",
-    kontak_info: "0813-4212-9988"
-  },
-  {
-    id: "TOR-LEMO-CAF",
-    nama_tempat: "Lemo Café",
-    kategori: "kuliner",
-    lokasi_wilayah: "Makale Utara (Lemo)",
-    koordinat_gps: [-3.0135, 119.8789],
-    deskripsi_lengkap: "Lemo Café terletak strategis di dekat situs makam batu Lemo. Menyajikan hidangan khas Toraja seperti Pa'piong dan kopi Toraja asli sambil menyuguhkan pemandangan sawah hijau yang membentang indah di belakang kafe. Tempat singgah yang sempurna setelah menjelajahi situs budaya Lemo.",
-    jam_operasional: "09:00 - 21:00 WITA",
-    informasi_biaya: {
-      jenis: "tempat_makan",
-      harga_tiket: "Rp 20.000 - Rp 75.000",
-      image_url: "/dummy_destination.png",
-      menu_items: [
-        { nama: "Pa'piong Ayam Tradisional", harga: "Rp 75.000" },
-        { nama: "Deppa Tori' Wijen Hangat", harga: "Rp 20.000" },
-        { nama: "Kopi Robusta Toraja", harga: "Rp 20.000" }
-      ]
-    },
-    fitur_fasilitas: ["Makan di tempat", "Pemandangan Sawah", "Dekat Situs Lemo", "Kopi Toraja"],
-    aturan_tips: "Duduklah di area balkon belakang untuk menikmati pemandangan sawah terbaik. Pa'piong di sini dimasak dengan bumbu rempah tradisional yang sangat gurih.",
-    kontak_info: "0812-3456-7890"
-  }
-];
-
 function DestinasiListContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -135,22 +56,10 @@ function DestinasiListContent() {
           item && (item.kategori === 'alam' || item.kategori === 'budaya_religi')
         );
 
-        if (filtered.length > 0) {
-          setDestinations(filtered);
-        } else {
-          const filteredFallback = localPlacesFallback.filter(item => 
-            item.kategori === 'alam' || 
-            item.kategori === 'budaya_religi'
-          );
-          setDestinations(filteredFallback);
-        }
+        setDestinations(filtered || []);
       } catch (err) {
         console.error('Failed to fetch destinations:', err);
-        const filteredFallback = localPlacesFallback.filter(item => 
-          item.kategori === 'alam' || 
-          item.kategori === 'budaya_religi'
-        );
-        setDestinations(filteredFallback);
+        setDestinations([]);
       } finally {
         setLoading(false);
       }

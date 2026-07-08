@@ -16,96 +16,6 @@ import {
   UtensilsCrossed,
 } from 'lucide-react';
 
-// Fallback local culinary dataset
-const localCulinaryFallback = [
-  {
-    id: "FOOD-PAPIONG-AYAM",
-    nama_tempat: "Pa'piong Ayam Khas Toraja",
-    kategori: "kuliner",
-    lokasi_wilayah: "Makale & Sangalla",
-    koordinat_gps: [-3.1024, 119.8512],
-    deskripsi_lengkap: `Pa'piong Ayam adalah kuliner khas tradisional Toraja yang dimasak secara unik di dalam tabung bambu tipis. Daging ayam kampung segar dicampur dengan parutan kelapa muda, batang pisang muda (kallang) yang diiris tipis, cabai lokal (katokkon) yang pedas segar, garam, serta rempah-rempah Toraja.
-
-Setelah semua bumbu merata, adonan dimasukkan ke dalam bambu yang dilapisi daun pisang, lalu dibakar di atas bara api terbuka selama sekitar 1 hingga 1.5 jam hingga matang sempurna dan mengeluarkan aroma harum bambu yang khas.
-
-Bahan & Cara Membuat:
-1. 1 ekor ayam kampung segar (potong kecil-kecil)
-2. 1 batang pisang muda bagian dalam (kallang), iris halus
-3. 1 butir kelapa parut setengah muda
-4. 5-10 buah cabai katokkon (cabai khas Toraja)
-5. Garam, sereh, dan daun kemangi secukupnya
-6. Tabung bambu sedang (sekitar 50-60 cm)`,
-    jam_operasional: "Tersedia di rumah makan tradisional",
-    informasi_biaya: {
-      jenis: "makanan_khas",
-      harga_tiket: "Rp 40.000 - Rp 80.000 / porsi",
-      image_url: "/ai_food.png"
-    },
-    fitur_fasilitas: ["TOR-ARAS-MAKALE", "TOR-LEMO-CAF"],
-    aturan_tips: "Pa'piong tradisional memakan waktu masak yang cukup lama karena harus dibakar perlahan. Jika ingin memesan langsung di restoran, disarankan menelepon kedai terlebih dahulu agar hidangan siap saat Anda tiba.",
-    kontak_info: ""
-  },
-  {
-    id: "FOOD-DEPPA-TORI",
-    nama_tempat: "Deppa Tori' Kue Manis Toraja",
-    kategori: "kuliner",
-    lokasi_wilayah: "Makale & Sangalla",
-    koordinat_gps: [-3.1028, 119.8556],
-    deskripsi_lengkap: `Deppa Tori' adalah kue tradisional camilan khas Tana Toraja yang terbuat dari tepung beras pilihan, gula merah aren lokal yang manis legit, dan taburan biji wijen di bagian luarnya. Kue ini memiliki bentuk lonjong memanjang khas dan bertekstur renyah di luar namun empuk dan gurih di bagian dalamnya.
-
-Sangat cocok disajikan sebagai teman bersantai minum kopi Toraja hangat di pagi atau sore hari.
-
-Bahan-bahan Utama:
-1. Tepung beras ketan lokal
-2. Gula merah aren Toraja asli
-3. Air bersih & minyak kelapa untuk menggoreng
-4. Biji wijen sangrai untuk taburan luar`,
-    jam_operasional: "Tersedia di pasar tradisional & toko oleh-oleh",
-    informasi_biaya: {
-      jenis: "makanan_khas",
-      harga_tiket: "Rp 15.000 - Rp 35.000 / bungkus",
-      image_url: "/icon_kopi.png"
-    },
-    fitur_fasilitas: ["TOR-ARAS-MAKALE"],
-    aturan_tips: "Deppa Tori' sangat lezat disajikan dalam kondisi hangat bersama secangkir kopi Toraja Arabika tanpa gula.",
-    kontak_info: ""
-  },
-  {
-    id: "TOR-ARAS-MAKALE",
-    nama_tempat: "Café Aras Makale",
-    kategori: "kuliner",
-    lokasi_wilayah: "Makale",
-    koordinat_gps: [-3.1024, 119.8512],
-    deskripsi_lengkap: "Café Aras Makale menyajikan berbagai hidangan kuliner khas Tana Toraja yang lezat dan bersertifikat Halal (seperti Pa'piong Ayam Halal, Kapurung, dan Deppa Tori'). Kafe ini juga terkenal dengan sajian kopi specialty Toraja Arabika yang dipetik langsung dari dataran tinggi Mengkendek.\n\nTempatnya didesain dengan nuansa kayu hangat berhiaskan ukiran tradisional Toraja, menjadikannya tempat nongkrong yang nyaman bagi keluarga maupun wisatawan.",
-    jam_operasional: "10:00 - 22:00 WITA",
-    informasi_biaya: {
-      jenis: "tempat_makan",
-      harga_tiket: "Rp 25.000 - Rp 75.000",
-      image_url: "/dummy_destination.png"
-    },
-    fitur_fasilitas: ["Makan di tempat", "Halal", "Kopi Specialty Toraja", "Free Wifi", "Dekorasi Ukiran Toraja"],
-    aturan_tips: "Menu Pa'piong Ayam halal adalah hidangan favorit wisatawan di sini. Sangat cocok dinikmati hangat di malam hari di pusat kota Makale.",
-    kontak_info: "0813-4212-9988"
-  },
-  {
-    id: "TOR-LEMO-CAF",
-    nama_tempat: "Café Lemo Resto",
-    kategori: "kuliner",
-    lokasi_wilayah: "Makale Utara (Lemo)",
-    koordinat_gps: [-3.0142, 119.8795],
-    deskripsi_lengkap: "Café Lemo Resto berlokasi sangat strategis tepat di seberang Situs Makam Pahat Lemo. Restoran ini menyajikan beraneka masakan tradisional Toraja, makanan nasional Indonesia, serta Kopi Arabika Toraja asli.\n\nMemiliki pemandangan langsung ke arah persawahan hijau yang menyejukkan mata, menjadikannya tempat singgah ideal setelah lelah berjalan-jalan di situs makam tebing Lemo.",
-    jam_operasional: "08:00 - 18:00 WITA",
-    informasi_biaya: {
-      jenis: "tempat_makan",
-      harga_tiket: "Rp 30.000 - Rp 90.000",
-      image_url: "/dummy_destination.png"
-    },
-    fitur_fasilitas: ["Makan di tempat", "Pemandangan Sawah", "Dekat Objek Wisata", "Parkir Luas"],
-    aturan_tips: "Duduklah di area balkon belakang untuk menikmati pemandangan sawah terbaik. Pa'piong di sini dimasak dengan bumbu rempah tradisional yang sangat gurih.",
-    kontak_info: "0812-3456-7890"
-  }
-];
-
 function KulinerListContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -133,14 +43,10 @@ function KulinerListContent() {
           item => item && item.kategori === 'kuliner'
         );
         
-        if (apiCulinaryItems && apiCulinaryItems.length > 0) {
-          setItems(apiCulinaryItems);
-        } else {
-          setItems(localCulinaryFallback);
-        }
+        setItems(apiCulinaryItems || []);
       } catch (err) {
         console.error('Failed to fetch culinary items:', err);
-        setItems(localCulinaryFallback);
+        setItems([]);
       } finally {
         setLoading(false);
       }
@@ -256,9 +162,7 @@ function KulinerListContent() {
         ) : filteredItems.length > 0 ? (
           <>
             {filteredItems.slice(0, visibleCount).map((item) => {
-              const imageUrl = item.informasi_biaya?.image_url || 
-                (item.id === 'FOOD-PAPIONG-AYAM' ? '/ai_food.png' : 
-                 item.id === 'FOOD-DEPPA-TORI' ? '/icon_kopi.png' : null);
+              const imageUrl = item.informasi_biaya?.image_url;
 
               return (
                 <div

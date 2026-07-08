@@ -739,6 +739,23 @@ export default function ChatAI() {
       <div 
         className="fixed bottom-[calc(env(safe-area-inset-bottom)+68px)] left-0 right-0 max-w-md mx-auto bg-gradient-to-t from-[#F6F7F9] via-[#F6F7F9] to-transparent pt-5 pb-3 px-4 flex flex-col space-y-2.5 z-40"
       >
+        {/* Suggestion questions when there are messages */}
+        {messages.length > 0 && suggestions.length > 0 && (
+          <div className="flex gap-2 overflow-x-auto pb-1 -mx-4 px-4 scrollbar-none flex-nowrap scroll-smooth flex-shrink-0 snap-x">
+            {suggestions.map((sug, idx) => (
+              <button 
+                key={idx}
+                onClick={() => handleSend(sug)}
+                disabled={loading || (!user && messageCount >= 10)}
+                className="bg-white hover:bg-slate-50 text-xs font-bold text-slate-700 px-3.5 py-2.5 rounded-full transition-all duration-150 active:scale-95 cursor-pointer border border-slate-200/80 leading-snug whitespace-nowrap snap-start flex-shrink-0 select-none outline-none disabled:opacity-50 disabled:active:scale-100"
+                style={{ WebkitTapHighlightColor: 'transparent' }}
+              >
+                {sug}
+              </button>
+            ))}
+          </div>
+        )}
+
         {/* Guest Limit Badge */}
         {!user && (
           <div className="w-full bg-violet-50 border border-violet-200 rounded-2xl px-4 py-2.5 text-center animate-in fade-in slide-in-from-bottom-2 duration-300">

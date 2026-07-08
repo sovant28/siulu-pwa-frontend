@@ -505,7 +505,7 @@ export default function DestinasiDetailPage() {
       </div>
 
       {/* ── DETAILS WRAPPER (UNIFIED CANVAS STYLE) ── */}
-      <div className={`relative -mt-6 z-20 bg-white rounded-t-[32px] pt-8 px-6 space-y-8 text-left ${isFoodCatalog ? 'pb-12' : 'pb-28'} border-t border-slate-100`}>
+      <div className="relative -mt-6 z-20 bg-white rounded-t-[32px] pt-8 px-6 space-y-8 text-left pb-8 border-t border-slate-100">
         
         {/* Section 1: Title, Category & Key Info Grid */}
         <div className="space-y-4">

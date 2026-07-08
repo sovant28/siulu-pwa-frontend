@@ -24,7 +24,7 @@ const localCulinaryFallback = [
     kategori: "kuliner",
     lokasi_wilayah: "Makale & Sangalla",
     koordinat_gps: [-3.1024, 119.8512],
-    deskripsi_lengkap: `Pa'piong Ayam adalah kuliner khas tradisional Toraja yang dimasak secara unik di dalam tabung bambu tipis. Potongan daging ayam kampung segar dicampur dengan parutan kelapa muda, batang pisang muda (kallang) yang diiris tipis, cabai lokal (katokkon) yang pedas segar, garam, serta rempah-rempah Toraja.
+    deskripsi_lengkap: `Pa'piong Ayam adalah kuliner khas tradisional Toraja yang dimasak secara unik di dalam tabung bambu tipis. Daging ayam kampung segar dicampur dengan parutan kelapa muda, batang pisang muda (kallang) yang diiris tipis, cabai lokal (katokkon) yang pedas segar, garam, serta rempah-rempah Toraja.
 
 Setelah semua bumbu merata, adonan dimasukkan ke dalam bambu yang dilapisi daun pisang, lalu dibakar di atas bara api terbuka selama sekitar 1 hingga 1.5 jam hingga matang sempurna dan mengeluarkan aroma harum bambu yang khas.
 
@@ -69,14 +69,58 @@ Bahan-bahan Utama:
     fitur_fasilitas: ["TOR-ARAS-MAKALE"],
     aturan_tips: "Deppa Tori' sangat lezat disajikan dalam kondisi hangat bersama secangkir kopi Toraja Arabika tanpa gula.",
     kontak_info: ""
+  },
+  {
+    id: "TOR-ARAS-MAKALE",
+    nama_tempat: "Café Aras Makale",
+    kategori: "kuliner",
+    lokasi_wilayah: "Makale",
+    koordinat_gps: [-3.1024, 119.8512],
+    deskripsi_lengkap: "Café Aras Makale menyajikan berbagai hidangan kuliner khas Tana Toraja yang lezat dan bersertifikat Halal (seperti Pa'piong Ayam Halal, Kapurung, dan Deppa Tori'). Kafe ini juga terkenal dengan sajian kopi specialty Toraja Arabika yang dipetik langsung dari dataran tinggi Mengkendek.\n\nTempatnya didesain dengan nuansa kayu hangat berhiaskan ukiran tradisional Toraja, menjadikannya tempat nongkrong yang nyaman bagi keluarga maupun wisatawan.",
+    jam_operasional: "10:00 - 22:00 WITA",
+    informasi_biaya: {
+      jenis: "tempat_makan",
+      harga_tiket: "Rp 25.000 - Rp 75.000",
+      image_url: "/dummy_destination.png"
+    },
+    fitur_fasilitas: ["Makan di tempat", "Halal", "Kopi Specialty Toraja", "Free Wifi", "Dekorasi Ukiran Toraja"],
+    aturan_tips: "Menu Pa'piong Ayam halal adalah hidangan favorit wisatawan di sini. Sangat cocok dinikmati hangat di malam hari di pusat kota Makale.",
+    kontak_info: "0813-4212-9988"
+  },
+  {
+    id: "TOR-LEMO-CAF",
+    nama_tempat: "Café Lemo Resto",
+    kategori: "kuliner",
+    lokasi_wilayah: "Makale Utara (Lemo)",
+    koordinat_gps: [-3.0142, 119.8795],
+    deskripsi_lengkap: "Café Lemo Resto berlokasi sangat strategis tepat di seberang Situs Makam Pahat Lemo. Restoran ini menyajikan beraneka masakan tradisional Toraja, makanan nasional Indonesia, serta Kopi Arabika Toraja asli.\n\nMemiliki pemandangan langsung ke arah persawahan hijau yang menyejukkan mata, menjadikannya tempat singgah ideal setelah lelah berjalan-jalan di situs makam tebing Lemo.",
+    jam_operasional: "08:00 - 18:00 WITA",
+    informasi_biaya: {
+      jenis: "tempat_makan",
+      harga_tiket: "Rp 30.000 - Rp 90.000",
+      image_url: "/dummy_destination.png"
+    },
+    fitur_fasilitas: ["Makan di tempat", "Pemandangan Sawah", "Dekat Objek Wisata", "Parkir Luas"],
+    aturan_tips: "Duduklah di area balkon belakang untuk menikmati pemandangan sawah terbaik. Pa'piong di sini dimasak dengan bumbu rempah tradisional yang sangat gurih.",
+    kontak_info: "0812-3456-7890"
   }
 ];
 
 function KulinerListContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const defaultTab = searchParams.get('tab') === 'restoran' ? 'tempat_makan' : 'makanan_khas';
+  
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
+  const [activeTab, setActiveTab] = useState(defaultTab);
+  const [visibleCount, setVisibleCount] = useState(6);
+
+  // Reset page pagination when tab or search changes
+  useEffect(() => {
+    setVisibleCount(6);
+  }, [activeTab, searchQuery]);
 
   // Fetch culinary items from API
   useEffect(() => {
@@ -84,16 +128,18 @@ function KulinerListContent() {
       try {
         const data = await fetchDestinationsData();
         
-        // Filter traditional foods (makanan_khas)
+        // Filter all culinary items
         const apiCulinaryItems = (data || []).filter(
-          item => item && item.kategori === 'kuliner' && 
-                  (item.informasi_biaya?.jenis === 'makanan_khas' || item.id?.startsWith('FOOD-'))
+          item => item && item.kategori === 'kuliner'
         );
         
-        setItems(apiCulinaryItems);
+        if (apiCulinaryItems && apiCulinaryItems.length > 0) {
+          setItems(apiCulinaryItems);
+        } else {
+          setItems(localCulinaryFallback);
+        }
       } catch (err) {
         console.error('Failed to fetch culinary items:', err);
-        // On failure, load fallbacks anyway
         setItems(localCulinaryFallback);
       } finally {
         setLoading(false);
@@ -102,8 +148,16 @@ function KulinerListContent() {
     fetchCulinary();
   }, []);
 
-  // Filter logic based on search query
+  // Filter logic based on tab and search query
   const filteredItems = items.filter(item => {
+    // 1. Tab filter
+    const isMakananKhas = item.informasi_biaya?.jenis === 'makanan_khas' || item.id?.startsWith('FOOD-');
+    const isTempatMakan = item.informasi_biaya?.jenis === 'tempat_makan' || !item.id?.startsWith('FOOD-');
+    
+    if (activeTab === 'makanan_khas' && !isMakananKhas) return false;
+    if (activeTab === 'tempat_makan' && !isTempatMakan) return false;
+
+    // 2. Search filter
     return (
       item.nama_tempat.toLowerCase().includes(searchQuery.toLowerCase()) ||
       (item.lokasi_wilayah && item.lokasi_wilayah.toLowerCase().includes(searchQuery.toLowerCase())) ||
@@ -115,7 +169,7 @@ function KulinerListContent() {
     <div className="flex flex-col w-full min-h-[100dvh] bg-[#F6F7F9] font-sans pb-[calc(env(safe-area-inset-bottom)+76px)] relative overflow-x-hidden">
       
       {/* ── COMPACT STICKY HEADER ── */}
-      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md pt-[calc(env(safe-area-inset-top)+8px)] pb-3 flex flex-col gap-3 border-b border-slate-200">
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md pt-[calc(env(safe-area-inset-top)+8px)] pb-0 flex flex-col gap-3 border-b border-slate-200">
         {/* Row 1: Back Button & Page Title */}
         <div className="flex items-center gap-3 px-5">
           <button
@@ -134,12 +188,44 @@ function KulinerListContent() {
             <Search className="w-4 h-4 text-slate-400 mr-2 flex-shrink-0" />
             <input
               type="text"
-              placeholder="Cari makanan khas..."
+              placeholder={activeTab === 'makanan_khas' ? 'Cari makanan khas...' : 'Cari restoran, cafe, kedai...'}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full text-sm font-medium text-slate-800 bg-transparent border-none outline-none placeholder-slate-400"
             />
           </div>
+        </div>
+
+        {/* Row 3: Tabs */}
+        <div className="px-5 flex items-center space-x-6 overflow-x-auto no-scrollbar scroll-smooth bg-white pb-0 flex-shrink-0">
+          <button
+            onClick={() => setActiveTab('makanan_khas')}
+            className={`pb-2.5 text-xs font-bold whitespace-nowrap transition-all flex-shrink-0 relative ${
+              activeTab === 'makanan_khas' ? 'text-[#4C1D95]' : 'text-slate-500 active:text-[#4C1D95]'
+            }`}
+            style={{ WebkitTapHighlightColor: 'transparent' }}
+          >
+            <span>Makanan Khas</span>
+            <span
+              className={`absolute bottom-0 left-0 right-0 h-[3px] rounded-t-full transition-all duration-200 origin-center ${
+                activeTab === 'makanan_khas' ? 'bg-[#4C1D95] scale-x-100' : 'bg-transparent scale-x-0'
+              }`}
+            />
+          </button>
+          <button
+            onClick={() => setActiveTab('tempat_makan')}
+            className={`pb-2.5 text-xs font-bold whitespace-nowrap transition-all flex-shrink-0 relative ${
+              activeTab === 'tempat_makan' ? 'text-[#4C1D95]' : 'text-slate-500 active:text-[#4C1D95]'
+            }`}
+            style={{ WebkitTapHighlightColor: 'transparent' }}
+          >
+            <span>Tempat Makan / Resto</span>
+            <span
+              className={`absolute bottom-0 left-0 right-0 h-[3px] rounded-t-full transition-all duration-200 origin-center ${
+                activeTab === 'tempat_makan' ? 'bg-[#4C1D95] scale-x-100' : 'bg-transparent scale-x-0'
+              }`}
+            />
+          </button>
         </div>
       </header>
 
@@ -147,7 +233,9 @@ function KulinerListContent() {
       {!loading && (
         <div className="px-5 mt-3">
           <p className="text-[11px] font-semibold text-slate-400">
-            {filteredItems.length} kuliner khas ditemukan
+            {activeTab === 'makanan_khas' 
+              ? `${filteredItems.length} kuliner khas ditemukan` 
+              : `${filteredItems.length} tempat makan ditemukan`}
           </p>
         </div>
       )}
@@ -166,51 +254,74 @@ function KulinerListContent() {
             </div>
           ))
         ) : filteredItems.length > 0 ? (
-          filteredItems.map((item) => {
-            const imageUrl = item.informasi_biaya?.image_url || 
-              (item.id === 'FOOD-PAPIONG-AYAM' ? '/ai_food.png' : 
-               item.id === 'FOOD-DEPPA-TORI' ? '/icon_kopi.png' : null);
-            const priceRange = item.informasi_biaya?.harga_tiket;
+          <>
+            {filteredItems.slice(0, visibleCount).map((item) => {
+              const imageUrl = item.informasi_biaya?.image_url || 
+                (item.id === 'FOOD-PAPIONG-AYAM' ? '/ai_food.png' : 
+                 item.id === 'FOOD-DEPPA-TORI' ? '/icon_kopi.png' : null);
 
-            return (
-              <div
-                key={item.id}
-                onClick={() => router.push(`/destinasi/${item.id}`)}
-                className="flex flex-col active:scale-[0.98] transition-all cursor-pointer space-y-3"
-                style={{ WebkitTapHighlightColor: 'transparent' }}
-              >
-                {/* Baris 1: Cover Photo (Aspect 16:10, Rounded 3xl, border outline) */}
-                <div className="relative w-full aspect-[16/10] bg-slate-100 rounded-3xl overflow-hidden border border-slate-200/80">
-                  <Image
-                    src={imageUrl || "/dummy_destination.png"}
-                    alt={item.nama_tempat}
-                    fill
-                    className="object-cover"
-                    unoptimized
-                  />
+              return (
+                <div
+                  key={item.id}
+                  onClick={() => router.push(`/destinasi/${item.id}`)}
+                  className="flex flex-col active:scale-[0.98] transition-all cursor-pointer space-y-3"
+                  style={{ WebkitTapHighlightColor: 'transparent' }}
+                >
+                  {/* Baris 1: Cover Photo (Aspect 16:10, Rounded 3xl, border outline) */}
+                  <div className="relative w-full aspect-[16/10] bg-slate-100 rounded-3xl overflow-hidden border border-slate-200/80">
+                    <Image
+                      src={imageUrl || "/dummy_destination.png"}
+                      alt={item.nama_tempat}
+                      fill
+                      className="object-cover"
+                      unoptimized
+                    />
+                  </div>
+
+                  {/* Info details */}
+                  <div className="text-left px-1">
+                    {/* Baris 2: Nama Item */}
+                    <h3 className="text-[16px] font-black text-slate-900 leading-snug">
+                      {item.nama_tempat}
+                    </h3>
+
+                    {/* Baris 3: Deskripsi singkat */}
+                    {item.deskripsi_lengkap && (
+                      <p className="text-xs font-semibold text-slate-800 mt-1.5 line-clamp-2 leading-relaxed">
+                        {item.deskripsi_lengkap}
+                      </p>
+                    )}
+
+                    {/* Baris 4: Lokasi Wilayah (jika ada) */}
+                    {item.lokasi_wilayah && (
+                      <div className="mt-2.5 flex items-center text-xs font-semibold text-slate-500 gap-1.5">
+                        <MapPin className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
+                        <span className="truncate">{item.lokasi_wilayah}</span>
+                      </div>
+                    )}
+                  </div>
                 </div>
+              );
+            })}
 
-                {/* Info details */}
-                <div className="text-left px-1">
-                  {/* Baris 2: Nama Item */}
-                  <h3 className="text-[16px] font-black text-slate-900 leading-snug">
-                    {item.nama_tempat}
-                  </h3>
-
-                  {/* Baris 3: Deskripsi singkat */}
-                  {item.deskripsi_lengkap && (
-                    <p className="text-xs font-semibold text-slate-800 mt-1.5 line-clamp-2 leading-relaxed">
-                      {item.deskripsi_lengkap}
-                    </p>
-                  )}
-                </div>
+            {filteredItems.length > visibleCount && (
+              <div className="flex justify-center pt-2 pb-6">
+                <button
+                  onClick={() => setVisibleCount(prev => prev + 6)}
+                  className="px-6 py-3 bg-white border border-slate-200/80 rounded-xl text-xs font-bold text-slate-700 active:scale-95 transition-all duration-150 select-none outline-none w-full max-w-[200px]"
+                  style={{ WebkitTapHighlightColor: 'transparent' }}
+                >
+                  Muat Lebih Banyak
+                </button>
               </div>
-            );
-          })
+            )}
+          </>
         ) : (
           <div className="text-center py-16 px-6">
             <span className="text-4xl block mb-3">🍲</span>
-            <p className="text-sm text-slate-500 font-bold">Tidak ada kuliner yang cocok.</p>
+            <p className="text-sm text-slate-500 font-bold">
+              {activeTab === 'makanan_khas' ? 'Tidak ada kuliner yang cocok.' : 'Tidak ada tempat makan yang cocok.'}
+            </p>
             <p className="text-xs text-slate-400 font-medium mt-1">Coba kata kunci lain atau ubah filter pencarian.</p>
           </div>
         )}

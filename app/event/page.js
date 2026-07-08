@@ -95,7 +95,8 @@ export default function EventListPage() {
     semua: 'Semua Event',
     mendatang: 'Event Mendatang',
     budaya: 'Upacara Adat',
-    religi: 'Event Religi'
+    religi: 'Event Religi',
+    lainnya: 'Event Lainnya'
   };
 
 
@@ -142,17 +143,15 @@ export default function EventListPage() {
     }
     
     if (activeFilter === 'budaya') {
-      if (event.informasi_biaya?.sub_kategori === 'budaya') return true;
-      const keywords = ['budaya', 'rambu', 'solo', 'adat', 'ritual', 'tongkonan', 'tradisional', 'upacara'];
-      const text = `${event.nama_tempat} ${event.deskripsi_lengkap}`.toLowerCase();
-      return keywords.some(kw => text.includes(kw));
+      return event.informasi_biaya?.sub_kategori === 'budaya';
     }
 
     if (activeFilter === 'religi') {
-      if (event.informasi_biaya?.sub_kategori === 'religi') return true;
-      const keywords = ['religi', 'gereja', 'natal', 'paskah', 'ibadah', 'ziarah', 'masjid', 'kristen', 'katolik'];
-      const text = `${event.nama_tempat} ${event.deskripsi_lengkap}`.toLowerCase();
-      return keywords.some(kw => text.includes(kw));
+      return event.informasi_biaya?.sub_kategori === 'religi';
+    }
+
+    if (activeFilter === 'lainnya') {
+      return event.informasi_biaya?.sub_kategori === 'lainnya' || !event.informasi_biaya?.sub_kategori;
     }
 
     return true;

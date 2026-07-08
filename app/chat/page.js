@@ -189,9 +189,31 @@ export default function ChatAI() {
 
   const fetchHistory = async (sid) => {
     try {
-      const res = await fetch(`${API_URL}/chat/history/${sid}`);
-      if (res.ok) {
-        const history = await res.json();
+      const { data, error } = await supabase
+        .from('chat_logs_temporary')
+        .select('user_query, ai_response, feedback_type, feedback_note')
+        .eq('session_id', sid)
+        .order('created_at', { ascending: true });
+
+      if (!error && data) {
+        const history = [];
+        data.forEach(row => {
+          if (row.user_query) {
+            history.push({
+              role: 'user',
+              content: row.user_query
+            });
+          }
+          if (row.ai_response) {
+            history.push({
+              role: 'model',
+              content: row.ai_response,
+              feedback_type: row.feedback_type,
+              feedback_note: row.feedback_note
+            });
+          }
+        });
+
         let lastChips = null;
         const formatted = history.map(msg => {
           const parsed = parseSuggestions(msg.content);
@@ -202,13 +224,13 @@ export default function ChatAI() {
             feedback: msg.feedback_type || null,
             feedbackSubmitted: !!msg.feedback_type
           };
-        }).filter(msg => !(msg.role === 'bot' && msg.content.includes('Kurresumanga')));
+        }).filter(msg => !(msg.role === 'bot' && msg.content && msg.content.includes('Kurresumanga')));
         
         setMessages(formatted);
         if (lastChips) setSuggestions(lastChips);
       }
     } catch (err) {
-      console.error(err);
+      console.error("Failed to load chat history via Supabase:", err);
     }
   };
 

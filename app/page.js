@@ -312,50 +312,50 @@ export default function AppHome() {
           {/* Card 1: Wisata */}
           <div 
             onClick={() => router.push('/destinasi')}
-            className="bg-slate-50/60 border border-slate-100/80 rounded-2xl p-4 flex flex-col items-center justify-center space-y-2 cursor-pointer active:scale-95 transition-all duration-150 select-none"
+            className="w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-slate-50/60 border border-slate-100/80 cursor-pointer active:scale-95 transition-all duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
-            <Compass className="w-6 h-6 text-blue-500" />
+            <Compass className="w-5.5 h-5.5 text-blue-500" />
             <span className="text-xs font-bold text-slate-700 tracking-wide">Wisata</span>
           </div>
 
           {/* Card 2: Event */}
           <div 
             onClick={() => router.push('/event')}
-            className="bg-slate-50/60 border border-slate-100/80 rounded-2xl p-4 flex flex-col items-center justify-center space-y-2 cursor-pointer active:scale-95 transition-all duration-150 select-none"
+            className="w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-slate-50/60 border border-slate-100/80 cursor-pointer active:scale-95 transition-all duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
-            <Calendar className="w-6 h-6 text-rose-500" />
+            <Calendar className="w-5.5 h-5.5 text-rose-500" />
             <span className="text-xs font-bold text-slate-700 tracking-wide">Event</span>
           </div>
 
           {/* Card 3: Kuliner */}
           <div 
             onClick={() => router.push('/kuliner')}
-            className="bg-slate-50/60 border border-slate-100/80 rounded-2xl p-4 flex flex-col items-center justify-center space-y-2 cursor-pointer active:scale-95 transition-all duration-150 select-none"
+            className="w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-slate-50/60 border border-slate-100/80 cursor-pointer active:scale-95 transition-all duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
-            <Utensils className="w-6 h-6 text-emerald-500" />
+            <Utensils className="w-5.5 h-5.5 text-emerald-500" />
             <span className="text-xs font-bold text-slate-700 tracking-wide">Kuliner</span>
           </div>
 
           {/* Card 4: Hotel */}
           <div 
             onClick={() => router.push('/hotel')}
-            className="bg-slate-50/60 border border-slate-100/80 rounded-2xl p-4 flex flex-col items-center justify-center space-y-2 cursor-pointer active:scale-95 transition-all duration-150 select-none"
+            className="w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-slate-50/60 border border-slate-100/80 cursor-pointer active:scale-95 transition-all duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
-            <Hotel className="w-6 h-6 text-amber-500" />
+            <Hotel className="w-5.5 h-5.5 text-amber-500" />
             <span className="text-xs font-bold text-slate-700 tracking-wide">Hotel</span>
           </div>
 
           {/* Card 5: Tiket */}
-          <div className="relative">
+          <div className="relative w-full h-[88px]">
             <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[5.5px] font-black px-1.5 py-0.5 rounded-full border border-white z-10 leading-none tracking-wide select-none pointer-events-none scale-90">Soon</span>
             <div 
-              className="bg-slate-50/60 border border-slate-100/80 rounded-2xl p-4 flex flex-col items-center justify-center space-y-2 opacity-65 saturate-75 cursor-default select-none"
+              className="w-full h-full p-3 flex flex-col justify-between items-start rounded-2xl bg-slate-50/60 border border-slate-100/80 opacity-65 saturate-75 cursor-default select-none"
             >
-              <Ticket className="w-6 h-6 text-slate-400" />
+              <Ticket className="w-5.5 h-5.5 text-slate-400" />
               <span className="text-xs font-bold text-slate-400 tracking-wide">Tiket</span>
             </div>
           </div>
@@ -364,43 +364,43 @@ export default function AppHome() {
           {!showAllCategories ? (
             <div 
               onClick={() => setShowAllCategories(true)}
-              className="bg-slate-50/60 border border-slate-100/80 rounded-2xl p-4 flex flex-col items-center justify-center space-y-2 cursor-pointer active:scale-95 transition-all duration-150 select-none"
+              className="w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-slate-50/60 border border-slate-100/80 cursor-pointer active:scale-95 transition-all duration-150 select-none"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
-              <LayoutGrid className="w-6 h-6 text-slate-500" />
+              <LayoutGrid className="w-5.5 h-5.5 text-slate-500" />
               <span className="text-xs font-bold text-slate-700 tracking-wide">Lainnya</span>
             </div>
           ) : (
             <>
               {/* Card 6 (Oleh-oleh) */}
-              <div className="relative">
+              <div className="relative w-full h-[88px]">
                 <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[5.5px] font-black px-1.5 py-0.5 rounded-full border border-white z-10 leading-none tracking-wide select-none pointer-events-none scale-90">Soon</span>
                 <div 
-                  className="bg-slate-50/60 border border-slate-100/80 rounded-2xl p-4 flex flex-col items-center justify-center space-y-2 opacity-65 saturate-75 cursor-default select-none"
+                  className="w-full h-full p-3 flex flex-col justify-between items-start rounded-2xl bg-slate-50/60 border border-slate-100/80 opacity-65 saturate-75 cursor-default select-none"
                 >
-                  <Gift className="w-6 h-6 text-slate-400" />
+                  <Gift className="w-5.5 h-5.5 text-slate-400" />
                   <span className="text-xs font-bold text-slate-400 tracking-wide">Oleh-oleh</span>
                 </div>
               </div>
 
               {/* Card 7 (Aduan) */}
-              <div className="relative">
+              <div className="relative w-full h-[88px]">
                 <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[5.5px] font-black px-1.5 py-0.5 rounded-full border border-white z-10 leading-none tracking-wide select-none pointer-events-none scale-90">Soon</span>
                 <div 
-                  className="bg-slate-50/60 border border-slate-100/80 rounded-2xl p-4 flex flex-col items-center justify-center space-y-2 opacity-65 saturate-75 cursor-default select-none"
+                  className="w-full h-full p-3 flex flex-col justify-between items-start rounded-2xl bg-slate-50/60 border border-slate-100/80 opacity-65 saturate-75 cursor-default select-none"
                 >
-                  <Megaphone className="w-6 h-6 text-slate-400" />
+                  <Megaphone className="w-5.5 h-5.5 text-slate-400" />
                   <span className="text-xs font-bold text-slate-400 tracking-wide">Aduan</span>
                 </div>
               </div>
 
               {/* Card 8 (Bantuan) */}
-              <div className="relative">
+              <div className="relative w-full h-[88px]">
                 <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[5.5px] font-black px-1.5 py-0.5 rounded-full border border-white z-10 leading-none tracking-wide select-none pointer-events-none scale-90">Soon</span>
                 <div 
-                  className="bg-slate-50/60 border border-slate-100/80 rounded-2xl p-4 flex flex-col items-center justify-center space-y-2 opacity-65 saturate-75 cursor-default select-none"
+                  className="w-full h-full p-3 flex flex-col justify-between items-start rounded-2xl bg-slate-50/60 border border-slate-100/80 opacity-65 saturate-75 cursor-default select-none"
                 >
-                  <HelpCircle className="w-6 h-6 text-slate-400" />
+                  <HelpCircle className="w-5.5 h-5.5 text-slate-400" />
                   <span className="text-xs font-bold text-slate-400 tracking-wide">Bantuan</span>
                 </div>
               </div>
@@ -408,10 +408,10 @@ export default function AppHome() {
               {/* Card 9: Tutup */}
               <div 
                 onClick={() => setShowAllCategories(false)}
-                className="bg-slate-50/60 border border-slate-100/80 rounded-2xl p-4 flex flex-col items-center justify-center space-y-2 cursor-pointer active:scale-95 transition-all duration-150 select-none"
+                className="w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-slate-50/60 border border-slate-100/80 cursor-pointer active:scale-95 transition-all duration-150 select-none"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >
-                <ChevronUp className="w-6 h-6 text-slate-500" />
+                <ChevronUp className="w-5.5 h-5.5 text-slate-500" />
                 <span className="text-xs font-bold text-slate-700 tracking-wide">Tutup</span>
               </div>
             </>

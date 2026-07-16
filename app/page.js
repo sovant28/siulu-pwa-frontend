@@ -62,15 +62,15 @@ export default function AppHome() {
   const renderWeatherIcon = (type) => {
     switch (type) {
       case 'fog':
-        return <CloudFog className="w-3.5 h-3.5 text-slate-400" />;
+        return <CloudFog className="w-5.5 h-5.5 text-slate-400" />;
       case 'cloud-sun':
-        return <CloudSun className="w-3.5 h-3.5 text-amber-500" />;
+        return <CloudSun className="w-5.5 h-5.5 text-amber-500" />;
       case 'cloud':
-        return <Cloud className="w-3.5 h-3.5 text-slate-400" />;
+        return <Cloud className="w-5.5 h-5.5 text-slate-400" />;
       case 'moon':
-        return <CloudMoon className="w-3.5 h-3.5 text-indigo-400" />;
+        return <CloudMoon className="w-5.5 h-5.5 text-indigo-400" />;
       default:
-        return <CloudSun className="w-3.5 h-3.5 text-amber-500" />;
+        return <CloudSun className="w-5.5 h-5.5 text-amber-500" />;
     }
   };
 
@@ -372,7 +372,7 @@ export default function AppHome() {
       </section>
 
       {/* YOUTUBE VIDEO HOOK */}
-      <section className="px-5 mt-6 mb-8">
+      <section className="px-5 mt-6 mb-4">
         <h3 className="text-base font-semibold text-slate-800">Pesona Tana Toraja</h3>
         <p className="text-xs font-normal text-slate-700 mt-0.5 mb-3 leading-relaxed">
           Ikuti perjalanan spiritual Maria menelusuri Tana Toraja.
@@ -387,6 +387,20 @@ export default function AppHome() {
             allowFullScreen
             loading="lazy"
           />
+        </div>
+      </section>
+
+      {/* WEATHER WIDGET (Thin Banner) */}
+      <section className="px-5 mb-8">
+        <div className="w-full bg-white border border-slate-100 rounded-2xl p-3 px-4 flex items-center justify-between select-none">
+          <div className="flex items-center space-x-3">
+            {renderWeatherIcon(weather.type)}
+            <div className="flex flex-col text-left">
+              <span className="text-[13px] font-black text-slate-800 leading-none">{weather.temp}</span>
+              <span className="text-[10px] font-bold text-slate-400 leading-none mt-1">{weather.text}</span>
+            </div>
+          </div>
+          <span className="text-[10.5px] font-bold text-slate-400 tracking-wide">Cuaca Makale Hari Ini</span>
         </div>
       </section>
 

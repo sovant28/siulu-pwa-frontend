@@ -354,7 +354,7 @@ export default function AppHome() {
           <div 
             className="relative w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
           >
-            <span className="absolute top-2 right-2 bg-slate-100 text-slate-500 text-[8px] font-bold px-1.5 py-0.5 rounded-full leading-none select-none pointer-events-none">Soon</span>
+            <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9.5px] font-black px-2 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
             <Ticket className="w-6.5 h-6.5 text-slate-400" />
             <span className="text-[13px] font-bold text-slate-400 tracking-wide">Tiket</span>
           </div>
@@ -595,7 +595,7 @@ export default function AppHome() {
             <div 
               className="relative w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
             >
-              <span className="absolute top-2 right-2 bg-slate-100 text-slate-500 text-[8px] font-bold px-1.5 py-0.5 rounded-full leading-none select-none pointer-events-none">Soon</span>
+              <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9.5px] font-black px-2 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
               <Ticket className="w-6.5 h-6.5 text-slate-400" />
               <span className="text-[13px] font-bold text-slate-400 tracking-wide">Tiket</span>
             </div>
@@ -604,7 +604,7 @@ export default function AppHome() {
             <div 
               className="relative w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
             >
-              <span className="absolute top-2 right-2 bg-slate-100 text-slate-500 text-[8px] font-bold px-1.5 py-0.5 rounded-full leading-none select-none pointer-events-none">Soon</span>
+              <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9.5px] font-black px-2 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
               <Gift className="w-6.5 h-6.5 text-slate-400" />
               <span className="text-[13px] font-bold text-slate-400 tracking-wide">Oleh-oleh</span>
             </div>
@@ -613,7 +613,7 @@ export default function AppHome() {
             <div 
               className="relative w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
             >
-              <span className="absolute top-2 right-2 bg-slate-100 text-slate-500 text-[8px] font-bold px-1.5 py-0.5 rounded-full leading-none select-none pointer-events-none">Soon</span>
+              <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9.5px] font-black px-2 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
               <Megaphone className="w-6.5 h-6.5 text-slate-400" />
               <span className="text-[13px] font-bold text-slate-400 tracking-wide">Aduan</span>
             </div>
@@ -622,7 +622,7 @@ export default function AppHome() {
             <div 
               className="relative w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
             >
-              <span className="absolute top-2 right-2 bg-slate-100 text-slate-500 text-[8px] font-bold px-1.5 py-0.5 rounded-full leading-none select-none pointer-events-none">Soon</span>
+              <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9.5px] font-black px-2 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
               <HelpCircle className="w-6.5 h-6.5 text-slate-400" />
               <span className="text-[13px] font-bold text-slate-400 tracking-wide">Bantuan</span>
             </div>

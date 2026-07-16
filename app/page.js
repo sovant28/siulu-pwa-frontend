@@ -309,11 +309,11 @@ export default function AppHome() {
       </section>
 
       <section className="px-5 mt-4.5">
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-3 gap-[5px]">
           {/* Card 1: Wisata */}
           <div 
             onClick={() => router.push('/destinasi')}
-            className="relative w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
+            className="relative w-full h-[92px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             <Compass className="w-6.5 h-6.5 text-blue-500" />
@@ -323,7 +323,7 @@ export default function AppHome() {
           {/* Card 2: Event */}
           <div 
             onClick={() => router.push('/event')}
-            className="relative w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
+            className="relative w-full h-[92px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             <Calendar className="w-6.5 h-6.5 text-rose-500" />
@@ -333,7 +333,7 @@ export default function AppHome() {
           {/* Card 3: Kuliner */}
           <div 
             onClick={() => router.push('/kuliner')}
-            className="relative w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
+            className="relative w-full h-[92px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             <Utensils className="w-6.5 h-6.5 text-emerald-500" />
@@ -343,7 +343,7 @@ export default function AppHome() {
           {/* Card 4: Hotel */}
           <div 
             onClick={() => router.push('/hotel')}
-            className="relative w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
+            className="relative w-full h-[92px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             <Hotel className="w-6.5 h-6.5 text-amber-500" />
@@ -352,7 +352,7 @@ export default function AppHome() {
 
           {/* Card 5: Tiket */}
           <div 
-            className="relative w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
+            className="relative w-full h-[92px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
           >
             <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9.5px] font-black px-2 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
             <Ticket className="w-6.5 h-6.5 text-slate-400" />
@@ -362,7 +362,7 @@ export default function AppHome() {
           {/* Card 6: Lainnya */}
           <div 
             onClick={() => setShowAllCategories(true)}
-            className="relative w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
+            className="relative w-full h-[92px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             <LayoutGrid className="w-6.5 h-6.5 text-slate-500" />
@@ -558,7 +558,7 @@ export default function AppHome() {
             {/* Wisata */}
             <div 
               onClick={() => { setShowAllCategories(false); router.push('/destinasi'); }}
-              className="relative w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all"
+              className="relative w-full h-[92px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all"
             >
               <Compass className="w-6.5 h-6.5 text-blue-500" />
               <span className="text-[13px] font-bold text-slate-700 tracking-wide">Wisata</span>
@@ -567,7 +567,7 @@ export default function AppHome() {
             {/* Event */}
             <div 
               onClick={() => { setShowAllCategories(false); router.push('/event'); }}
-              className="relative w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all"
+              className="relative w-full h-[92px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all"
             >
               <Calendar className="w-6.5 h-6.5 text-rose-500" />
               <span className="text-[13px] font-bold text-slate-700 tracking-wide">Event</span>
@@ -576,7 +576,7 @@ export default function AppHome() {
             {/* Kuliner */}
             <div 
               onClick={() => { setShowAllCategories(false); router.push('/kuliner'); }}
-              className="relative w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all"
+              className="relative w-full h-[92px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all"
             >
               <Utensils className="w-6.5 h-6.5 text-emerald-500" />
               <span className="text-[13px] font-bold text-slate-700 tracking-wide">Kuliner</span>
@@ -585,7 +585,7 @@ export default function AppHome() {
             {/* Hotel */}
             <div 
               onClick={() => { setShowAllCategories(false); router.push('/hotel'); }}
-              className="relative w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all"
+              className="relative w-full h-[92px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all"
             >
               <Hotel className="w-6.5 h-6.5 text-amber-500" />
               <span className="text-[13px] font-bold text-slate-700 tracking-wide">Hotel</span>
@@ -593,7 +593,7 @@ export default function AppHome() {
 
             {/* Tiket */}
             <div 
-              className="relative w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
+              className="relative w-full h-[92px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
             >
               <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9.5px] font-black px-2 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
               <Ticket className="w-6.5 h-6.5 text-slate-400" />
@@ -602,7 +602,7 @@ export default function AppHome() {
 
             {/* Oleh-oleh */}
             <div 
-              className="relative w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
+              className="relative w-full h-[92px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
             >
               <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9.5px] font-black px-2 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
               <Gift className="w-6.5 h-6.5 text-slate-400" />
@@ -611,7 +611,7 @@ export default function AppHome() {
 
             {/* Aduan */}
             <div 
-              className="relative w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
+              className="relative w-full h-[92px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
             >
               <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9.5px] font-black px-2 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
               <Megaphone className="w-6.5 h-6.5 text-slate-400" />
@@ -620,7 +620,7 @@ export default function AppHome() {
 
             {/* Bantuan */}
             <div 
-              className="relative w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
+              className="relative w-full h-[92px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
             >
               <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9.5px] font-black px-2 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
               <HelpCircle className="w-6.5 h-6.5 text-slate-400" />

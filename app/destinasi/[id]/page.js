@@ -158,7 +158,7 @@ function parseCostInfo(costObj) {
 export default function DestinasiDetailPage() {
   const router = useRouter();
   const params = useParams();
-  const eventId = params.id;
+  const eventId = params.id ? decodeURIComponent(params.id) : '';
 
   const [event, setEvent] = useState(null);
   const [allDestinations, setAllDestinations] = useState([]);

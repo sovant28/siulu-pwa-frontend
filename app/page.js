@@ -192,7 +192,7 @@ export default function AppHome() {
   }, []);
 
   return (
-    <div className="flex flex-col w-full min-h-[100dvh] bg-white font-sans pb-[calc(env(safe-area-inset-bottom)+68px)] relative overflow-x-hidden z-0">
+    <div className="flex flex-col w-full min-h-[100dvh] bg-[#F8F9FA] font-sans pb-[calc(env(safe-area-inset-bottom)+68px)] relative overflow-x-hidden z-0">
 
       {/* HEADER BAR (Horizontal & Native-like) */}
       <header className="w-full flex px-5 pt-[calc(env(safe-area-inset-top)+18px)] pb-3 relative z-10 items-center justify-between">
@@ -211,7 +211,7 @@ export default function AppHome() {
         <div className="flex items-center space-x-2.5 flex-shrink-0">
           <button
             onClick={() => {}}
-            className="w-10 h-10 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-700 active:scale-95 transition-all outline-none"
+            className="w-10 h-10 rounded-full bg-white border border-slate-200/80 flex items-center justify-center text-slate-700 active:scale-95 transition-all outline-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             <Bell className="w-5 h-5" />
@@ -219,7 +219,7 @@ export default function AppHome() {
           
           <div
             onClick={() => router.push(user ? '/profile' : '/login')}
-            className="relative w-10 h-10 rounded-full overflow-hidden border border-slate-100 bg-slate-50 flex items-center justify-center text-slate-700 cursor-pointer active:scale-95 transition-all"
+            className="relative w-10 h-10 rounded-full overflow-hidden border border-slate-200/80 bg-white flex items-center justify-center text-slate-700 cursor-pointer active:scale-95 transition-all"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             {user ? (
@@ -238,7 +238,7 @@ export default function AppHome() {
           role="button"
           tabIndex={0}
           onKeyDown={(e) => e.key === 'Enter' && router.push('/destinasi')}
-          className="w-full flex items-center bg-slate-50 border border-slate-100 rounded-full px-4.5 py-3 active:scale-[0.99] transition cursor-pointer select-none"
+          className="w-full flex items-center bg-white border border-slate-100 rounded-full px-4.5 py-3 active:scale-[0.99] transition cursor-pointer select-none"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
           <Search className="w-4.5 h-4.5 text-slate-400 mr-2.5 flex-shrink-0" />
@@ -307,12 +307,11 @@ export default function AppHome() {
       </section>
 
       <section className="px-5 mt-8">
-        <h3 className="text-base font-semibold text-slate-800">Kategori Populer</h3>
-        <div className="grid grid-cols-3 gap-3 mt-4">
+        <div className="grid grid-cols-3 gap-3">
           {/* Card 1: Wisata */}
           <div 
             onClick={() => router.push('/destinasi')}
-            className="w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-slate-50/60 border border-slate-100/80 cursor-pointer active:scale-95 transition-all duration-150 select-none"
+            className="w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             <Compass className="w-5.5 h-5.5 text-blue-500" />
@@ -322,7 +321,7 @@ export default function AppHome() {
           {/* Card 2: Event */}
           <div 
             onClick={() => router.push('/event')}
-            className="w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-slate-50/60 border border-slate-100/80 cursor-pointer active:scale-95 transition-all duration-150 select-none"
+            className="w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             <Calendar className="w-5.5 h-5.5 text-rose-500" />
@@ -332,7 +331,7 @@ export default function AppHome() {
           {/* Card 3: Kuliner */}
           <div 
             onClick={() => router.push('/kuliner')}
-            className="w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-slate-50/60 border border-slate-100/80 cursor-pointer active:scale-95 transition-all duration-150 select-none"
+            className="w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             <Utensils className="w-5.5 h-5.5 text-emerald-500" />
@@ -342,7 +341,7 @@ export default function AppHome() {
           {/* Card 4: Hotel */}
           <div 
             onClick={() => router.push('/hotel')}
-            className="w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-slate-50/60 border border-slate-100/80 cursor-pointer active:scale-95 transition-all duration-150 select-none"
+            className="w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             <Hotel className="w-5.5 h-5.5 text-amber-500" />
@@ -353,7 +352,7 @@ export default function AppHome() {
           <div className="relative w-full h-[88px]">
             <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[5.5px] font-black px-1.5 py-0.5 rounded-full border border-white z-10 leading-none tracking-wide select-none pointer-events-none scale-90">Soon</span>
             <div 
-              className="w-full h-full p-3 flex flex-col justify-between items-start rounded-2xl bg-slate-50/60 border border-slate-100/80 opacity-65 saturate-75 cursor-default select-none"
+              className="w-full h-full p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
             >
               <Ticket className="w-5.5 h-5.5 text-slate-400" />
               <span className="text-xs font-bold text-slate-400 tracking-wide">Tiket</span>
@@ -364,7 +363,7 @@ export default function AppHome() {
           {!showAllCategories ? (
             <div 
               onClick={() => setShowAllCategories(true)}
-              className="w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-slate-50/60 border border-slate-100/80 cursor-pointer active:scale-95 transition-all duration-150 select-none"
+              className="w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <LayoutGrid className="w-5.5 h-5.5 text-slate-500" />
@@ -376,7 +375,7 @@ export default function AppHome() {
               <div className="relative w-full h-[88px]">
                 <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[5.5px] font-black px-1.5 py-0.5 rounded-full border border-white z-10 leading-none tracking-wide select-none pointer-events-none scale-90">Soon</span>
                 <div 
-                  className="w-full h-full p-3 flex flex-col justify-between items-start rounded-2xl bg-slate-50/60 border border-slate-100/80 opacity-65 saturate-75 cursor-default select-none"
+                  className="w-full h-full p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
                 >
                   <Gift className="w-5.5 h-5.5 text-slate-400" />
                   <span className="text-xs font-bold text-slate-400 tracking-wide">Oleh-oleh</span>
@@ -387,7 +386,7 @@ export default function AppHome() {
               <div className="relative w-full h-[88px]">
                 <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[5.5px] font-black px-1.5 py-0.5 rounded-full border border-white z-10 leading-none tracking-wide select-none pointer-events-none scale-90">Soon</span>
                 <div 
-                  className="w-full h-full p-3 flex flex-col justify-between items-start rounded-2xl bg-slate-50/60 border border-slate-100/80 opacity-65 saturate-75 cursor-default select-none"
+                  className="w-full h-full p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
                 >
                   <Megaphone className="w-5.5 h-5.5 text-slate-400" />
                   <span className="text-xs font-bold text-slate-400 tracking-wide">Aduan</span>
@@ -398,7 +397,7 @@ export default function AppHome() {
               <div className="relative w-full h-[88px]">
                 <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[5.5px] font-black px-1.5 py-0.5 rounded-full border border-white z-10 leading-none tracking-wide select-none pointer-events-none scale-90">Soon</span>
                 <div 
-                  className="w-full h-full p-3 flex flex-col justify-between items-start rounded-2xl bg-slate-50/60 border border-slate-100/80 opacity-65 saturate-75 cursor-default select-none"
+                  className="w-full h-full p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
                 >
                   <HelpCircle className="w-5.5 h-5.5 text-slate-400" />
                   <span className="text-xs font-bold text-slate-400 tracking-wide">Bantuan</span>
@@ -408,7 +407,7 @@ export default function AppHome() {
               {/* Card 9: Tutup */}
               <div 
                 onClick={() => setShowAllCategories(false)}
-                className="w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-slate-50/60 border border-slate-100/80 cursor-pointer active:scale-95 transition-all duration-150 select-none"
+                className="w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >
                 <ChevronUp className="w-5.5 h-5.5 text-slate-500" />

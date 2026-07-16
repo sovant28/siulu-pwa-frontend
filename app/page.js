@@ -316,7 +316,9 @@ export default function AppHome() {
             className="relative w-full h-[92px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
-            <Compass className="w-6.5 h-6.5 text-blue-500" />
+            <div className="relative w-[26px] h-[26px]">
+              <Image src="/icon_wisata_custom.png" alt="Wisata" fill className="object-contain" unoptimized />
+            </div>
             <span className="text-[13px] font-bold text-slate-700 tracking-wide">Wisata</span>
           </div>
 
@@ -560,7 +562,9 @@ export default function AppHome() {
               onClick={() => { setShowAllCategories(false); router.push('/destinasi'); }}
               className="relative w-full h-[92px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all"
             >
-              <Compass className="w-6.5 h-6.5 text-blue-500" />
+              <div className="relative w-[26px] h-[26px]">
+                <Image src="/icon_wisata_custom.png" alt="Wisata" fill className="object-contain" unoptimized />
+              </div>
               <span className="text-[13px] font-bold text-slate-700 tracking-wide">Wisata</span>
             </div>
 

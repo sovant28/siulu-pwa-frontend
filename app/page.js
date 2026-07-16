@@ -29,7 +29,9 @@ import {
   Megaphone,
   HelpCircle,
   LayoutGrid,
-  ChevronUp
+  ChevronUp,
+  ChevronRight,
+  X
 } from 'lucide-react';
 
 function formatEventDate(jam_operasional) {
@@ -307,7 +309,7 @@ export default function AppHome() {
       </section>
 
       <section className="px-5 mt-4.5">
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-3 gap-2">
           {/* Card 1: Wisata */}
           <div 
             onClick={() => router.push('/destinasi')}
@@ -359,62 +361,15 @@ export default function AppHome() {
             </div>
           </div>
 
-          {/* Card 6: Lainnya / Tutup Toggle */}
-          {!showAllCategories ? (
-            <div 
-              onClick={() => setShowAllCategories(true)}
-              className="w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
-              style={{ WebkitTapHighlightColor: 'transparent' }}
-            >
-              <LayoutGrid className="w-5.5 h-5.5 text-slate-500" />
-              <span className="text-xs font-bold text-slate-700 tracking-wide">Lainnya</span>
-            </div>
-          ) : (
-            <>
-              {/* Card 6 (Oleh-oleh) */}
-              <div className="relative w-full h-[88px]">
-                <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[5.5px] font-black px-1.5 py-0.5 rounded-full border border-white z-10 leading-none tracking-wide select-none pointer-events-none scale-90">Soon</span>
-                <div 
-                  className="w-full h-full p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
-                >
-                  <Gift className="w-5.5 h-5.5 text-slate-400" />
-                  <span className="text-xs font-bold text-slate-400 tracking-wide">Oleh-oleh</span>
-                </div>
-              </div>
-
-              {/* Card 7 (Aduan) */}
-              <div className="relative w-full h-[88px]">
-                <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[5.5px] font-black px-1.5 py-0.5 rounded-full border border-white z-10 leading-none tracking-wide select-none pointer-events-none scale-90">Soon</span>
-                <div 
-                  className="w-full h-full p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
-                >
-                  <Megaphone className="w-5.5 h-5.5 text-slate-400" />
-                  <span className="text-xs font-bold text-slate-400 tracking-wide">Aduan</span>
-                </div>
-              </div>
-
-              {/* Card 8 (Bantuan) */}
-              <div className="relative w-full h-[88px]">
-                <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[5.5px] font-black px-1.5 py-0.5 rounded-full border border-white z-10 leading-none tracking-wide select-none pointer-events-none scale-90">Soon</span>
-                <div 
-                  className="w-full h-full p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
-                >
-                  <HelpCircle className="w-5.5 h-5.5 text-slate-400" />
-                  <span className="text-xs font-bold text-slate-400 tracking-wide">Bantuan</span>
-                </div>
-              </div>
-
-              {/* Card 9: Tutup */}
-              <div 
-                onClick={() => setShowAllCategories(false)}
-                className="w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
-                style={{ WebkitTapHighlightColor: 'transparent' }}
-              >
-                <ChevronUp className="w-5.5 h-5.5 text-slate-500" />
-                <span className="text-xs font-bold text-slate-700 tracking-wide">Tutup</span>
-              </div>
-            </>
-          )}
+          {/* Card 6: Lainnya */}
+          <div 
+            onClick={() => setShowAllCategories(true)}
+            className="w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
+            style={{ WebkitTapHighlightColor: 'transparent' }}
+          >
+            <LayoutGrid className="w-5.5 h-5.5 text-slate-500" />
+            <span className="text-xs font-bold text-slate-700 tracking-wide">Lainnya</span>
+          </div>
         </div>
       </section>
 
@@ -573,6 +528,117 @@ export default function AppHome() {
           <div className="h-1 w-1 rounded-full bg-transparent mt-1" />
         </button>
       </nav>
+
+      {/* Drawer Backdrop Overlay */}
+      {showAllCategories && (
+        <div 
+          onClick={() => setShowAllCategories(false)}
+          className="fixed inset-0 bg-black/40 z-[60] transition-opacity duration-300 ease-in-out"
+        />
+      )}
+
+      {/* Drawer Container (Slide-in from right) */}
+      <div 
+        className={`fixed inset-y-0 right-0 z-[70] w-[80%] max-w-sm bg-[#F8F9FA] border-l border-slate-200/80 p-5 flex flex-col justify-start transition-transform duration-300 ease-in-out ${
+          showAllCategories ? 'translate-x-0' : 'translate-x-full'
+        }`}
+      >
+        {/* Drawer Header */}
+        <div className="flex items-center justify-between pb-4 border-b border-slate-200/60 select-none">
+          <span className="text-sm font-black text-slate-800 tracking-wide">Semua Kategori</span>
+          <button 
+            onClick={() => setShowAllCategories(false)}
+            className="p-1 rounded-full hover:bg-slate-100 text-slate-500 transition-colors"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
+        </div>
+
+        {/* Drawer Content (Scrollable Grid) */}
+        <div className="flex-1 overflow-y-auto pt-4 pb-12 select-none">
+          <div className="grid grid-cols-2 gap-3">
+            {/* Wisata */}
+            <div 
+              onClick={() => { setShowAllCategories(false); router.push('/destinasi'); }}
+              className="w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all"
+            >
+              <Compass className="w-5.5 h-5.5 text-blue-500" />
+              <span className="text-xs font-bold text-slate-700 tracking-wide">Wisata</span>
+            </div>
+
+            {/* Event */}
+            <div 
+              onClick={() => { setShowAllCategories(false); router.push('/event'); }}
+              className="w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all"
+            >
+              <Calendar className="w-5.5 h-5.5 text-rose-500" />
+              <span className="text-xs font-bold text-slate-700 tracking-wide">Event</span>
+            </div>
+
+            {/* Kuliner */}
+            <div 
+              onClick={() => { setShowAllCategories(false); router.push('/kuliner'); }}
+              className="w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all"
+            >
+              <Utensils className="w-5.5 h-5.5 text-emerald-500" />
+              <span className="text-xs font-bold text-slate-700 tracking-wide">Kuliner</span>
+            </div>
+
+            {/* Hotel */}
+            <div 
+              onClick={() => { setShowAllCategories(false); router.push('/hotel'); }}
+              className="w-full h-[88px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all"
+            >
+              <Hotel className="w-5.5 h-5.5 text-amber-500" />
+              <span className="text-xs font-bold text-slate-700 tracking-wide">Hotel</span>
+            </div>
+
+            {/* Tiket */}
+            <div className="relative w-full h-[88px]">
+              <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[5.5px] font-black px-1.5 py-0.5 rounded-full border border-white z-10 leading-none tracking-wide select-none pointer-events-none scale-90">Soon</span>
+              <div 
+                className="w-full h-full p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
+              >
+                <Ticket className="w-5.5 h-5.5 text-slate-400" />
+                <span className="text-xs font-bold text-slate-400 tracking-wide">Tiket</span>
+              </div>
+            </div>
+
+            {/* Oleh-oleh */}
+            <div className="relative w-full h-[88px]">
+              <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[5.5px] font-black px-1.5 py-0.5 rounded-full border border-white z-10 leading-none tracking-wide select-none pointer-events-none scale-90">Soon</span>
+              <div 
+                className="w-full h-full p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
+              >
+                <Gift className="w-5.5 h-5.5 text-slate-400" />
+                <span className="text-xs font-bold text-slate-400 tracking-wide">Oleh-oleh</span>
+              </div>
+            </div>
+
+            {/* Aduan */}
+            <div className="relative w-full h-[88px]">
+              <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[5.5px] font-black px-1.5 py-0.5 rounded-full border border-white z-10 leading-none tracking-wide select-none pointer-events-none scale-90">Soon</span>
+              <div 
+                className="w-full h-full p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
+              >
+                <Megaphone className="w-5.5 h-5.5 text-slate-400" />
+                <span className="text-xs font-bold text-slate-400 tracking-wide">Aduan</span>
+              </div>
+            </div>
+
+            {/* Bantuan */}
+            <div className="relative w-full h-[88px]">
+              <span className="absolute -top-1 -right-1 bg-[#4C1D95] text-white text-[5.5px] font-black px-1.5 py-0.5 rounded-full border border-white z-10 leading-none tracking-wide select-none pointer-events-none scale-90">Soon</span>
+              <div 
+                className="w-full h-full p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
+              >
+                <HelpCircle className="w-5.5 h-5.5 text-slate-400" />
+                <span className="text-xs font-bold text-slate-400 tracking-wide">Bantuan</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
     </div>
   );

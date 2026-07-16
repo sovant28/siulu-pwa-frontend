@@ -232,7 +232,7 @@ export default function AppHome() {
       </header>
 
       {/* PROMINENT SEARCH BAR (Native-like) */}
-      <div className="px-5 mt-1.5">
+      <div className="px-5 mt-1">
         <div
           onClick={() => router.push('/destinasi')}
           role="button"
@@ -247,7 +247,7 @@ export default function AppHome() {
       </div>
 
       {/* FEATURED CAROUSEL */}
-      <section className="mt-6 w-full">
+      <section className="mt-4.5 w-full">
         <div
           ref={carouselRef}
           onScroll={handleScroll}
@@ -292,7 +292,7 @@ export default function AppHome() {
 
         {/* Dot Indicators */}
         {!loading && featuredEvents.length > 1 && (
-          <div className="flex justify-center items-center space-x-1.5 mt-3 select-none">
+          <div className="flex justify-center items-center space-x-1.5 mt-2.5 select-none">
             {featuredEvents.map((_, idx) => (
               <button
                 key={idx}
@@ -306,7 +306,7 @@ export default function AppHome() {
         )}
       </section>
 
-      <section className="px-5 mt-8">
+      <section className="px-5 mt-4.5">
         <div className="grid grid-cols-3 gap-3">
           {/* Card 1: Wisata */}
           <div 
@@ -419,9 +419,9 @@ export default function AppHome() {
       </section>
 
       {/* YOUTUBE VIDEO HOOK */}
-      <section className="px-5 mt-8 mb-12">
+      <section className="px-5 mt-6 mb-8">
         <h3 className="text-base font-semibold text-slate-800">Pesona Tana Toraja</h3>
-        <p className="text-xs font-normal text-slate-700 mt-1 mb-4 leading-relaxed">
+        <p className="text-xs font-normal text-slate-700 mt-0.5 mb-3 leading-relaxed">
           Ikuti perjalanan spiritual Maria menelusuri Tana Toraja.
         </p>
         <div className="relative w-full aspect-video rounded-3xl overflow-hidden border border-slate-100 bg-slate-100">

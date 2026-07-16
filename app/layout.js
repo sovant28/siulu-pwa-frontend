@@ -23,7 +23,7 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className="bg-[#0F172A]">
-      <body className="font-sans antialiased max-w-md mx-auto bg-[#F6F7F9] min-h-screen relative border-x border-slate-200/20">
+      <body className="font-sans antialiased max-w-md mx-auto bg-white min-h-screen relative border-x border-slate-200/20">
         {children}
       </body>
     </html>

@@ -58,6 +58,7 @@ export default function AppHome() {
   const [weather, setWeather] = useState({ temp: "22°C", text: "Cerah Berawan", type: "cloud-sun" });
   const carouselRef = useRef(null);
   const [showAllCategories, setShowAllCategories] = useState(false);
+  const [playVideo, setPlayVideo] = useState(false);
 
   const renderWeatherIcon = (type) => {
     switch (type) {
@@ -383,18 +384,33 @@ export default function AppHome() {
       <section className="px-5 mt-6 mb-8">
         <h3 className="text-base font-semibold text-slate-800">Pesona Tana Toraja</h3>
         <p className="text-xs font-normal text-slate-700 mt-0.5 mb-3 leading-relaxed">
-          Ikuti perjalanan spiritual Maria menelusuri Tana Toraja.
+
         </p>
         <div className="relative w-full aspect-video rounded-3xl overflow-hidden border border-slate-100 bg-slate-100">
-          <iframe
-            title="Pesona Tana Toraja Video"
-            src="https://www.youtube.com/embed/uMYcKFbvORU"
-            className="absolute inset-0 w-full h-full"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            loading="lazy"
-          />
+          {playVideo ? (
+            <iframe
+              title="Pesona Tana Toraja Video"
+              src="https://www.youtube.com/embed/uMYcKFbvORU?autoplay=1"
+              className="absolute inset-0 w-full h-full"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          ) : (
+            <div
+              onClick={() => setPlayVideo(true)}
+              className="absolute inset-0 w-full h-full cursor-pointer group select-none"
+            >
+              <Image
+                src="/youtube_banner_custom.png"
+                alt="Pesona Tana Toraja"
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                unoptimized
+              />
+              <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors duration-300" />
+            </div>
+          )}
         </div>
       </section>
 

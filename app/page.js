@@ -317,9 +317,9 @@ export default function AppHome() {
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             <div className="relative w-[26px] h-[26px]">
-              <Image src="/icon_wisata_black_custom.png" alt="Wisata" fill className="object-contain" unoptimized />
+              <Image src="/icon_wisata_buntu_burake_color.png" alt="Wisata" fill className="object-contain" unoptimized />
             </div>
-            <span className="text-[13px] font-bold text-slate-700 tracking-wide">Wisata</span>
+            <span className="text-[13px] font-bold text-slate-500 tracking-wide">Wisata</span>
           </div>
 
           {/* Card 2: Event */}
@@ -535,7 +535,7 @@ export default function AppHome() {
               className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all"
             >
               <div className="relative w-[26px] h-[26px]">
-                <Image src="/icon_wisata_black_custom.png" alt="Wisata" fill className="object-contain" unoptimized />
+                <Image src="/icon_wisata_buntu_burake_color.png" alt="Wisata" fill className="object-contain" unoptimized />
               </div>
               <span className="text-[13px] font-bold text-slate-700 tracking-wide">Wisata</span>
             </div>

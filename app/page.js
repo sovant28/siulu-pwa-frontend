@@ -54,9 +54,11 @@ export default function AppHome() {
   const [user, setUser] = useState(null);
   const [featuredEvents, setFeaturedEvents] = useState([]);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentPosterSlide, setCurrentPosterSlide] = useState(0);
   const [loading, setLoading] = useState(true);
   const [weather, setWeather] = useState({ temp: "22°C", text: "Cerah Berawan", type: "cloud-sun" });
   const carouselRef = useRef(null);
+  const posterCarouselRef = useRef(null);
   const [showAllCategories, setShowAllCategories] = useState(false);
   const [playVideo, setPlayVideo] = useState(false);
 
@@ -95,6 +97,39 @@ export default function AppHome() {
         behavior: 'smooth'
       });
       setCurrentSlide(index);
+    }
+  };
+
+  const handlePosterScroll = (e) => {
+    const container = e.target;
+    const scrollPosition = container.scrollLeft;
+    const containerWidth = container.clientWidth;
+    if (containerWidth > 0) {
+      const itemWidth = containerWidth * 0.85;
+      const activeIndex = Math.round(scrollPosition / (itemWidth + 16));
+      setCurrentPosterSlide(activeIndex);
+    }
+  };
+
+  const handlePosterDotClick = (index) => {
+    if (posterCarouselRef.current) {
+      const containerWidth = posterCarouselRef.current.clientWidth;
+      const itemWidth = containerWidth * 0.85;
+      posterCarouselRef.current.scrollTo({
+        left: index * (itemWidth + 16),
+        behavior: 'smooth'
+      });
+      setCurrentPosterSlide(index);
+    }
+  };
+
+  const handlePosterClick = () => {
+    const promptMessage = "Tips spot foto dan waktu berkunjung terbaik di Buntu Burake";
+    if (user) {
+      router.push(`/chat?q=${encodeURIComponent(promptMessage)}`);
+    } else {
+      localStorage.setItem('pending_ai_query', promptMessage);
+      router.push('/register');
     }
   };
 
@@ -317,7 +352,7 @@ export default function AppHome() {
             className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
-            <div className="relative w-[30px] h-[30px]">
+            <div className="relative w-[24px] h-[24px]">
               <Image src="/icon_wisata_black_custom.png" alt="Destinasi" fill className="object-contain" unoptimized />
             </div>
             <span className="text-[13px] font-bold text-slate-700 tracking-wide">Destinasi</span>
@@ -329,7 +364,7 @@ export default function AppHome() {
             className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
-            <div className="relative w-[30px] h-[30px]">
+            <div className="relative w-[24px] h-[24px]">
               <Image src="/icon_event_black_custom.png" alt="Event" fill className="object-contain" unoptimized />
             </div>
             <span className="text-[13px] font-bold text-slate-700 tracking-wide">Event</span>
@@ -341,7 +376,7 @@ export default function AppHome() {
             className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
-            <div className="relative w-[30px] h-[30px]">
+            <div className="relative w-[24px] h-[24px]">
               <Image src="/icon_kuliner_black_custom.png" alt="Kuliner" fill className="object-contain" unoptimized />
             </div>
             <span className="text-[13px] font-bold text-slate-700 tracking-wide">Kuliner</span>
@@ -350,13 +385,13 @@ export default function AppHome() {
           {/* Card 4: Hotel */}
           <div
             onClick={() => router.push('/hotel')}
-            className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
+            className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
-            <div className="relative w-[30px] h-[30px]">
+            <div className="relative w-[24px] h-[24px]">
               <Image src="/icon_hotel_black_custom.png" alt="Hotel" fill className="object-contain" unoptimized />
             </div>
-            <span className="text-[12px] font-bold text-slate-700 tracking-wide leading-tight">Hotel dan Akomodasi</span>
+            <span className="text-[13px] font-bold text-slate-700 tracking-wide">Akomodasi</span>
           </div>
 
           {/* Card 5: Tiket */}
@@ -364,7 +399,7 @@ export default function AppHome() {
             className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
           >
             <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9.5px] font-black px-2 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
-            <Ticket className="w-6.5 h-6.5 text-slate-400" />
+            <Ticket className="w-6 h-6 text-slate-400" />
             <span className="text-[13px] font-bold text-slate-400 tracking-wide">Tiket</span>
           </div>
 
@@ -374,14 +409,31 @@ export default function AppHome() {
             className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
-            <LayoutGrid className="w-6.5 h-6.5 text-slate-700" />
+            <LayoutGrid className="w-6 h-6 text-slate-700" />
             <span className="text-[13px] font-bold text-slate-700 tracking-wide">Lainnya</span>
           </div>
         </div>
       </section>
 
+      {/* WEATHER WIDGET SECTION */}
+      <section className="px-5 mt-4">
+        <div className="w-full h-[82px] bg-white border border-slate-200/60 rounded-2xl p-4 flex items-center justify-start gap-3.5 select-none">
+          {/* Weather Status and Icon */}
+          <div className="flex items-center justify-center w-11 h-11 rounded-xl bg-slate-50 border border-slate-100 text-slate-700 flex-shrink-0">
+            {renderWeatherIcon(weather.type)}
+          </div>
+          <div className="flex flex-col">
+            <span className="text-[11px] font-bold text-slate-600 tracking-wider">Cuaca Makale</span>
+            <div className="flex items-baseline gap-1.5 mt-0.5">
+              <span className="text-[17px] font-black text-slate-800 leading-none">{weather.temp}</span>
+              <span className="text-[12px] font-bold text-slate-600 leading-none">{weather.text}</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* YOUTUBE VIDEO HOOK */}
-      <section className="px-5 mt-6 mb-8">
+      <section className="px-5 mt-6 ">
         <h3 className="text-base font-semibold text-slate-800">Pesona Tana Toraja</h3>
         <p className="text-xs font-normal text-slate-700 mt-0.5 mb-3 leading-relaxed">
 
@@ -414,20 +466,45 @@ export default function AppHome() {
         </div>
       </section>
 
+      {/* INSPIRASI PERJALANAN CAROUSEL SECTION */}
+      <section className="px-5 mt-6 mb-5">
+        <h3 className="text-base font-semibold text-slate-800">Inspirasi Perjalanan</h3>
+        <p className="text-xs font-normal text-slate-500 mt-0.5 mb-3 leading-relaxed">
+
+        </p>
+
+        {/* Carousel Container */}
+        <div
+          ref={posterCarouselRef}
+          onScroll={handlePosterScroll}
+          className="flex gap-4 overflow-x-auto pb-4 scrollbar-none snap-x snap-mandatory scroll-smooth"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {[0, 1, 2].map((idx) => (
+            <div
+              key={idx}
+              onClick={handlePosterClick}
+              className="w-[85%] flex-shrink-0 snap-align-start aspect-[2/1] rounded-2xl overflow-hidden border border-slate-200/80 bg-white relative cursor-pointer active:scale-[0.98] transition-all select-none"
+              style={{ WebkitTapHighlightColor: 'transparent' }}
+            >
+              <Image
+                src="/poster_buntu_burake.png"
+                alt="Poster Buntu Burake"
+                fill
+                className="object-cover"
+                unoptimized
+              />
+            </div>
+          ))}
+        </div>
+
+
+      </section>
+
       {/* BOTTOM NAVIGATION */}
       <nav
         className="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-slate-200 px-5 pt-2 pb-[calc(env(safe-area-inset-bottom)+6px)] flex justify-between items-center z-50 rounded-t-3xl select-none"
       >
-        {/* Rainbow Gradient Definition for AI Icon */}
-        <svg width="0" height="0" className="absolute pointer-events-none">
-          <defs>
-            <linearGradient id="rainbow-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#7C3AED" />
-              <stop offset="100%" stopColor="#3B82F6" />
-            </linearGradient>
-          </defs>
-        </svg>
-
         {/* 1. Beranda (Active) */}
         <button
           onClick={() => router.push('/')}
@@ -435,7 +512,7 @@ export default function AppHome() {
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
           <div className="relative w-5.5 h-5.5">
-            <Image src="/icon_home_black_custom.png" alt="Beranda" fill className="object-contain" unoptimized />
+            <Image src="/icon_home_active.png" alt="Beranda" fill className="object-contain" unoptimized />
           </div>
           <span className="text-[11px] font-semibold mt-1 leading-none">Beranda</span>
           <div className="h-1 w-1 rounded-full bg-slate-900 mt-1" />
@@ -443,8 +520,8 @@ export default function AppHome() {
 
         {/* 2. Jelajah */}
         <button
-          onClick={() => { }}
-          className="flex flex-col items-center justify-center w-16 py-1 text-slate-400 hover:text-slate-500 active:scale-90 transition cursor-default"
+          onClick={() => router.push('/destinasi')}
+          className="flex flex-col items-center justify-center w-16 py-1 text-slate-400 hover:text-slate-500 active:scale-90 transition cursor-pointer"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
           <div className="relative w-5.5 h-5.5">
@@ -460,21 +537,9 @@ export default function AppHome() {
           className="flex flex-col items-center justify-center w-16 py-1 text-slate-400 hover:text-slate-500 active:scale-90 transition cursor-pointer"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-5.5 h-5.5"
-          >
-            <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-            <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
-            <g id="SVGRepo_iconCarrier">
-              <path opacity="0.1" d="M21 12.1818L16.9354 13.6599C16.3462 13.8741 15.8916 14.3521 15.7073 14.9513L14.1538 20C14.1072 20.1515 13.8928 20.1515 13.8461 20L12.2927 14.9513C12.1083 14.3521 11.6537 13.8741 11.0646 13.6599L6.99999 12.1818C6.83019 12.1201 6.83019 11.8799 6.99999 11.8182L11.0646 10.3401C11.6537 10.1259 12.1083 9.64786 12.2927 9.04872L13.8461 4C13.8928 3.8485 14.1072 3.8485 14.1538 4L15.7073 9.04872C15.8916 9.64786 16.3462 10.1259 16.9354 10.3401L21 11.8182C21.1698 11.8799 21.1698 12.1201 21 12.1818Z" fill="url(#rainbow-gradient)"></path>
-              <path d="M21 12.1818L16.9354 13.6599C16.3462 13.8741 15.8916 14.3521 15.7073 14.9513L14.1538 20C14.1072 20.1515 13.8928 20.1515 13.8461 20L12.2927 14.9513C12.1083 14.3521 11.6537 13.8741 11.0646 13.6599L6.99999 12.1818C6.83019 12.1201 6.83019 11.8799 6.99999 11.8182L11.0646 10.3401C11.6537 10.1259 12.1083 9.64786 12.2927 9.04872L13.8461 4C13.8928 3.8485 14.1072 3.8485 14.1538 4L15.7073 9.04872C15.8916 9.64786 16.3462 10.1259 16.9354 10.3401L21 11.8182C21.1698 11.8799 21.1698 12.1201 21 12.1818Z" stroke="url(#rainbow-gradient)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
-              <path d="M3.75 5.25C4.22214 5.40738 4.59262 5.77786 4.75 6.25C4.83008 6.49025 5.16992 6.49025 5.25 6.25C5.40738 5.77786 5.77786 5.40738 6.25 5.25C6.49025 5.16992 6.49025 4.83008 6.25 4.75C5.77786 4.59262 5.40738 4.22214 5.25 3.75C5.16992 3.50975 4.83008 3.50975 4.75 3.75C4.59262 4.22214 4.22214 4.59262 3.75 4.75C3.50975 4.83008 3.50975 5.16992 3.75 5.25Z" stroke="url(#rainbow-gradient)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
-              <path d="M7.25 19.25C6.77786 19.4074 6.40738 19.7779 6.25 20.25C6.16992 20.4903 5.83008 20.4903 5.75 20.25C5.59262 19.7779 5.22214 19.4074 4.75 19.25C4.50975 19.1699 4.50975 18.8301 4.75 18.75C5.22214 18.5926 5.59262 18.2221 5.75 17.75C5.83008 17.5097 6.16992 17.5097 6.25 17.75C6.40738 18.2221 6.77786 18.5926 7.25 18.75C7.49025 18.8301 7.49025 19.1699 7.25 19.25Z" stroke="url(#rainbow-gradient)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
-            </g>
-          </svg>
+          <div className="relative w-5.5 h-5.5">
+            <Image src="/icon_chat_inactive.png" alt="Tanya AI" fill className="object-contain" unoptimized />
+          </div>
           <span className="text-[11px] font-semibold mt-1 leading-none">Tanya AI</span>
           <div className="h-1 w-1 rounded-full bg-transparent mt-1" />
         </button>
@@ -498,21 +563,9 @@ export default function AppHome() {
           className="flex flex-col items-center justify-center w-16 py-1 text-slate-400 hover:text-slate-500 active:scale-90 transition cursor-pointer"
           style={{ WebkitTapHighlightColor: 'transparent' }}
         >
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-5.5 h-5.5"
-          >
-            <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-            <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
-            <g id="SVGRepo_iconCarrier">
-              <path opacity="0.1" fillRule="evenodd" clipRule="evenodd" d="M3 12C3 4.5885 4.5885 3 12 3C19.4115 3 21 4.5885 21 12C21 16.3106 20.4627 18.6515 18.5549 19.8557L18.2395 18.878C17.9043 17.6699 17.2931 16.8681 16.262 16.3834C15.2532 15.9092 13.8644 15.75 12 15.75C10.134 15.75 8.74481 15.922 7.73554 16.4097C6.70593 16.9073 6.09582 17.7207 5.7608 18.927L5.45019 19.8589C3.53829 18.6556 3 16.3144 3 12ZM8.75 10C8.75 8.20507 10.2051 6.75 12 6.75C13.7949 6.75 15.25 8.20507 15.25 10C15.25 11.7949 13.7949 13.25 12 13.25C10.2051 13.25 8.75 11.7949 8.75 10Z" fill="currentColor"></path>
-              <path d="M3 12C3 4.5885 4.5885 3 12 3C19.4115 3 21 4.5885 21 12C21 19.4115 19.4115 21 12 21C4.5885 21 3 19.4115 3 12Z" stroke="currentColor" strokeWidth="2"></path>
-              <path d="M15 10C15 11.6569 13.6569 13 12 13C10.3431 13 9 11.6569 9 10C9 8.34315 10.3431 7 12 7C13.6569 7 15 8.34315 15 10Z" stroke="currentColor" strokeWidth="2"></path>
-              <path d="M6 19C6.63819 16.6928 8.27998 16 12 16C15.72 16 17.3618 16.6425 18 18.9497" stroke="currentColor" strokeWidth="2" strokeLinecap="round"></path>
-            </g>
-          </svg>
+          <div className="relative w-5.5 h-5.5">
+            <Image src="/icon_profile_inactive.png" alt="Akun" fill className="object-contain" unoptimized />
+          </div>
           <span className="text-[11px] font-semibold mt-1 leading-none">Akun</span>
           <div className="h-1 w-1 rounded-full bg-transparent mt-1" />
         </button>
@@ -550,7 +603,7 @@ export default function AppHome() {
               onClick={() => { setShowAllCategories(false); router.push('/destinasi'); }}
               className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all"
             >
-              <div className="relative w-[30px] h-[30px]">
+              <div className="relative w-[24px] h-[24px]">
                 <Image src="/icon_wisata_black_custom.png" alt="Destinasi" fill className="object-contain" unoptimized />
               </div>
               <span className="text-[13px] font-bold text-slate-700 tracking-wide">Destinasi</span>
@@ -561,7 +614,7 @@ export default function AppHome() {
               onClick={() => { setShowAllCategories(false); router.push('/event'); }}
               className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all"
             >
-              <div className="relative w-[30px] h-[30px]">
+              <div className="relative w-[24px] h-[24px]">
                 <Image src="/icon_event_black_custom.png" alt="Event" fill className="object-contain" unoptimized />
               </div>
               <span className="text-[13px] font-bold text-slate-700 tracking-wide">Event</span>
@@ -572,7 +625,7 @@ export default function AppHome() {
               onClick={() => { setShowAllCategories(false); router.push('/kuliner'); }}
               className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all"
             >
-              <div className="relative w-[30px] h-[30px]">
+              <div className="relative w-[24px] h-[24px]">
                 <Image src="/icon_kuliner_black_custom.png" alt="Kuliner" fill className="object-contain" unoptimized />
               </div>
               <span className="text-[13px] font-bold text-slate-700 tracking-wide">Kuliner</span>
@@ -581,12 +634,12 @@ export default function AppHome() {
             {/* Hotel */}
             <div
               onClick={() => { setShowAllCategories(false); router.push('/hotel'); }}
-              className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all"
+              className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all"
             >
-              <div className="relative w-[30px] h-[30px]">
+              <div className="relative w-[24px] h-[24px]">
                 <Image src="/icon_hotel_black_custom.png" alt="Hotel" fill className="object-contain" unoptimized />
               </div>
-              <span className="text-[12px] font-bold text-slate-700 tracking-wide leading-tight">Hotel dan Akomodasi</span>
+              <span className="text-[12px] font-bold text-slate-700 tracking-wide">Akomodasi</span>
             </div>
 
             {/* Tiket */}
@@ -594,7 +647,7 @@ export default function AppHome() {
               className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
             >
               <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9.5px] font-black px-2 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
-              <Ticket className="w-6.5 h-6.5 text-slate-400" />
+              <Ticket className="w-6 h-6 text-slate-400" />
               <span className="text-[13px] font-bold text-slate-400 tracking-wide">Tiket</span>
             </div>
 
@@ -603,7 +656,7 @@ export default function AppHome() {
               className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
             >
               <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9.5px] font-black px-2 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
-              <Gift className="w-6.5 h-6.5 text-slate-400" />
+              <Gift className="w-6 h-6 text-slate-400" />
               <span className="text-[13px] font-bold text-slate-400 tracking-wide">Oleh-oleh</span>
             </div>
 
@@ -612,7 +665,7 @@ export default function AppHome() {
               className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
             >
               <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9.5px] font-black px-2 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
-              <Megaphone className="w-6.5 h-6.5 text-slate-400" />
+              <Megaphone className="w-6 h-6 text-slate-400" />
               <span className="text-[13px] font-bold text-slate-400 tracking-wide">Aduan</span>
             </div>
 
@@ -621,7 +674,7 @@ export default function AppHome() {
               className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
             >
               <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9.5px] font-black px-2 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
-              <HelpCircle className="w-6.5 h-6.5 text-slate-400" />
+              <HelpCircle className="w-6 h-6 text-slate-400" />
               <span className="text-[13px] font-bold text-slate-400 tracking-wide">Bantuan</span>
             </div>
           </div>

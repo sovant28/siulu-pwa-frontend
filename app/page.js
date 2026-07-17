@@ -328,7 +328,7 @@ export default function AppHome() {
             className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
-            <div className="relative w-[26px] h-[26px]">
+            <div className="relative w-[30px] h-[30px]">
               <Image src="/icon_event_black_custom.png" alt="Event" fill className="object-contain" unoptimized />
             </div>
             <span className="text-[13px] font-bold text-slate-700 tracking-wide">Event</span>
@@ -340,7 +340,7 @@ export default function AppHome() {
             className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
-            <div className="relative w-[26px] h-[26px]">
+            <div className="relative w-[30px] h-[30px]">
               <Image src="/icon_kuliner_black_custom.png" alt="Kuliner" fill className="object-contain" unoptimized />
             </div>
             <span className="text-[13px] font-bold text-slate-700 tracking-wide">Kuliner</span>
@@ -352,7 +352,7 @@ export default function AppHome() {
             className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
-            <div className="relative w-[26px] h-[26px]">
+            <div className="relative w-[30px] h-[30px]">
               <Image src="/icon_hotel_black_custom.png" alt="Hotel" fill className="object-contain" unoptimized />
             </div>
             <span className="text-[12px] font-bold text-slate-700 tracking-wide leading-tight">Hotel dan Akomodasi</span>
@@ -545,7 +545,7 @@ export default function AppHome() {
               onClick={() => { setShowAllCategories(false); router.push('/event'); }}
               className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all"
             >
-              <div className="relative w-[26px] h-[26px]">
+              <div className="relative w-[30px] h-[30px]">
                 <Image src="/icon_event_black_custom.png" alt="Event" fill className="object-contain" unoptimized />
               </div>
               <span className="text-[13px] font-bold text-slate-700 tracking-wide">Event</span>
@@ -556,7 +556,7 @@ export default function AppHome() {
               onClick={() => { setShowAllCategories(false); router.push('/kuliner'); }}
               className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all"
             >
-              <div className="relative w-[26px] h-[26px]">
+              <div className="relative w-[30px] h-[30px]">
                 <Image src="/icon_kuliner_black_custom.png" alt="Kuliner" fill className="object-contain" unoptimized />
               </div>
               <span className="text-[13px] font-bold text-slate-700 tracking-wide">Kuliner</span>
@@ -567,7 +567,7 @@ export default function AppHome() {
               onClick={() => { setShowAllCategories(false); router.push('/hotel'); }}
               className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all"
             >
-              <div className="relative w-[26px] h-[26px]">
+              <div className="relative w-[30px] h-[30px]">
                 <Image src="/icon_hotel_black_custom.png" alt="Hotel" fill className="object-contain" unoptimized />
               </div>
               <span className="text-[12px] font-bold text-slate-700 tracking-wide leading-tight">Hotel dan Akomodasi</span>

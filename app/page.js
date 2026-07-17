@@ -310,28 +310,24 @@ export default function AppHome() {
 
       <section className="px-5 mt-4.5">
         <div className="grid grid-cols-3 gap-[5px]">
-          {/* Card 1: Event */}
-          <div 
-            onClick={() => router.push('/event')}
-            className="relative w-full h-[92px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
-            style={{ WebkitTapHighlightColor: 'transparent' }}
-          >
-            <div className="relative w-[26px] h-[26px]">
-              <Image src="/icon_event_custom.png" alt="Event" fill className="object-contain" unoptimized />
-            </div>
-            <span className="text-[12px] font-bold text-slate-700 tracking-wide">Event</span>
-          </div>
-
-          {/* Card 2: Destinasi Wisata */}
+          {/* Card 1: Wisata */}
           <div 
             onClick={() => router.push('/destinasi')}
             className="relative w-full h-[92px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
-            <div className="relative w-[26px] h-[26px]">
-              <Image src="/icon_wisata_custom.png" alt="Destinasi Wisata" fill className="object-contain" unoptimized />
-            </div>
-            <span className="text-[12px] font-bold text-slate-700 tracking-wide leading-tight">Destinasi Wisata</span>
+            <Compass className="w-6.5 h-6.5 text-blue-500" />
+            <span className="text-[13px] font-bold text-slate-700 tracking-wide">Wisata</span>
+          </div>
+
+          {/* Card 2: Event */}
+          <div 
+            onClick={() => router.push('/event')}
+            className="relative w-full h-[92px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
+            style={{ WebkitTapHighlightColor: 'transparent' }}
+          >
+            <Calendar className="w-6.5 h-6.5 text-rose-500" />
+            <span className="text-[13px] font-bold text-slate-700 tracking-wide">Event</span>
           </div>
 
           {/* Card 3: Kuliner */}
@@ -341,7 +337,7 @@ export default function AppHome() {
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             <Utensils className="w-6.5 h-6.5 text-emerald-500" />
-            <span className="text-[12px] font-bold text-slate-700 tracking-wide">Kuliner</span>
+            <span className="text-[13px] font-bold text-slate-700 tracking-wide">Kuliner</span>
           </div>
 
           {/* Card 4: Hotel */}
@@ -351,7 +347,7 @@ export default function AppHome() {
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             <Hotel className="w-6.5 h-6.5 text-amber-500" />
-            <span className="text-[12px] font-bold text-slate-700 tracking-wide">Hotel</span>
+            <span className="text-[13px] font-bold text-slate-700 tracking-wide">Hotel</span>
           </div>
 
           {/* Card 5: Tiket */}
@@ -360,7 +356,7 @@ export default function AppHome() {
           >
             <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9.5px] font-black px-2 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
             <Ticket className="w-6.5 h-6.5 text-slate-400" />
-            <span className="text-[12px] font-bold text-slate-400 tracking-wide">Tiket</span>
+            <span className="text-[13px] font-bold text-slate-400 tracking-wide">Tiket</span>
           </div>
 
           {/* Card 6: Lainnya */}
@@ -370,7 +366,7 @@ export default function AppHome() {
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             <LayoutGrid className="w-6.5 h-6.5 text-slate-500" />
-            <span className="text-[12px] font-bold text-slate-700 tracking-wide">Lainnya</span>
+            <span className="text-[13px] font-bold text-slate-700 tracking-wide">Lainnya</span>
           </div>
         </div>
       </section>
@@ -559,26 +555,22 @@ export default function AppHome() {
         {/* Drawer Content (Scrollable Grid) */}
         <div className="flex-1 overflow-y-auto pt-4 pb-12 select-none">
           <div className="grid grid-cols-2 gap-3">
+            {/* Wisata */}
+            <div 
+              onClick={() => { setShowAllCategories(false); router.push('/destinasi'); }}
+              className="relative w-full h-[92px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all"
+            >
+              <Compass className="w-6.5 h-6.5 text-blue-500" />
+              <span className="text-[13px] font-bold text-slate-700 tracking-wide">Wisata</span>
+            </div>
+
             {/* Event */}
             <div 
               onClick={() => { setShowAllCategories(false); router.push('/event'); }}
               className="relative w-full h-[92px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all"
             >
-              <div className="relative w-[26px] h-[26px]">
-                <Image src="/icon_event_custom.png" alt="Event" fill className="object-contain" unoptimized />
-              </div>
-              <span className="text-[12px] font-bold text-slate-700 tracking-wide">Event</span>
-            </div>
-
-            {/* Destinasi Wisata */}
-            <div 
-              onClick={() => { setShowAllCategories(false); router.push('/destinasi'); }}
-              className="relative w-full h-[92px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all"
-            >
-              <div className="relative w-[26px] h-[26px]">
-                <Image src="/icon_wisata_custom.png" alt="Destinasi Wisata" fill className="object-contain" unoptimized />
-              </div>
-              <span className="text-[12px] font-bold text-slate-700 tracking-wide leading-tight">Destinasi Wisata</span>
+              <Calendar className="w-6.5 h-6.5 text-rose-500" />
+              <span className="text-[13px] font-bold text-slate-700 tracking-wide">Event</span>
             </div>
 
             {/* Kuliner */}
@@ -587,7 +579,7 @@ export default function AppHome() {
               className="relative w-full h-[92px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all"
             >
               <Utensils className="w-6.5 h-6.5 text-emerald-500" />
-              <span className="text-[12px] font-bold text-slate-700 tracking-wide">Kuliner</span>
+              <span className="text-[13px] font-bold text-slate-700 tracking-wide">Kuliner</span>
             </div>
 
             {/* Hotel */}
@@ -596,7 +588,7 @@ export default function AppHome() {
               className="relative w-full h-[92px] p-3 flex flex-col justify-between items-start rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all"
             >
               <Hotel className="w-6.5 h-6.5 text-amber-500" />
-              <span className="text-[12px] font-bold text-slate-700 tracking-wide">Hotel</span>
+              <span className="text-[13px] font-bold text-slate-700 tracking-wide">Hotel</span>
             </div>
 
             {/* Tiket */}
@@ -605,7 +597,7 @@ export default function AppHome() {
             >
               <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9.5px] font-black px-2 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
               <Ticket className="w-6.5 h-6.5 text-slate-400" />
-              <span className="text-[12px] font-bold text-slate-400 tracking-wide">Tiket</span>
+              <span className="text-[13px] font-bold text-slate-400 tracking-wide">Tiket</span>
             </div>
 
             {/* Oleh-oleh */}
@@ -614,7 +606,7 @@ export default function AppHome() {
             >
               <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9.5px] font-black px-2 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
               <Gift className="w-6.5 h-6.5 text-slate-400" />
-              <span className="text-[12px] font-bold text-slate-400 tracking-wide">Oleh-oleh</span>
+              <span className="text-[13px] font-bold text-slate-400 tracking-wide">Oleh-oleh</span>
             </div>
 
             {/* Aduan */}
@@ -623,7 +615,7 @@ export default function AppHome() {
             >
               <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9.5px] font-black px-2 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
               <Megaphone className="w-6.5 h-6.5 text-slate-400" />
-              <span className="text-[12px] font-bold text-slate-400 tracking-wide">Aduan</span>
+              <span className="text-[13px] font-bold text-slate-400 tracking-wide">Aduan</span>
             </div>
 
             {/* Bantuan */}
@@ -632,7 +624,7 @@ export default function AppHome() {
             >
               <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9.5px] font-black px-2 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
               <HelpCircle className="w-6.5 h-6.5 text-slate-400" />
-              <span className="text-[12px] font-bold text-slate-400 tracking-wide">Bantuan</span>
+              <span className="text-[13px] font-bold text-slate-400 tracking-wide">Bantuan</span>
             </div>
           </div>
         </div>

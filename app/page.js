@@ -24,10 +24,6 @@ import {
   CloudSun,
   Cloud,
   CloudMoon,
-  Ticket,
-  Gift,
-  Megaphone,
-  HelpCircle,
   LayoutGrid,
   ChevronUp,
   ChevronRight,
@@ -352,7 +348,7 @@ export default function AppHome() {
             className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
-            <div className="relative w-[24px] h-[24px]">
+            <div className="relative w-[28px] h-[28px]">
               <Image src="/icon_wisata_black_custom.png" alt="Destinasi" fill className="object-contain" unoptimized />
             </div>
             <span className="text-[13px] font-bold text-slate-700 tracking-wide">Destinasi</span>
@@ -364,7 +360,7 @@ export default function AppHome() {
             className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
-            <div className="relative w-[24px] h-[24px]">
+            <div className="relative w-[28px] h-[28px]">
               <Image src="/icon_event_black_custom.png" alt="Event" fill className="object-contain" unoptimized />
             </div>
             <span className="text-[13px] font-bold text-slate-700 tracking-wide">Event</span>
@@ -376,7 +372,7 @@ export default function AppHome() {
             className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
-            <div className="relative w-[24px] h-[24px]">
+            <div className="relative w-[28px] h-[28px]">
               <Image src="/icon_kuliner_black_custom.png" alt="Kuliner" fill className="object-contain" unoptimized />
             </div>
             <span className="text-[13px] font-bold text-slate-700 tracking-wide">Kuliner</span>
@@ -388,7 +384,7 @@ export default function AppHome() {
             className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
-            <div className="relative w-[24px] h-[24px]">
+            <div className="relative w-[28px] h-[28px]">
               <Image src="/icon_hotel_black_custom.png" alt="Hotel" fill className="object-contain" unoptimized />
             </div>
             <span className="text-[13px] font-bold text-slate-700 tracking-wide">Akomodasi</span>
@@ -399,7 +395,9 @@ export default function AppHome() {
             className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
           >
             <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9.5px] font-black px-2 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
-            <Ticket className="w-6 h-6 text-slate-400" />
+            <div className="relative w-[28px] h-[28px]">
+              <Image src="/icon_tiket_custom.png" alt="Tiket" fill className="object-contain grayscale" unoptimized />
+            </div>
             <span className="text-[13px] font-bold text-slate-400 tracking-wide">Tiket</span>
           </div>
 
@@ -603,7 +601,7 @@ export default function AppHome() {
               onClick={() => { setShowAllCategories(false); router.push('/destinasi'); }}
               className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all"
             >
-              <div className="relative w-[24px] h-[24px]">
+              <div className="relative w-[28px] h-[28px]">
                 <Image src="/icon_wisata_black_custom.png" alt="Destinasi" fill className="object-contain" unoptimized />
               </div>
               <span className="text-[13px] font-bold text-slate-700 tracking-wide">Destinasi</span>
@@ -614,7 +612,7 @@ export default function AppHome() {
               onClick={() => { setShowAllCategories(false); router.push('/event'); }}
               className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all"
             >
-              <div className="relative w-[24px] h-[24px]">
+              <div className="relative w-[28px] h-[28px]">
                 <Image src="/icon_event_black_custom.png" alt="Event" fill className="object-contain" unoptimized />
               </div>
               <span className="text-[13px] font-bold text-slate-700 tracking-wide">Event</span>
@@ -625,7 +623,7 @@ export default function AppHome() {
               onClick={() => { setShowAllCategories(false); router.push('/kuliner'); }}
               className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all"
             >
-              <div className="relative w-[24px] h-[24px]">
+              <div className="relative w-[28px] h-[28px]">
                 <Image src="/icon_kuliner_black_custom.png" alt="Kuliner" fill className="object-contain" unoptimized />
               </div>
               <span className="text-[13px] font-bold text-slate-700 tracking-wide">Kuliner</span>
@@ -636,7 +634,7 @@ export default function AppHome() {
               onClick={() => { setShowAllCategories(false); router.push('/hotel'); }}
               className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all"
             >
-              <div className="relative w-[24px] h-[24px]">
+              <div className="relative w-[28px] h-[28px]">
                 <Image src="/icon_hotel_black_custom.png" alt="Hotel" fill className="object-contain" unoptimized />
               </div>
               <span className="text-[12px] font-bold text-slate-700 tracking-wide">Akomodasi</span>
@@ -647,7 +645,9 @@ export default function AppHome() {
               className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
             >
               <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9.5px] font-black px-2 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
-              <Ticket className="w-6 h-6 text-slate-400" />
+              <div className="relative w-[28px] h-[28px]">
+                <Image src="/icon_tiket_custom.png" alt="Tiket" fill className="object-contain grayscale" unoptimized />
+              </div>
               <span className="text-[13px] font-bold text-slate-400 tracking-wide">Tiket</span>
             </div>
 
@@ -656,7 +656,9 @@ export default function AppHome() {
               className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
             >
               <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9.5px] font-black px-2 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
-              <Gift className="w-6 h-6 text-slate-400" />
+              <div className="relative w-[28px] h-[28px]">
+                <Image src="/icon_oleh_oleh_custom.png" alt="Oleh-oleh" fill className="object-contain grayscale" unoptimized />
+              </div>
               <span className="text-[13px] font-bold text-slate-400 tracking-wide">Oleh-oleh</span>
             </div>
 
@@ -665,7 +667,9 @@ export default function AppHome() {
               className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
             >
               <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9.5px] font-black px-2 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
-              <Megaphone className="w-6 h-6 text-slate-400" />
+              <div className="relative w-[28px] h-[28px]">
+                <Image src="/icon_pengaduan_custom.png" alt="Aduan" fill className="object-contain grayscale" unoptimized />
+              </div>
               <span className="text-[13px] font-bold text-slate-400 tracking-wide">Aduan</span>
             </div>
 
@@ -674,7 +678,9 @@ export default function AppHome() {
               className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
             >
               <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9.5px] font-black px-2 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
-              <HelpCircle className="w-6 h-6 text-slate-400" />
+              <div className="relative w-[28px] h-[28px]">
+                <Image src="/icon_bantuan_custom.png" alt="Bantuan" fill className="object-contain grayscale" unoptimized />
+              </div>
               <span className="text-[13px] font-bold text-slate-400 tracking-wide">Bantuan</span>
             </div>
           </div>

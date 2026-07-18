@@ -120,15 +120,42 @@ export default function AppHome() {
     }
   };
 
-  const handlePosterClick = () => {
-    const promptMessage = "Tips spot foto dan waktu berkunjung terbaik di Buntu Burake";
-    if (user) {
-      router.push(`/chat?q=${encodeURIComponent(promptMessage)}`);
-    } else {
-      localStorage.setItem('pending_ai_query', promptMessage);
-      router.push('/register');
+
+  const travelSlides = [
+    {
+      image: "/poster_buntu_burake.png",
+      alt: "Poster Buntu Burake",
+      onClick: () => {
+        const promptMessage = "Tips spot foto dan waktu berkunjung terbaik di Buntu Burake";
+        if (user) {
+          router.push(`/chat?q=${encodeURIComponent(promptMessage)}`);
+        } else {
+          localStorage.setItem('pending_ai_query', promptMessage);
+          router.push('/register');
+        }
+      }
+    },
+    {
+      image: "/poster_lemo.png",
+      alt: "Poster Makam Pahat Lemo",
+      onClick: () => {
+        router.push('/saved');
+      }
+    },
+    {
+      image: "/poster_buntu_burake.png",
+      alt: "Poster Buntu Burake",
+      onClick: () => {
+        const promptMessage = "Tips spot foto dan waktu berkunjung terbaik di Buntu Burake";
+        if (user) {
+          router.push(`/chat?q=${encodeURIComponent(promptMessage)}`);
+        } else {
+          localStorage.setItem('pending_ai_query', promptMessage);
+          router.push('/register');
+        }
+      }
     }
-  };
+  ];
 
   const handlePlayVideo = () => {
     setPlayVideo(true);
@@ -529,16 +556,16 @@ export default function AppHome() {
           className="flex gap-4 overflow-x-auto pb-4 scrollbar-none snap-x snap-mandatory scroll-smooth"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
-          {[0, 1, 2].map((idx) => (
+          {travelSlides.map((slide, idx) => (
             <div
               key={idx}
-              onClick={handlePosterClick}
+              onClick={slide.onClick}
               className="w-[85%] flex-shrink-0 snap-align-start aspect-[2/1] rounded-2xl overflow-hidden border border-slate-200/80 bg-white relative cursor-pointer active:scale-[0.98] transition-all select-none"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <Image
-                src="/poster_buntu_burake.png"
-                alt="Poster Buntu Burake"
+                src={slide.image}
+                alt={slide.alt}
                 fill
                 className="object-cover"
                 unoptimized

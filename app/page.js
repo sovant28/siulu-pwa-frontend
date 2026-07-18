@@ -488,11 +488,9 @@ export default function AppHome() {
 
         </p>
         <div className="relative w-full aspect-video rounded-3xl overflow-hidden border border-slate-100 bg-slate-100">
-          <div 
-            id="youtube-player" 
-            className="absolute inset-0 w-full h-full"
-            style={{ visibility: playVideo ? 'visible' : 'hidden' }}
-          />
+          <div className="absolute inset-0 w-full h-full" style={{ display: playVideo ? 'block' : 'none' }}>
+            <div id="youtube-player" className="w-full h-full" />
+          </div>
           {!playVideo && (
             <div
               onClick={handlePlayVideo}

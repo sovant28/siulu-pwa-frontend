@@ -57,6 +57,7 @@ export default function AppHome() {
   const posterCarouselRef = useRef(null);
   const [showAllCategories, setShowAllCategories] = useState(false);
   const [playVideo, setPlayVideo] = useState(false);
+  const playerRef = useRef(null);
 
   const renderWeatherIcon = (type) => {
     switch (type) {
@@ -128,6 +129,56 @@ export default function AppHome() {
       router.push('/register');
     }
   };
+
+  const handlePlayVideo = () => {
+    setPlayVideo(true);
+    if (playerRef.current && typeof playerRef.current.playVideo === 'function') {
+      playerRef.current.playVideo();
+    }
+  };
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    if (!window.YT) {
+      const tag = document.createElement('script');
+      tag.src = "https://www.youtube.com/iframe_api";
+      const firstScriptTag = document.getElementsByTagName('script')[0];
+      if (firstScriptTag && firstScriptTag.parentNode) {
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      } else {
+        document.head.appendChild(tag);
+      }
+    }
+
+    const initPlayer = () => {
+      try {
+        playerRef.current = new window.YT.Player('youtube-player', {
+          videoId: 'uMYcKFbvORU',
+          playerVars: {
+            autoplay: 0,
+            playsinline: 1,
+            rel: 0,
+            modestbranding: 1
+          }
+        });
+      } catch (err) {
+        console.error('Error initializing YouTube Player:', err);
+      }
+    };
+
+    window.onYouTubeIframeAPIReady = () => {
+      initPlayer();
+    };
+
+    if (window.YT && window.YT.Player) {
+      initPlayer();
+    }
+
+    return () => {
+      window.onYouTubeIframeAPIReady = null;
+    };
+  }, []);
 
   useEffect(() => {
     if (loading || featuredEvents.length <= 1) return;
@@ -437,19 +488,15 @@ export default function AppHome() {
 
         </p>
         <div className="relative w-full aspect-video rounded-3xl overflow-hidden border border-slate-100 bg-slate-100">
-          {playVideo ? (
-            <iframe
-              title="Pesona Tana Toraja Video"
-              src="https://www.youtube.com/embed/uMYcKFbvORU?autoplay=1"
-              className="absolute inset-0 w-full h-full"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-          ) : (
+          <div 
+            id="youtube-player" 
+            className="absolute inset-0 w-full h-full"
+            style={{ visibility: playVideo ? 'visible' : 'hidden' }}
+          />
+          {!playVideo && (
             <div
-              onClick={() => setPlayVideo(true)}
-              className="absolute inset-0 w-full h-full cursor-pointer group select-none"
+              onClick={handlePlayVideo}
+              className="absolute inset-0 w-full h-full cursor-pointer group select-none z-10"
             >
               <Image
                 src="/youtube_banner_custom.png"
@@ -458,7 +505,13 @@ export default function AppHome() {
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
                 unoptimized
               />
-              <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors duration-300" />
+              <div className="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+                <div className="w-[54px] h-[54px] rounded-full bg-white/90 group-hover:bg-white flex items-center justify-center transition-all duration-300 scale-95 group-hover:scale-100">
+                  <svg className="w-5 h-5 text-slate-800 ml-1 fill-current" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
+              </div>
             </div>
           )}
         </div>

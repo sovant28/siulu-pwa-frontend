@@ -423,82 +423,99 @@ export default function AppHome() {
         )}
       </section>
 
+      {/* QUICK ACCESS GRID (Native Mobile App Style) */}
       <section className="px-5 mt-4.5">
-        <div className="grid grid-cols-4 gap-[5px]">
-          {/* Card 1: Wisata */}
+        <div className="grid grid-cols-4 gap-y-3.5 gap-x-2">
+          {/* Card 1: Destinasi */}
           <div
             onClick={() => router.push('/destinasi')}
-            className="relative w-full h-[82px] p-2 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
+            className="flex flex-col items-center justify-center cursor-pointer active:scale-95 transition-transform duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
-            <Compass className="w-6 h-6 text-slate-700" />
-            <span className="text-[13px] font-bold text-slate-700 tracking-wide">Destinasi</span>
+            <div className="w-12 h-12 rounded-2xl bg-white border border-slate-200/80 flex items-center justify-center text-slate-700">
+              <Compass className="w-5.5 h-5.5 text-slate-700" />
+            </div>
+            <span className="text-[11px] font-bold text-slate-700 mt-1.5 text-center leading-tight tracking-tight">Destinasi</span>
           </div>
 
           {/* Card 2: Event */}
           <div
             onClick={() => router.push('/event')}
-            className="relative w-full h-[82px] p-2 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
+            className="flex flex-col items-center justify-center cursor-pointer active:scale-95 transition-transform duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
-            <Calendar className="w-6 h-6 text-slate-700" />
-            <span className="text-[13px] font-bold text-slate-700 tracking-wide">Event</span>
+            <div className="w-12 h-12 rounded-2xl bg-white border border-slate-200/80 flex items-center justify-center text-slate-700">
+              <Calendar className="w-5.5 h-5.5 text-slate-700" />
+            </div>
+            <span className="text-[11px] font-bold text-slate-700 mt-1.5 text-center leading-tight tracking-tight">Event</span>
           </div>
 
           {/* Card 3: Kuliner */}
           <div
             onClick={() => router.push('/kuliner')}
-            className="relative w-full h-[82px] p-2 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
+            className="flex flex-col items-center justify-center cursor-pointer active:scale-95 transition-transform duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
-            <Utensils className="w-6 h-6 text-slate-700" />
-            <span className="text-[13px] font-bold text-slate-700 tracking-wide">Kuliner</span>
+            <div className="w-12 h-12 rounded-2xl bg-white border border-slate-200/80 flex items-center justify-center text-slate-700">
+              <Utensils className="w-5.5 h-5.5 text-slate-700" />
+            </div>
+            <span className="text-[11px] font-bold text-slate-700 mt-1.5 text-center leading-tight tracking-tight">Kuliner</span>
           </div>
 
-          {/* Card 4: Hotel */}
+          {/* Card 4: Akomodasi */}
           <div
             onClick={() => router.push('/hotel')}
-            className="relative w-full h-[82px] p-2 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
+            className="flex flex-col items-center justify-center cursor-pointer active:scale-95 transition-transform duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
-            <Hotel className="w-6 h-6 text-slate-700" />
-            <span className="text-[12px] font-bold text-slate-700 tracking-wide leading-tight">Akomodasi</span>
+            <div className="w-12 h-12 rounded-2xl bg-white border border-slate-200/80 flex items-center justify-center text-slate-700">
+              <Hotel className="w-5.5 h-5.5 text-slate-700" />
+            </div>
+            <span className="text-[11px] font-bold text-slate-700 mt-1.5 text-center leading-tight tracking-tight">Akomodasi</span>
           </div>
 
-          {/* Card 5: Tiket */}
+          {/* Card 5: Tiket (Soon) */}
           <div
-            className="relative w-full h-[82px] p-2 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
+            className="relative flex flex-col items-center justify-center opacity-65 cursor-default select-none"
           >
-            <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9px] font-black px-1.5 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
-            <Ticket className="w-6 h-6 text-slate-400" />
-            <span className="text-[13px] font-bold text-slate-400 tracking-wide">Tiket</span>
+            <span className="absolute -top-1 right-1 z-10 bg-slate-200 text-slate-600 text-[8.5px] font-black px-1.5 py-0.5 rounded-full leading-none select-none pointer-events-none">Soon</span>
+            <div className="w-12 h-12 rounded-2xl bg-white/80 border border-slate-200/80 flex items-center justify-center text-slate-400">
+              <Ticket className="w-5.5 h-5.5 text-slate-400" />
+            </div>
+            <span className="text-[11px] font-bold text-slate-400 mt-1.5 text-center leading-tight tracking-tight">Tiket</span>
           </div>
 
-          {/* Card 6: Oleh-oleh */}
+          {/* Card 6: Oleh-oleh (Soon) */}
           <div
-            className="relative w-full h-[82px] p-2 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
+            className="relative flex flex-col items-center justify-center opacity-65 cursor-default select-none"
           >
-            <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9px] font-black px-1.5 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
-            <Gift className="w-6 h-6 text-slate-400" />
-            <span className="text-[13px] font-bold text-slate-400 tracking-wide">Oleh-oleh</span>
+            <span className="absolute -top-1 right-1 z-10 bg-slate-200 text-slate-600 text-[8.5px] font-black px-1.5 py-0.5 rounded-full leading-none select-none pointer-events-none">Soon</span>
+            <div className="w-12 h-12 rounded-2xl bg-white/80 border border-slate-200/80 flex items-center justify-center text-slate-400">
+              <Gift className="w-5.5 h-5.5 text-slate-400" />
+            </div>
+            <span className="text-[11px] font-bold text-slate-400 mt-1.5 text-center leading-tight tracking-tight">Oleh-oleh</span>
           </div>
 
-          {/* Card 7: Aduan */}
+          {/* Card 7: Aduan (Soon) */}
           <div
-            className="relative w-full h-[82px] p-2 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
+            className="relative flex flex-col items-center justify-center opacity-65 cursor-default select-none"
           >
-            <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9px] font-black px-1.5 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
-            <Megaphone className="w-6 h-6 text-slate-400" />
-            <span className="text-[13px] font-bold text-slate-400 tracking-wide">Aduan</span>
+            <span className="absolute -top-1 right-1 z-10 bg-slate-200 text-slate-600 text-[8.5px] font-black px-1.5 py-0.5 rounded-full leading-none select-none pointer-events-none">Soon</span>
+            <div className="w-12 h-12 rounded-2xl bg-white/80 border border-slate-200/80 flex items-center justify-center text-slate-400">
+              <Megaphone className="w-5.5 h-5.5 text-slate-400" />
+            </div>
+            <span className="text-[11px] font-bold text-slate-400 mt-1.5 text-center leading-tight tracking-tight">Aduan</span>
           </div>
 
-          {/* Card 8: Bantuan */}
+          {/* Card 8: Bantuan (Soon) */}
           <div
-            className="relative w-full h-[82px] p-2 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
+            className="relative flex flex-col items-center justify-center opacity-65 cursor-default select-none"
           >
-            <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9px] font-black px-1.5 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
-            <HelpCircle className="w-6 h-6 text-slate-400" />
-            <span className="text-[13px] font-bold text-slate-400 tracking-wide">Bantuan</span>
+            <span className="absolute -top-1 right-1 z-10 bg-slate-200 text-slate-600 text-[8.5px] font-black px-1.5 py-0.5 rounded-full leading-none select-none pointer-events-none">Soon</span>
+            <div className="w-12 h-12 rounded-2xl bg-white/80 border border-slate-200/80 flex items-center justify-center text-slate-400">
+              <HelpCircle className="w-5.5 h-5.5 text-slate-400" />
+            </div>
+            <span className="text-[11px] font-bold text-slate-400 mt-1.5 text-center leading-tight tracking-tight">Bantuan</span>
           </div>
         </div>
       </section>

@@ -54,7 +54,6 @@ export default function AppHome() {
   const [weather, setWeather] = useState({ temp: "22°C", text: "Cerah Berawan", type: "cloud-sun" });
   const carouselRef = useRef(null);
   const posterCarouselRef = useRef(null);
-  const [showAllCategories, setShowAllCategories] = useState(false);
   const [playVideo, setPlayVideo] = useState(false);
   const playerRef = useRef(null);
 
@@ -421,11 +420,11 @@ export default function AppHome() {
       </section>
 
       <section className="px-5 mt-4.5">
-        <div className="grid grid-cols-3 gap-[5px]">
+        <div className="grid grid-cols-4 gap-[5px]">
           {/* Card 1: Wisata */}
           <div
             onClick={() => router.push('/destinasi')}
-            className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
+            className="relative w-full h-[82px] p-2 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             <div className="relative w-[28px] h-[28px]">
@@ -437,7 +436,7 @@ export default function AppHome() {
           {/* Card 2: Event */}
           <div
             onClick={() => router.push('/event')}
-            className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
+            className="relative w-full h-[82px] p-2 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             <div className="relative w-[28px] h-[28px]">
@@ -449,7 +448,7 @@ export default function AppHome() {
           {/* Card 3: Kuliner */}
           <div
             onClick={() => router.push('/kuliner')}
-            className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
+            className="relative w-full h-[82px] p-2 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             <div className="relative w-[28px] h-[28px]">
@@ -461,34 +460,57 @@ export default function AppHome() {
           {/* Card 4: Hotel */}
           <div
             onClick={() => router.push('/hotel')}
-            className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
+            className="relative w-full h-[82px] p-2 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             <div className="relative w-[28px] h-[28px]">
               <Image src="/icon_hotel_black_custom.png" alt="Hotel" fill className="object-contain" unoptimized />
             </div>
-            <span className="text-[13px] font-bold text-slate-700 tracking-wide">Akomodasi</span>
+            <span className="text-[12px] font-bold text-slate-700 tracking-wide leading-tight">Akomodasi</span>
           </div>
 
           {/* Card 5: Tiket */}
           <div
-            className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
+            className="relative w-full h-[82px] p-2 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
           >
-            <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9.5px] font-black px-2 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
+            <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9px] font-black px-1.5 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
             <div className="relative w-[28px] h-[28px]">
               <Image src="/icon_tiket_custom.png" alt="Tiket" fill className="object-contain grayscale" unoptimized />
             </div>
             <span className="text-[13px] font-bold text-slate-400 tracking-wide">Tiket</span>
           </div>
 
-          {/* Card 6: Lainnya */}
+          {/* Card 6: Oleh-oleh */}
           <div
-            onClick={() => setShowAllCategories(true)}
-            className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
-            style={{ WebkitTapHighlightColor: 'transparent' }}
+            className="relative w-full h-[82px] p-2 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
           >
-            <LayoutGrid className="w-6 h-6 text-slate-700" />
-            <span className="text-[13px] font-bold text-slate-700 tracking-wide">Lainnya</span>
+            <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9px] font-black px-1.5 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
+            <div className="relative w-[28px] h-[28px]">
+              <Image src="/icon_oleh_oleh_custom.png" alt="Oleh-oleh" fill className="object-contain grayscale" unoptimized />
+            </div>
+            <span className="text-[13px] font-bold text-slate-400 tracking-wide">Oleh-oleh</span>
+          </div>
+
+          {/* Card 7: Aduan */}
+          <div
+            className="relative w-full h-[82px] p-2 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
+          >
+            <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9px] font-black px-1.5 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
+            <div className="relative w-[28px] h-[28px]">
+              <Image src="/icon_pengaduan_custom.png" alt="Aduan" fill className="object-contain grayscale" unoptimized />
+            </div>
+            <span className="text-[13px] font-bold text-slate-400 tracking-wide">Aduan</span>
+          </div>
+
+          {/* Card 8: Bantuan */}
+          <div
+            className="relative w-full h-[82px] p-2 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
+          >
+            <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9px] font-black px-1.5 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
+            <div className="relative w-[28px] h-[28px]">
+              <Image src="/icon_bantuan_custom.png" alt="Bantuan" fill className="object-contain grayscale" unoptimized />
+            </div>
+            <span className="text-[13px] font-bold text-slate-400 tracking-wide">Bantuan</span>
           </div>
         </div>
       </section>
@@ -649,130 +671,6 @@ export default function AppHome() {
         </button>
       </nav>
 
-      {/* Bottom Sheet Backdrop Overlay */}
-      <div
-        onClick={() => setShowAllCategories(false)}
-        className={`fixed inset-0 bg-black/40 z-[60] transition-opacity duration-300 ${
-          showAllCategories ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-        }`}
-      />
-
-      {/* Bottom Sheet Container (Slide up from bottom) */}
-      <div
-        className={`fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-[#F1F5F9] rounded-t-[28px] z-[70] px-5 pb-8 pt-2 transition-transform duration-300 ease-out border-t border-slate-200/40 ${
-          showAllCategories ? 'translate-y-0' : 'translate-y-full'
-        }`}
-      >
-        {/* Grab Handle */}
-        <div 
-          onClick={() => setShowAllCategories(false)}
-          className="w-12 h-1.5 bg-slate-300 rounded-full mx-auto my-3 cursor-pointer active:scale-90 transition-transform" 
-        />
-
-        {/* Drawer Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-slate-200/60 select-none">
-          <span className="text-sm font-black text-slate-800 tracking-wide">Semua Kategori</span>
-          <button
-            onClick={() => setShowAllCategories(false)}
-            className="text-xs font-bold text-slate-500 hover:text-slate-700 px-2 py-1 rounded-lg hover:bg-slate-200/50 transition-colors"
-          >
-            Tutup
-          </button>
-        </div>
-
-        {/* Content (3-Column Grid) */}
-        <div className="overflow-y-auto max-h-[60vh] pt-4 select-none">
-          <div className="grid grid-cols-3 gap-[5px]">
-            {/* Destinasi */}
-            <div
-              onClick={() => { setShowAllCategories(false); router.push('/destinasi'); }}
-              className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all"
-            >
-              <div className="relative w-[28px] h-[28px]">
-                <Image src="/icon_wisata_black_custom.png" alt="Destinasi" fill className="object-contain" unoptimized />
-              </div>
-              <span className="text-[13px] font-bold text-slate-700 tracking-wide">Destinasi</span>
-            </div>
-
-            {/* Event */}
-            <div
-              onClick={() => { setShowAllCategories(false); router.push('/event'); }}
-              className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all"
-            >
-              <div className="relative w-[28px] h-[28px]">
-                <Image src="/icon_event_black_custom.png" alt="Event" fill className="object-contain" unoptimized />
-              </div>
-              <span className="text-[13px] font-bold text-slate-700 tracking-wide">Event</span>
-            </div>
-
-            {/* Kuliner */}
-            <div
-              onClick={() => { setShowAllCategories(false); router.push('/kuliner'); }}
-              className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all"
-            >
-              <div className="relative w-[28px] h-[28px]">
-                <Image src="/icon_kuliner_black_custom.png" alt="Kuliner" fill className="object-contain" unoptimized />
-              </div>
-              <span className="text-[13px] font-bold text-slate-700 tracking-wide">Kuliner</span>
-            </div>
-
-            {/* Hotel */}
-            <div
-              onClick={() => { setShowAllCategories(false); router.push('/hotel'); }}
-              className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all"
-            >
-              <div className="relative w-[28px] h-[28px]">
-                <Image src="/icon_hotel_black_custom.png" alt="Hotel" fill className="object-contain" unoptimized />
-              </div>
-              <span className="text-[12px] font-bold text-slate-700 tracking-wide">Akomodasi</span>
-            </div>
-
-            {/* Tiket */}
-            <div
-              className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
-            >
-              <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9.5px] font-black px-2 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
-              <div className="relative w-[28px] h-[28px]">
-                <Image src="/icon_tiket_custom.png" alt="Tiket" fill className="object-contain grayscale" unoptimized />
-              </div>
-              <span className="text-[13px] font-bold text-slate-400 tracking-wide">Tiket</span>
-            </div>
-
-            {/* Oleh-oleh */}
-            <div
-              className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
-            >
-              <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9.5px] font-black px-2 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
-              <div className="relative w-[28px] h-[28px]">
-                <Image src="/icon_oleh_oleh_custom.png" alt="Oleh-oleh" fill className="object-contain grayscale" unoptimized />
-              </div>
-              <span className="text-[13px] font-bold text-slate-400 tracking-wide">Oleh-oleh</span>
-            </div>
-
-            {/* Aduan */}
-            <div
-              className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
-            >
-              <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9.5px] font-black px-2 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
-              <div className="relative w-[28px] h-[28px]">
-                <Image src="/icon_pengaduan_custom.png" alt="Aduan" fill className="object-contain grayscale" unoptimized />
-              </div>
-              <span className="text-[13px] font-bold text-slate-400 tracking-wide">Aduan</span>
-            </div>
-
-            {/* Bantuan */}
-            <div
-              className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
-            >
-              <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9.5px] font-black px-2 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
-              <div className="relative w-[28px] h-[28px]">
-                <Image src="/icon_bantuan_custom.png" alt="Bantuan" fill className="object-contain grayscale" unoptimized />
-              </div>
-              <span className="text-[13px] font-bold text-slate-400 tracking-wide">Bantuan</span>
-            </div>
-          </div>
-        </div>
-      </div>
 
     </div>
   );

@@ -24,11 +24,6 @@ import {
   MessageSquare,
   List,
   Heart,
-  CloudFog,
-  CloudSun,
-  Cloud,
-  CloudMoon,
-  LayoutGrid,
   ChevronUp,
   X
 } from 'lucide-react';
@@ -55,26 +50,10 @@ export default function AppHome() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [currentPosterSlide, setCurrentPosterSlide] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [weather, setWeather] = useState({ temp: "22°C", text: "Cerah Berawan", type: "cloud-sun" });
   const carouselRef = useRef(null);
   const posterCarouselRef = useRef(null);
   const [playVideo, setPlayVideo] = useState(false);
   const playerRef = useRef(null);
-
-  const renderWeatherIcon = (type) => {
-    switch (type) {
-      case 'fog':
-        return <CloudFog className="w-5.5 h-5.5 text-slate-400" />;
-      case 'cloud-sun':
-        return <CloudSun className="w-5.5 h-5.5 text-amber-500" />;
-      case 'cloud':
-        return <Cloud className="w-5.5 h-5.5 text-slate-400" />;
-      case 'moon':
-        return <CloudMoon className="w-5.5 h-5.5 text-indigo-400" />;
-      default:
-        return <CloudSun className="w-5.5 h-5.5 text-amber-500" />;
-    }
-  };
 
   const handleScroll = (e) => {
     const container = e.target;
@@ -270,17 +249,6 @@ export default function AppHome() {
       setGreeting("Selamat sore");
     } else {
       setGreeting("Selamat malam");
-    }
-
-    // Weather simulation based on Tana Toraja climate patterns
-    if (hrs >= 5 && hrs < 10) {
-      setWeather({ temp: "20°C", text: "Berkabut", type: "fog" });
-    } else if (hrs >= 10 && hrs < 15) {
-      setWeather({ temp: "26°C", text: "Cerah Berawan", type: "cloud-sun" });
-    } else if (hrs >= 15 && hrs < 18) {
-      setWeather({ temp: "23°C", text: "Berawan", type: "cloud" });
-    } else {
-      setWeather({ temp: "19°C", text: "Cerah/Dingin", type: "moon" });
     }
 
     return () => {
@@ -520,22 +488,7 @@ export default function AppHome() {
         </div>
       </section>
 
-      {/* WEATHER WIDGET SECTION */}
-      <section className="px-5 mt-4">
-        <div className="w-full h-[82px] bg-white border border-slate-200/60 rounded-2xl p-4 flex items-center justify-start gap-3.5 select-none">
-          {/* Weather Status and Icon */}
-          <div className="flex items-center justify-center w-11 h-11 rounded-xl bg-slate-50 border border-slate-100 text-slate-700 flex-shrink-0">
-            {renderWeatherIcon(weather.type)}
-          </div>
-          <div className="flex flex-col">
-            <span className="text-[11px] font-bold text-slate-600 tracking-wider">Cuaca Makale</span>
-            <div className="flex items-baseline gap-1.5 mt-0.5">
-              <span className="text-[17px] font-black text-slate-800 leading-none">{weather.temp}</span>
-              <span className="text-[12px] font-bold text-slate-600 leading-none">{weather.text}</span>
-            </div>
-          </div>
-        </div>
-      </section>
+
 
       {/* YOUTUBE VIDEO HOOK */}
       <section className="px-5 mt-6 ">

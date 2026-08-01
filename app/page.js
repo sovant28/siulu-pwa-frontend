@@ -15,6 +15,10 @@ import {
   Map,
   Home,
   Compass,
+  Ticket,
+  Gift,
+  Megaphone,
+  HelpCircle,
   Bookmark,
   User,
   MessageSquare,
@@ -427,9 +431,7 @@ export default function AppHome() {
             className="relative w-full h-[82px] p-2 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
-            <div className="relative w-[28px] h-[28px]">
-              <Image src="/icon_wisata_black_custom.png" alt="Destinasi" fill className="object-contain" unoptimized />
-            </div>
+            <Compass className="w-6 h-6 text-slate-700" />
             <span className="text-[13px] font-bold text-slate-700 tracking-wide">Destinasi</span>
           </div>
 
@@ -439,9 +441,7 @@ export default function AppHome() {
             className="relative w-full h-[82px] p-2 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
-            <div className="relative w-[28px] h-[28px]">
-              <Image src="/icon_event_black_custom.png" alt="Event" fill className="object-contain" unoptimized />
-            </div>
+            <Calendar className="w-6 h-6 text-slate-700" />
             <span className="text-[13px] font-bold text-slate-700 tracking-wide">Event</span>
           </div>
 
@@ -451,9 +451,7 @@ export default function AppHome() {
             className="relative w-full h-[82px] p-2 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
-            <div className="relative w-[28px] h-[28px]">
-              <Image src="/icon_kuliner_black_custom.png" alt="Kuliner" fill className="object-contain" unoptimized />
-            </div>
+            <Utensils className="w-6 h-6 text-slate-700" />
             <span className="text-[13px] font-bold text-slate-700 tracking-wide">Kuliner</span>
           </div>
 
@@ -463,9 +461,7 @@ export default function AppHome() {
             className="relative w-full h-[82px] p-2 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all duration-150 select-none"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
-            <div className="relative w-[28px] h-[28px]">
-              <Image src="/icon_hotel_black_custom.png" alt="Hotel" fill className="object-contain" unoptimized />
-            </div>
+            <Hotel className="w-6 h-6 text-slate-700" />
             <span className="text-[12px] font-bold text-slate-700 tracking-wide leading-tight">Akomodasi</span>
           </div>
 
@@ -474,9 +470,7 @@ export default function AppHome() {
             className="relative w-full h-[82px] p-2 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
           >
             <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9px] font-black px-1.5 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
-            <div className="relative w-[28px] h-[28px]">
-              <Image src="/icon_tiket_custom.png" alt="Tiket" fill className="object-contain grayscale" unoptimized />
-            </div>
+            <Ticket className="w-6 h-6 text-slate-400" />
             <span className="text-[13px] font-bold text-slate-400 tracking-wide">Tiket</span>
           </div>
 
@@ -485,9 +479,7 @@ export default function AppHome() {
             className="relative w-full h-[82px] p-2 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
           >
             <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9px] font-black px-1.5 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
-            <div className="relative w-[28px] h-[28px]">
-              <Image src="/icon_oleh_oleh_custom.png" alt="Oleh-oleh" fill className="object-contain grayscale" unoptimized />
-            </div>
+            <Gift className="w-6 h-6 text-slate-400" />
             <span className="text-[13px] font-bold text-slate-400 tracking-wide">Oleh-oleh</span>
           </div>
 
@@ -496,9 +488,7 @@ export default function AppHome() {
             className="relative w-full h-[82px] p-2 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
           >
             <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9px] font-black px-1.5 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
-            <div className="relative w-[28px] h-[28px]">
-              <Image src="/icon_pengaduan_custom.png" alt="Aduan" fill className="object-contain grayscale" unoptimized />
-            </div>
+            <Megaphone className="w-6 h-6 text-slate-400" />
             <span className="text-[13px] font-bold text-slate-400 tracking-wide">Aduan</span>
           </div>
 
@@ -507,9 +497,7 @@ export default function AppHome() {
             className="relative w-full h-[82px] p-2 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 opacity-65 saturate-75 cursor-default select-none"
           >
             <span className="absolute top-2 right-2 bg-slate-100 text-slate-600 text-[9px] font-black px-1.5 py-0.5 rounded-full leading-none select-none pointer-events-none tracking-wide">Soon</span>
-            <div className="relative w-[28px] h-[28px]">
-              <Image src="/icon_bantuan_custom.png" alt="Bantuan" fill className="object-contain grayscale" unoptimized />
-            </div>
+            <HelpCircle className="w-6 h-6 text-slate-400" />
             <span className="text-[13px] font-bold text-slate-400 tracking-wide">Bantuan</span>
           </div>
         </div>

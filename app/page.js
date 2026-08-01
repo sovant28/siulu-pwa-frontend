@@ -26,7 +26,6 @@ import {
   CloudMoon,
   LayoutGrid,
   ChevronUp,
-  ChevronRight,
   X
 } from 'lucide-react';
 
@@ -304,10 +303,10 @@ export default function AppHome() {
   }, []);
 
   return (
-    <div className="flex flex-col w-full min-h-[100dvh] bg-[#F1F5F9] font-sans pb-[calc(env(safe-area-inset-bottom)+68px)] relative overflow-x-hidden z-0">
+    <div className="flex flex-col w-full min-h-[100dvh] bg-[#F1F5F9] font-sans pt-[calc(env(safe-area-inset-top)+76px)] pb-[calc(env(safe-area-inset-bottom)+84px)] relative overflow-x-hidden z-0">
 
       {/* HEADER BAR (Horizontal & Native-like) */}
-      <header className="w-full flex px-5 pt-[calc(env(safe-area-inset-top)+18px)] pb-3 relative z-10 items-center justify-between">
+      <header className="fixed top-0 left-0 right-0 max-w-md mx-auto flex px-5 pt-[calc(env(safe-area-inset-top)+14px)] pb-3.5 z-40 items-center justify-between bg-[#F1F5F9]/80 backdrop-blur-md border-b border-slate-200/40">
         {/* Left Side: Greetings & Location Pin */}
         <div className="flex flex-col text-left">
           <h1 className="text-[19px] font-black text-slate-800 tracking-tight leading-tight select-none">
@@ -366,7 +365,10 @@ export default function AppHome() {
           className="flex space-x-4 overflow-x-auto no-scrollbar scroll-smooth snap-x snap-mandatory w-full px-5 scroll-pl-5 scroll-pr-5"
         >
           {loading ? (
-            <div className="w-full h-48 rounded-3xl bg-slate-200 animate-pulse flex-shrink-0"></div>
+            <>
+              <div className="w-[88%] h-48 rounded-3xl bg-slate-200/80 animate-pulse flex-shrink-0" />
+              <div className="w-[88%] h-48 rounded-3xl bg-slate-200/40 animate-pulse flex-shrink-0" />
+            </>
           ) : featuredEvents.length > 0 ? (
             featuredEvents.map((event) => (
               <div
@@ -647,34 +649,41 @@ export default function AppHome() {
         </button>
       </nav>
 
-      {/* Drawer Backdrop Overlay */}
-      {showAllCategories && (
-        <div
-          onClick={() => setShowAllCategories(false)}
-          className="fixed inset-0 bg-black/40 z-[60] transition-opacity duration-300 ease-in-out"
-        />
-      )}
-
-      {/* Drawer Container (Slide-in from right) */}
+      {/* Bottom Sheet Backdrop Overlay */}
       <div
-        className={`fixed inset-y-0 right-0 z-[70] w-[80%] max-w-sm bg-[#F1F5F9] border-l border-slate-200/80 p-5 flex flex-col justify-start transition-transform duration-300 ease-in-out ${showAllCategories ? 'translate-x-0' : 'translate-x-full'
-          }`}
+        onClick={() => setShowAllCategories(false)}
+        className={`fixed inset-0 bg-black/40 z-[60] transition-opacity duration-300 ${
+          showAllCategories ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+      />
+
+      {/* Bottom Sheet Container (Slide up from bottom) */}
+      <div
+        className={`fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-[#F1F5F9] rounded-t-[28px] z-[70] px-5 pb-8 pt-2 transition-transform duration-300 ease-out border-t border-slate-200/40 ${
+          showAllCategories ? 'translate-y-0' : 'translate-y-full'
+        }`}
       >
+        {/* Grab Handle */}
+        <div 
+          onClick={() => setShowAllCategories(false)}
+          className="w-12 h-1.5 bg-slate-300 rounded-full mx-auto my-3 cursor-pointer active:scale-90 transition-transform" 
+        />
+
         {/* Drawer Header */}
         <div className="flex items-center justify-between pb-4 border-b border-slate-200/60 select-none">
           <span className="text-sm font-black text-slate-800 tracking-wide">Semua Kategori</span>
           <button
             onClick={() => setShowAllCategories(false)}
-            className="p-1 rounded-full hover:bg-slate-100 text-slate-500 transition-colors"
+            className="text-xs font-bold text-slate-500 hover:text-slate-700 px-2 py-1 rounded-lg hover:bg-slate-200/50 transition-colors"
           >
-            <ChevronRight className="w-5 h-5" />
+            Tutup
           </button>
         </div>
 
-        {/* Drawer Content (Scrollable Grid) */}
-        <div className="flex-1 overflow-y-auto pt-4 pb-12 select-none">
-          <div className="grid grid-cols-2 gap-3">
-            {/* Wisata */}
+        {/* Content (3-Column Grid) */}
+        <div className="overflow-y-auto max-h-[60vh] pt-4 select-none">
+          <div className="grid grid-cols-3 gap-[5px]">
+            {/* Destinasi */}
             <div
               onClick={() => { setShowAllCategories(false); router.push('/destinasi'); }}
               className="relative w-full h-[82px] p-3 flex flex-col justify-start items-start gap-1.5 rounded-2xl bg-white border border-slate-100 cursor-pointer active:scale-95 transition-all"
